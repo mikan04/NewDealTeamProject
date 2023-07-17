@@ -269,6 +269,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 		infowindow.close(); // 인포윈도우를 지도에서 제거합니다
 	});
+	
 });
 
 function searchDetailAddrFromCoords(coords, callback) {
