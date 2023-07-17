@@ -239,6 +239,7 @@ var marker = new kakao.maps.Marker({
 	// 지도 중심좌표에 마커를 생성합니다 
 	position: map.getCenter()
 });
+
 // 지도에 마커를 표시합니다
 marker.setMap(map);
 
@@ -269,6 +270,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 		infowindow.close(); // 인포윈도우를 지도에서 제거합니다
 	});
+	
 });
 
 function searchDetailAddrFromCoords(coords, callback) {

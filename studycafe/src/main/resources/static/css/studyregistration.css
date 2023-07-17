@@ -14,7 +14,8 @@
 
 .map_wrap {
 	position: relative;
-	width: 100%;
+	text-align : center;
+	width: 50%;
 	height: 500px;
 }
 
@@ -23,7 +24,7 @@
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 250px;
+	width: 200px;
 	margin: 10px 0 30px 10px;
 	padding: 5px;
 	overflow-y: auto;

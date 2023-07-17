@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/css/studyregistration.css">
 </head>
 <body>
-	<div class="map_wrap">
+	<div class="map_wrap" align="center">
 		<div id="map"
 			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 
@@ -19,7 +19,7 @@
 			<div class="option">
 				<div>
 					<form onsubmit="searchPlaces(); return false;">
-						키워드 : <input type="text" value="강남" id="keyword" size="15"
+						<input type="text" value="강남" id="keyword" size="15"
 							placeholder="검색어를 입력해주세요.">
 						<button type="submit">검색하기</button>
 					</form>
@@ -38,7 +38,7 @@
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387f3bec7e47fcbd6795a87cb3c0cac2&libraries=services"></script>
-		
+
 	<script src="/js/studyregistration.js"></script>
 </body>
 </html>
