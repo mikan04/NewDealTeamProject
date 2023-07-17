@@ -11,7 +11,7 @@ public class IndexController {
 	
 	@GetMapping("/")
 	public String 접속컨트롤러() {
-		log.info("소스트리연동테스트");
+		log.info("메인페이지 접속");
 		return "index";
 	}
 }
