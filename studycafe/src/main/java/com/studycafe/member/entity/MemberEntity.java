@@ -15,11 +15,13 @@ public class MemberEntity {
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	private String email;
+	private String nickname;
 	private String name;
-	private String pw;
+	private String password;
 	private String pwCheck;
 	private String phone;
-	
-
+	private int emailauth;
+	private String ROLE;
+	private int teamnumber;
 
 }
