@@ -93,8 +93,10 @@
 								</div>
 								
 								<div>
-									<h3 class="join_title"> <label for="id">이메일</label>
-									<input type="email" id="email" name="email">
+									<h3 class="join_title"> <label for="id">이메일</label></h3>
+									<span>
+										<input type="email" id="email" name="email">
+									</span>
 								</div>
 
 								<div class="join_row">
@@ -102,7 +104,7 @@
 										<label for="pswd1">비밀번호</label>
 									</h3>
 									<span class="ps_box int_pass" id="pswd1Img"> 
-									<input type="password" id="pswd1" name="memberPassword" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20">
+									<input type="password" id="password" name="password" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20">
 										<span class="lbl">
 										<span id="pswd1Span" class="step_txt"></span>
 									</span>
@@ -115,7 +117,7 @@
 										<label for="pswd2">비밀번호 재확인</label>
 									</h3>
 									<span class="ps_box int_pass_check" id="pswd2Img"> 
-										<input type="password" id="pswd2" name="memberPassword2" class="int" title="비밀번호 재확인 입력" 
+										<input type="password" id="password2" name="password2" class="int" title="비밀번호 재확인 입력" 
 										aria-describedby="pswd2Blind"
 										maxlength="20"> 
 										<span id="pswd2Blind" class="wa_blind">설정하려는 비밀번호가 맞는지 확인하기 위해 다시 입력 해주세요.</span>
@@ -131,7 +133,7 @@
 										<label for="name">이름</label>
 									</h3>
 									<span class="ps_box box_right_space"> <input type="text"
-										id="name" name="memberName" title="이름" class="int"
+										id="name" name="name" title="이름" class="int"
 										maxlength="40">
 									</span> <span class="error_next_box" id="nameMsg"
 										style="display: none" aria-live="assertive"></span>
