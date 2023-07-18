@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/static/css/member/join.css" />
 <script language="JavaScript"
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!DOCTYPE html>
@@ -81,7 +80,7 @@
 										<label for="id">ID</label>
 									</h3>
 									<span class="ps_box int_id">
-									<input type="text" id="id" name="id" class="int" title="EMAIL" maxlength="20">
+									<input type="text" id="username" name="username" class="int" title="EMAIL" maxlength="20">
 									</span>
 									<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
 
@@ -127,50 +126,40 @@
 									<h3 class="join_title">
 										<label for="name">이름</label>
 									</h3>
-									<span class="ps_box box_right_space"> <input type="text"
-										id="name" name="name" title="이름" class="int"
-										maxlength="40">
-									</span> <span class="error_next_box" id="nameMsg"
-										style="display: none" aria-live="assertive"></span>
+									<span class="ps_box box_right_space"> <input type="text" id="name" name="name" title="이름" class="int" maxlength="40">
+									</span> 
+									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
 								</div>
-								<span class="error_next_box" id="genderMsg"
-									style="display: none" aria-live="assertive"></span>
-
-
-
-
-								<!-- 휴대전화 번호, 인증번호 입력 -->
-								<div class="join_row join_mobile" id="mobDiv">
+								<span class="error_next_box" id="genderMsg" style="display: none" aria-live="assertive"></span>
+								
+								<div class="join_row">
 									<h3 class="join_title">
-										<label for="phoneNo">휴대전화</label>
+										<label for="nickname">닉네임</label>
 									</h3>
-
-									<div class="int_mobile_area">
-										<span class="ps_box int_mobile"> <input type="tel" id="phoneNo" name="memberMobile" placeholder="전화번호 입력"
-											aria-label="전화번호 입력" class="int" maxlength="16"> <label
-											for="phoneNo" class="lbl"></label>
-										</span> 
-									</div>
+									<span class="ps_box box_right_space"> <input type="text" id="nickname" name="nickname" title="닉네임" class="int" maxlength="40">
+									</span> 
+									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
 								</div>
-							
+
+				
 								<div class="join_row join_email">
 									<h3 class="join_title">
 										<label for="email">주소<span class="terms_choice">(선택)</span></label>
 									</h3>
 									<div class="int_adress_area">
-										<span class="ps_box int_address"> <input type="text" id="zipcode" name="zipcode" placeholder="선택입력"
-											aria-label="선택입력" class="int" maxlength="5">
-										</span> <a href="javascript:kakaoPost();"
-											class="btn_verify btn_primary gray zipcodebtn" id="btnSend"
-											role="button"> <span class="">우편번호</span>
+										<span class="ps_box int_address"> 
+											<input type="text" id="zipcode" name="zipcode" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="5">
+										</span> 
+										<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button"> 
+										<span class="">우편번호</span>
 										</a>
 									</div>
 
 									<span class="ps_box join_address"> 
-										<input type="text" id="memberAddress" name="memberAddress" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
+										<input type="text" id="address1" name="address1" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
 									</span> 
 									<span class="ps_box join_address"> 
-										<input type="text" id="memberDetailAddress" name="memberDetailAddress" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
+										<input type="text" id="address2" name="address2" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
 									</span>
 								</div>
 								<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
@@ -180,9 +169,10 @@
 
 
 							<div class="btn_area">
-								<button type="button" id="btnJoin" class="btn_type btn_primary">
+								<!-- <button type="button" id="btnJoin" class="btn_type btn_primary">
 									<span>가입하기</span>
-								</button>
+								</button> -->
+								<button type="submit">가입하기</button>
 							</div>
 						</div>
 					</div>
@@ -267,16 +257,19 @@
 
 
 <script>
+
 function kakaoPost() {
 	new daum.Postcode({
 		oncomplete : function(data) {
-			document.querySelector("#memberZipcode").value = data.zonecode;
-			document.querySelector("#memberAddress").value = data.address
-			document.getElementById("memberDetailAddress").focus();
+			document.querySelector("#zipcode").value = data.zonecode;		
+			document.querySelector("#address1").value = data.address
+			document.getElementById("address2").focus();
 		}
 	}).open();
 
 }
+
 </script>
+
 </body>
 </html>
