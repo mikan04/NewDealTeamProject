@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<link rel="stylesheet" type="text/css" href="/resources/static/css/member/join.css" />
 <script language="JavaScript"
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!DOCTYPE html>
@@ -20,12 +21,6 @@
 	background-color: #343434;
 }
 
-#headbanner {
-	position: relative;
-	overflow: hidden;
-	padding: 42px 0 54px;
-	box-sizing: border-box;
-}
 
 .h_logo {
 	display: block;
@@ -151,21 +146,19 @@
 									</h3>
 
 									<div class="int_mobile_area">
-										<span class="ps_box int_mobile"> <input type="tel"
-											id="phoneNo" name="memberMobile" placeholder="전화번호 입력"
+										<span class="ps_box int_mobile"> <input type="tel" id="phoneNo" name="memberMobile" placeholder="전화번호 입력"
 											aria-label="전화번호 입력" class="int" maxlength="16"> <label
 											for="phoneNo" class="lbl"></label>
 										</span> 
 									</div>
 								</div>
-								<!-- // 휴대전화 번호, 인증번호 입력 -->
+							
 								<div class="join_row join_email">
 									<h3 class="join_title">
 										<label for="email">주소<span class="terms_choice">(선택)</span></label>
 									</h3>
 									<div class="int_adress_area">
-										<span class="ps_box int_address"> <input type="text"
-											id="memberZipcode" name="memberZipcode" placeholder="선택입력"
+										<span class="ps_box int_address"> <input type="text" id="zipcode" name="zipcode" placeholder="선택입력"
 											aria-label="선택입력" class="int" maxlength="5">
 										</span> <a href="javascript:kakaoPost();"
 											class="btn_verify btn_primary gray zipcodebtn" id="btnSend"
@@ -173,17 +166,14 @@
 										</a>
 									</div>
 
-									<span class="ps_box join_address"> <input type="text"
-										id="memberAddress" name="memberAddress" placeholder="선택입력"
-										aria-label="선택입력" class="int" maxlength="100">
-									</span> <span class="ps_box join_address"> <input type="text"
-										id="memberDetailAddress" name="memberDetailAddress"
-										placeholder="선택입력" aria-label="선택입력" class="int"
-										maxlength="100">
+									<span class="ps_box join_address"> 
+										<input type="text" id="memberAddress" name="memberAddress" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
+									</span> 
+									<span class="ps_box join_address"> 
+										<input type="text" id="memberDetailAddress" name="memberDetailAddress" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
 									</span>
 								</div>
-								<span class="error_next_box" id="emailMsg" style="display: none"
-									aria-live="assertive"></span>
+								<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
 							</div>
 
 
