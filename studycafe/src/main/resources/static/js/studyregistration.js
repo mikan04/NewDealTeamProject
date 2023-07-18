@@ -309,22 +309,9 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		let lng = latlng.getLng(); // 경도
 
 		if (status === kakao.maps.services.Status.OK) {
-			var message = '<form method="post" action="/studyregistrationpro">' +
-						  '[정보 출력]<br>' +
-						  '<label for="latitude">위도 : </label>' + 
-						  '<input type="text" id="latitude" name="latitude" value="'+ lat +'"><br>' +
-						  '<label for="longitude">경도 : </label>' + 
-						  '<input type="text" id="longitude" name="longitude" value="'+ lng +'"><br>';
-			message += !!result[0].road_address ?
-						  '<label for="road_address_name">도로명 주소 : </label>' + 
-						  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
-			message += 	  '<label for="address_name">지번 주소 : </label>' + 
-						  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
-						  '<input type="submit" value="보내기">' +
-						  '</form>'
-						  
-			var resultDiv = document.getElementById('clickLatlng');
-			resultDiv.innerHTML = message;
+			document.getElementById('latitude').value = lat; // 위도
+			document.getElementById('longitude').value = lng; // 경도
+			document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
 		}
 
 		infowindow.close(); // 인포윈도우를 지도에서 제거합니다
