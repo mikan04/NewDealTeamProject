@@ -1,7 +1,5 @@
 package com.studycafe.member.service;
 
-
-
 import org.springframework.stereotype.Service;
 
 import com.studycafe.member.entity.MemberAddressEntity;
@@ -15,9 +13,5 @@ public interface MemberService {
 	public void insertMemAdd(MemberAddressEntity address);
 	
 	public MemberEntity loginService(MemberEntity member);
-
-
 	
-	
-
 }
