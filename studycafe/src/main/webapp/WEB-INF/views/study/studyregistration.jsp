@@ -37,7 +37,7 @@
 	</div>
 
 	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387f3bec7e47fcbd6795a87cb3c0cac2&libraries=services"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=59e92bd7943f48f31ff73b322a4e5603&libraries=services,clusterer,drawing"></script>
 
 	<script src="/js/studyregistration.js"></script>
 </body>
