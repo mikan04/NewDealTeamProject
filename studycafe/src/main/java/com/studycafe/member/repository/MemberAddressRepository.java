@@ -3,8 +3,9 @@ package com.studycafe.member.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.MemberAddressEntity;
 
 @Repository
-public interface MemberRepository extends JpaRepository<MemberEntity, String> {}
- 
+public interface MemberAddressRepository extends JpaRepository<MemberAddressEntity, Integer> {
+
+}
