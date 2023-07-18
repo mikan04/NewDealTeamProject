@@ -14,9 +14,6 @@ public class StudyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int studyNum;
-	
-	private int longitude;
-	
-	private int latitude;
-	
+	private double longitude; // 경도
+	private double latitude; // 위도 
 }
