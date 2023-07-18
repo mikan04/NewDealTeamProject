@@ -18,10 +18,10 @@ import lombok.Data;
 public class ChatRoomEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long chatroom;
+	private long chatRoom;
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "teamnumber")	
+	@JoinColumn(name = "teamNumber")	
 	private TeamEntity teamEntity;
 	
 }

@@ -14,7 +14,7 @@ public class MemberAddressEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int address_Idx;
+	private int addressIdx;
 	
 	@NotNull
 	private String zipcode; // 우편번호
