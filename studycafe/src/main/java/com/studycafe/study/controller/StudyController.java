@@ -16,19 +16,26 @@ public class StudyController {
 	@Autowired
 	private StudyService studyService;
 	
-	// 지도 검색
+	// 스터디 모집 게시판 리스트
+	@GetMapping("/study")
+	public String studyList() {
+		
+		return "/study/studylist";
+	}
+	
+	// 스터디 모집 게시물 등록 폼
 	@GetMapping("/studyregistration")
 	public String studyRegis() {
 		return "/study/studyregistration";
 	}
 	
-	// 위도, 경도 저장
+	// 스터디 모집 게시물 등록
 	@PostMapping("/studyregistrationpro")
 	public String studyRegisInsert(StudyEntity studyEntity) {
 		System.out.println(studyEntity);
 		
-		studyService.studyRegisInsert(studyEntity);
-		return "/study/studyregistration"; // 나중에 경로 변경해야함
+		studyService.studyRegisInsert(studyEntity); // 게시글 저장
+		return "/study/studyregistration";
 	}
 	
 	// 위도, 경도 불러오기

@@ -1,19 +1,51 @@
 package com.studycafe.study.entity;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
 
+
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class StudyEntity {
 	
 	@Id
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int studyNum;
-	private double longitude; // 경도
-	private double latitude; // 위도 
+	private int studyNum; // 스터디 게시글 번호
+	
+	@NotNull
+	private String studycontent; // 게시글 내용
+	
+	@NotNull
+	@Column(columnDefinition = "TEXT", length = 20)
+	private String studywriter; // 게시글 작성자
+	
+	@NotNull
+	@Column(length = 50)
+	private String studytitle; // 게시글 제목
+	
+	@Column(length = 500)
+	private String studyfilepath; // 파일 첨부 경로
+	
+	@NotNull
+	private double latitude; // 카카오 맵 위도
+	
+	@NotNull
+	private double longitude; // 카카오 맵 경도
+
+	@CreatedDate
+	private LocalDateTime datetime; // 등록일자
 }
