@@ -1,5 +1,10 @@
 package com.studycafe.chatroom.repository;
 
-public interface ChatRoomRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.studycafe.chatroom.entity.ChatRoomEntity;
+
+
+public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, String> {
 
 }
