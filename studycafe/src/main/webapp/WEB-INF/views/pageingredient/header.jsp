@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html class="header-body">
 <head>
@@ -28,7 +29,7 @@
 					<li><a href="#" class="desktop-link">스터디</a> <input type="checkbox" id="show-features"> <label for="show-features">스터디</label>
 						<ul>
 							<li><a href="#">스터디모집</a></li>
-							<li><a href="#">팀등록</a></li>
+							<li><a href="${contextPath}/team/teamboard">팀등록</a></li>
 							<li><a href="#">인증게시판</a></li>
 						</ul></li>
 					<li><a href="#" class="desktop-link">팀</a> <input type="checkbox" id="show-services"> <label for="show-services">팀</label>

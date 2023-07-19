@@ -25,7 +25,7 @@ public class ChatRoomMessageEntity {
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long ChatRoomMessageEntityIdx;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "chatroom")
@@ -35,10 +35,10 @@ public class ChatRoomMessageEntity {
 	@NotNull
 	private MessageType type;
 	@NotNull
-	private String chatmessage;
+	private String chatMessage;
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "messagetime")
-	private Date messagetime;
+	private Date messageTime;
 
 }
