@@ -1,9 +1,15 @@
 package com.studycafe.study.service;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.studycafe.study.entity.StudyEntity;
 
 public interface StudyService {
 
-	public void studyRegisInsert(StudyEntity studyEntity); // 위도, 경도 저장
-	public StudyEntity studyRegisSelect(int id); // 위도, 경도 불러오기
+	public void studyInsert(StudyEntity studyEntity); // 스터디 모집 게시글 등록
+	public StudyEntity studySelect(int id); // 스터디 모집 게시글 검색
+	public Page<StudyEntity> studyList(Pageable pageable);
+	public Page<StudyEntity> studySearchList(String searchKeyword, Pageable pageable);
 }
