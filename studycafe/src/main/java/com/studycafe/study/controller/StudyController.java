@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studycafe.study.entity.StudyEntity;
@@ -32,18 +33,27 @@ public class StudyController {
 	}
 	
 	// 스터디 모집 게시판 리스트 호출
-	@PostMapping("/studyAjax")
+	@GetMapping("/studyAjax")
 	@ResponseBody
-	public Page<StudyEntity> studyListAjax(@PageableDefault(page = 0, size = 10, sort = "studyNum", direction = Sort.Direction.DESC) Pageable pageable, String searchKeyword) {
+	public Page<StudyEntity> studyListAjax(@PageableDefault(page = 0, size = 10, sort = "studyNum", direction = Sort.Direction.DESC) Pageable pageable,
+			@RequestParam(required = false) String keyword) {
 		
 		Page<StudyEntity> list = null;
+
+		System.out.println("keyword : " + keyword);
+		System.out.println("page : " + pageable.getPageNumber());
+		// pageable.getPageNumber()
+
+		if (keyword == null) {
+			list = studyService.studyList(pageable);
+		} else {
+			list = studyService.studySearchList(keyword, pageable);
+		}
 		
-		//if (searchKeyword == null) {
-		//	list = studyService.studyList(pageable);
-		//} else {
-			list = studyService.studySearchList("팀원", pageable);
-		//}
-		
+		int nowPage = list.getPageable().getPageNumber() + 1;
+		int startPage = Math.max(nowPage -4, 1);
+		int endPage = Math.min(nowPage + 5,  list.getTotalPages());
+
 		return list;
 	}
 	

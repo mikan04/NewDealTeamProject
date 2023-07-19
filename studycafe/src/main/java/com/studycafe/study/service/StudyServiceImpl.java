@@ -1,5 +1,7 @@
 package com.studycafe.study.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +30,11 @@ public class StudyServiceImpl implements StudyService {
 	}
 	
 	@Override
-	public Page<StudyEntity> studySearchList(String searchKeyword, Pageable pageable) {
+	@Transactional
+	public Page<StudyEntity> studySearchList(String keyword, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return studyRepository.findByTitleContaining(searchKeyword, pageable);
+		Page<StudyEntity> list = studyRepository.findBystudyTitleContaining(keyword, pageable);
+		return list;
 	}
 
 	@Override

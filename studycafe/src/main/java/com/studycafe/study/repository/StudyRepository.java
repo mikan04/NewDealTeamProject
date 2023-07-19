@@ -10,5 +10,5 @@ import com.studycafe.study.entity.StudyEntity;
 @Repository
 public interface StudyRepository extends JpaRepository<StudyEntity, Integer> {
 
-	Page<StudyEntity> findByTitleContaining(String searchKeyword, Pageable pageable);
+	Page<StudyEntity> findBystudyTitleContaining(String keyword, Pageable pageable);
 }
