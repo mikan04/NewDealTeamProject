@@ -18,6 +18,10 @@ import com.studycafe.study.service.StudyService;
 @Controller
 public class StudyController {
 	
+	/**
+	 * @author 홍정수
+	 */
+	
 	@Autowired
 	private StudyService studyService;
 	
