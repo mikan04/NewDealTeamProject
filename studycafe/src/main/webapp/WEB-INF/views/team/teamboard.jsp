@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,9 @@
 	<div class="main-wrap">
 		<div class="index-ingredient">
 			<div class="index main-regteam">
-				<button class="team-regist" onclick="location.href = '${contextPath}/team/teamregis'">팀 등록</button>
+				<div class="team-regist-div">
+					<button class="team-regist" onclick="location.href = '${contextPath}/team/teamregispage'">팀 등록</button>
+				</div>
 				<label>
 					<a href="#">팀등록 게시판</a>
 				</label>
