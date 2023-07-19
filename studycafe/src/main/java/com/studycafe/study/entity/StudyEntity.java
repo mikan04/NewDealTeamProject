@@ -27,18 +27,18 @@ public class StudyEntity {
 	private int studyNum; // 스터디 게시글 번호
 	
 	@NotNull
-	private String studycontent; // 게시글 내용
+	private String studyContent; // 게시글 내용
 	
 	@NotNull
 	@Column(columnDefinition = "TEXT", length = 20)
-	private String studywriter; // 게시글 작성자
+	private String studyWriter; // 게시글 작성자
 	
 	@NotNull
 	@Column(length = 50)
-	private String studytitle; // 게시글 제목
+	private String studyTitle; // 게시글 제목
 	
 	@Column(length = 500)
-	private String studyfilepath; // 파일 첨부 경로
+	private String studyFilePath; // 파일 첨부 경로
 	
 	@NotNull
 	private double latitude; // 카카오 맵 위도
@@ -47,5 +47,5 @@ public class StudyEntity {
 	private double longitude; // 카카오 맵 경도
 
 	@CreatedDate
-	private LocalDateTime datetime; // 등록일자
+	private LocalDateTime dateTime; // 등록일자
 }
