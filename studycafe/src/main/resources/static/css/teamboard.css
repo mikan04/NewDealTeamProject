@@ -14,7 +14,7 @@ table {
 
 /* 텍스트 오버플로우시 글자 ...으로 표기 */
 .team-name {
-	width : 200px;
+	width: 200px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -64,8 +64,16 @@ tr>th {
 	border-radius: 5px;
 }
 
-.index div span{
-	float : right;
+.index .team-regist {
+	display : inline;
+	width: 75px;
+	height: 40px;
+	margin-bottom: 10px;
+	float: right;
+}
+
+.index div span {
+	float: right;
 }
 
 .index div:nth-child(even) {
@@ -74,7 +82,7 @@ tr>th {
 
 .index-ingredient {
 	display: flex;
-	flex-direction : column;
+	flex-direction: column;
 	margin: auto;
 	flex-wrap: wrap;
 	justify-content: space-between;

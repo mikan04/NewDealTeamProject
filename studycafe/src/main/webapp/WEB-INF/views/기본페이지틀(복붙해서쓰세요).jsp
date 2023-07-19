@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팀 등록 글 작성</title>
+<title>타이틀입력</title>
 
 <link rel="stylesheet" href="">
+<!-- index.css 복사해다가 jsp파일이랑 이름 똑같이 바꾸고 임포트해주세요. index.css에 따로 추가하거나 바꾸지 말아주세요-->
 
 </head>
 <body>
@@ -18,7 +19,7 @@
 	<div class="main-wrap">
 		<div class="index-ingredient">
 
-			
+			<!-- 여기에서부터 태그 만들어서 작업해주세요 -->
 
 		</div>
 	</div>
