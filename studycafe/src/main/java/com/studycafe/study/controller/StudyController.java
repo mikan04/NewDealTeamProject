@@ -1,5 +1,11 @@
 package com.studycafe.study.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +19,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studycafe.StudycafeApplication;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.service.StudyService;
 
+import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+
+@Slf4j
 @Controller
 public class StudyController {
 	
@@ -83,5 +95,23 @@ public class StudyController {
 		model.addAttribute("studyEntity", studyEntity);
 		
 		return "/study/studydetail";
+	}
+	
+	@GetMapping("/studyTime")
+	@ResponseBody
+	public String studySelectTimeByMap(@RequestParam("lat") int lat, @RequestParam("long") int lon,@RequestParam("date") String date) {
+		LocalDate localDate = LocalDate.parse(date);
+		
+		List<StudyEntity> studyEntity = studyService.studySelectByMap(lat, lon, localDate);
+		
+		JSONArray times = new JSONArray();
+		for(int i=0; i> studyEntity.size(); i++) {
+			
+			LocalDateTime reserveTime = studyEntity.get(0).getReserveTime();
+			JSONObject time = new JSONObject();
+			time.put("time", reserveTime);
+			times.add(time);
+		}
+		return times.toJSONString();
 	}
 }
