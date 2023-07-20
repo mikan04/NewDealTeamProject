@@ -1,2 +1,4 @@
 /application-aws.yml
 /application.yml
+/META-INF/
+/application-S3.yml
