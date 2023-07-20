@@ -1,6 +1,10 @@
 package com.studycafe.study.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.study.entity.StudyEntity;
@@ -13,16 +17,33 @@ public class StudyServiceImpl implements StudyService {
 	private StudyRepository studyRepository;
 	
 	@Override
-	public void studyRegisInsert(StudyEntity studyEntity) {
+	public void studyInsert(StudyEntity studyEntity) {
 		// TODO Auto-generated method stub
 		
 		studyRepository.save(studyEntity);
 	}
 
 	@Override
-	public StudyEntity studyRegisSelect(int id) {
+	public Page<StudyEntity> studyList(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return studyRepository.findAll(pageable);
+	}
+	
+	@Override
+	@Transactional
+	public Page<StudyEntity> studySearchList(String keyword, Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<StudyEntity> list = studyRepository.findBystudyTitleContaining(keyword, pageable);
+		return list;
+	}
+
+	@Override
+	public StudyEntity studySelect(int id) {
 		// TODO Auto-generated method stub
 		
 		return studyRepository.getById(id);
 	}
+	
+	
+	
 }

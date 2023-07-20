@@ -16,9 +16,9 @@
 		<form class="studyregistrationForm" id="studyregistrationForm" method="post" enctype="multipart/form-data" action="/studyregistrationpro">
 			<div>
 				<label for="tudytitle">제목</label>
-				<input type="text" id="studytitle" name="studytitle" value="Java 팀원 구합니다!!"></div>
+				<input type="text" id="studytitle" name="studyTitle" value="Java 팀원 구합니다!!"></div>
 			<div>
-				<textarea id="studycontent" name="studycontent" rows="4" cols="50" >팀원 얼릉 구합니다 빨리!!</textarea></div>
+				<textarea id="studycontent" name="studyContent" rows="4" cols="50" >팀원 얼릉 구합니다 빨리!!</textarea></div>
 			<div>
 				<label for="files">파일첨부</label>
 				<input type="file" id="files" name="files"></div>
@@ -27,7 +27,7 @@
 				<label for="address_name">지번 주소</label>
 				<span></span></div>
 			<br><br>
-			<input type="hidden" id="studywriter" name="studywriter" value="jeongsu">
+			<input type="hidden" id="studywriter" name="studyWriter" value="jeongsu">
 			<input type="hidden" id="latitude" name="latitude">
 			<input type="hidden" id="longitude" name="longitude">
 			<button type="submit">등록</button>
