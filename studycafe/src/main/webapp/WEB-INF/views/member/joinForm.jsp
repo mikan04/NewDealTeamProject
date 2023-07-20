@@ -136,7 +136,7 @@
 									<h3 class="join_title">
 										<label for="nickname">닉네임</label>
 									</h3>
-									<span class="ps_box box_right_space"> <input type="text" id="nickname" name="nickname" title="닉네임" class="int" maxlength="40">
+									<span class="ps_box box_right_space"> <input type="text" id="nick_name" name="nick_name" title="닉네임" class="int" maxlength="40">
 									</span> 
 									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
 								</div>
