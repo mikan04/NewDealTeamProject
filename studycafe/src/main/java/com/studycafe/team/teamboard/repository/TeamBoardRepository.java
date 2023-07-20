@@ -1,5 +1,9 @@
 package com.studycafe.team.teamboard.repository;
 
-public interface TeamBoardRepository extends JPAe{
-	// gpt api 따서 챗봇
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.studycafe.team.teamboard.entity.TeamBoardEntity;
+
+public interface TeamBoardRepository extends JpaRepository<TeamBoardEntity, Long>{
+
 }
