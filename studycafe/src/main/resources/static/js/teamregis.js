@@ -1,7 +1,7 @@
 /**
  *  팀 등록 글 작성 js
  */
-
+// ck에디터
 var myEditor;
 ClassicEditor
 	.create(document.querySelector('#content'), {
@@ -20,12 +20,12 @@ ClassicEditor
 	});
 
 // 이미지 미리보기 아직안씀
-/* $("#product_img").change(function() {
+$("#file").change(function() {
 	if (this.files && this.files[0]) {
 		var reader = new FileReader;
 		reader.onload = function(data) {
-			$(".select_img img").attr("src", data.target.result).width(500);
+			$(".select_img img").attr("src", data.target.result).width(350).height(350);
 		}
 		reader.readAsDataURL(this.files[0]);
 	}
-}); */
+});
