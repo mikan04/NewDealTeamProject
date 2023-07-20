@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.Role;
 import com.studycafe.member.repository.MemberAddressRepository;
 import com.studycafe.member.repository.MemberRepository;
 
@@ -22,6 +23,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMember(MemberEntity member) {
 		// TODO Auto-generated method stub
+		
+		member.setRole(Role.ROLE_MEMBER);
+		
 		memRe.save(member);
 	}
 
