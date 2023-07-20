@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+.main-wrap {
+	padding-top: 100px;
+	min-height: calc(100% - 70px);
+	width: 100%;
+	margin: auto;
+}
+
+.index {
+	width: calc(100%/ 2);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	/* border : 1px solid #e9e9e9; */
+	border-radius: 10px;
+	margin-bottom: 100px;
+}
+
+.index div {
+	padding: 20px;
+	font-size: 18px;
+	border-radius: 5px;
+}
+
+.index .team-regist {
+	display: inline;
+	width: 75px;
+	height: 40px;
+	margin-bottom: 10px;
+	float: right;
+}
+
+.index div span {
+	float: right;
+}
+
+.index div:nth-child(even) {
+	background-color: #e9e9e9;
+}
+
+.index-ingredient {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: center;
+	width: 100%;
+	row-gap: 3em;
+}
+
+.team-regist-div .team-regist {
+	float: right;
+	margin: 20px 0;
+	width: 150px;
+	height: 40px;
+	font-size: 18px;
+	border: none;
+	border-radius: 7px;
+}
+
+.team-regist:hover {
+	background-color: black;
+	cursor: pointer;
+	color: white;
+}
+
+.index>label {
+	display: inline-block;
+	background-color: black;
+	color: white;
+	width: 100%;
+	border-radius: 5px;
+	padding: 20px;
+	margin-bottom: 5px;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+label>a:visited {
+	color: white;
+}
+
+div>a:visited {
+	color: black;
+}
+
+div>a:hover, label>a:hover {
+	color: skyblue;
+}
