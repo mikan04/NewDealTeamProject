@@ -17,7 +17,7 @@ public class MemberAddressEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int addressIdx;
+	private int address_idx;
 	
 	@NotNull
 	@OneToOne
