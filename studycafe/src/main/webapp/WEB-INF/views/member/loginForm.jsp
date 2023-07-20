@@ -104,7 +104,8 @@ li {
 				</div>
 
 				<div class="button-box">
-					<button class="btn btn-danger login-btn" type="submit">	<span>로그인</span></button>
+					<!-- <button class="btn btn-danger login-btn" type="submit">	<span>로그인</span></button> -->
+					<input type="submit" value="로그인">
 				</div>
 
 			</div>

@@ -56,7 +56,7 @@ public class StudyController {
 
 		return list;
 	}
-	
+
 	// 스터디 모집 게시물 등록 폼
 	@GetMapping("/studyregistration")
 	public String studyRegis() {
@@ -69,10 +69,10 @@ public class StudyController {
 		System.out.println(studyEntity);
 		
 		studyService.studyInsert(studyEntity); // 게시글 저장
-		return "/study/studyregistration";
+		return "/study/studylist";
 	}
 	
-	// 위도, 경도 불러오기
+	// 스터디 모집 게시물 열람
 	@GetMapping("/studydetail/{no}")
 	public String studySelect(@PathVariable("no") int id, Model model) {
 		
