@@ -35,6 +35,7 @@ public class ChatRoomMessageEntity {
 	@NotNull
 	private MessageType type;
 	@NotNull
+	@Column(columnDefinition = "TEXT")
 	private String chatMessage;
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
