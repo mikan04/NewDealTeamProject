@@ -37,7 +37,7 @@
 					<h2>Contact us</h2>
 					<div class="content">
 						<div class="social">
-							<a href="https://github.com/NewDealProject" target="_blank">
+							<a href="https://github.com/NewDealProject/NewDealTeamProject" target="_blank">
 								<img src="/img/github.png">
 							</a>
 						</div>
