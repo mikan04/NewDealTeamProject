@@ -34,6 +34,7 @@ public class MemberEntity {
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
 
 	// 나머지
 	@NotNull
