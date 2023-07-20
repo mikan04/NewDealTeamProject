@@ -20,12 +20,6 @@
 	background-color: #343434;
 }
 
-#headbanner {
-	position: relative;
-	overflow: hidden;
-	padding: 42px 0 54px;
-	box-sizing: border-box;
-}
 
 .h_logo {
 	display: block;
@@ -86,15 +80,17 @@
 										<label for="id">ID</label>
 									</h3>
 									<span class="ps_box int_id">
-									<input type="text" id="id" name="id" class="int" title="EMAIL" maxlength="20">
+									<input type="text" id="username" name="username" class="int" title="EMAIL" maxlength="20">
 									</span>
 									<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
 
 								</div>
 								
 								<div>
-									<h3 class="join_title"> <label for="id">이메일</label>
-									<input type="email" id="email" name="email">
+									<h3 class="join_title"> <label for="id">이메일</label></h3>
+									<span>
+										<input type="email" id="email" name="email">
+									</span>
 								</div>
 
 								<div class="join_row">
@@ -102,7 +98,7 @@
 										<label for="pswd1">비밀번호</label>
 									</h3>
 									<span class="ps_box int_pass" id="pswd1Img"> 
-									<input type="password" id="pswd1" name="memberPassword" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20">
+									<input type="password" id="password" name="password" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20">
 										<span class="lbl">
 										<span id="pswd1Span" class="step_txt"></span>
 									</span>
@@ -115,7 +111,7 @@
 										<label for="pswd2">비밀번호 재확인</label>
 									</h3>
 									<span class="ps_box int_pass_check" id="pswd2Img"> 
-										<input type="password" id="pswd2" name="memberPassword2" class="int" title="비밀번호 재확인 입력" 
+										<input type="password" id="password2" name="password2" class="int" title="비밀번호 재확인 입력" 
 										aria-describedby="pswd2Blind"
 										maxlength="20"> 
 										<span id="pswd2Blind" class="wa_blind">설정하려는 비밀번호가 맞는지 확인하기 위해 다시 입력 해주세요.</span>
@@ -130,67 +126,53 @@
 									<h3 class="join_title">
 										<label for="name">이름</label>
 									</h3>
-									<span class="ps_box box_right_space"> <input type="text"
-										id="name" name="memberName" title="이름" class="int"
-										maxlength="40">
-									</span> <span class="error_next_box" id="nameMsg"
-										style="display: none" aria-live="assertive"></span>
+									<span class="ps_box box_right_space"> <input type="text" id="name" name="name" title="이름" class="int" maxlength="40">
+									</span> 
+									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
 								</div>
-								<span class="error_next_box" id="genderMsg"
-									style="display: none" aria-live="assertive"></span>
-
-
-
-
-								<!-- 휴대전화 번호, 인증번호 입력 -->
-								<div class="join_row join_mobile" id="mobDiv">
+								<span class="error_next_box" id="genderMsg" style="display: none" aria-live="assertive"></span>
+								
+								<div class="join_row">
 									<h3 class="join_title">
-										<label for="phoneNo">휴대전화</label>
+										<label for="nickname">닉네임</label>
 									</h3>
-
-									<div class="int_mobile_area">
-										<span class="ps_box int_mobile"> <input type="tel"
-											id="phoneNo" name="memberMobile" placeholder="전화번호 입력"
-											aria-label="전화번호 입력" class="int" maxlength="16"> <label
-											for="phoneNo" class="lbl"></label>
-										</span> 
-									</div>
+									<span class="ps_box box_right_space"> <input type="text" id="nick_name" name="nick_name" title="닉네임" class="int" maxlength="40">
+									</span> 
+									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
 								</div>
-								<!-- // 휴대전화 번호, 인증번호 입력 -->
+
+				
 								<div class="join_row join_email">
 									<h3 class="join_title">
 										<label for="email">주소<span class="terms_choice">(선택)</span></label>
 									</h3>
 									<div class="int_adress_area">
-										<span class="ps_box int_address"> <input type="text"
-											id="memberZipcode" name="memberZipcode" placeholder="선택입력"
-											aria-label="선택입력" class="int" maxlength="5">
-										</span> <a href="javascript:kakaoPost();"
-											class="btn_verify btn_primary gray zipcodebtn" id="btnSend"
-											role="button"> <span class="">우편번호</span>
+										<span class="ps_box int_address"> 
+											<input type="text" id="zipcode" name="zipcode" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="5">
+										</span> 
+										<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button"> 
+										<span class="">우편번호</span>
 										</a>
 									</div>
 
-									<span class="ps_box join_address"> <input type="text"
-										id="memberAddress" name="memberAddress" placeholder="선택입력"
-										aria-label="선택입력" class="int" maxlength="100">
-									</span> <span class="ps_box join_address"> <input type="text"
-										id="memberDetailAddress" name="memberDetailAddress"
-										placeholder="선택입력" aria-label="선택입력" class="int"
-										maxlength="100">
+									<span class="ps_box join_address"> 
+										<input type="text" id="address1" name="address1" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
+									</span> 
+									<span class="ps_box join_address"> 
+										<input type="text" id="address2" name="address2" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
 									</span>
 								</div>
-								<span class="error_next_box" id="emailMsg" style="display: none"
-									aria-live="assertive"></span>
+								<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
 							</div>
 
 
 
 
 							<div class="btn_area">
-								<button type="button" id="btnJoin" class="btn_type btn_primary">
+								<!-- <button type="button" id="btnJoin" class="btn_type btn_primary">
 									<span>가입하기</span>
-								</button>
+								</button> -->
+								<button type="submit">가입하기</button>
 							</div>
 						</div>
 					</div>
@@ -275,16 +257,19 @@
 
 
 <script>
+
 function kakaoPost() {
 	new daum.Postcode({
 		oncomplete : function(data) {
-			document.querySelector("#memberZipcode").value = data.zonecode;
-			document.querySelector("#memberAddress").value = data.address
-			document.getElementById("memberDetailAddress").focus();
+			document.querySelector("#zipcode").value = data.zonecode;		
+			document.querySelector("#address1").value = data.address
+			document.getElementById("address2").focus();
 		}
 	}).open();
 
 }
+
 </script>
+
 </body>
 </html>
