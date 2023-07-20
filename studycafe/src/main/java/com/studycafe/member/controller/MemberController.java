@@ -48,6 +48,4 @@ public class MemberController {
 		
 		return "redirect:/loginForm";
 	}
-	
-
 }
