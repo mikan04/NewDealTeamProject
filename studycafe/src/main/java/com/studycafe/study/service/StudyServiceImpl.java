@@ -1,8 +1,5 @@
 package com.studycafe.study.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +43,7 @@ public class StudyServiceImpl implements StudyService {
 		
 		return studyRepository.getById(id);
 	}
-
-	@Override
-	public List<StudyEntity> studySelectByMap(int lat, int lon, LocalDate date) {
-		// TODO Auto-generated method stub
-		return studyRepository.findByMap(lat, lon, date);
-	}
-
-
-
+	
 	
 	
 }

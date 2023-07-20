@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .main_wrap {
-	margin: auto;	
+	margin: auto;
 	width: 70%;
 	padding-top: 100px;
 	min-height: calc(100% - 70px);
@@ -9,7 +9,6 @@
 /* 시작 */
 
 /* 끝 */
-
 
 .map_wrap, .map_wrap * {
 	margin: 0;
@@ -24,40 +23,11 @@
 }
 
 .map_wrap {
-	display: flex;
-	justify-content: space-between;
 	position: relative;
 	text-align : center;
-	width: 800px;
-	height: 600px;
+	width: 500px;
+	height: 500px;
 }
-
-#reserve-info {
-    margin-top: 2rem;
-	display: flex;
-	
-	row-gap: 2;
-}
-
-#reserve-info-table {
-	display: none;
-	margin-top: 1rem;
-	background-color: aliceblue;
-
-}
-#reserve-info-table td {
-	padding: 10px 15px;
-}
-
-#reserve-info-table tr.enabled td:nth-child(2) {
-	color: chartreuse;
-}
-
-#reserve-info-table tr.disabled td:nth-child(2) {
-	color: crimson;
-}
-
-	
 
 #menu_wrap {
 	position: absolute;
