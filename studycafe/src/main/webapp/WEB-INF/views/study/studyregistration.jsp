@@ -25,7 +25,8 @@
 			<div>
 				<input type="text" id="address_name" name="address_name">
 				<label for="address_name">지번 주소</label>
-				<span></span></div>
+			</div>
+			<div id="road_address"></div>
 			<br><br>
 			<input type="hidden" id="studywriter" name="studyWriter" value="jeongsu">
 			<input type="hidden" id="latitude" name="latitude">
@@ -53,7 +54,6 @@
 			<p>
 				<em>지도를 클릭해주세요!</em>
 			</p>
-			<div id="clickLatlng"></div>
 			<div id="clickLatlng-marker"></div>
 		</div>
 	</div>

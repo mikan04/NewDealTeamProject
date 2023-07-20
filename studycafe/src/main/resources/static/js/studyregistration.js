@@ -107,26 +107,22 @@ function displayPlaces(places) {
 			kakao.maps.event.addListener(marker, 'click',
 				function() {
 					searchDetailAddrFromCoords(marker.getPosition(), function(result, status) {
-						let markerCoordinate = marker.getPosition();
-						let clickedLongitude = markerCoordinate.getLat();
-						let clickedLatitude = markerCoordinate.getLng();
-		
-						var message = '<form method="post" action="/studyregistrationpro">' +
-									  '[정보 출력]<br>' +
-									  '<label for="latitude">위도 : </label>' + 
-									  '<input type="text" id="latitude" name="latitude" value="'+ clickedLongitude +'"><br>' +
-									  '<label for="longitude">경도 : </label>' + 
-									  '<input type="text" id="longitude" name="longitude" value="'+ clickedLatitude +'"><br>';
-						message += !!result[0].road_address ?
-									  '<label for="road_address_name">도로명 주소 : </label>' + 
-									  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
-						message += 	  '<label for="address_name">지번 주소 : </label>' + 
-									  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
-									  '<input type="submit" value="보내기">' +
-									  '</form>'
-	
-						var resultDiv = document.getElementById('clickLatlng');
+					let markerCoordinate = marker.getPosition();
+
+					let lat = markerCoordinate.getLat(); // 위도
+					let lng = markerCoordinate.getLng(); // 경도
+			
+					if (status === kakao.maps.services.Status.OK) {
+						document.getElementById('latitude').value = lat; // 위도
+						document.getElementById('longitude').value = lng; // 경도
+						message = !!result[0].road_address ?
+							'<label for="road_address_name">도로명 주소 : </label>' + 
+							'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
+						document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+						
+						var resultDiv = document.getElementById('road_address');
 						resultDiv.innerHTML = message;
+					}
 						
 						myMarker.setMap(null); // 선택한 마커 삭제
 					});
@@ -141,23 +137,18 @@ function displayPlaces(places) {
 				searchDetailAddrFromCoords(marker.getPosition(), function(result, status) {
 					let lat = marker.getPosition().getLat(); // 위도
 	        		let lng = marker.getPosition().getLng(); // 경도
-	
-					var message = '<form method="post" action="/studyregistrationpro">' +
-								  '[정보 출력]<br>' +
-								  '<label for="latitude">위도 : </label>' + 
-								  '<input type="text" id="latitude" name="latitude" value="'+ lat +'"><br>' +
-								  '<label for="longitude">경도 : </label>' + 
-								  '<input type="text" id="longitude" name="longitude" value="'+ lng +'"><br>';
-					message += !!result[0].road_address ?
-								  '<label for="road_address_name">도로명 주소 : </label>' + 
-								  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
-					message += 	  '<label for="address_name">지번 주소 : </label>' + 
-								  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
-								  '<input type="submit" value="보내기">' +
-								  '</form>'
 
-					var resultDiv = document.getElementById('clickLatlng');
-					resultDiv.innerHTML = message;
+					if (status === kakao.maps.services.Status.OK) {
+						document.getElementById('latitude').value = lat; // 위도
+						document.getElementById('longitude').value = lng; // 경도
+						message = !!result[0].road_address ?
+							'<label for="road_address_name">도로명 주소 : </label>' + 
+							'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
+						document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+						
+						var resultDiv = document.getElementById('road_address');
+						resultDiv.innerHTML = message;
+					}
 					
 					myMarker.setMap(null); // 선택한 마커 삭제
 				});
@@ -311,7 +302,13 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		if (status === kakao.maps.services.Status.OK) {
 			document.getElementById('latitude').value = lat; // 위도
 			document.getElementById('longitude').value = lng; // 경도
+			message = !!result[0].road_address ?
+				'<label for="road_address_name">도로명 주소 : </label>' + 
+				'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
 			document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+			
+			var resultDiv = document.getElementById('road_address');
+			resultDiv.innerHTML = message;
 		}
 
 		infowindow.close(); // 인포윈도우를 지도에서 제거합니다
