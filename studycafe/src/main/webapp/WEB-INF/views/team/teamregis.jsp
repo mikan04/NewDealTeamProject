@@ -23,24 +23,32 @@
 			<form action="/team/teamregis" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="team-title">제목</label>
-					<input type="text" id="team-title" name="teamTitle" value="" placeholder="제목 입력">
+					<input type="text" id="team-title" name="teamBoardTitle" value="" placeholder="제목 입력">
 				</p>
 
 				<p>
 					<label for="team-head">작성자(팀장)</label>
-					<input type="text" id="team-head" name="teamHead" value="작성자아이디들어감" readonly="readonly" disabled="disabled">
+					<input type="text" id="team-head" name="teamBoardWriter" value="imsitestwriter" readonly="readonly">
 				</p>
 
 				<div>
 					<label for="content">내용</label>
-					<textarea id="content" name="teamContent"></textarea>
+					<textarea id="content" name="teamBoardContent"></textarea>
 				</div>
-
+				
+				<!-- 이미지 첨부시 미리보기 -->
 				<p>
 					<label for="file">첨부파일</label>
 					<input type="file" id="file" name="file" placeholder="파일등록">
-					<img src="">
+					
 				</p>
+				
+				<!-- 이미지 임시출력 -->
+				<div class="select_img">
+					<img src="" />
+				</div>
+				<!-- //이미지 첨부시 미리보기 -->
+				
 				<button class="regis-btn" type="submit">팀 등록</button>
 			</form>
 		</div>

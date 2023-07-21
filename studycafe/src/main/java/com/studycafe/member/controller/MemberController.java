@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@RequestMapping(value ="/loginForm", method= {RequestMethod.GET, RequestMethod.POST})
 	public String home(Model model, HttpSession session) {
 		
@@ -38,8 +42,11 @@ public class MemberController {
 	@PostMapping("/joinPro")
 	public String joinPro(MemberEntity memberEn,MemberAddressEntity memAddEn, HttpServletRequest request) {
 		
-		memberService.insertMember(memberEn);
-		memberService.insertMemAdd(memAddEn);
+		String rawPassword=memberEn.getPassword();
+		String encPassword=encoder.encode(rawPassword);
+		memberEn.setPassword(encPassword);
+		
+		memberService.insertMember(memberEn , memAddEn);
 		
 		System.out.println("================="+memberEn);
 		System.out.println("================="+memAddEn);
@@ -49,5 +56,5 @@ public class MemberController {
 		return "redirect:/loginForm";
 	}
 	
-
+	
 }

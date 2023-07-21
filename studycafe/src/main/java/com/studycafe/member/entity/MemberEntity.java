@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,11 +19,8 @@ import lombok.Data;
 @Entity
 public class MemberEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long memberIdx;
-	
 	// 시큐리티 필드
+	@Id
 	@NotNull
 	@Column(unique = true, length = 20)
 	private String username;
@@ -35,7 +30,6 @@ public class MemberEntity {
 	private String password;
 	
 	@NotNull
-	@ColumnDefault("'ROLE_MEMBER'")
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
@@ -46,15 +40,15 @@ public class MemberEntity {
 
 	@NotNull
 	@Column(unique = true, length=15)
-	private String nickName;
+	private String nick_name;
 
 	@NotNull
 	@Column(length= 10)
 	private String name;
 	
-	@NotNull
+//	@NotNull
 	@ColumnDefault("0")
-	private int emailAuth; // 이메일 인증여부 필드, 0 = false, 1 = true, nullable, default = 0.
+	private int email_auth; // 이메일 인증여부 필드, 0 = false, 1 = true, nullable, default = 0.
 	
 	/**
 	 * DB는 오브젝트 저장이 불가. FK설정을 위해선 ORM으로 자바 오브젝트를 불러다가 특정 컬럼 저격을 해줘야함. 
@@ -62,6 +56,6 @@ public class MemberEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name = "teamNumber")
-	private TeamEntity teamNumber;
+	private TeamEntity team_number;
 
 }

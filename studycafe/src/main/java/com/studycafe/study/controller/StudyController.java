@@ -1,5 +1,9 @@
 package com.studycafe.study.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nimbusds.jose.shaded.json.JSONArray;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.service.StudyService;
 
@@ -56,7 +62,7 @@ public class StudyController {
 
 		return list;
 	}
-	
+
 	// 스터디 모집 게시물 등록 폼
 	@GetMapping("/studyregistration")
 	public String studyRegis() {
@@ -69,10 +75,10 @@ public class StudyController {
 		System.out.println(studyEntity);
 		
 		studyService.studyInsert(studyEntity); // 게시글 저장
-		return "/study/studyregistration";
+		return "/study/studylist";
 	}
 	
-	// 위도, 경도 불러오기
+	// 스터디 모집 게시물 열람
 	@GetMapping("/studydetail/{no}")
 	public String studySelect(@PathVariable("no") int id, Model model) {
 		
@@ -83,5 +89,24 @@ public class StudyController {
 		model.addAttribute("studyEntity", studyEntity);
 		
 		return "/study/studydetail";
+	}
+	
+	
+	@GetMapping("/studyTime")
+	@ResponseBody
+	public String studySelectTimeByMap(@RequestParam("lat") int lat, @RequestParam("long") int lon,@RequestParam("date") String date) {
+		LocalDate localDate = LocalDate.parse(date);
+		
+		List<StudyEntity> studyEntity = studyService.studySelectByMap(lat, lon, localDate);
+		
+		JSONArray times = new JSONArray();
+		for(int i=0; i> studyEntity.size(); i++) {
+			
+			LocalDateTime reserveTime = studyEntity.get(0).getReserveTime();
+			JSONObject time = new JSONObject();
+			time.put("time", reserveTime);
+			times.add(time);
+		}
+		return times.toJSONString();
 	}
 }
