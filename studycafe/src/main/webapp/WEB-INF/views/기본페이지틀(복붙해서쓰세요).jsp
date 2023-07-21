@@ -9,8 +9,9 @@
 <meta charset="UTF-8">
 <title>타이틀입력</title>
 
-<link rel="stylesheet" href="">
+<link rel="stylesheet" type="text/css" href="/css/admin.css">
 <!-- index.css 복사해다가 jsp파일이랑 이름 똑같이 바꾸고 임포트해주세요. index.css에 따로 추가하거나 바꾸지 말아주세요-->
+
 
 </head>
 <body>
