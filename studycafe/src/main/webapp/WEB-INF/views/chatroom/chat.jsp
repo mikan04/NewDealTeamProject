@@ -53,9 +53,7 @@
 	border: 2px solid black;
 }
 
-#yourMsg {
-	display: none;
-}
+
 
 #chatting {
 	flex: 1;
@@ -147,7 +145,7 @@
 		// WebSocket을 열고 연결을 설정
 		// 웹소켓 주소는 현재 호스트와 roomIdx 값을 조합하여 생성.
 		// roomIdx.val() TeamNumber로 변경 vo를 따로 만들어야할듯
-		ws = new WebSocket("ws://" + location.host + "/chatRoom/chating"); // + $("#roomIdx").val()
+		ws = new WebSocket("ws://" + location.host + "/chatRoom/chating" + $("#teamNumber").val() ); // + $("#roomIdx").val()
 				
 		wsEvt();
 	}
@@ -165,13 +163,13 @@
 					data : { "roomIdx" : $("#roomIdx").val() },
 					success : function(e) {
 							for (var i = 0; i < e.length; i++) {
-								if (e[i].userName === $("#userName").val()) {
+								if (e[i].username === $("#username").val()) {
 
 								$("#chating").append(
 										"<div class='message'style='background-color:yellow'>"
 										+ "<p class='me'>"+ e[i].msg + "</p>"+ "</div>");
 								} else {
-									$("#chating").append("<p>"+ e[i].userName+ "</p>"
+									$("#chating").append("<p>"+ e[i].nickName+ "</p>"
 												+ "<div class='message'style='background-color:skyblue'>"
 												+ "<p class='others'>"
 												+ e[i].msg + "</p>"
@@ -194,17 +192,17 @@
 			if (msg != null && msg.trim() != '') {
 				var d = JSON.parse(msg);
 				if (d.type == "getId") {
-					var si = d.userId != null ? d.userId : "";
+					var si = d.username != null ? d.username : "";
 					if (si != '') {
-						$("#userId").val(si);
+						$("#username").val(si);
 					}
 				} else if (d.type == "message") {
-					if (d.userId == $("#userId").val()) {
+					if (d.username == $("#username").val()) {
 						$("#chating").append(
 								"<div class='message'style='background-color:yellow'>"
 										+ "<p class='me'>나 :" + d.msg + "</p>"+ "</div>");
 					} else {
-						$("#chating").append("<p>"+ d.userName+ "</p>"
+						$("#chating").append("<p>"+ d.nickName+ "</p>"
 									+ "<div class='message'style='background-color:skyblue'>"
 									+ "<p class='others'>" + d.msg + "</p>" + "</div>");
 					}
@@ -225,25 +223,12 @@
 		});
 	}
 
-	function chatName() {
-		// userName을 nickName으로 변경해야 할 듯
-		var userName = $("#userName").val();
-		if (userName == null || userName.trim() == "") {
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		} else {
-			wsOpen();
-			$("#yourName").hide();
-			$("#yourMsg").show();
-		}
-	}
-
 	function send() {
 		// userId는 userName, userName은 nickName으로 변경해야 할 듯
 		var option = {
 			type : "message",
-			userId : $("#userId").val(),
-			userName : $("#userName").val(),
+			userId : $("#username").val(),
+			nickName : $("#nickName").val(),
 			roomIdx : $("#roomIdx").val(),
 			msg : $("#chatting").val()
 		}
@@ -252,8 +237,8 @@
 			url : "/insertMessage",
 			dataType : "json",
 			data : {
-				"userId" : $("#userId").val(),
-				"userName" : $("#userName").val(),
+				"username" : $("#username").val(),
+				"nickName" : $("#nickName").val(),
 				"roomIdx" : $("#roomIdx").val(),
 				"msg" : $("#chatting").val(),
 			},
@@ -290,20 +275,11 @@
 	<div id="container" class="container">
 		<h1>팀 이름 들어가는 곳</h1>
 		<div id="chating" class="chating"></div>
-		<input type="hidden" id="username" value="">
-		<input type="hidden" id="roomIdx" value="${roomIdx}">
+		<input type="hidden" id="username" value= <sec:authentication property="principal.member.username"/> >
+		<input type="hidden" id="nickName" value= <sec:authentication property="principal.member.nickName"/> >
+		
+		<input type="hidden" id="teamNumber" value=<sec:authentication property="principal.member.teamNumber"/>>
 
-
-		<div id="yourName">
-			<table class="inputTable">
-				<tr>
-					<th><input type="text" name="nickName" id="nickName"><sec:authentication property="principal.member.nickName"/></th>
-					<th>
-						<button onclick="chatName()" id="startBtn">Register</button>
-					</th>
-				</tr>
-			</table>
-		</div>
 
 		<div id="yourMsg">
 			<table class="inputTable">

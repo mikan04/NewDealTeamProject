@@ -55,5 +55,8 @@ public class MemberController {
 
 		return "redirect:/member/loginform";
 	}
+	
+	
+
 
 }

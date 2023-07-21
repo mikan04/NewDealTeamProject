@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(socketHandler, "/chatRoom/chating"); // + /{roomIdx} roomIdx  = TeamNumber로 변경하면 됨
+		registry.addHandler(socketHandler, "/chatRoom/chating/{teamNumber}" ); // + /{roomIdx} roomIdx  = TeamNumber로 변경하면 됨
 	}
 
 }
