@@ -35,7 +35,7 @@ public class TeamBoardController {
 		return "/team/teamregis";
 	}
 
-	// 글 등록 로직 - 잠깐 테스트용
+	// 글 등록 로직
 	@PostMapping("/team/teamregis")
 	public String teamRegist(@RequestParam("file") MultipartFile file, TeamBoardEntity teamBoard) {	
 		
