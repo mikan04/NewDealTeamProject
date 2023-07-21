@@ -35,15 +35,15 @@ public class ChatRoomMessageController {
 	/* 채팅 메세지 저장 */
 	@PostMapping("/insertMessage")
 	@ResponseBody
-	public void insertMessage(@RequestParam("userId") String userId, @RequestParam("userName") String userName,
+	public void insertMessage(@RequestParam("username") String username, @RequestParam("nickName") String nickName,
 			@RequestParam("roomIdx") Long roomIdx, @RequestParam("msg") String msg) {
 
 		ChatRoomMessageEntity chatRoomMessage = new ChatRoomMessageEntity();
 
 		chatRoomMessage.setMsg(msg);
 		chatRoomMessage.setRoomIdx(roomIdx);
-		chatRoomMessage.setUserId(userId);
-		chatRoomMessage.setUserName(userName);
+		chatRoomMessage.setUsername(username);
+		chatRoomMessage.setNickName(nickName);
 
 		messageService.insertMessage(chatRoomMessage);
 	}
