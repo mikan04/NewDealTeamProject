@@ -23,7 +23,6 @@ public class SecurityConfig {
 		.and()
 			.formLogin()
 			.loginPage("/loginform")
-			.loginProcessingUrl("/login")
 			.defaultSuccessUrl("/")
 		.and()
 			.logout()
