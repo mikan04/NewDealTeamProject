@@ -1,5 +1,7 @@
 package com.studycafe.member.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,27 +23,16 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public void insertMember(MemberEntity member) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public void insertMember(MemberEntity member, MemberAddressEntity address) {
 		
 		member.setRole(Role.ROLE_MEMBER);
 		
 		memRe.save(member);
-	}
-
-
-	@Override
-	public void insertMemAdd(MemberAddressEntity address) {
-		// TODO Auto-generated method stub
-		memberAddRe.save(address);
 		
-	}
-
-
-	@Override
-	public MemberEntity loginService(MemberEntity member) {
-		// TODO Auto-generated method stub
-		return null;
+		address.setMemberEntity(member);
+		
+		memberAddRe.save(address);
 	}
 
 }
