@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<c:set var="member" value="${SPRING_SECURITY_CONTEXT.authentication.principal}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -286,16 +288,16 @@
 
 <body>
 	<div id="container" class="container">
-		<h1>${roomName}</h1>
+		<h1>팀 이름 들어가는 곳</h1>
 		<div id="chating" class="chating"></div>
-		<input type="hidden" id="userId" value="">
+		<input type="hidden" id="username" value="">
 		<input type="hidden" id="roomIdx" value="${roomIdx}">
 
 
 		<div id="yourName">
 			<table class="inputTable">
 				<tr>
-					<th><input type="text" name="userName" id="userName" placeholder="Enter your username"></th>
+					<th><input type="text" name="nickName" id="nickName"><sec:authentication property="principal.member.nickName"/></th>
 					<th>
 						<button onclick="chatName()" id="startBtn">Register</button>
 					</th>
