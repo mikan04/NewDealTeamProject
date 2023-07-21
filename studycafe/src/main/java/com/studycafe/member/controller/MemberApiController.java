@@ -12,6 +12,7 @@ import java.net.URL;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,12 @@ public class MemberApiController {
 	 * 개선사항 status 404 뜰 경우 깃허브 연동 실패 및, 페이지 이동 경로 변경 추가해야함.
 	 * 
 	 * */
+	
+	/* 깃허브 액세스 키 */
+	@Value("${key.github.id}")
+    private String githubId;
+	@Value("${key.github.access-key}")
+    private String githubSecret;
 	
 	@GetMapping("/git")
 	public ResponseEntity<String> getGitUserInfo(@RequestParam String code) throws IOException, ParseException{
@@ -53,11 +60,8 @@ public class MemberApiController {
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Accept", "application/json");
 
-        String id = "Iv1.427e6b094359a979";
-        String sercret = "9a55cbd4cff243582af8b49fd4e211b2c33d9b0c";
-
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()))) {
-            bw.write("client_id=" + id + "&client_secret=" + sercret + "&code=" + code);
+            bw.write("client_id=" + githubId + "&client_secret=" + githubSecret + "&code=" + code);
             bw.flush();
         }
 

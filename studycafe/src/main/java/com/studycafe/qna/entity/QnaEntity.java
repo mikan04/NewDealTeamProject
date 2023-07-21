@@ -4,28 +4,18 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import com.studycafe.member.entity.Role;
-import com.studycafe.study.entity.StudyEntity;
-import com.studycafe.team.entity.TeamEntity;
 
 import lombok.Data;
 
 @Entity
 @Data
 public class QnaEntity {
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
