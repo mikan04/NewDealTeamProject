@@ -78,7 +78,7 @@ li {
 		</div>
 
 		<div class="main-form">
-			<form id="loginForm" method="post" action="/member/loginPro">
+			<form id="loginForm" method="post" action="/loginform">
 
 				<div class="hell">
 
@@ -94,11 +94,11 @@ li {
 						<div class=input-box>
 							<div class="insertbox">
 								<!-- <label for="memberEmail">아이디(이메일)</label> -->
-								<input type="text" id="memberEmail" name="memberEmail" class="insert" maxlength="30" placeholder="아이디(이메일)">
+								<input type="text" id="username" name="username" class="insert" maxlength="30" placeholder="아이디(이메일)">
 							</div>
 							<div class="insertbox">
 								<!-- <label for="memberPassword">비밀번호</label> -->
-								<input type="password" id="memberPassword" name="memberPassword" class="insert" maxlength="20" placeholder="비밀번호">
+								<input type="password" id="password" name="password" class="insert" maxlength="20" placeholder="비밀번호">
 							</div>
 						</div>
 
