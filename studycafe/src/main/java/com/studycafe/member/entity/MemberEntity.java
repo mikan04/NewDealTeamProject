@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,11 +19,8 @@ import lombok.Data;
 @Entity
 public class MemberEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long member_idx;
-	
 	// 시큐리티 필드
+	@Id
 	@NotNull
 	@Column(unique = true, length = 20)
 	private String username;
@@ -35,10 +30,8 @@ public class MemberEntity {
 	private String password;
 	
 	@NotNull
-	@ColumnDefault("'ROLE_MEMBER'")
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	
 
 	// 나머지
 	@NotNull

@@ -1,5 +1,6 @@
 package com.studycafe.study.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -45,6 +46,12 @@ public class StudyEntity {
 	
 	//@NotNull
 	private double longitude; // 카카오 맵 경도
+	
+	@NotNull
+	private LocalDate reserveDate; // 예약 날짜
+	
+	@NotNull
+	private LocalDateTime reserveTime; // 예약 시간
 
 	@CreatedDate
 	private LocalDateTime dateTime; // 등록일자

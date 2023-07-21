@@ -20,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-
 public class MemberController {
 	
 	@Autowired
@@ -43,8 +42,11 @@ public class MemberController {
 	@PostMapping("/joinPro")
 	public String joinPro(MemberEntity memberEn,MemberAddressEntity memAddEn, HttpServletRequest request) {
 		
-		memberService.insertMember(memberEn);
-		memberService.insertMemAdd(memAddEn);
+		String rawPassword=memberEn.getPassword();
+		String encPassword=encoder.encode(rawPassword);
+		memberEn.setPassword(encPassword);
+		
+		memberService.insertMember(memberEn , memAddEn);
 		
 		System.out.println("================="+memberEn);
 		System.out.println("================="+memAddEn);
@@ -54,5 +56,5 @@ public class MemberController {
 		return "redirect:/loginForm";
 	}
 	
-
+	
 }

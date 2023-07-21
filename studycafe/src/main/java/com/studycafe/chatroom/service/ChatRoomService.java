@@ -1,5 +1,7 @@
 package com.studycafe.chatroom.service;
 
-public class ChatRoomService {
 
+public interface ChatRoomService {
+	
+	
 }

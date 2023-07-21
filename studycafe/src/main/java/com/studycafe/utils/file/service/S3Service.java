@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -27,7 +26,7 @@ public class S3Service implements S3FileService {
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucketName;
-	
+
 	@Value("${cloud.aws.s3.objurl}")
 	private String s3ObjectUrl;
 
@@ -40,7 +39,7 @@ public class S3Service implements S3FileService {
 	// S3 파일 저장하기
 	@Override
 	public String saveFile(MultipartFile file, String filePath) {
-		
+
 		String originalFilename = file.getOriginalFilename();
 		log.info("원본 파일 이름 : {}", originalFilename);
 
@@ -51,31 +50,33 @@ public class S3Service implements S3FileService {
 			String insertedFileNameAndPath = "";
 
 			log.info("변경된 파일 이름 : {}", insertedFile);
-			
+
 			// 들어온 값에 따라 S3 파일 경로 검증 => 리팩토링 어떻게 하면좋지?
 			if ("team".equals(filePath)) {
 				insertedFileNameAndPath = "teamregis/" + insertedFile.toString();
+				log.info("teamregis 폴더 업로드 : {}", insertedFileNameAndPath);
 
 			} else if ("studyregis".equals(filePath)) {
-				insertedFileNameAndPath = "study/" + insertedFile.toString();
+				insertedFileNameAndPath = "studyregis/" + insertedFile.toString();
+				log.info("studyregis 폴더 업로드 : {}", insertedFileNameAndPath);
 
-			} else if("ck".equals(filePath)) {
+			} else if ("ck".equals(filePath)) {
 				insertedFileNameAndPath = "ckupload/" + insertedFile.toString();
+				log.info("ckupload 폴더 업로드 : {}", insertedFileNameAndPath);
 			}
-			// https://newdealfileupload.s3.ap-northeast-2.amazonaws.com/ckupload/84a601f7-a05c-443f-9ed8-7a1adae227c5_github.png
-			log.info("파일 경로 및 이름 : {}", insertedFileNameAndPath);
 
-			PutObjectResult putObjectResult = s3.putObject(bucketName, insertedFileNameAndPath, insertedFile);
+			// log.info("파일 경로 및 이름 : {}", insertedFileNameAndPath);
+			s3.putObject(bucketName, insertedFileNameAndPath, insertedFile);
 
-			log.info("Base64-encoded MD5 hash 파일명 : {}", putObjectResult.getContentMd5());
-			
+			// log.info("Base64-encoded MD5 hash 파일명 : {}" , putObjectResult.getContentMd5());
+
 			String s3SourceUrl = s3ObjectUrl + insertedFileNameAndPath;
-			
+
 			log.info("최종 파일 객체 url : {}", s3SourceUrl);
-			
+
 			// 잔여 파일 삭제.
 			insertedFile.delete();
-			
+
 			return s3SourceUrl;
 
 		} catch (IOException e) {
