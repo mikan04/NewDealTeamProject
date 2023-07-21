@@ -15,4 +15,6 @@ public interface ChatRoomService {
 
 	/* 채팅방 이동 */
 	public ChatRoomEntity findRoom(Long roomIdx);
+	
+}
 
