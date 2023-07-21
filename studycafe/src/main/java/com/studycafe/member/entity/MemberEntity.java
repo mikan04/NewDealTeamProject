@@ -40,7 +40,7 @@ public class MemberEntity {
 
 	@NotNull
 	@Column(unique = true, length=15)
-	private String nick_name;
+	private String nickName;
 
 	@NotNull
 	@Column(length= 10)
@@ -48,7 +48,7 @@ public class MemberEntity {
 	
 //	@NotNull
 	@ColumnDefault("0")
-	private int email_auth; // 이메일 인증여부 필드, 0 = false, 1 = true, nullable, default = 0.
+	private int emailAuth; // 이메일 인증여부 필드, 0 = false, 1 = true, nullable, default = 0.
 	
 	/**
 	 * DB는 오브젝트 저장이 불가. FK설정을 위해선 ORM으로 자바 오브젝트를 불러다가 특정 컬럼 저격을 해줘야함. 
@@ -56,6 +56,6 @@ public class MemberEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name = "teamNumber")
-	private TeamEntity team_number;
+	private TeamEntity teamNumber;
 
 }
