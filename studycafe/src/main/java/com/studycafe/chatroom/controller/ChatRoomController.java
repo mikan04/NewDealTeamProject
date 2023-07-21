@@ -61,18 +61,18 @@ public class ChatRoomController {
 
 	/* 채팅방 */
 //	@GetMapping("/moveChating")
-//	public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
-//		ModelAndView mv = new ModelAndView();
-//		Long roomIdx = Long.parseLong((String) params.get("roomIdx"));
-//		ChatRoomEntity new_list = RoomService.findRoom(roomIdx);
-//		if (new_list.getRoomIdx() != null && new_list.getRoomName() != null) {
-//			mv.addObject("roomIdx", params.get("roomIdx"));
-//			mv.addObject("roomName", params.get("roomName"));
-//			mv.setViewName("chat");
-//		} else {
-//			mv.setViewName("room");
-//		}
-//		return mv;
-//	}
+	public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
+		ModelAndView mv = new ModelAndView();
+		Long teamNumber = Long.parseLong((String) params.get("teamNumber"));
+		ChatRoomEntity new_list = RoomService.findRoom(teamNumber);
+	if (new_list.getRoomIdx() != null && new_list.getRoomName() != null) {
+			mv.addObject("roomIdx", params.get("roomIdx"));
+			mv.addObject("roomName", params.get("roomName"));
+			mv.setViewName("chatRoom/chat");
+		} else {
+			mv.setViewName("/");
+		}
+		return mv;
+	}
 
 }

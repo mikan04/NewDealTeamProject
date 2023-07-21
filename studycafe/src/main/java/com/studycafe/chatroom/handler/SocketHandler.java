@@ -42,7 +42,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		sessionMap.put(session.getId(), session);
 		JSONObject obj = new JSONObject();
 		obj.put("type", "getId");
-		obj.put("userId", session.getId());
+		obj.put("username", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 	
