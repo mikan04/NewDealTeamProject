@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.studycafe.member.entity.CustomerUser;
+import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberRepository;
 
@@ -26,10 +26,9 @@ public class UserDetailServiceSub implements UserDetailsService {
 			throw new UsernameNotFoundException("찾는 회원이 존재하지 않습니다.");
 		}
 		
-		return new CustomerUser(member); 
+		return new MemberAdaptor(member); 
 		
 		
 	}
-	
 	
 }
