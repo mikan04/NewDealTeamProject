@@ -106,6 +106,9 @@ li {
 							<!-- <button class="btn btn-danger login-btn" type="submit">	<span>로그인</span></button> -->
 							<input type="submit" value="로그인">
 						</div>
+						<div id="kakao_id_login" style="text-align: center">
+							<a href=""> <img width="223" src="/resources/static/img/kakao_login_small.png"/></a>
+						</div>
 
 					</div>
 					<!-- end loginForm -->

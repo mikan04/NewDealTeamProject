@@ -2,11 +2,11 @@ package com.studycafe.chatroom.entity;
 
 import java.sql.Timestamp;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 
@@ -16,7 +16,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="chatRoomMessage")
 public class ChatRoomMessageEntity {
 	
 	@Id
@@ -26,18 +25,15 @@ public class ChatRoomMessageEntity {
 	@NotNull
 	private Long roomIdx;
 	
-	private String userId;
+	private String username;
 	
 	@NotNull
-	private String userName;
+	private String nickName;
 	
 	@NotNull
 	private String msg;
-	
-	@NotNull
-	private String chatMessage;
-	
+		
 	@CreationTimestamp
 	private Timestamp regDate;
-
+	
 }

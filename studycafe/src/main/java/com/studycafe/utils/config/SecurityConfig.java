@@ -23,7 +23,7 @@ public class SecurityConfig {
 		.and()
 			.formLogin()
 			.loginPage("/loginform")
-//			.loginProcessingUrl("/loginpro")
+			.loginProcessingUrl("/login")
 			.defaultSuccessUrl("/")
 		.and()
 			.logout()
@@ -37,4 +37,6 @@ public class SecurityConfig {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
 }
