@@ -1,5 +1,6 @@
 package com.studycafe.chatroom.service;
 
+
 import java.util.List;
 
 import com.studycafe.chatroom.entity.ChatRoomEntity;
@@ -15,4 +16,3 @@ public interface ChatRoomService {
 	/* 채팅방 이동 */
 	public ChatRoomEntity findRoom(Long roomIdx);
 
-}

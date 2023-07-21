@@ -1,5 +1,8 @@
 package com.studycafe.study.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +18,11 @@ public class StudyServiceImpl implements StudyService {
 
 	@Autowired
 	private StudyRepository studyRepository;
-	
+
 	@Override
 	public void studyInsert(StudyEntity studyEntity) {
 		// TODO Auto-generated method stub
-		
+
 		studyRepository.save(studyEntity);
 	}
 
@@ -28,7 +31,7 @@ public class StudyServiceImpl implements StudyService {
 		// TODO Auto-generated method stub
 		return studyRepository.findAll(pageable);
 	}
-	
+
 	@Override
 	@Transactional
 	public Page<StudyEntity> studySearchList(String keyword, Pageable pageable) {
@@ -40,10 +43,15 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public StudyEntity studySelect(int id) {
 		// TODO Auto-generated method stub
-		
+
 		return studyRepository.getById(id);
 	}
+
+	@Override
+	public List<StudyEntity> studySelectByMap(int lat, int lon, LocalDate date) {
+		return studyRepository.findByMap(lat, lon, date);
 	
-	
-	
+	}
+
+
 }

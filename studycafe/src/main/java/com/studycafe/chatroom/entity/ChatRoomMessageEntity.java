@@ -35,6 +35,8 @@ public class ChatRoomMessageEntity {
 	private String msg;
 	
 	@NotNull
+	private String chatMessage;
+	
 	@CreationTimestamp
 	private Timestamp regDate;
 
