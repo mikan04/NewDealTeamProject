@@ -47,19 +47,9 @@
 			</div>
 			<div class="content">
 				<ul class="links">
-					<li><a href="/member/loginForm">로그인</a></li>
+					<li><a href="${contextPath}/loginform">로그인</a></li>
 				</ul>
 			</div>
-
-			<!-- <label for="show-search" class="search-icon">
-				<i class="fas fa-search"></i>
-			</label> -->
-			<!-- <form action="#" class="search-box">
-				<input type="text" placeholder="검색어를 입력하세요" required>
-				<button type="submit" class="go-icon">
-					<i class="fas fa-long-arrow-alt-right"></i>
-				</button>
-			</form> -->
 		</nav>
 	</div>
 </body>

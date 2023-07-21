@@ -63,6 +63,10 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 		<!-- jsp 세팅 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
