@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html class="header-body">
 <head>
@@ -25,7 +25,7 @@
 					<a href="/">사이트이름</a>
 				</div>
 				<ul class="links">
-					<li><a href="#">Q &amp; A</a></li>
+					<li><a href="#">CharGPT</a></li>
 					<li><a href="#" class="desktop-link">스터디</a> <input type="checkbox" id="show-features"> <label for="show-features">스터디</label>
 						<ul>
 							<li><a href="#">스터디모집</a></li>
@@ -37,24 +37,29 @@
 							<li><a href="#">팀관리</a></li>
 							<li><a href="#">팀채팅</a></li>
 						</ul></li>
-					<li><a href="#">문의하기</a></li>
 					<li><a href="#" class="desktop-link">회원</a> <input type="checkbox" id="show-member"> <label for="show-member">회원</label>
 						<ul>
 							<li><a href="#">로그인</a></li>
 							<li><a href="#">회원가입</a></li>
-							<li></li>
 						</ul></li>
+					<li><a href="#">고객센터</a></li>
 				</ul>
 			</div>
-			<label for="show-search" class="search-icon">
+			<div class="content">
+				<ul class="links">
+					<li><a href="/member/loginForm">로그인</a></li>
+				</ul>
+			</div>
+
+			<!-- <label for="show-search" class="search-icon">
 				<i class="fas fa-search"></i>
-			</label>
-			<form action="#" class="search-box">
+			</label> -->
+			<!-- <form action="#" class="search-box">
 				<input type="text" placeholder="검색어를 입력하세요" required>
 				<button type="submit" class="go-icon">
 					<i class="fas fa-long-arrow-alt-right"></i>
 				</button>
-			</form>
+			</form> -->
 		</nav>
 	</div>
 </body>
