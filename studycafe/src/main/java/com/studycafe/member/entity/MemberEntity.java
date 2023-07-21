@@ -21,11 +21,12 @@ import lombok.Data;
 @Entity
 public class MemberEntity {
 
-	@Id
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long member_idx;
 	
 	// 시큐리티 필드
+	@Id
 	@NotNull
 	@Column(unique = true, length = 20)
 	private String username;
