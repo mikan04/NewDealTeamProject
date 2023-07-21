@@ -35,9 +35,8 @@ public class TeamBoardEntity {
 	private String teamBoardWriter;
 	
 	@Column(nullable = true)
-	private String imgUrl;
+	private String fileUrl;
 	
-	@NotNull
 	@CreationTimestamp
 	private Timestamp createDate;
 	
