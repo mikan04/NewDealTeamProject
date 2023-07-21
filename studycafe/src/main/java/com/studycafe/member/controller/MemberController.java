@@ -30,7 +30,7 @@ public class MemberController {
 		return "/member/loginForm";
 	}
 	
-	@PostMapping("/loginpro")
+	@PostMapping("/loginform")
 	public String login() {
 
 		return "redirect:/";
