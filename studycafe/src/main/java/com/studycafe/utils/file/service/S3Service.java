@@ -113,7 +113,7 @@ public class S3Service implements S3FileService {
 	// S3에 저장된 파일 리스트 가져오기
 	@Override
 	public List<String> listAllFiles() {
-
+		
 		ListObjectsV2Result listObjectsV2Result = s3.listObjectsV2(bucketName);
 
 		return listObjectsV2Result.getObjectSummaries().stream().map(S3ObjectSummary::getKey)

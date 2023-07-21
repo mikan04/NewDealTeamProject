@@ -1,5 +1,23 @@
 @charset "UTF-8";
 
+body {
+    text-align: center;
+}
+#pagination {
+    margin-top: 20px;
+}
+.pagination-link {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.current-page {
+    background-color: #007bff;
+    color: #fff;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
