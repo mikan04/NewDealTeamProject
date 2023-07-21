@@ -24,9 +24,9 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
     <header
       class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
     >
-      <a class="navbar-brand col-md-2 me-0 px-3" href="#">스터디 카페</a>
+      <a class="navbar-brand col-md-2 me-0 px-3" href="/">스터디 카페</a>
       <button
-        class="navbar-toggler position-absolute d-md-none collapsed"
+        class="navbar-toggler d-md-none collapsed"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#sidebarMenu"
@@ -36,12 +36,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <input
-        class="form-control form-control-dark w-100"
-        type="text"
-        placeholder="검색"
-        aria-label="Search"
-      />
+      <div class="w-100 h-0"></div>
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
           <a class="nav-link px-3" href="#">로그아웃</a>
@@ -50,7 +45,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
     </header>
     <nav
       id="sidebarMenu"
-      class="col-md-2 d-md-block bg-light sidebar collapse navbar-collapse"
+      class="col-sm-1 col-md-2 d-md-block bg-light sidebar collapse navbar-collapse"
     >
       <div class="position-sticky pt-3">
         <img class="d-none d-md-block avatar-img mb-2" src="/img/manager.png" />
@@ -146,7 +141,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
         </ul>
       </div>
     </nav>
-
+    <script src="/js/chart-utils.min.js"></script>
     <script src="/js/admin.js"></script>
   </body>
 </html>
