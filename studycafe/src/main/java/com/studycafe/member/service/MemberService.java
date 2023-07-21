@@ -8,10 +8,6 @@ import com.studycafe.member.entity.MemberEntity;
 @Service
 public interface MemberService {
 	
-	public void insertMember(MemberEntity member);
-	
-	public void insertMemAdd(MemberAddressEntity address);
-	
-	public MemberEntity loginService(MemberEntity member);
+	public void insertMember(MemberEntity member, MemberAddressEntity address);
 	
 }
