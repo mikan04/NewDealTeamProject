@@ -27,6 +27,8 @@ var infowindow = new kakao.maps.InfoWindow({
 	zIndex: 1
 });
 
+let selectLong, selectLat;
+
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
@@ -106,15 +108,70 @@ function displayPlaces(places) {
 
 			kakao.maps.event.addListener(marker, 'click',
 				function() {
-					let markerCoordinate = marker.getPosition();
-					let clickedLongitude = markerCoordinate.getLat();
-					let clickedLatitude = markerCoordinate.getLng();
-					console.log(clickedLongitude, clickedLatitude);
+					searchDetailAddrFromCoords(marker.getPosition(), function(result, status) {
+						let markerCoordinate = marker.getPosition();
+						let clickedLongitude = markerCoordinate.getLat();
+						let clickedLatitude = markerCoordinate.getLng();
+		
+						var message = '<form method="post" action="/studyregistrationpro">' +
+									  '[정보 출력]<br>' +
+									  '<label for="latitude">위도 : </label>' + 
+									  '<input type="text" id="latitude" name="latitude" value="'+ clickedLongitude +'"><br>' +
+									  '<label for="longitude">경도 : </label>' + 
+									  '<input type="text" id="longitude" name="longitude" value="'+ clickedLatitude +'"><br>';
+						message += !!result[0].road_address ?
+									  '<label for="road_address_name">도로명 주소 : </label>' + 
+									  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
+						message += 	  '<label for="address_name">지번 주소 : </label>' + 
+									  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
+									  '<input type="submit" value="보내기">' +
+									  '</form>'
+	
+						var resultDiv = document.getElementById('clickLatlng');
+						resultDiv.innerHTML = message;
+						
+						myMarker.setMap(null); // 선택한 마커 삭제
+					});
 				});
 
 			itemEl.onmouseover = function() {
 				displayInfowindow(marker, title);
 			};
+
+			// item list 클릭시 정보 출력
+			itemEl.onclick = function() {
+				searchDetailAddrFromCoords(marker.getPosition(), function(result, status) {
+					let lat = marker.getPosition().getLat(); // 위도
+	        		let lng = marker.getPosition().getLng(); // 경도
+	
+					var message = '<form method="post" action="/studyregistrationpro">' +
+								  '[정보 출력]<br>' +
+								  '<label for="latitude">위도 : </label>' + 
+								  '<input type="text" id="latitude" name="latitude" value="'+ lat +'"><br>' +
+								  '<label for="longitude">경도 : </label>' + 
+								  '<input type="text" id="longitude" name="longitude" value="'+ lng +'"><br>';
+					message += !!result[0].road_address ?
+								  '<label for="road_address_name">도로명 주소 : </label>' + 
+								  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
+					message += 	  '<label for="address_name">지번 주소 : </label>' + 
+								  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
+								  '<input type="submit" value="보내기">' +
+								  '</form>'
+
+					var resultDiv = document.getElementById('clickLatlng');
+					resultDiv.innerHTML = message;
+					
+					selectLong = lng;
+					selectLat = lat;
+				
+				
+					myMarker.setMap(null); // 선택한 마커 삭제
+				});
+			};
+
+			//addEventListener("click", (itemEl) => {
+			//	console.log("")
+			//});
 
 			itemEl.onmouseout = function() {
 				infowindow.close();
@@ -131,6 +188,67 @@ function displayPlaces(places) {
 	// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 	map.setBounds(bounds);
 }
+
+// 마커 클릭시 스터디 모집 예약 시간을 확인하는 함수입니다.
+function getStudyDateAvailability(lat, long, date){
+		let httpRequest = new XMLHttpRequest();
+		let result;
+		if (!httpRequest) {
+		alert("ajax 요청을 만드는데 실패하였습니다.");
+			return false;
+		}
+
+		httpRequest.onreadystatechange = function () {
+		try {
+			if (httpRequest.readyState === XMLHttpRequest.DONE) {
+			if (this.readyState == 4 && httpRequest.status === 200) {
+				result = JSON.parse(httpRequest.responseText);
+				updateTable(result);
+			} else {
+				alert("httpRequest 요청에 문제가 있습니다.");
+			}
+			}
+		} catch (e) {
+			alert(`Caught Exception: ${e.description}`);
+		}
+		};
+		
+		let url = `/studyTime?lat=${Math.floor(lat)}&long=${Math.floor(long)}&date=${date}`;
+		httpRequest.open("GET", url);
+		httpRequest.send();
+		
+}
+
+// 예약 날짜 선택시 핸들링 함수
+function selectDateHandler(date) {
+	if(!selectLat || !selectLong){	
+		alert("먼저 장소를 선택해주세요");
+		return;
+	}
+	else {
+		getStudyDateAvailability(Math.floor(selectLat), Math.floor(selectLong), date );
+	}
+	
+}
+
+// 예약 가능 테이블을 업데이트 하는 함수.
+function updateTable(times){
+	times.forEach((t)=>{
+		const time = Number(t.getHours());
+		const rows = document.querySelectorAll('#reserve-info-table tr');
+		rows.forEach((row)=>{
+			const data = parseInt(row.dataset.time);
+			if(data === time){
+				row.addClass("disabled");
+				row.removeClass("enabled");
+				row.children[1].innerHTML = "예약 불가능";
+			}
+		});
+	} );
+	document.getElementById("reserve-info-table").style.display = "block";
+}
+
+
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
@@ -217,14 +335,16 @@ function displayPagination(pagination) {
 	paginationEl.appendChild(fragment);
 }
 
+// 테스트
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
-function displayInfowindow(marker, title) {
+function displayInfowindow(markers, title) {
 	var content = '<div id="marker_div">' + title
 		+ '</div>';
 
+	// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
 	infowindow.setContent(content);
-	infowindow.open(map, marker);
+	infowindow.open(map, markers);
 }
 
 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -235,37 +355,30 @@ function removeAllChildNods(el) {
 }
 
 // 지도를 클릭한 위치에 표출할 마커입니다
-var marker = new kakao.maps.Marker({
+var myMarker = new kakao.maps.Marker({
 	// 지도 중심좌표에 마커를 생성합니다 
 	position: map.getCenter()
 });
-
 // 지도에 마커를 표시합니다
-marker.setMap(map);
+myMarker.setMap(map);
 
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
 		// 지도에 마커를 표시합니다    
-		marker.setMap(map);
+		myMarker.setMap(map);
 		// 클릭한 위도, 경도 정보를 가져옵니다 
 		var latlng = mouseEvent.latLng;
 
 		// 마커 위치를 클릭한 위치로 옮깁니다
-		marker.setPosition(latlng);
+		myMarker.setPosition(latlng);
 
 		let lat = latlng.getLat(); // 위도
 		let lng = latlng.getLng(); // 경도
 
 		if (status === kakao.maps.services.Status.OK) {
-			var message = '[정보 출력]<br>' +
-				'위도 : ' + lat + '<br>' +
-				'경도 : ' + lng + '<br>';
-			message += !!result[0].road_address ?
-				'도로명주소 : ' + result[0].road_address.address_name + '<br>' : '';
-			message += '지번 주소 : ' + result[0].address.address_name;
-
-			var resultDiv = document.getElementById('clickLatlng');
-			resultDiv.innerHTML = message;
+			document.getElementById('latitude').value = lat; // 위도
+			document.getElementById('longitude').value = lng; // 경도
+			document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
 		}
 
 		infowindow.close(); // 인포윈도우를 지도에서 제거합니다

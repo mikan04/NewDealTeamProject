@@ -1,5 +1,8 @@
 package com.studycafe.chatroom.controller;
 
-public class ChatRoomController {
 
+
+//@Controller
+public class ChatRoomController {
+	
 }
