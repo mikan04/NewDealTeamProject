@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
 
 import lombok.Data;
 
@@ -14,7 +17,12 @@ public class MemberAddressEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int addressIdx;
+	private int address_idx;
+	
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "idx")
+	private MemberEntity memberEntity;
 	
 	@NotNull
 	private String zipcode; // 우편번호
