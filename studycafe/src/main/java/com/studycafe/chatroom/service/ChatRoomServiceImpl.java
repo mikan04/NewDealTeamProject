@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.studycafe.chatroom.entity.ChatRoomEntity;
 import com.studycafe.chatroom.repository.ChatRoomRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ChatRoomServiceImpl implements ChatRoomService {
 
@@ -31,10 +34,13 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
 	/* 채팅방 이동 */
 	@Override
-	public ChatRoomEntity findRoom(Long roomIdx) {
+	public ChatRoomEntity findRoom(Long teamNumber) {
 		
-		ChatRoomEntity new_list = chatRoomRepository.findById(roomIdx).get();
-		return new_list;
+		ChatRoomEntity room = chatRoomRepository.findChatRoomByTeamNumber(teamNumber);
+		log.info("ChatRoomEntity : {}",room.getRoomIdx());
+		log.info("ChatRoomEntity : {}",room.getRoomName());
+		log.info("ChatRoomEntity : {}",room.getTeamEntity());
+		return room;
 	}
 
 }
