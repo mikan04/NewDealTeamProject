@@ -17,6 +17,7 @@ public class Choice implements Serializable {
 	 */
 	private static final long serialVersionUID = 7157422639832559082L;
 	
+	// devtools에 표시되는 JSON 데이터도 받아봅시다. 
 	private String text;
     private Integer index;
     @JsonProperty("finish_reason")
