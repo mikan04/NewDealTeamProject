@@ -2,7 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="member" value="${SPRING_SECURITY_CONTEXT.authentication.principal}" />
+<c:if test="${member != null}">
+    <sec:authentication property="principal.member.teamNumber.teamNumber" var="teamNumber" />
+</c:if>
 <!DOCTYPE html>
 <html class="header-body">
 <head>
@@ -35,7 +40,7 @@
 					<li><a href="#" class="desktop-link">팀</a> <input type="checkbox" id="show-services"> <label for="show-services">팀</label>
 						<ul>
 							<li><a href="#">팀관리</a></li>
-							<li><a href="#">팀채팅</a></li>
+							<li><a href="/chatRoom/moveChating?teamNumber=${teamNumber}">팀채팅방</a></li>
 						</ul></li>
 					<li><a href="#" class="desktop-link">회원</a> <input type="checkbox" id="show-member"> <label for="show-member">회원</label>
 						<ul>

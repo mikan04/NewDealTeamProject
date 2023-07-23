@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:set var="member" value="${SPRING_SECURITY_CONTEXT.authentication.principal}" />
+<sec:authentication property="principal.member" var="member" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,8 +52,6 @@
 	width: 500px;
 	border: 2px solid black;
 }
-
-
 
 #chatting {
 	flex: 1;
@@ -144,36 +142,47 @@
 	function wsOpen() {
 		// WebSocket을 열고 연결을 설정
 		// 웹소켓 주소는 현재 호스트와 roomIdx 값을 조합하여 생성.
-		// roomIdx.val() TeamNumber로 변경 vo를 따로 만들어야할듯
-		ws = new WebSocket("ws://" + location.host + "/chatRoom/chating" + $("#teamNumber").val() ); // + $("#roomIdx").val()
-				
+
+		ws = new WebSocket("ws://" + location.host + "/chatRoom/chating/"
+				+ $("#roomIdx").val());
 		wsEvt();
 	}
 
 	function wsEvt() {
-		
+
 		// WebSocket 열릴 때, 메시지를 받을 때, 열려있는 상태에서 키 입력이 발생할 때 등의 이벤트에 대한 처리
-		// userName은 nickName으로 변경해야 할 듯
 		ws.onopen = function(data) {
 
-			$.ajax({
-					type : "get",
-					url : "/getMessage",
-					dataType : "json",
-					data : { "roomIdx" : $("#roomIdx").val() },
-					success : function(e) {
+			$
+					.ajax({
+						type : "get",
+						url : "/chatRoomMessage/getMessage",
+						dataType : "json",
+						data : {
+							"roomIdx" : $("#roomIdx").val()
+						},
+						success : function(e) {
 							for (var i = 0; i < e.length; i++) {
-								if (e[i].username === $("#username").val()) {
+								if (e[i].nickName === $("#nickName").val()) {
 
-								$("#chating").append(
-										"<div class='message'style='background-color:yellow'>"
-										+ "<p class='me'>"+ e[i].msg + "</p>"+ "</div>");
+									$("#chating").append(
+											"<p>"
+											+ e[i].nickName
+											+ "</p>"+
+											"<div class='message'style='background-color:yellow'>"
+													+ "<p class='me'>"
+													+ e[i].msg + "</p>"
+													+ "</div>");
 								} else {
-									$("#chating").append("<p>"+ e[i].nickName+ "</p>"
-												+ "<div class='message'style='background-color:skyblue'>"
-												+ "<p class='others'>"
-												+ e[i].msg + "</p>"
-												+ "</div>");
+									$("#chating")
+											.append(
+													"<p>"
+															+ e[i].nickName
+															+ "</p>"
+															+ "<div class='message'style='background-color:skyblue'>"
+															+ "<p class='others'>"
+															+ e[i].msg + "</p>"
+															+ "</div>");
 								}
 							}
 							scrollToBottom();
@@ -198,13 +207,21 @@
 					}
 				} else if (d.type == "message") {
 					if (d.username == $("#username").val()) {
-						$("#chating").append(
-								"<div class='message'style='background-color:yellow'>"
-										+ "<p class='me'>나 :" + d.msg + "</p>"+ "</div>");
+						$("#chating")
+								.append(
+										"<p>"+ d.nickName+"</p>"
+												+ "<div class='message'style='background-color:yellow'>"
+												+ "<p class='me'>나 :"+d.msg
+												+ "</p>" + "</div>");
 					} else {
-						$("#chating").append("<p>"+ d.nickName+ "</p>"
-									+ "<div class='message'style='background-color:skyblue'>"
-									+ "<p class='others'>" + d.msg + "</p>" + "</div>");
+						$("#chating")
+								.append(
+										"<p>"
+												+ d.nickName
+												+ "</p>"
+												+ "<div class='message'style='background-color:skyblue'>"
+												+ "<p class='others'>" + d.msg
+												+ "</p>" + "</div>");
 					}
 
 				} else {
@@ -227,14 +244,14 @@
 		// userId는 userName, userName은 nickName으로 변경해야 할 듯
 		var option = {
 			type : "message",
-			userId : $("#username").val(),
+			username : $("#username").val(),
 			nickName : $("#nickName").val(),
 			roomIdx : $("#roomIdx").val(),
 			msg : $("#chatting").val()
 		}
 		$.ajax({
 			type : "POST",
-			url : "/insertMessage",
+			url : "/chatRoomMessage/insertMessage",
 			dataType : "json",
 			data : {
 				"username" : $("#username").val(),
@@ -246,12 +263,15 @@
 
 			}
 		});
-		ws.send(JSON.stringify(option))
+		ws.send(JSON.stringify(option));
 		$('#chatting').val("");
 		scrollToBottom();
 	}
 
 	$(document).ready(function() {
+		
+		wsOpen();
+		
 		$("#chatting").on("input", function() {
 			// 메시지 입력 여부에 따라 전송 버튼을 표시하거나 숨김
 			var msg = $(this).val();
@@ -273,12 +293,12 @@
 
 <body>
 	<div id="container" class="container">
-		<h1>팀 이름 들어가는 곳</h1>
+		<h1>${room.roomName}</h1>
 		<div id="chating" class="chating"></div>
-		<input type="hidden" id="username" value= <sec:authentication property="principal.member.username"/> >
-		<input type="hidden" id="nickName" value= <sec:authentication property="principal.member.nickName"/> >
-		
-		<input type="hidden" id="teamNumber" value=<sec:authentication property="principal.member.teamNumber"/>>
+		<input type="hidden" id="username" value="${member.username}">
+		<input type="hidden" id="nickName" value="${member.nickName }">
+		<input type="hidden" id="roomIdx" value="${room.roomIdx}">
+		<input type="hidden" id="teamNumber" value="${member.teamNumber.teamNumber}">
 
 
 		<div id="yourMsg">
