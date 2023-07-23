@@ -1,12 +1,13 @@
 package com.studycafe.gpt.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -20,19 +21,32 @@ public class ChatGptResponseDto implements Serializable {
 	 * @serial ChatGptResponseDto
 	 */
 	private static final long serialVersionUID = -4518110487040117180L;
-
+	
+	// GPT의 응답을 받아와봅시다
 	private String id;
 	private String object;
-	private LocalDate created;
+	private long created;
 	private String model;
+	private Usage usage;
 	private List<Choice> choices;
 
-	@Builder
-	public ChatGptResponseDto(String id, String object, LocalDate created, String model, List<Choice> choices) {
-		this.id = id;
-		this.object = object;
-		this.created = created;
-		this.model = model;
-		this.choices = choices;
+	@Getter
+	@Setter
+	public static class Usage {
+		@JsonProperty("prompt_tokens")
+		private int promptTokens;
+		@JsonProperty("completion_tokens")
+		private int completionTokens;
+		@JsonProperty("total_tokens")
+		private int totalTokens;
+	}
+
+	@Getter
+	@Setter
+	public static class Choice {
+		private ChatGptMessage message;
+		@JsonProperty("finish_reason")
+		private String finishReason;
+		private int index;
 	}
 }

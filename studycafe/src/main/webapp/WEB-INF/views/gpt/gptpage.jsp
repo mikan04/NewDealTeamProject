@@ -22,8 +22,8 @@
 		<div id="conversation"></div>
 		
 		<form id="userInputForm">
-			<textarea cols="30" rows="3" id="userInput" ></textarea>
-			<button type="submit" onsubmit="startChatGpt()">Send</button>
+			<textarea cols="30" rows="3" id="userInput"></textarea>
+			<button type="submit" id="btn-send">Send</button>
 		</form>
 		
 	</div>
