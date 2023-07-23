@@ -29,9 +29,13 @@ $(document).ready(function() {
 				question: userInput
 			}),
 			success: function(response) {
+				
+				console.log(response);
+				
+				let gptResp = response.choices[0].message.content;
 
 				// gpt 응답내용
-				appendToConversation('<label>ChatGPT</label><br/>' + response.choices[0].text, 'left', 'gptResp');
+				appendToConversation('<label>ChatGPT</label><br/>' + gptResp , 'left', 'gptResp');
 
 			},
 			error: function() {
