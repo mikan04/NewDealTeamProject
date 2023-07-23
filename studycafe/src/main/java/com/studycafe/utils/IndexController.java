@@ -18,6 +18,8 @@ public class IndexController {
 		log.info("메인페이지 접속");
 		
 		if (memberAdaptor != null) {
+			log.info("회원 접속");
+			
 			log.info(memberAdaptor.getUsername());
 			log.info(memberAdaptor.getPassword()); // 시큐리티로 인해 null출력
 			log.info("현재 유저의 권한 : {}" , memberAdaptor.getAuthorities());

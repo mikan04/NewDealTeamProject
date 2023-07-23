@@ -30,7 +30,7 @@
 					<a href="/">사이트이름</a>
 				</div>
 				<ul class="links">
-					<li><a href="#">CharGPT</a></li>
+					<li><a href="/gpt/opengpt" target="_blank">CharGPT</a></li>
 					<li><a href="#" class="desktop-link">스터디</a> <input type="checkbox" id="show-features"> <label for="show-features">스터디</label>
 						<ul>
 							<li><a href="#">스터디모집</a></li>
