@@ -89,10 +89,26 @@
 		</dependency>
 		<!-- jsonSimple-->
 		<dependency>
-		  <groupId>com.googlecode.json-simple</groupId>
-		  <artifactId>json-simple</artifactId>
-		  <version>1.1.1</version>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>io.github.flashvayne</groupId>
+			<artifactId>chatgpt-spring-boot-starter</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+			<version>2.7.13</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
