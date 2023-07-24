@@ -196,7 +196,7 @@
 
 		ws.onmessage = function(data) {
 			//메시지를 받으면 동작
-			// userId를 userName으로 userName을 nickName으로 변경해야 할 듯
+
 			var msg = data.data;
 			if (msg != null && msg.trim() != '') {
 				var d = JSON.parse(msg);
@@ -228,6 +228,7 @@
 					console.warn("unknown type!")
 				}
 			}
+			$("#sendBtn").hide(); 
 			scrollToBottom();
 		}
 		document.addEventListener("keypress", function(e) {
@@ -241,7 +242,7 @@
 	}
 
 	function send() {
-		// userId는 userName, userName은 nickName으로 변경해야 할 듯
+
 		var option = {
 			type : "message",
 			username : $("#username").val(),
