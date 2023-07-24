@@ -1,5 +1,5 @@
 /**
- *  팀 등록 글 작성 js
+ *  팀 등록 글 조회
  */
 // ck에디터
 var myEditor;
@@ -12,12 +12,14 @@ ClassicEditor
 		language: "ko"
 	})
 	.then(editor => {
-		console.log('Editor was initialized', editor);
-		myEditor = editor;
+		const toolbarElement = editor.ui.view.toolbar.element;
+		
+		toolbarElement.style.display = 'none';
+		
+		editor.enableReadOnlyMode('#content');
 	})
 	.catch(error => {
 		console.error(error);
-		alert("2mb 이하의 파일만 업로드 가능합니다.");
 	});
 
 // 이미지 미리보기

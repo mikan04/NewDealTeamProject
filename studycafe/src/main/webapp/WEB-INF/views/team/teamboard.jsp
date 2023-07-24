@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>팀 등록 게시판</title>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="/css/teamboard.css">
 </head>
 <body>
@@ -21,33 +22,24 @@
 				<label>
 					<a href="#">팀등록 게시판</a>
 				</label>
-				<div>
-					<a href="#">할아버지리어카드롭킥 팀 등록 신청합니다</a>
-					<span><font size="2">yyyy-mm-dd</font></span>
-					<br>
-					<span><font size="2">댓글갯수</font></span>
-				</div>
-				<div>
-					<a href="#">임산부석의지배자들 팀 등록 신청해요</a>
-					<span><font size="2">yyyy-mm-dd</font></span>
-					<br>
-					<span><font size="2">댓글갯수</font></span>
-				</div>
-				<div>
-					<a href="#">팀등록 게시글 10개까지...</a>
-					<span><font size="2">yyyy-mm-dd</font></span>
-					<br>
-					<span><font size="2">댓글갯수</font></span>
-				</div>
-				<div>
-					<a href="#">여기 아래로 페이징</a>
-					<span><font size="2">yyyy-mm-dd</font></span>
-					<br>
-					<span><font size="2">댓글갯수</font></span>
-				</div>
+				<c:forEach items="${teamBoardList }" var="list">
+					<div>
+						<a href="${contextPath }/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
+						<span>
+							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd"/></font>
+						</span>
+						<br>
+						<span>
+							<font size="2">댓글갯수</font>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+	<script type="text/javascript">
+		
+	</script>
 </body>
 </html>
