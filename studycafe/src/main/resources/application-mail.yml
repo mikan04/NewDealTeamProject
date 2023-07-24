@@ -1,8 +1,8 @@
 mail:
   host: smtp.gmail.com
   port: 587
-  username: ganglimna2@gmail.com # 앱 비밀번호 발급받은 google 계정
-  password: lbcvhsvhpogkhatu # 앱 비밀번호
+  username: 123 # 앱 비밀번호 발급받은 google 계정
+  password: 123 # 앱 비밀번호
   properties:
     mail:
       smtp:
