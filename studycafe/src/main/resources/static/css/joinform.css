@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.main-wrap {
+	padding-top: 100px;
+	min-height: 80.9%;
+	width: 100%;
+	margin: auto;
+}
+
+table {
+	border-collapse: collapse;
+	margin: auto;
+}
+
+.joininner {
+	
+	margin-left: 100px;
+	
+}
