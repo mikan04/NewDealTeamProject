@@ -7,6 +7,8 @@ import java.util.function.Supplier;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
@@ -22,7 +24,7 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 	@Autowired
 	private TeamBoardRepository teamBoardRepository;
 	
-	// 팀 등록 게시판 리스트 및 페이징
+	// 팀 등록 게시판 리스트
 	@Override
 	public List<TeamBoardDTO> getTeamBoardList() {
 		
@@ -43,6 +45,15 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 		}
 		
 		return teamBoardDTOList;
+	}
+	
+	// 페이징
+	@Override
+	public Page<TeamBoardEntity> getPageList(Pageable pageable) {
+		
+		Page<TeamBoardEntity> pageList = teamBoardRepository.findAll(pageable);
+		
+		return pageList;
 	}
 
 	// 팀 게시글 등록

@@ -36,7 +36,7 @@
 								<a href="/study">스터디모집</a>
 							</li>
 							<li>
-								<a href="${contextPath}/team/teamboard">팀등록</a>
+								<a href="${contextPath}/team/teamboards">팀등록</a>
 							</li>
 							<li>
 								<a href="#">인증게시판</a>

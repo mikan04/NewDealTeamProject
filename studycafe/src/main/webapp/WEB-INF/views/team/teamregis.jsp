@@ -36,19 +36,6 @@
 					<textarea id="content" name="teamBoardContent"></textarea>
 				</div>
 				
-				<!-- 이미지 첨부시 미리보기 -->
-				<!-- <p>
-					<label for="file">첨부파일</label>
-					<input type="file" id="file" name="file" placeholder="파일등록">
-					
-				</p>
-				
-				이미지 임시출력
-				<div class="select_img">
-					<img src="" />
-				</div> -->
-				<!-- //이미지 첨부시 미리보기 -->
-				
 				<button class="regis-btn" type="submit">팀 등록</button>
 			</form>
 		</div>
