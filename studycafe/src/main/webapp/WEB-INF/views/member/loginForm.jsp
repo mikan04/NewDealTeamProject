@@ -111,7 +111,7 @@ li {
 						</div>
 						<div id="kakao_id_login" style="text-align: center">
 							<a href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code"> 
-							<img width="223" src="/img/kakao_login_small.png"/></a>
+							<img width="50" src="/img/kakao_login_small.png"/></a>
 						</div>
 
 					</div>
