@@ -89,3 +89,7 @@ div>a:visited {
 div>a:hover, label>a:hover {
 	color: skyblue;
 }
+
+#team-head[readonly=readonly]{
+	background-color: gray;
+}
