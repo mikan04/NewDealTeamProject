@@ -14,7 +14,7 @@ public class MemberAdaptor extends User{
 	
 	public MemberAdaptor(MemberEntity member) {
 		
-		super(member.getUsername(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));
+		super(member.getUsername(), member.getPassword(),AuthorityUtils.createAuthorityList(member.getRole().toString()));
 		
 		this.member = member;
 	}

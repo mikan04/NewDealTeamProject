@@ -17,18 +17,17 @@ import lombok.Data;
 @Entity
 @Data
 public class ChatRoomEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long roomIdx;
-	
+
 	@NotNull
 	private String roomName;
-	
+
 	@NotNull
 	@OneToOne
-	@JoinColumn(name="teamNumber")
+	@JoinColumn(name = "teamNumber")
 	private TeamEntity teamEntity;
 
-	
 }
