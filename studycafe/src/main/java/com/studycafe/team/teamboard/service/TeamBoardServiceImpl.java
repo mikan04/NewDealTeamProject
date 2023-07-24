@@ -1,12 +1,19 @@
 package com.studycafe.team.teamboard.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.studycafe.team.teamboard.dto.TeamBoardDTO;
 import com.studycafe.team.teamboard.entity.TeamBoardEntity;
 import com.studycafe.team.teamboard.repository.TeamBoardRepository;
-import com.studycafe.utils.file.service.S3Service;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,29 +24,74 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 	@Autowired
 	private TeamBoardRepository teamBoardRepository;
 	
-	@Autowired
-	private S3Service s3Service;
-
-	// 업로드 위치에 따른 S3 경로를 나타내줄 변수
-	private final String path = "team";
+	// 팀 등록 게시판 리스트
+	@Override
+	public List<TeamBoardDTO> getTeamBoardList() {
+		
+		List<TeamBoardEntity> teamBoardList = teamBoardRepository.findAll();
+		List<TeamBoardDTO> teamBoardDTOList = new ArrayList<>();
+		
+		for (TeamBoardEntity boardList : teamBoardList) {
+			TeamBoardDTO teamBoards = TeamBoardDTO.builder()
+					.teamBoardNum(boardList.getTeamBoardNum())
+					.teamBoardTitle(boardList.getTeamBoardTitle())
+					.teamBoardContent(boardList.getTeamBoardContent())
+					.teamBoardWriter(boardList.getTeamBoardWriter())
+					.createDate(boardList.getCreateDate())
+					.build();
+			
+			teamBoardDTOList.add(teamBoards);
+			
+		}
+		
+		return teamBoardDTOList;
+	}
+	
+	// 페이징
+	@Override
+	public Page<TeamBoardEntity> getPageList(Pageable pageable) {
+		
+		Page<TeamBoardEntity> pageList = teamBoardRepository.findAll(pageable);
+		
+		return pageList;
+	}
 
 	// 팀 게시글 등록
 	@Override
-	public void teamBoardRegis(MultipartFile file, TeamBoardEntity teamBoard) {
+	@Transactional
+	public void teamBoardRegis(TeamBoardDTO teamBoardDTO) {
 		
 		log.info("팀 등록 글 작성로직 실행");
-
-		// 업로드가 곧 파일 경로.
-		String fileUrl =  s3Service.saveFile(file, path);
 		
-		teamBoard.setFileUrl(fileUrl);
+		teamBoardRepository.save(teamBoardDTO.sendDataToEntity());
 		
-		log.info("파일 업로드 완료");
-		// 로그에 메소드 자체 넣지 말기
-		log.info("경로 : {}", fileUrl);
+	}
+	
+	// 조회하기
+	@Override
+	@Transactional
+	public TeamBoardDTO getTeamBoardPost(long idx) {
 		
-		teamBoardRepository.save(teamBoard);
+		log.info("{} 번 게시글 조회", idx);
 		
+		TeamBoardEntity teamBoardEntity = teamBoardRepository.findById(idx).orElseThrow(new Supplier<IllegalArgumentException>() {
+			@Override
+			public IllegalArgumentException get() {
+				
+				return new IllegalArgumentException("해당 게시글은 삭제되었거나 존재하지 않는 게시글입니다.");
+			}
+		});
+		
+		TeamBoardDTO teamBoards = TeamBoardDTO.builder()
+				
+				.teamBoardNum(teamBoardEntity.getTeamBoardNum())
+				.teamBoardTitle(teamBoardEntity.getTeamBoardTitle())
+				.teamBoardContent(teamBoardEntity.getTeamBoardContent())
+				.teamBoardWriter(teamBoardEntity.getTeamBoardWriter())
+				.createDate(teamBoardEntity.getCreateDate())
+				.build();
+		
+		return teamBoards;
 	}
 
 }

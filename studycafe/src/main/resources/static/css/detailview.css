@@ -42,14 +42,11 @@ p input[type=text]{
 	padding : 20px;
 	height : 40px;
 	border : 1px solid #e9e9e9;
-}
-
-p input[type=file]{
-	border : none;
+	font-size: 16px;
 }
 
 p input[readonly=readonly]{
-	background-color: #bebebe;
+	background-color: #e9e9e9;
 	pointer-events : none;
 }
 p input[readonly=readonly]:focus{
