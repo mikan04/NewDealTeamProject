@@ -45,6 +45,8 @@ public class S3Service implements S3FileService {
 
 		try {
 			File insertedFile = convertMultiPartToFile(file);
+			
+			log.info("파일 용량은? : {}", file.getBytes());
 
 			// 업로드 된 url에 따라서 S3 경로 다르게, 파일이름 초기화.
 			String insertedFileNameAndPath = "";
