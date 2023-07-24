@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,7 +110,8 @@ li {
 							<input type="submit" value="로그인">
 						</div>
 						<div id="kakao_id_login" style="text-align: center">
-							<a href=""> <img width="223" src="/resources/static/img/kakao_login_small.png"/></a>
+							<a href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code"> 
+							<img width="50" src="/img/kakao_login_small.png"/></a>
 						</div>
 
 					</div>
