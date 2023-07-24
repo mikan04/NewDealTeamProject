@@ -7,24 +7,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>타이틀입력</title>
-
-<link rel="stylesheet" type="text/css" href="/css/admin.css">
-<!-- index.css 복사해다가 jsp파일이랑 이름 똑같이 바꾸고 임포트해주세요. index.css에 따로 추가하거나 바꾸지 말아주세요-->
-
-
+<title>무엇이든 물어보세요!</title>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<!-- jquery cdn 항상 최신버전 유지 찾음 -->
+<link rel="stylesheet" type="text/css" href="${contextPath }/css/gptpage.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
 
-	<div class="main-wrap">
-		<div class="index-ingredient">
-
-			<!-- 여기에서부터 태그 만들어서 작업해주세요 -->
-
+	<div class="gpt-wrap">
+		<div class="gpt-title" align="center">
+			<h1>Chat with ChatGPT</h1>
 		</div>
+		<div id="conversation"></div>
+		
+		<form id="userInputForm">
+			<textarea cols="30" rows="3" id="userInput"></textarea>
+			<button type="submit" id="btn-send">Send</button>
+		</form>
+		
 	</div>
-
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+
+	<script src="${contextPath }/js/gptpage.js"></script>
 </body>
 </html>

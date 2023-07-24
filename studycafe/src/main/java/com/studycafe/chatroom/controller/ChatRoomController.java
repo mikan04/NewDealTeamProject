@@ -19,9 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.studycafe.chatroom.entity.ChatRoomEntity;
 import com.studycafe.chatroom.service.ChatRoomServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 /* 채팅방 컨트롤러 */
 
+@Slf4j
 @Controller
 @RequestMapping("/chatRoom/*")
 public class ChatRoomController {
@@ -60,15 +63,16 @@ public class ChatRoomController {
 	}
 
 	/* 채팅방 */
-//	@GetMapping("/moveChating")
-	public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
+	@GetMapping("/moveChating")
+	public ModelAndView chating(@RequestParam("teamNumber")Long teamNumber) {
 		ModelAndView mv = new ModelAndView();
-		Long teamNumber = Long.parseLong((String) params.get("teamNumber"));
-		ChatRoomEntity new_list = RoomService.findRoom(teamNumber);
-	if (new_list.getRoomIdx() != null && new_list.getRoomName() != null) {
-			mv.addObject("roomIdx", params.get("roomIdx"));
-			mv.addObject("roomName", params.get("roomName"));
-			mv.setViewName("chatRoom/chat");
+		log.info("teamNumber : {}",teamNumber);
+		ChatRoomEntity room = RoomService.findRoom(teamNumber);
+		log.info("룸:{}",room);
+	if (room.getRoomIdx() != null && room.getRoomName() != null && room.getTeamEntity() != null) {
+			mv.addObject("roomIdx", room.getRoomIdx());
+			mv.addObject("room",room);
+			mv.setViewName("chatroom/chat");
 		} else {
 			mv.setViewName("/");
 		}
