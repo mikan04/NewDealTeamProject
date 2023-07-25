@@ -1,7 +1,5 @@
 package com.studycafe.team.teamboard.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
@@ -20,77 +18,54 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class TeamBoardServiceImpl implements TeamBoardService {
-	
+
 	@Autowired
 	private TeamBoardRepository teamBoardRepository;
-	
+
 	// 팀 등록 게시판 리스트
 	@Override
-	public List<TeamBoardDTO> getTeamBoardList() {
+	public Page<TeamBoardDTO> getTeamBoardList(Pageable pageable) {
 		
-		List<TeamBoardEntity> teamBoardList = teamBoardRepository.findAll();
-		List<TeamBoardDTO> teamBoardDTOList = new ArrayList<>();
-		
-		for (TeamBoardEntity boardList : teamBoardList) {
-			TeamBoardDTO teamBoards = TeamBoardDTO.builder()
-					.teamBoardNum(boardList.getTeamBoardNum())
-					.teamBoardTitle(boardList.getTeamBoardTitle())
-					.teamBoardContent(boardList.getTeamBoardContent())
-					.teamBoardWriter(boardList.getTeamBoardWriter())
-					.createDate(boardList.getCreateDate())
-					.build();
-			
-			teamBoardDTOList.add(teamBoards);
-			
-		}
-		
-		return teamBoardDTOList;
-	}
-	
-	// 페이징
-	@Override
-	public Page<TeamBoardEntity> getPageList(Pageable pageable) {
-		
-		Page<TeamBoardEntity> pageList = teamBoardRepository.findAll(pageable);
-		
-		return pageList;
+		Page<TeamBoardEntity> boardList = teamBoardRepository.findAll(pageable);
+        
+        return new TeamBoardDTO().toDtoList(boardList);
+        
 	}
 
 	// 팀 게시글 등록
 	@Override
 	@Transactional
-	public void teamBoardRegis(TeamBoardDTO teamBoardDTO) {
-		
+	public Long teamBoardRegis(TeamBoardDTO teamBoardDTO) {
+
 		log.info("팀 등록 글 작성로직 실행");
-		
-		teamBoardRepository.save(teamBoardDTO.sendDataToEntity());
-		
+
+		return teamBoardRepository.save(teamBoardDTO.sendDataToEntity()).getTeamBoardNum();
+
 	}
-	
+
 	// 조회하기
 	@Override
 	@Transactional
 	public TeamBoardDTO getTeamBoardPost(long idx) {
-		
+
 		log.info("{} 번 게시글 조회", idx);
-		
-		TeamBoardEntity teamBoardEntity = teamBoardRepository.findById(idx).orElseThrow(new Supplier<IllegalArgumentException>() {
-			@Override
-			public IllegalArgumentException get() {
-				
-				return new IllegalArgumentException("해당 게시글은 삭제되었거나 존재하지 않는 게시글입니다.");
-			}
-		});
-		
+
+		TeamBoardEntity teamBoardEntity = teamBoardRepository.findById(idx)
+				.orElseThrow(new Supplier<IllegalArgumentException>() {
+					@Override
+					public IllegalArgumentException get() {
+
+						return new IllegalArgumentException("해당 게시글은 삭제되었거나 존재하지 않는 게시글입니다.");
+					}
+				});
+
 		TeamBoardDTO teamBoards = TeamBoardDTO.builder()
-				
-				.teamBoardNum(teamBoardEntity.getTeamBoardNum())
-				.teamBoardTitle(teamBoardEntity.getTeamBoardTitle())
+
+				.teamBoardNum(teamBoardEntity.getTeamBoardNum()).teamBoardTitle(teamBoardEntity.getTeamBoardTitle())
 				.teamBoardContent(teamBoardEntity.getTeamBoardContent())
-				.teamBoardWriter(teamBoardEntity.getTeamBoardWriter())
-				.createDate(teamBoardEntity.getCreateDate())
+				.teamBoardWriter(teamBoardEntity.getTeamBoardWriter()).createDate(teamBoardEntity.getCreateDate())
 				.build();
-		
+
 		return teamBoards;
 	}
 

@@ -23,7 +23,7 @@
 			<form action="/studyregistrationpro" name="studyregistration_form" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="studytitle">제목</label>
-					<input type="text" id="studytitle" name="studytitle" value="" placeholder="제목 입력">
+					<input type="text" id="studyTitle" name="studyTitle" value="" placeholder="제목 입력">
 				</p>
 
 				<p>
@@ -33,7 +33,7 @@
 
 				<div>
 					<label for="studyContent">내용</label>
-					<textarea id="studyContent" name="studyContent"></textarea>
+					<textarea id="studyContent" name="studyContent" style="outline: none;"></textarea>
 				</div>
 				
 				<!-- 이미지 첨부시 미리보기 -->
@@ -51,7 +51,7 @@
 				
 				<p>
 					<label for="address_name">지번 주소</label>
-					<input type="text" id="address_name" name="address_name" readonly="readonly">
+					<input type="text" id="address_name" name="address_name" readonly="readonly" placeholder="지도를 클릭해주세요.">
 				</p>
 				
 				<!--  도로명 주소 -->
@@ -82,7 +82,7 @@
 					<label for="reserve">예약 날짜</label>
 					<input type="date" id="reserve" name="reserve" onchange="selectDateHandler(this.value)">
 					<!-- action="action_page.php?reserve=2023-06-16" -->
-					<button type="button" class="reserve_btn" onclick="location.href='action_page.php?' + $('#reserve').val()">조회</button>
+					<button type="button" class="btn btn-dark" id="reserveBtn" onclick="location.href='action_page.php?' + $('#reserve').val()">조회</button>
 				</p>
 					
 				<div class="reserve-info">
@@ -119,7 +119,7 @@
 				<!-- hidden 데이터 -->
 				<input type="hidden" id="latitude" name="latitude">
 				<input type="hidden" id="longitude" name="longitude">
-				<button class="regis-btn" type="button" onclick="regis_check();">등록</button>
+				<button class="btn btn-dark" id="registerBtn" type="button" onclick="regis_check();">등록</button>
 			</form>
 		</div>
 	</div>

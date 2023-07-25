@@ -11,10 +11,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 
-	 @Value("${spring.mail.host}")
+	@Value("${spring.mail.host}")
 	private String host;
 
-	 @Value("${spring.mail.port}")
+	@Value("${spring.mail.port}")
 	private int port;
 
 	@Value("${spring.mail.username}")
@@ -35,6 +35,7 @@ public class MailConfig {
 		Properties props = mailSender.getJavaMailProperties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
+		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
 
 		return mailSender;
 
