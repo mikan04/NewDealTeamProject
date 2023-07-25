@@ -23,34 +23,34 @@ import lombok.Data;
 public class StudyEntity {
 	
 	@Id
-	//@NotNull
+	// @NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int studyNum; // 스터디 게시글 번호
 	
-	//@NotNull
+	// @NotNull
 	private String studyContent; // 게시글 내용
 	
-	//@NotNull
+	// @NotNull
 	@Column(columnDefinition = "TEXT", length = 20)
 	private String studyWriter; // 게시글 작성자
 	
-	//@NotNull
+	// @NotNull
 	@Column(length = 50)
 	private String studyTitle; // 게시글 제목
 	
 	@Column(length = 500)
 	private String studyFilePath; // 파일 첨부 경로
 	
-	//@NotNull
+	// @NotNull
 	private double latitude; // 카카오 맵 위도
 	
-	//@NotNull
+	// @NotNull
 	private double longitude; // 카카오 맵 경도
 	
-	@NotNull
+	// @NotNull
 	private LocalDate reserveDate; // 예약 날짜
 	
-	@NotNull
+	// @NotNull
 	private LocalDateTime reserveTime; // 예약 시간
 
 	@CreatedDate

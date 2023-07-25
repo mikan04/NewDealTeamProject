@@ -3,6 +3,16 @@
 body {
     text-align: center;
 }
+
+#registerBtn {
+	float: right;
+	height: 40px;
+}
+
+.main-wrap {
+	min-height: calc(100% - 200px);
+}
+
 #pagination {
     margin-top: 20px;
 }
@@ -14,7 +24,7 @@ body {
     cursor: pointer;
 }
 .current-page {
-    background-color: #007bff;
+    background-color: #555555;
     color: #fff;
 }
 
