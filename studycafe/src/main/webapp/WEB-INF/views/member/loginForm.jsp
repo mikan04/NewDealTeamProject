@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@ li {
 					<div>
 						<ul>
 							<!-- <li>아직 이음 아이디가 없다면</li> -->
-							<li><a href="/joinform">회원가입 바로가기</a></li>
+							<li><a href="${contextPath}/joinform">회원가입 바로가기</a></li>
 						</ul>
 
 					</div>
