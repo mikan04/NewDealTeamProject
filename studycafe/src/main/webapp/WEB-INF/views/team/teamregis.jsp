@@ -20,10 +20,11 @@
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
+
 			<form action="/team/teamregis" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="team-title">제목</label>
-					<input type="text" id="team-title" name="teamBoardTitle" value="" placeholder="제목 입력">
+					<input type="text" id="team-title" name="teamBoardTitle" placeholder="제목 입력">
 				</p>
 
 				<p>
@@ -35,8 +36,8 @@
 					<label for="content">내용</label>
 					<textarea id="content" name="teamBoardContent"></textarea>
 				</div>
-				
-				<button class="regis-btn" type="submit">팀 등록</button>
+				<button class="regis-btn">팀 등록</button>
+
 			</form>
 		</div>
 	</div>

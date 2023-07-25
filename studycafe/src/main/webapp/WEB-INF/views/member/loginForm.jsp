@@ -88,7 +88,7 @@ li {
 					<div>
 						<ul>
 							<!-- <li>아직 이음 아이디가 없다면</li> -->
-							<li><a href="joinForm">회원가입 바로가기</a></li>
+							<li><a href="/joinform">회원가입 바로가기</a></li>
 						</ul>
 
 					</div>

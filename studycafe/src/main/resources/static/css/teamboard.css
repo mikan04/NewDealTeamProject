@@ -14,7 +14,6 @@
 	flex-direction: column;
 	/* border : 1px solid #e9e9e9; */
 	border-radius: 10px;
-	margin-bottom: 100px;
 }
 
 .index div {
@@ -42,12 +41,13 @@
 .index-ingredient {
 	display: flex;
 	flex-direction: column;
+	flex-basis : auto;
 	margin: auto;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-content: center;
 	width: 100%;
-	row-gap: 3em;
+
 }
 
 .team-regist-div .team-regist {
@@ -76,6 +76,19 @@
 	margin-bottom: 5px;
 	font-size: 24px;
 	font-weight: 600;
+}
+.board-content{
+	height : 500px;
+}
+
+.pagination{
+	display: block;
+	margin-bottom: 50px;
+	margin-top: 50px;
+	
+}
+.pagination span{
+	margin : 0 10px;
 }
 
 label>a:visited {
