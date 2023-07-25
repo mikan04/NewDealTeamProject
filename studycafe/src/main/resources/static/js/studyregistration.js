@@ -13,7 +13,7 @@ function preventSubmit(event) {
 
 // 유효성 검사
 function regis_check() {
-	var studytitle = $('#studytitle');
+	var studytitle = $('#studyTitle');
 	var studyContent = myEditor.getData();
 	var address_name = $('#address_name');
 	var reserve = $('#reserve');
