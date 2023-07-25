@@ -6,11 +6,8 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import com.studycafe.utils.config.MailConfig;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,10 +29,10 @@ public class EmailService {
 
 			switch (index) {
 			case 0:
-				key.append((char) ((int) random.nextInt(26) + 97));
+				key.append((char) (random.nextInt(26) + 97));
 				break;
 			case 1:
-				key.append((char) ((int) random.nextInt(26) + 65));
+				key.append((char) (random.nextInt(26) + 65));
 				break;
 			case 2:
 				key.append(random.nextInt(9));

@@ -1,7 +1,5 @@
 package com.studycafe.member.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,6 @@ public class MemberServiceImpl implements MemberService {
 	private MemberAddressRepository memberAddRe;
 
 	@Override
-	@Transactional
 	public int insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity) {
 
 		try {
