@@ -29,7 +29,7 @@ public class MemberEntity {
 	@Column(length = 300)
 	private String password;
 	
-	@NotNull
+	@ColumnDefault("'ROLE_MEMBER'")
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
