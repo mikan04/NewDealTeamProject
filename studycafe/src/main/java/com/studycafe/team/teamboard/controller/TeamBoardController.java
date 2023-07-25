@@ -1,7 +1,5 @@
 package com.studycafe.team.teamboard.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
-import com.studycafe.team.teamboard.entity.TeamBoardEntity;
+import com.studycafe.team.teamboard.dto.TeamBoardPageDTO;
 import com.studycafe.team.teamboard.service.TeamBoardService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,25 +24,28 @@ public class TeamBoardController {
 	@Autowired
 	private TeamBoardService teamBoardService;
 
-	// 게시판 접속 및 게시글 리스트 불러오기
+	// 게시판 접속 및 게시글 리스트 불러오기 및 페이징
 	@GetMapping("/team/teamboards")
-	public String teamList(@PageableDefault(size = 3, sort="teamBoardNum", direction = Sort.Direction.DESC) Pageable pageable , Model model) {
+	public String teamList(
+			@PageableDefault(page = 0, size = 10, sort = "teamBoardNum", direction = Sort.Direction.DESC)
+			Pageable pageable,
+			TeamBoardPageDTO teamBoardPage,
+			Model model) {
+		
 		log.info("팀 등록 게시판 접속");
-
-		model.addAttribute("teamBoardList", teamBoardService.getTeamBoardList());
+		
+		// 게시글 리스트
+		Page<TeamBoardDTO> teamBoardDTOList = teamBoardService.getTeamBoardList(pageable);
+		
+		// 페이징 로직
+		TeamBoardPageDTO page = teamBoardPage.convertPageDTO(teamBoardDTOList);
+		
+		page.paging();
+	
+		model.addAttribute("teamBoardList", teamBoardDTOList);
+		model.addAttribute("page", page);
 
 		return "/team/teamboard";
-	}
-	
-	// 페이징
-	@GetMapping("/team/teamboard/page")
-	public List<TeamBoardEntity> pageList(@PageableDefault(size = 3, sort="teamBoardNum", direction = Sort.Direction.DESC) Pageable pageable){
-		
-		Page<TeamBoardEntity> contentPaging = teamBoardService.getPageList(pageable);
-		
-		List<TeamBoardEntity> boardContent = contentPaging.getContent();
-		
-		return boardContent;
 	}
 
 	// 글등록 페이지
@@ -57,13 +58,13 @@ public class TeamBoardController {
 
 	// 글 등록 로직
 	@PostMapping("/team/teamregis")
-	public String teamRegist(TeamBoardDTO teamBoardDTO) {
-		
-		log.info("팀 등록 실행");
+	public String teamRegist(TeamBoardDTO teamBoardDTO) {	
+
+		log.info("뭔가이상함 : {}", teamBoardDTO);
 		
 		teamBoardService.teamBoardRegis(teamBoardDTO);
 
-		return "redirect:/team/teamboard";
+		return "redirect:/team/teamboards";
 	}
 
 	// 글 조회

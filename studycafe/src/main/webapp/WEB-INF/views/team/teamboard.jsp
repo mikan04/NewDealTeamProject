@@ -13,6 +13,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
+
 	<div class="main-wrap">
 		<div class="index-ingredient">
 			<div class="index main-regteam">
@@ -22,11 +23,11 @@
 				<label>
 					<a href="#">팀등록 게시판</a>
 				</label>
-				<c:forEach items="${teamBoardList }" var="list">
+				<c:forEach items="${teamBoardList.content }" var="list">
 					<div>
 						<a href="${contextPath }/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
 						<span>
-							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd"/></font>
+							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd" /></font>
 						</span>
 						<br>
 						<span>
@@ -36,7 +37,49 @@
 				</c:forEach>
 			</div>
 		</div>
+		<div>
+			<!-- 페이징 -->
+			<p class="pagination" align="center">
+
+				<!-- first -->
+				<c:if test="${page.first == false }">
+					<span>
+						<a class="page-link" href="?page=0">처음</a>
+					</span>
+				</c:if>
+
+				<!-- prev -->
+				<c:if test="${page.previous == true }">
+					<span>
+						<a class="page-link" href="?page=${page.number-page.totalPagesInEachScreen}">이전</a>
+					</span>
+				</c:if>
+
+				<!-- paging -->
+				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
+					<span class="page-item">
+						<a class="page-link" href="?page=${i-1}">${i}</a>
+					</span>
+				</c:forEach>
+
+				<!-- next -->
+				<c:if test="${page.next == true }">
+					<span>
+						<a class="page-link" href="?page=${page.number + page.totalPagesInEachScreen }">다음</a>
+					</span>
+				</c:if>
+
+				<!-- last -->
+				<c:if test="${page.last == false }">
+					<span>
+						<a class="page-link" href="?page=${page.totalPages-1 }">마지막</a>
+					</span>
+				</c:if>
+
+			</p>
+		</div>
 	</div>
+
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 	<script type="text/javascript">
 		

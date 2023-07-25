@@ -75,7 +75,7 @@ public class StudyController {
 		System.out.println(studyEntity);
 		
 		studyService.studyInsert(studyEntity); // 게시글 저장
-		return "/study/studylist";
+		return "redirect:/study";
 	}
 	
 	// 스터디 모집 게시물 열람

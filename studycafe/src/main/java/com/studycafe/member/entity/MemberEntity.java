@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import com.studycafe.team.entity.TeamEntity;
 
 import lombok.Data;
@@ -29,7 +27,7 @@ public class MemberEntity {
 	@Column(length = 300)
 	private String password;
 	
-	@ColumnDefault("'ROLE_MEMBER'")
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
@@ -46,8 +44,6 @@ public class MemberEntity {
 	@Column(length= 10)
 	private String name;
 	
-//	@NotNull
-	@ColumnDefault("0")
 	private int emailAuth; // 이메일 인증여부 필드, 0 = false, 1 = true, nullable, default = 0.
 	
 	/**
