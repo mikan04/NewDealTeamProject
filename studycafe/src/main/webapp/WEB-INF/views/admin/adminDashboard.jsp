@@ -34,25 +34,25 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                     <div class="container">
                       <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="donught-1" aria-label="chart"></canvas>
+                          <canvas id="home-donught-1" aria-label="chart"></canvas>
                           <div class="donught-legend text-center">
                             팀 점수 랭킹
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="donught-2" aria-label="chart"></canvas>
+                          <canvas id="home-donught-2" aria-label="chart"></canvas>
                           <div class="donught-legend text-center">
                             인증 점수 랭킹
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="donught-3" aria-label="chart"></canvas>
+                          <canvas id="home-donught-3" aria-label="chart"></canvas>
                           <div class="donught-legend text-center">
                             트래픽 증가
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="donught-4" aria-label="chart"></canvas>
+                          <canvas id="home-donught-4" aria-label="chart"></canvas>
                           <div class="donught-legend text-center">
                             유저 증가
                           </div>
@@ -64,14 +64,14 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 <div class="row">
                   <div class="col">
                     <div class="team-register-graph">
-                      <canvas id="line-1" aria-label="chart"></canvas>
+                      <canvas id="home-line-1" aria-label="chart"></canvas>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
                     <div class="team-register-graph">
-                      <canvas id="line-2" aria-label="chart"></canvas>
+                      <canvas id="home-line-2" aria-label="chart"></canvas>
                     </div>
                   </div>
                 </div>
@@ -88,5 +88,6 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/admin.js"></script>
   </body>
 </html>

@@ -27,6 +27,7 @@ public class AdminController {
 	// 관리자 유저 관리 페이지
 	@GetMapping("/admin/user")
 	public String adminUser() {
+		
 		return "/admin/adminUser";
 	}
 
