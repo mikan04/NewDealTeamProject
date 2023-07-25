@@ -7,7 +7,10 @@ import com.studycafe.member.entity.MemberEntity;
 
 @Service
 public interface MemberService {
-	
-	public void insertMember(MemberEntity member, MemberAddressEntity address);
-	
+
+	public int insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity);
+
+	public boolean idCheck(String username);
+
+	public boolean nickCheck(String nickName);
 }
