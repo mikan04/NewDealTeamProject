@@ -6,5 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.studycafe.member.entity.MemberEntity;
 
 @Repository
-public interface MemberRepository extends JpaRepository<MemberEntity, String> {}
- 
+public interface MemberRepository extends JpaRepository<MemberEntity, String> {
+
+	public MemberEntity findByNickName(String nickName);
+
+}
