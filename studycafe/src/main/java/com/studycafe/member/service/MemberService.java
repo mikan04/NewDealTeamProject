@@ -13,4 +13,6 @@ public interface MemberService {
 	public boolean idCheck(String username);
 
 	public boolean nickCheck(String nickName);
+	
+	public int getNewMemberCount();
 }

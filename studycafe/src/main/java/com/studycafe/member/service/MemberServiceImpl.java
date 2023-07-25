@@ -79,4 +79,10 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	}
 
+	@Override
+	public int getNewMemberCount() {
+		// TODO Auto-generated method stub
+		return memRe.findNewUser();
+	}
+
 }

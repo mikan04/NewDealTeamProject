@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
@@ -27,6 +28,12 @@ public class TeamEntity {
 	
 	@NotNull
 	private String teamHead;
+	
+	@ColumnDefault("0")
+	private int point; 
+	
+	@ColumnDefault("0")
+	private int approveCount; 
 	
 	@NotNull
 	@CreationTimestamp

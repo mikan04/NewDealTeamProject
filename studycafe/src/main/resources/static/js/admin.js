@@ -51,9 +51,39 @@ function createChart(el, type, data, options) {
   });
 }
 
+function createHTTPRequest(url) {
+  let httpRequest = new XMLHttpRequest();
+  let result;
+  if (!httpRequest) {
+    console.error("ajax 요청을 만드는데 실패하였습니다.");
+    return false;
+  }
+
+  httpRequest.onreadystatechange = function () {
+    try {
+      if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (this.readyState == 4 && httpRequest.status === 200) {
+          result = httpRequest.responseText;
+        } else {
+          alert("httpRequest 요청에 문제가 있습니다.");
+        }
+      }
+    } catch (e) {
+      alert(`Caught Exception: ${e.description}`);
+    }
+  };
+
+  httpRequest.open("GET", url, false);
+  httpRequest.send();
+  return result;
+}
+
 function renderDashboard() {
   // 대쉬보드 차트 설정
   const chrt1 = document.getElementById("home-donught-1").getContext("2d");
+
+  const dashboard_data = createHTTPRequest("/admin/api/dashboard");
+
   const chrt1_data = {
     labels: ["팀1", "팀2", "팀3", "팀4", "팀5", "팀6"],
     datasets: [

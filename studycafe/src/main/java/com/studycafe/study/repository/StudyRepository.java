@@ -1,6 +1,7 @@
 package com.studycafe.study.repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -16,9 +17,18 @@ import com.studycafe.study.entity.StudyEntity;
 public interface StudyRepository extends JpaRepository<StudyEntity, Integer> {
 
 	Page<StudyEntity> findBystudyTitleContaining(String keyword, Pageable pageable);
-	
-	@Query(value="SELECT * FROM study_entity WHERE longitude= :longitude and latitude= :latitude and reserve_date= :date", nativeQuery = true)
-	List<StudyEntity> findByMap(@Param("longitude") int longitude, @Param("latitude") int latitude , @Param("date") LocalDate date);
-	
-	
+
+	@Query(value = "SELECT * FROM study_entity WHERE longitude= :longitude and latitude= :latitude and reserve_date= :date", nativeQuery = true)
+	List<StudyEntity> findByMap(@Param("longitude") int longitude, @Param("latitude") int latitude,
+			@Param("date") LocalDate date);
+
+	@Query(value = "SELECT COUNT(*) FROM study_entity WHERE reserve_date >= NOW() + INTERVAL 1 DAY", nativeQuery = true)
+	int findStudyReserve();
+
+	@Query(value = "SELECT COUNT(*) FROM study_entity WHERE CAST(reserveDate AS DATE) = CAST(GETDATE() AS DATE) and reserve_time := time", nativeQuery = true)
+	int findStudyProg(@Param("time") LocalDateTime reserveTime);
+
+	@Query(value = "SELECT COUNT(*) FROM study_entity WHERE reserve_date <= NOW() - INTERVAL 1 DAY AND reserve_date >= NOW() - INTERVAL 5 DAY", nativeQuery = true)
+	int findStudyDone();
+
 }
