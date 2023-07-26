@@ -10,7 +10,7 @@ function loadPosts(keyword, page) {
 		};
 		
 	$.ajax({
-		url: "/studyAjax"
+		url: "/studylist"
 		, contentType : "charset=UTF-8" 
 		, type : 'GET'
 		, data : paramData 

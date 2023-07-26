@@ -43,9 +43,7 @@ public class MemberApiController {
 		
 		// 로그인한 아이디 Code 값을 받아온다.
 	    String accessToken = getAccessToken(code);
-	    
-	    System.out.println("최종 : " + accessToken);
-	    
+
 		return ResponseEntity.ok(accessToken);
 	}
 	
