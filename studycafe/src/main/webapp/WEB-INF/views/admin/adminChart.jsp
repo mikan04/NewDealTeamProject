@@ -27,7 +27,64 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
               page="/WEB-INF/views/pageingredient/adminSidebar.jsp"
             ></jsp:include>
 
-            <div class="main-content col-xs col-md col-lg"></div>
+            <div class="main-content col col-xs col-sm col-md col-lg">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="container">
+                      <div class="row">
+                        <div
+                          class="col-xs-12 col-sm-6 col-md-3 mt-4 chart-data"
+                        >
+                          <canvas id="donught-1" aria-label="chart"></canvas>
+                          <div class="donught-legend text-center">
+                            팀 점수 랭킹
+                          </div>
+                        </div>
+                        <div
+                          class="col-xs-12 col-sm-6 col-md-3 mt-4 chart-data"
+                        >
+                          <canvas id="donught-2" aria-label="chart"></canvas>
+                          <div class="donught-legend text-center">
+                            인증 점수 랭킹
+                          </div>
+                        </div>
+                        <div
+                          class="col-xs-12 col-sm-6 col-md-3 mt-4 chart-data"
+                        >
+                          <canvas id="donught-3" aria-label="chart"></canvas>
+                          <div class="donught-legend text-center">
+                            트래픽 증가
+                          </div>
+                        </div>
+                        <div
+                          class="col-xs-12 col-sm-6 col-md-3 mt-4 chart-data"
+                        >
+                          <canvas id="donught-4" aria-label="chart"></canvas>
+                          <div class="donught-legend text-center">
+                            유저 증가
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="team-register-graph">
+                      <canvas id="line-1" aria-label="chart"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="team-register-graph">
+                      <canvas id="line-2" aria-label="chart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
