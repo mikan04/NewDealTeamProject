@@ -48,7 +48,7 @@ public class MemberController {
 
 	@PostMapping("/joinPro")
 	@ResponseBody
-	public int joinPro(@RequestBody JoinVO joinVO, HttpServletRequest request) {
+	public boolean joinPro(@RequestBody JoinVO joinVO, HttpServletRequest request) {
 
 		MemberEntity memberEntity = joinVO.getMemberEntity();
 		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
@@ -58,7 +58,7 @@ public class MemberController {
 
 		memberEntity.setPassword(encPassword);
 		memberEntity.setRole(Role.ROLE_MEMBER);
-		int insert = memberService.insertMember(memberEntity, memberAddressEntity);
+		boolean insert = memberService.insertMember(memberEntity, memberAddressEntity);
 
 		log.info("가입한 회원의 정보 : {}", memberEntity);
 		log.info("가입한 회원의 주소 : {}", memberAddressEntity);
