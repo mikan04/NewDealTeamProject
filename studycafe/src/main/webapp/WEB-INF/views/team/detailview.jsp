@@ -7,42 +7,46 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팀 등록 글 작성</title>
+<title>${teamPost.teamBoardTitle }</title>
+<link rel="stylesheet" type="text/css" href="/css/detailview.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-
-<link rel="stylesheet" href="/css/teamregis.css">
-
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
-
-			<form action="/team/teamregis" method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data">
 				<p>
 					<label for="team-title">제목</label>
-					<input type="text" id="team-title" name="teamBoardTitle" placeholder="제목 입력">
+					<input type="text" id="team-title" name="teamBoardTitle" value="${teamPost.teamBoardTitle }" readonly="readonly">
 				</p>
 
 				<p>
 					<label for="team-head">작성자(팀장)</label>
-					<input type="text" id="team-head" name="teamBoardWriter" value="imsitestwriter" readonly="readonly">
+					<input type="text" id="team-head" name="teamBoardWriter" value="${teamPost.teamBoardWriter }" readonly="readonly">
+				</p>
+				
+				<p>
+					<label for="team-head">작성날짜</label>
+					<input type="text" id="team-head" name="teamBoardWriter"
+					value=${teamPost.createDate } readonly="readonly">
 				</p>
 
 				<div>
 					<label for="content">내용</label>
-					<textarea id="content" name="teamBoardContent"></textarea>
+					<textarea id="content" name="teamBoardContent" readonly="readonly">
+						${teamPost.teamBoardContent }
+					</textarea>
 				</div>
-				<button class="regis-btn">팀 등록</button>
-
 			</form>
+
 		</div>
 	</div>
 
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
-	<script src="/js/teamregis.js"></script>
+	<script src="/js/detailview.js"></script>
 </body>
 </html>

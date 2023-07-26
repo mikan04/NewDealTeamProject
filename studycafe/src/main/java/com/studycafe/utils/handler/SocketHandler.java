@@ -1,4 +1,4 @@
-package com.studycafe.chatroom.handler;
+package com.studycafe.utils.handler;
 
 import java.util.HashMap;
 

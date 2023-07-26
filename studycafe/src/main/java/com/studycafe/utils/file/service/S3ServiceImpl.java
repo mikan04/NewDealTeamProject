@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class S3Service implements S3FileService {
+public class S3ServiceImpl implements S3FileService {
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucketName;
@@ -32,7 +32,7 @@ public class S3Service implements S3FileService {
 
 	private final AmazonS3 s3;
 
-	public S3Service(AmazonS3 s3) {
+	public S3ServiceImpl(AmazonS3 s3) {
 		this.s3 = s3;
 	}
 

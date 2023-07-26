@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.main-wrap {
+	min-height: calc(100% - 200px);
+	padding-top: 100px;
+}
