@@ -27,32 +27,48 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
               page="/WEB-INF/views/pageingredient/adminSidebar.jsp"
             ></jsp:include>
 
-            <div class="main-content col col-xs col-sm col-md col-lg">
+            <div class="main-content col col-md-10">
               <div class="container">
                 <div class="row">
                   <div class="col">
                     <div class="container">
                       <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="home-donught-1" aria-label="chart"></canvas>
+                          <canvas
+                            id="home-donught-1"
+                            class="donught"
+                            aria-label="chart"
+                          ></canvas>
                           <div class="donught-legend text-center">
                             팀 점수 랭킹
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="home-donught-2" aria-label="chart"></canvas>
+                          <canvas
+                            id="home-donught-2"
+                            class="donught"
+                            aria-label="chart"
+                          ></canvas>
                           <div class="donught-legend text-center">
                             인증 점수 랭킹
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="home-donught-3" aria-label="chart"></canvas>
+                          <canvas
+                            id="home-donught-3"
+                            class="donught"
+                            aria-label="chart"
+                          ></canvas>
                           <div class="donught-legend text-center">
                             트래픽 증가
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
-                          <canvas id="home-donught-4" aria-label="chart"></canvas>
+                          <canvas
+                            id="home-donught-4"
+                            class="donught"
+                            aria-label="chart"
+                          ></canvas>
                           <div class="donught-legend text-center">
                             유저 증가
                           </div>
@@ -64,14 +80,22 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 <div class="row">
                   <div class="col">
                     <div class="team-register-graph">
-                      <canvas id="home-line-1" aria-label="chart"></canvas>
+                      <canvas
+                        id="home-line-1"
+                        class="line"
+                        aria-label="chart"
+                      ></canvas>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
                     <div class="team-register-graph">
-                      <canvas id="home-line-2" aria-label="chart"></canvas>
+                      <canvas
+                        id="home-line-2"
+                        class="line"
+                        aria-label="chart"
+                      ></canvas>
                     </div>
                   </div>
                 </div>

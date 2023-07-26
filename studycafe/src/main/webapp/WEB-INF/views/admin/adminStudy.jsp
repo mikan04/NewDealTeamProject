@@ -57,7 +57,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 </div>
                 <div class="row my-5">
                   <div class="col">
-                    <div class="study-table">
+                    <div class="admin-table">
                       <label class="study-label-1" for="study-table-1"
                         >전체 스터디</label
                       >

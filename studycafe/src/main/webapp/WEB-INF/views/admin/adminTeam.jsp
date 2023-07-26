@@ -64,7 +64,9 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                             id="team-donught-3"
                             aria-label="chart"
                           ></canvas>
-                          <div class="donught-legend text-center">새로운 팀</div>
+                          <div class="donught-legend text-center">
+                            새로운 팀
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -72,16 +74,20 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 </div>
                 <div class="row my-5">
                   <div class="col">
-                    <div class="team-table">
-                      <label class="team-label-1" for="team-table-1">전체 팀</label>
+                    <div class="admin-table">
+                      <label class="team-label-1" for="team-table-1"
+                        >전체 팀</label
+                      >
                       <div id="team-table-1" aria-label="table"></div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="team-register-graph">
-                      <label class="team-label-1" for="team-table-1">팀 신청</label>
+                    <div class="admin-table">
+                      <label class="team-label-1" for="team-table-1"
+                        >팀 신청</label
+                      >
                       <div id="team-table-2" aria-label="table"></div>
                     </div>
                   </div>

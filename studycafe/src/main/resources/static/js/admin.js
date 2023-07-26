@@ -29,6 +29,7 @@ const DEFAULT_CHART_OPTIONS = {
 
 const DEFAULT_TABLE_OPTIONS = {
   minHeight: 300,
+  maxWidth: 400,
   layout: "fitColumns",
   responsiveLayout: "hide",
   history: true,
@@ -36,6 +37,9 @@ const DEFAULT_TABLE_OPTIONS = {
   paginationSize: 10,
   paginationCounter: "rows",
   movableColumns: true,
+  columnDefaults: {
+    tooltip: true,
+  },
 };
 
 // function transparentize(color, opacity) {
@@ -65,7 +69,7 @@ function createHTTPRequest(url) {
         if (this.readyState == 4 && httpRequest.status === 200) {
           result = httpRequest.responseText;
         } else {
-          alert("httpRequest 요청에 문제가 있습니다.");
+          console.error("httpRequest 요청에 문제가 있습니다.");
         }
       }
     } catch (e) {
@@ -83,6 +87,7 @@ function renderDashboard() {
   const chrt1 = document.getElementById("home-donught-1").getContext("2d");
 
   const dashboard_data = createHTTPRequest("/admin/api/dashboard");
+  console.log(JSON.parse(dashboard_data));
 
   const chrt1_data = {
     labels: ["팀1", "팀2", "팀3", "팀4", "팀5", "팀6"],
@@ -240,6 +245,8 @@ function renderDashboard() {
 
 function renderTeam() {
   // 팀 차트 설정
+  const team_data = createHTTPRequest("/admin/api/team");
+  console.log(JSON.parse(team_data));
 
   const chrt1 = document.getElementById("team-donught-1").getContext("2d");
   const chrt1_data = {
@@ -446,6 +453,9 @@ function renderTeam() {
 function renderUser() {
   // 유저 차트 설정
 
+  const user_data = createHTTPRequest("/admin/api/user");
+  console.log(JSON.parse(user_data));
+
   const chrt1 = document.getElementById("user-donught-1").getContext("2d");
   const chrt1_data = {
     labels: ["유저1", "유저2", "유저3", "유저4", "유저5", "유저6"],
@@ -578,6 +588,9 @@ function renderUser() {
 
 function renderStudy() {
   // 스터디 차트 설정
+
+  const study_data = createHTTPRequest("/admin/api/study");
+  console.log(JSON.parse(study_data));
 
   const chrt1 = document.getElementById("study-pie-1").getContext("2d");
   const chrt1_data = {

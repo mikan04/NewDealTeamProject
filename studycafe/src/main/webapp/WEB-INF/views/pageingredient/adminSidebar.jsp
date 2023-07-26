@@ -45,7 +45,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
     </header>
     <nav
       id="sidebarMenu"
-      class="col-sm-2 d-md-block bg-light sidebar collapse navbar-collapse"
+      class="col-md-2 d-md-block bg-light sidebar collapse navbar-collapse"
     >
       <div class="position-sticky pt-3">
         <img class="d-none d-md-block avatar-img mb-2" src="/img/manager.png" />

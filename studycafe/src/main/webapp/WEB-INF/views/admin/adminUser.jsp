@@ -79,7 +79,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 </div>
                 <div class="row my-5">
                   <div class="col">
-                    <div class="user-table">
+                    <div class="admin-table">
                       <label class="user-label-1" for="user-table-1"
                         >전체 유저</label
                       >

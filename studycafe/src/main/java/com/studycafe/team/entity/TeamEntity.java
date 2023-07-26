@@ -1,6 +1,7 @@
 package com.studycafe.team.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,5 +39,7 @@ public class TeamEntity {
 	@NotNull
 	@CreationTimestamp
 	private Timestamp createDate;
+	
+	private LocalDate approveDate; // 팀 승인 날짜
 	
 }

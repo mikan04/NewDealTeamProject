@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.studycafe.study.dto.StudyByMonthDto;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.repository.StudyRepository;
 
@@ -70,6 +71,18 @@ public class StudyServiceImpl implements StudyService {
 	public int getStudyDone() {
 		// TODO Auto-generated method stub
 		return studyRepository.findStudyDone();
+	}
+
+	@Override
+	public List<StudyByMonthDto> getStudyByMonth() {
+		// TODO Auto-generated method stub
+		return studyRepository.findStudyByMonth();
+	}
+
+	@Override
+	public List<StudyEntity> getAllStudy() {
+		// TODO Auto-generated method stub
+		return studyRepository.findAll();
 	}
 
 
