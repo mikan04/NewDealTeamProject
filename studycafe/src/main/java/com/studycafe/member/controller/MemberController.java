@@ -7,10 +7,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.MemberService;
+import com.studycafe.member.vo.JoinVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +34,7 @@ public class MemberController {
 
 		return "/member/loginForm";
 	}
-	
+
 	@PostMapping("/loginform")
 	public String login() {
 
@@ -42,21 +47,41 @@ public class MemberController {
 	}
 
 	@PostMapping("/joinPro")
-	public String joinPro(MemberEntity memberEn, MemberAddressEntity memAddEn, HttpServletRequest request) {
+	@ResponseBody
+	public int joinPro(@RequestBody JoinVO joinVO, HttpServletRequest request) {
 
-		String rawPassword = memberEn.getPassword();
+		MemberEntity memberEntity = joinVO.getMemberEntity();
+		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
+
+		String rawPassword = memberEntity.getPassword();
 		String encPassword = encoder.encode(rawPassword);
-		memberEn.setPassword(encPassword);
 
-		memberService.insertMember(memberEn, memAddEn);
+		memberEntity.setPassword(encPassword);
+		memberEntity.setRole(Role.ROLE_MEMBER);
+		int insert = memberService.insertMember(memberEntity, memberAddressEntity);
 
-		log.info("가입한 회원의 정보 : {}",memberEn);
-		log.info("가입한 회원의 주소 : {}",memAddEn);
+		log.info("가입한 회원의 정보 : {}", memberEntity);
+		log.info("가입한 회원의 주소 : {}", memberAddressEntity);
 
-		return "redirect:/member/loginform";
+		return insert;
 	}
-	
-	
 
+	@PostMapping("/idCheck")
+	@ResponseBody
+	public boolean idCheck(@RequestParam("username") String username) {
+
+		boolean idcheck = memberService.idCheck(username);
+
+		return idcheck;
+	}
+
+	@PostMapping("/nickCheck")
+	@ResponseBody
+	public boolean nickCheck(@RequestParam("nickName") String nickName) {
+
+		boolean nickCheck = memberService.nickCheck(nickName);
+
+		return nickCheck;
+	}
 
 }

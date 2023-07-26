@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class S3Service implements S3FileService {
+public class S3ServiceImpl implements S3FileService {
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucketName;
@@ -32,7 +32,7 @@ public class S3Service implements S3FileService {
 
 	private final AmazonS3 s3;
 
-	public S3Service(AmazonS3 s3) {
+	public S3ServiceImpl(AmazonS3 s3) {
 		this.s3 = s3;
 	}
 
@@ -45,8 +45,6 @@ public class S3Service implements S3FileService {
 
 		try {
 			File insertedFile = convertMultiPartToFile(file);
-			
-			log.info("파일 용량은? : {}", file.getBytes());
 
 			// 업로드 된 url에 따라서 S3 경로 다르게, 파일이름 초기화.
 			String insertedFileNameAndPath = "";
