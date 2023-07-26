@@ -16,6 +16,13 @@ import com.studycafe.study.repository.StudyRepository;
 @Service("studyService")
 public class StudyServiceImpl implements StudyService {
 
+	@Override
+	public void studyDelete(int id) {
+		// TODO Auto-generated method stub
+		
+		studyRepository.deleteById(id);
+	}
+
 	@Autowired
 	private StudyRepository studyRepository;
 

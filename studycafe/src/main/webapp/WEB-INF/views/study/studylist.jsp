@@ -72,7 +72,7 @@
 		});
 		
 		$(document).ready(function () {
-			loadPosts($('#search').val(), 0);
+			loadPosts($('#search').val(), $(this).data('page'));
 	
 		    $('#searchBtn').on('click', function () {
 		        loadPosts($('#search').val(), 0); // 검색어가 바뀌면 첫 페이지부터 검색 결과를 보여줍니다.
