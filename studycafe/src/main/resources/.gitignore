@@ -1,2 +1,5 @@
 /application-aws.yml
 /application.yml
+/application-S3.yml
+/application-gpt.yml
+/application-mail.yml
