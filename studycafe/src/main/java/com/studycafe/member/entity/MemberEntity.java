@@ -48,8 +48,6 @@ public class MemberEntity {
 	@Column(length= 10)
 	private String name;
 	
-	private int emailAuth; // 이메일 인증여부 필드, 0 = false, 1 = true, nullable, default = 0.
-	
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp createdAt;

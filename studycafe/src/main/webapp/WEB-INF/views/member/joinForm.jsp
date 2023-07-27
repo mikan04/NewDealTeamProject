@@ -132,12 +132,11 @@
 		var email = $("#email1").val() + $("#email2").val();
 		var nickName = $("#nickName").val();
 		var name = $("#name").val();
-		var emailAuth = $("#emailAuth").val();
 		var zipcode = $("#zipcode").val();
 		var address1 = $("#address1").val();
 		var address2 = $("#address2").val();
 
-		var memberEntity = { username,password,email,nickName,name,emailAuth };
+		var memberEntity = { username,password,email,nickName,name };
 
 		var memberAddressEntity = { zipcode,address1,address2 };
 
