@@ -1,5 +1,8 @@
 /application-aws.yml
 /application.yml
+/META-INF/
 /application-S3.yml
+/application-security.yml
+/application-social.yml
 /application-gpt.yml
 /application-mail.yml
