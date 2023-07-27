@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<fmt:parseDate var="date" value="${studyEntity.dateTime}" pattern="yyyy-MM-dd'T'HH:mm"/>
+<fmt:formatDate  var="dateTime" value="${date}" type="DATE" pattern="yyyy-MM-dd HH:mm"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +31,7 @@
 					<input type="text" id="studyWriter" name="studyWriter" value="${studyEntity.studyWriter}" readonly="readonly"></p>
 				<p>
 					<label for="dateTime">작성날짜</label>
-					<input type="text" id="dateTime" name="dateTime" value="${studyEntity.dateTime}" readonly="readonly"></p>
+					<input type="text" id="dateTime" name="dateTime" value="${dateTime}" readonly="readonly"></p>
 				<div>
 					<label for="studyContent">내용</label>
 					<textarea id="studyContent" name="studyContent" readonly="readonly">${studyEntity.studyContent}</textarea></div>
@@ -44,7 +47,7 @@
 					<input type="hidden" id="lat" value="${studyEntity.latitude}">
 					<input type="hidden" id="lng" value="${studyEntity.longitude}">
 				</div>
-				<button class="btn btn-dark" id="listBtn" type="button" onclick="window.history.back();">목록</button>
+				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/study/''">목록</button>
 				<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/studymodify/${studyEntity.studyNum}'">수정</button>
 				<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete(${studyEntity.studyNum})">삭제</button>
 			</form>

@@ -50,10 +50,6 @@ public class StudyController {
 		
 		Page<StudyEntity> list = null;
 
-		System.out.println("keyword : " + keyword);
-		System.out.println("page : " + pageable.getPageNumber());
-		// pageable.getPageNumber()
-
 		if (keyword == null) {
 			list = studyService.studyList(pageable);
 		} else {
@@ -78,16 +74,17 @@ public class StudyController {
 	public String studyInsert(StudyEntity studyEntity) {
 
 		studyService.studyInsert(studyEntity); // 게시글 저장
-		return "redirect:/study";
+			return "redirect:/study";
 	}
 	
 	// 스터디 모집 게시물 수정 폼
 	@GetMapping("/studymodify/{no}")
-	public String studyModify(@PathVariable("no") int id, Model model) {
+	public String studyModifyForm(@PathVariable("no") int id, Model model) {
 		
 		/**
 		 * 게시글 수정 아이디 체크 넣기
 		 * */
+		
 		try {
 			StudyEntity studyEntity = new StudyEntity();
 			
@@ -96,6 +93,19 @@ public class StudyController {
 			model.addAttribute("studyEntity", studyEntity);
 			
 			return "/study/studymodify";
+		} catch(Exception e) {
+			return "/study";
+		}
+	}
+	
+	// 스터디 모집 게시물 수정
+	@PostMapping("/studymodifypro")
+	public String studyModify(StudyEntity studyEntity) {
+		try {
+			int num = studyEntity.getStudyNum();
+			
+			studyService.studyInsert(studyEntity); // 게시글 저장
+			return "redirect:/studydetail/" + num;
 		} catch(Exception e) {
 			return "/study";
 		}
@@ -131,7 +141,7 @@ public class StudyController {
 		StudyEntity studyEntity = new StudyEntity();
 		
 		studyEntity = studyService.studySelect(id);
-
+		
 		model.addAttribute("studyEntity", studyEntity);
 		
 		return "/study/studydetail";
