@@ -15,6 +15,7 @@ public interface StudyService {
 
 	public void studyInsert(StudyEntity studyEntity); // 스터디 모집 게시글 등록
 	public StudyEntity studySelect(int id); // 스터디 모집 게시글 검색
+	public void studyDelete(int id); // 게시글 삭제
 	public List<StudyEntity> studySelectByMap(int lat, int lon, LocalDate date);
 	public Page<StudyEntity> studyList(Pageable pageable);
 	public Page<StudyEntity> studySearchList(String keyword, Pageable pageable);
