@@ -9,43 +9,40 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
-	.container{
+.container {
 	min-height: calc(100% - 300px);
 	margin-top: 270px;
 	margin-bottom: -190px;
-	}
-	
-	.main-form{
+}
+
+.main-form {
 	min-height: calc(100% - 200px);
 	border: solid 1px #bbb;
 	width: 800px;
 	margin: auto;
-	}
-	
-	.login-box{
+}
+
+.login-box {
 	text-align: center;
-	}
-	.login-box input{
+}
+
+.login-box input {
 	text-align: center;
 	width: 200px;
-	margin-bottom:10px;
-	}
-	
+	margin-bottom: 10px;
+}
 
-	table {
-    margin-left:auto; 
-    margin-right:auto;
-	}
-	
-	table td{
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table td {
 	padding: 10px;
-	}
-	
-	
+}
 </style>
 
 <style>
-
 #validate-message {
 	color: red;
 	font-weight: bold;
@@ -74,22 +71,17 @@
 
 .login-form {
 	display: flex;
-	
 	align-items: center;
 	width: 200px;
 	height: 120px;
 	margin: auto;
 }
 
-
-
 .login-btn {
 	height: 70px;
 	width: 100px;
 	border-radius: 0rem;
 }
-
-
 
 li {
 	list-style-type: none;
@@ -103,10 +95,10 @@ li {
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
-	<br/>
+	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
+	<br />
 	<div class="container">
-		
+
 
 		<div class="main-form">
 			<form id="loginForm" method="post" action="/loginform">
@@ -115,8 +107,10 @@ li {
 
 					<div>
 						<ul>
-							
-							<li><a href="${contextPath}/joinform">회원가입 바로가기</a></li>
+
+							<li>
+								<a href="${contextPath}/joinform">회원가입 바로가기</a>
+							</li>
 						</ul>
 
 					</div>
@@ -133,41 +127,47 @@ li {
 							</div>
 						</div>
 					</div>
-					
-					<div class ="login-box">
+
+					<div class="login-box">
 						<div>
-							<input type="submit" value="로그인">					
+							<input type="submit" value="로그인">
 						</div>
 					</div>
-					
+
 					<div class="sns-login">
 						<table>
 							<tr>
 								<td>
 									<div id="kakao_id_login" style="text-align: center">
-											<a href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code"> 
-											<img width="50" src="/img/kakao_login_small.png"/></a>
+										<a
+											href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code">
+											<img width="50" src="/img/kakao_login_small.png" />
+										</a>
 									</div>
 								</td>
 								<td>
 									<div id="git_id_login" style="text-align: center">
-									<a href="https://github.com/login/oauth/authorize?client_id=Iv1.427e6b094359a979"> 
-									<img width="50" src="/img/github.png"/></a>
-						</div>
+										<a href="https://github.com/login/oauth/authorize?client_id=Iv1.427e6b094359a979"> <img width="50" src="/img/github.png" /></a>
+									</div>
 								</td>
-								
+
 							</tr>
 						</table>
 					</div>
-				
+
 					<!-- end loginForm -->
 					<div class="validate-box">
 						<p id="validate-message"></p>
 					</div>
 					<div class="sub-box">
 						<ul>
-							<li><input type="checkbox" value="아이디 저장">아이디 저장</li>
-							<li><a href="/member/findAccountForm">아이디 찾기/비밀번호 찾기</a></li>
+							<li>
+								<input type="checkbox" value="아이디 저장">
+								아이디 저장
+							</li>
+							<li>
+								<a href="/member/findAccountForm">아이디 찾기/비밀번호 찾기</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -175,6 +175,6 @@ li {
 
 		</div>
 	</div>
-<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>	
+	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 </body>
 </html>
