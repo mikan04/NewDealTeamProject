@@ -19,43 +19,42 @@ import lombok.ToString;
 @NoArgsConstructor
 public class TeamBoardDTO {
 	// Data Transferation to TeamBoardEntity
-	
+
 	private long teamBoardNum;
 	private String teamBoardTitle;
 	private String teamBoardContent;
 	private String teamBoardWriter;
 	private Timestamp createDate;
 	private LocalDateTime modifiedDate;
-	
+
 	// 단일 dto 리턴
 	public TeamBoardEntity sendDataToEntity() {
-		
+
 		TeamBoardEntity teamBoardEntityBuilder = TeamBoardEntity.builder()
 				.teamBoardNum(teamBoardNum)
 				.teamBoardTitle(teamBoardTitle)
 				.teamBoardContent(teamBoardContent)
 				.teamBoardWriter(teamBoardWriter)
 				.build();
-		
+
 		return teamBoardEntityBuilder;
 	}
-	
+
 	// 페이징 객체 DTO 변환작업
-	public Page<TeamBoardDTO> toDtoList(Page<TeamBoardEntity> boardList){
-		
-		Page<TeamBoardDTO> boardDtoList = boardList.map(list ->
-					TeamBoardDTO.builder()
-					.teamBoardNum(list.getTeamBoardNum())
-					.teamBoardTitle(list.getTeamBoardTitle())
-					.teamBoardWriter(list.getTeamBoardWriter())
-					.teamBoardContent(list.getTeamBoardContent())
-					.build()
-				);
-		
-        return boardDtoList;
-        
-    }
-	
+	public Page<TeamBoardDTO> toDtoList(Page<TeamBoardEntity> boardList) {
+
+		Page<TeamBoardDTO> boardDtoList = boardList.map(list -> TeamBoardDTO.builder()
+				.teamBoardNum(list.getTeamBoardNum())
+				.teamBoardTitle(list.getTeamBoardTitle())
+				.teamBoardWriter(list.getTeamBoardWriter())
+				.teamBoardContent(list.getTeamBoardContent())
+				.createDate(list.getCreateDate())
+				.build());
+
+		return boardDtoList;
+
+	}
+
 	@Builder
 	public TeamBoardDTO(long teamBoardNum, String teamBoardTitle, String teamBoardContent, String teamBoardWriter,
 			Timestamp createDate, LocalDateTime modifiedDate) {
@@ -66,6 +65,5 @@ public class TeamBoardDTO {
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
 	}
-	
-	
+
 }
