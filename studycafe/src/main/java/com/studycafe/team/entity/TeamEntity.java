@@ -1,6 +1,7 @@
 package com.studycafe.team.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
@@ -28,8 +30,16 @@ public class TeamEntity {
 	@NotNull
 	private String teamHead;
 	
+	@ColumnDefault("0")
+	private int point; 
+	
+	@ColumnDefault("0")
+	private int approveCount; 
+	
 	@NotNull
 	@CreationTimestamp
 	private Timestamp createDate;
+	
+	private LocalDate approveDate; // 팀 승인 날짜
 	
 }
