@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authorize access="isAuthenticated()">
+<sec:authentication property="principal.member" var="member" />
+</sec:authorize>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html class="header-body">
@@ -10,6 +13,12 @@
 <title>헤더</title>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<style type="text/css">
+	.username {
+	
+	}
+}
+</style>
 </head>
 <body class="header-body">
 	<div class="wrapper">
@@ -24,55 +33,45 @@
 					<a href="/">사이트이름</a>
 				</div>
 				<ul class="links">
-					<li>
-						<a href="/gpt/opengpt" target="_blank">CharGPT</a>
-					</li>
-					<li>
-						<a href="#" class="desktop-link">스터디</a>
-						<input type="checkbox" id="show-features">
-						<label for="show-features">스터디</label>
+					<li><a href="/gpt/opengpt" target="_blank">CharGPT</a></li>
+					<li><a href="#" class="desktop-link">스터디</a> <input type="checkbox" id="show-features"> <label
+							for="show-features">스터디</label>
 						<ul>
-							<li>
-								<a href="/study">스터디모집</a>
-							</li>
-							<li>
-								<a href="${contextPath}/team/teamboards">팀등록</a>
-							</li>
-							<li>
-								<a href="#">인증게시판</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="#" class="desktop-link">팀</a>
-						<input type="checkbox" id="show-services">
-						<label for="show-services">팀</label>
-						<ul>
-							<li>
-								<a href="#">팀관리</a>
-							</li>
-							<li>
-								<a href="/chatRoom/moveChating?teamNumber=${teamNumber}">팀채팅방</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="#">고객센터</a>
-					</li>
-					<li class="member-li">
-						<a href="#" class="desktop-link">회원</a>
-						<input type="checkbox" id="show-memberInfo">
+							<li><a href="/study">스터디모집</a></li>
+							<sec:authorize access="isAuthenticated()">
+								<li><a href="${contextPath}/team/teamboards">팀등록</a></li>
+							</sec:authorize>
+
+							<li><a href="#">인증게시판</a></li>
+						</ul></li>
+					<c:if test="${member.teamNumber!=null}">
+						<li><a href="#" class="desktop-link">팀</a> <input type="checkbox" id="show-services"> <label
+								for="show-services">팀</label>
+							<ul>
+								<li><a href="#">팀관리</a></li>
+								<li><a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a></li>
+							</ul></li>
+					</c:if>
+
+					<li><a href="#">고객센터</a></li>
+					<li class="member-li"><a href="#" class="desktop-link">회원</a> <input type="checkbox" id="show-memberInfo">
 						<label for="show-memberInfo">회원</label>
 						<ul class="member-dropdown">
-							<li>
-								<a href="${contextPath}/loginform">로그인</a>
-							</li>
-							<li>
-								<a href="#">회원정보관리</a>
-							</li>
-						</ul>
-					</li>
+							<sec:authorize access="isAnonymous()">
+								<li><a href="${contextPath}/loginform">로그인</a></li>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+								<li><a href="${contextPath}/logout">로그아웃</a></li>
+								<li><a href="#">회원정보관리</a></li>
+							</sec:authorize>
+
+						</ul></li>
 				</ul>
+				<div class ="username">
+					<sec:authorize access="isAuthenticated()">
+								<span style="color: white;">${member.nickName}님 반갑습니다.</span>
+					</sec:authorize>
+				</div>
 			</div>
 		</nav>
 	</div>

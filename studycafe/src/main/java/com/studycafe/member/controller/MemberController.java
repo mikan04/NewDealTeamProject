@@ -46,6 +46,11 @@ public class MemberController {
 		return "/member/joinForm";
 	}
 
+	@GetMapping("/logout")
+	public String logout() {
+		return "/";
+	}
+
 	@PostMapping("/joinPro")
 	@ResponseBody
 	public boolean joinPro(@RequestBody JoinVO joinVO, HttpServletRequest request) {

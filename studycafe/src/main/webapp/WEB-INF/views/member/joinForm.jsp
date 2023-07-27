@@ -93,6 +93,11 @@
 	// 이메일 인증번호 전송
 	function sendEmail() {
 		var email = $("#email1").val() + $("#email2").val();
+		alert(email + "로 이메일이 발송되었습니다");
+		$("#notEmailAuth").css("display","none");
+		$("#emailCheckBtn").css("display", "none");
+		$("#emailCheck").css("display", "block");
+		$("#emailReCheckBtn").css("display", "block");
 		$.ajax({
 			type : "POST",
 			url : "/send",
@@ -101,11 +106,6 @@
 			},
 			success : function(data) {
 				if (data != null) {
-					alert(email + "로 이메일이 발송되었습니다");
-					$("#notEmailAuth").css("display","none");
-					$("#emailCheckBtn").css("display", "none");
-					$("#emailCheck").css("display", "block");
-					$("#emailReCheckBtn").css("display", "block");
 					$("#emailReCheckBtn").on("click", function() {
 						var emailCheck = $("#emailCheck").val();
 						if (emailCheck == data) {

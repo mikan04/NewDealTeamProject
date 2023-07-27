@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication property="principal.member" var="member" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -29,12 +31,15 @@
 
 				<p>
 					<label for="team-head">작성자(팀장)</label>
-					<input type="text" id="team-head" name="teamBoardWriter" value="imsitestwriter" readonly="readonly">
+					<input type="text" id="team-head" name="teamBoardWriter" value="${member.nickName }" readonly="readonly">
 				</p>
 
 				<div>
 					<label for="content">내용</label>
-					<textarea id="content" name="teamBoardContent"></textarea>
+					<textarea id="content" name="teamBoardContent">
+						팀 이름&nbsp;&nbsp; :<br>
+						팀원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+					</textarea>
 				</div>
 				<button class="regis-btn">팀 등록</button>
 

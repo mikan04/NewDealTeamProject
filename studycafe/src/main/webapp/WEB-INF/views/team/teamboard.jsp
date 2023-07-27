@@ -21,7 +21,7 @@
 					<button class="team-regist" onclick="location.href = '${contextPath}/team/teamregispage'">팀 등록</button>
 				</div>
 				<label>
-					<a href="#">팀등록 게시판</a>
+						팀등록 게시판
 				</label>
 				<c:forEach items="${teamBoardList.content }" var="list">
 					<div>
