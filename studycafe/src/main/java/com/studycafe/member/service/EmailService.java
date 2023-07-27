@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@EnableAsync
 public class EmailService {
 
 	private final JavaMailSender javaMailSender;
@@ -70,7 +69,6 @@ public class EmailService {
 		return message;
 	}
 
-	@Async
 	public String sendEmail(String toEmail) throws MessagingException, UnsupportedEncodingException {
 
 		MimeMessage emailForm = createEmailForm(toEmail);

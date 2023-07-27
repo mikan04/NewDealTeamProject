@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,7 @@
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
-			<form action="/studyregistrationpro" name="studyregistration_form" method="post" enctype="multipart/form-data">
+			<form action="/studymodifypro" name="studymodify_form" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="studytitle">제목</label>
 					<input type="text" id="studyTitle" name="studyTitle" value="${studyEntity.studyTitle}" placeholder="제목 입력">
@@ -80,7 +82,7 @@
 				<br>
 				<p>
 					<label for="reserve">예약 날짜</label>
-					<input type="date" id="reserve" name="reserve" onchange="selectDateHandler(this.value)">
+					<input type="date" id="reserve" name="reserve" onchange="selectDateHandler(this.value)" value="${studyEntity.reserveDate}">
 					<!-- action="action_page.php?reserve=2023-06-16" -->
 					<button type="button" class="btn btn-dark" id="reserveBtn" onclick="location.href='action_page.php?' + $('#reserve').val()">조회</button>
 				</p>
@@ -117,10 +119,11 @@
 				</div>
 				
 				<!-- hidden 데이터 -->
-				<input type="hidden" id="latitude" value="${studyEntity.latitude}">
-				<input type="hidden" id="longitude" value="${studyEntity.longitude}">
-				<input type="hidden" id="dateTime" name="dateTime" value="${studyEntity.dateTime}" readonly="readonly">
-				<button class="btn btn-dark" id="registerBtn" type="button" onclick="regis_check();">등록</button>
+				<input type="hidden" id="latitude" name="latitude" value="${studyEntity.latitude}">
+				<input type="hidden" id="longitude" name="longitude" value="${studyEntity.longitude}">
+				<input type="hidden" id="dateTime" name="dateTime" value="${studyEntity.dateTime}">
+				<input type="hidden" id="studyNum" name="studyNum" value="${studyEntity.studyNum}">
+				<button class="btn btn-dark" id="registerBtn" type="button" onclick="regis_check();">수정</button>
 			</form>
 		</div>
 	</div>
