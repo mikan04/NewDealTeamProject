@@ -2,7 +2,9 @@ package com.studycafe.study.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nimbusds.jose.shaded.json.JSONArray;
 import com.nimbusds.jose.shaded.json.JSONObject;
@@ -39,7 +43,7 @@ public class StudyController {
 	}
 	
 	// 스터디 모집 게시판 리스트 호출
-	@GetMapping("/studyAjax")
+	@GetMapping("/studylist")
 	@ResponseBody
 	public Page<StudyEntity> studyListAjax(@PageableDefault(page = 0, size = 10, sort = "studyNum", direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam(required = false) String keyword) {
@@ -72,10 +76,52 @@ public class StudyController {
 	// 스터디 모집 게시물 등록
 	@PostMapping("/studyregistrationpro")
 	public String studyInsert(StudyEntity studyEntity) {
-		System.out.println(studyEntity);
-		
+
 		studyService.studyInsert(studyEntity); // 게시글 저장
 		return "redirect:/study";
+	}
+	
+	// 스터디 모집 게시물 수정 폼
+	@GetMapping("/studymodify/{no}")
+	public String studyModify(@PathVariable("no") int id, Model model) {
+		
+		/**
+		 * 게시글 수정 아이디 체크 넣기
+		 * */
+		try {
+			StudyEntity studyEntity = new StudyEntity();
+			
+			studyEntity = studyService.studySelect(id);
+	
+			model.addAttribute("studyEntity", studyEntity);
+			
+			return "/study/studymodify";
+		} catch(Exception e) {
+			return "/study";
+		}
+	}
+	
+	// 스터디 모집 게시글 삭제 Ajax
+	@PostMapping("/studydelete")
+	@ResponseBody
+	public Map<String, Object> studyDeleteAjax(@RequestBody Map<String, Object> map) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		/**
+		 * 게시글 삭제 아이디 체크 넣기
+		 * */
+		
+		int id = (int) map.get("id");
+
+		try {
+			studyService.studyDelete(id);
+			result.put("status", "ok");
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.put("status", "fail");
+		}
+		return result;
 	}
 	
 	// 스터디 모집 게시물 열람

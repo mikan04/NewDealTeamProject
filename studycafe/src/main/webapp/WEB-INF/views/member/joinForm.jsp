@@ -30,6 +30,12 @@
 		} else {
 			$("#nickCheckBtn").attr("disabled", true);
 		}
+		// 이메일 본인인증 버튼
+		if ($("#email1").val().trim() != "") {
+			$("#emailCheckBtn").attr("disabled", false);
+		} else {
+			$("#emailCheckBtn").attr("disabled", true);
+		}
 
 	});
 	// 아이디 중복 체크
@@ -44,11 +50,13 @@
 			dataType : "json",
 			success : function(e) {
 				if (e == true) {
-					$("#useId").css("display", "none");
-					$("#notUseId").css("display", "block");
+					$("#useUsername").css("display", "none");
+					$("#notUseUsername").css("display", "block");
 				} else {
-					$("#useId").css("display", "block");
-					$("#notUseId").css("display", "none");
+					$("#notIdCheck").css("display","none");
+					$("#useUsername").css("display", "block");
+					$("#notUseUsername").css("display", "none");
+					$("#idCheck").val("1");
 				}
 			},
 			error : function() {
@@ -71,8 +79,10 @@
 					$("#useNick").css("display", "none");
 					$("#notUseNick").css("display", "block");
 				} else {
+					$("#notNickCheck").css("display", "none");
 					$("#useNick").css("display", "block");
 					$("#notUseNick").css("display", "none");
+					$("#nickCheck").val("1");
 				}
 			},
 			error : function() {
@@ -91,7 +101,8 @@
 			},
 			success : function(data) {
 				if (data != null) {
-					alert(email + "로 이메일이 발송되었습니다" + data);
+					alert(email + "로 이메일이 발송되었습니다");
+					$("#notEmailAuth").css("display","none");
 					$("#emailCheckBtn").css("display", "none");
 					$("#emailCheck").css("display", "block");
 					$("#emailReCheckBtn").css("display", "block");
@@ -109,25 +120,25 @@
 				}
 			},
 			error : function(xhr, status, error) {
-				alert("Failed to send message: " + error); // Display the error message
+				alert("Failed to send message: " + error); 
 			}
 		});
 	}
+	// 회원가입
 	function join() {
-		var memberEntity = {
-			username : $("#username").val(),
-			password : $("#password").val(),
-			email : $("#email1").val() + $("#email2").val(),
-			nickName : $("#nickName").val(),
-			name : $("#name").val(),
-			emailAuth : $("#emailAuth").val()
-		};
+		
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var email = $("#email1").val() + $("#email2").val();
+		var nickName = $("#nickName").val();
+		var name = $("#name").val();
+		var zipcode = $("#zipcode").val();
+		var address1 = $("#address1").val();
+		var address2 = $("#address2").val();
 
-		var memberAddressEntity = {
-			zipcode : $("#zipcode").val(),
-			address1 : $("#address1").val(),
-			address2 : $("#address2").val()
-		};
+		var memberEntity = { username,password,email,nickName,name };
+
+		var memberAddressEntity = { zipcode,address1,address2 };
 
 		var data = {
 			memberEntity : memberEntity,
@@ -141,9 +152,9 @@
 			data : JSON.stringify(data),
 			dataType : "json",
 			success : function(e) {
-				if(e != null){
+				if (e == true) {
 					alert("회원가입이 완료되었습니다.");
-					location.href="/";
+					location.href = "/";
 				}
 			},
 			error : function() {
@@ -151,6 +162,172 @@
 			},
 		});
 	}
+	
+	// 유효성 검사
+	function checkAll() {
+		
+		var username = $("#username").val();
+		var idCheck = $("#idCheck").val();
+		var password = $("#password").val();
+		var rePassword = $("#rePassword").val();		
+		var email = $("#email1").val() + $("#email2").val();
+		var nickName = $("#nickName").val();
+		var nickCheck = $("#nickCheck").val();
+		var name = $("#name").val();
+		var emailAuth = $("#emailAuth").val();
+		var zipcode = $("#zipcode").val();
+		var address1 = $("#address1").val();
+		var address2 = $("#address2").val();
+		
+        if (!checkUsername(username,idCheck)) {
+            return false;
+        } else if (!checkPassword(username, password,rePassword)) {
+            return false;
+        } else if (!checkNickName(nickName,nickCheck)) {
+            return false;
+        } else if (!checkName(name)){
+        	return false;	
+        }else if (!checkMail(email)) {
+            return false;
+        } else if (!checkEmailAuth(emailAuth)) {
+            return false;
+        } else if (!checkAddress(zipcode,address1)) {
+            return false;
+        }
+        
+        return join();
+    }
+	function checkUsername(username,idCheck){
+		$("#notUsername").css("display","none");
+		$("#notvaliUsername").css("display","none");
+		$("#notIdCheck").css("display","none");
+		if(username == ""){
+			$("#notUsername").css("display","block");
+			return false;
+		} 
+		var usernameRegExp =  /^[a-zA-z0-9]{6,12}$/;
+		
+		if(!usernameRegExp.test(username)){
+			$("#notvaliUsername").css("display","block");
+			return false;
+		}
+		if(idCheck != "1"){
+			$("#notIdCheck").css("display","block");
+			return false;
+		}
+		return true;
+	}
+	
+	function checkPassword(username, password,rePassword){
+		$("#notPwd").css("display","none");
+		$("#notValiPwd").css("display","none");
+		$("#notEqualPwd").css("display","none");
+		$("#equalUsername").css("display","none");
+		if(password == ""){
+			$("#notPwd").css("display","block");
+			return false;
+		}
+		 var passwordRegExp =  /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+		 
+		 if(!passwordRegExp.test(password)){
+			 $("#notValiPwd").css("display","block");
+			 return false;
+		 }
+		 if(password != rePassword || rePassword == ""){
+			 $("#notEqualPwd").css("display","block");
+			 return false;
+		 }
+		 if(username == password){
+			 $("#equalUsername").css("display","block");
+			 return false;
+		 }
+		 
+		 return true;
+	}
+	
+	function checkNickName(nickName,nickCheck){
+		$("#notNickName").css("display","none");
+		$("#notValiNickName").css("display","none");
+		$("#notNickCheck").css("display","none");
+		if(nickName == ""){
+			$("#notNickName").css("display","block");
+			return false;
+		}
+		var nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,6}$/;
+		
+		if(!nickNameRegExp.test(nickName)){
+			$("#notValiNickName").css("display","block");
+			return false;
+		}
+		
+		if(nickCheck != "1"){
+			$("#notNickCheck").css("display","block");
+			return false;
+		}
+		return true;
+	}
+	
+	 function checkName(name) {
+		$("#notName").css("display","none");
+		$("#notValiName").css("display","none");
+
+	 	if(name == ""){
+	 		$("#notName").css("display","block");
+	 		return false;
+	 	}
+		var nameRegExp = /^[가-힣]{2,4}$/;
+		if (!nameRegExp.test(name)) {
+				$("#notValiName").css("display","block");
+	            return false;
+	        }
+	        return true; 
+	    }
+	
+	function checkMail(email){
+		 $("#notEmail").css("display","none");
+		 
+		 var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+		 
+		 if(!emailRegExp.test(email) || email == ""){
+			 $("#notEmail").css("display","block");
+
+			 return false;
+		 }
+		 
+		 return true;
+	}
+	
+	 function checkEmailAuth(emailAuth) {
+		 $("#notEmailAuth").css("display","none");
+		 if(emailAuth != "1"){
+			 $("#notEmailAuth").css("display","block");
+			 return false;
+		 }
+		 return true;
+	 }
+	 function checkAddress(zipcode,address1) {
+		 $("#notAddress").css("display","none");
+		 if(zipcode == ""){
+			 $("#notAddress").css("display","block");
+			 return false;
+		 } else if (address1 == ""){
+			 $("#notAddress").css("display","block");
+			 return false;
+		 }
+		 return true;
+	 }
+	 
+	function kakaoPost() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				document.querySelector("#zipcode").value = data.zonecode;
+				document.querySelector("#address1").value = data.address
+				document.getElementById("address2").focus();
+			}
+		}).open();
+
+	}
+
 </script>
 
 </head>
@@ -168,143 +345,110 @@
 					<div class="join_content">
 
 						<div class="row_group">
-							<div class="join_id">
+							<div class="join_row">
 								<label id="join_title">아이디</label>
 								<span class="ps_box int_id">
-									<input type="text" id="username" name="username" maxlength="20" />
+									<input type="text" id="username" name="username" maxlength="12" placeholder="영문소문자,숫자조합 (6~12자)" />
 								</span>
 								<button type="button" id="idCheckBtn" name="idCheckBtn" onclick="idCheck()" disabled>중복체크</button>
-								<span id="useId" style="display: none; color: red;">사용 가능한 아이디 입니다.</span>
-								<span id="notUseId" style="display: none; color: red;">이미 존재하는 아이디 입니다.</span>
-								<span id="valiId">4 ~ 8자의 영문</span>
+								<input type="text" style="display: none;" value="0" id="idCheck" />
+								<span id="useUsername" style="display: none; color: red;">사용 가능한 아이디 입니다.</span>
+								<span id="notUseUsername" style="display: none; color: red;">이미 존재하는 아이디 입니다.</span>
+								<span id="notvaliUsername" style="display: none; color: red;">영문, 숫자 조합으로 6자이상 12자 이하의 영문만 입력해주세요.</span>
+								<span id="notUsername" style="display: none; color: red;">아이디를 입력해주세요.</span>
+								<span id="notIdCheck" style="display: none; color: red;">아이디를 중복체크를 해주세요.</span>
 							</div>
 
 							<div class="join_row">
 								<label id="join_title">비밀번호</label>
-								<span class="ps_box int_pass" id="pswd1Img">
-									<input type="password" id="password" name="password" maxlength="20" />
-									<span class="lbl">
-										<span id="pswd1Span" class="step_txt"></span>
-									</span>
-								</span>
-								<span class="error_next_box" id="pswd1Msg" style="display: none" aria-live="assertive">5~12자의 영문 소문자, 숫자와
-									특수기호(_)만 사용 가능합니다.</span>
+								<input type="password" id="password" name="password" maxlength="15" placeholder="영문,숫자,특수문자 조합 (8~15자)" />
+								<span id="notValiPwd" style="display: none; color: red;">8~15자의 영문,숫자,특수문자 조합해서 설정해주세요.</span>
+								<span id="notPwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
+								<span id="equalUsername" style="display: none; color: red;">아이디와 비밀번호를 다르게 입력해주세요.</span>
 							</div>
 
 							<div class="join_row">
-								<label id="join_title">비밀번호 재확인</label>
-
-								<span class="ps_box int_pass_check" id="pswd2Img">
-									<input type="password" id="password2" name="password2" class="int" title="비밀번호 재확인 입력" aria-describedby="pswd2Blind"
-										maxlength="20" />
-								</span>
-								<span class="error_next_box" id="pswd2Msg" style="display: none" aria-live="assertive"></span>
+								<label id="join_title">비밀번호 확인</label>
+								<input type="password" id="rePassword" name="rePassword" maxlength="12" placeholder="비밀번호 재확인" />
+								<span id="notRePwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
+								<span id="equalPwd" style="display: none; color: red;">비밀번호가 일치합니다.</span>
+								<span id="notEqualPwd" style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
 							</div>
 						</div>
 
 						<div class="join_row">
-
 							<label id="join_title">닉네임</label>
-
-							<span class="ps_box box_right_space">
-								<input type="text" id=nickName name="nickName" title="닉네임" class="int" maxlength="40" />
-							</span>
+							<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" placeholder="영문,숫자,한글(2~6자)" />
 							<button type="button" id="nickCheckBtn" name="nickCheckBtn" onclick="nickCheck()" disabled>중복체크</button>
+							<input type="text" style="display: none;" value="0" id="nickCheck" />
 							<span id="useNick" style="display: none; color: red;">사용 가능한 닉네임 입니다.</span>
 							<span id="notUseNick" style="display: none; color: red;">이미 존재하는 닉네임 입니다.</span>
-							<span id="valiId">2글자 이상 6자리 이하</span>
+							<span id="notValiNickName" style="display: none; color: red;">2~6자로 입력해주세요.</span>
+							<span id="notNickName" style="display: none; color: red;">닉네임을 입력해주세요.</span>
+							<span id="notNickCheck" style="display: none; color: red;">닉네임 중복체크를 해주세요.</span>
 						</div>
 
-						<div class="row_group">
-							<div class="join_row">
+						<div class="join_row">
+							<label id="join_title">이름</label>
+							<input type="text" id="name" name="name" placeholder="한글 (2~4자)" />
+							<span id="notName" style="display: none; color: red;">이름을 입력해주세요.</span>
+							<span id="notValiName" style="display: none; color: red;">2~4자 이내의 한글로 입력해주세요.</span>
+						</div>
 
-								<label id="join_title">이름</label>
+						<div>
+							<label id="join_title">이메일</label>
 
-								<span class="ps_box box_right_space">
-									<input type="text" id="name" name="name" />
-								</span>
-								<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
+							<input type="text" class="form-control" name="email1" id="email1" placeholder="이메일">
+							<select class="form-control" name="email2" id="email2">
+								<option>@naver.com</option>
+								<option>@daum.net</option>
+								<option>@gmail.com</option>
+								<option>@hanmail.com</option>
+								<option>@yahoo.co.kr</option>
+							</select>
+							<button type="button" id="emailCheckBtn" onclick="sendEmail()" disabled>본인인증</button>
+							<span id="notEmail" style="display: none; color: red;">이메일 주소를 올바르게 입력해 주세요.</span>
+							<span id="notEmailAuth" style="display: none; color: red;">본인인증이 필요합니다.</span>
+							<div class="mail-check-box">
+								<input id="emailCheck" placeholder="인증번호 8자리를 입력해주세요!" maxlength="8" style="display: none;">
+								<button type="button" id="emailReCheckBtn" style="display: none">본인인증</button>
+								<input id="emailAuth" style="display: none;" />
 							</div>
-							<span class="error_next_box" id="genderMsg" style="display: none" aria-live="assertive"></span>
+
+
+						</div>
+
+						<div class="join_row">
 
 							<div>
-								<label id="join_title">이메일</label>
-								<div class="input-group">
-									<input type="text" class="form-control" name="email1" id="email1" placeholder="이메일">
-									<select class="form-control" name="email2" id="email2">
-										<option>@naver.com</option>
-										<option>@daum.net</option>
-										<option>@gmail.com</option>
-										<option>@hanmail.com</option>
-										<option>@yahoo.co.kr</option>
-										<option>직접입력</option>
-									</select>
-									<button type="button" class="btn btn-primary" id="emailCheckBtn" onclick="sendEmail()">본인인증</button>
-									<div class="mail-check-box">
-										<input id="emailCheck" placeholder="인증번호 8자리를 입력해주세요!" maxlength="8" style="display: none;">
-										<button type="button" id="emailReCheckBtn" style="display: none">본인인증</button>
-										<input id="emailAuth" style="display: none;" />
-									</div>
-
-								</div>
-							</div>
-
-
-
-
-
-
-							<div class="join_row">
-
-
 								<label id="join_title"> 주소 </label>
-
-								<div class="int_adress_area">
-									<span class="ps_box int_address">
-										<input type="text" id="zipcode" name="zipcode" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="5">
-									</span>
-									<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button">
-										<span class="">우편번호</span>
-									</a>
-								</div>
-
-								<span class="ps_box join_address">
-									<input type="text" id="address1" name="address1" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
-								</span>
-								<span class="ps_box join_address">
-									<input type="text" id="address2" name="address2" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
-								</span>
+								<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button">
+									<span class="">주소검색</span>
+								</a>
 							</div>
-							<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
+
+							<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly>
 						</div>
-
-
-
-
-						<div class="btn_area">
-							<button type="button" onclick="join()">가입하기</button>
-						</div>
+						<input type="text" id="address1" name="address1" placeholder="주소" readonly>
+						<input type="text" id="address2" name="address2" placeholder="상세주소">
+						<span id="notAddress" style="display: none; color: red;">주소를 입력해주세요.</span>
 					</div>
+
 				</div>
 
-			</div>
 
+
+
+				<div class="btn_row">
+					<button type="button" onclick="checkAll()">가입하기</button>
+				</div>
+			</div>
 		</div>
+
 	</div>
 
-	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
-		function kakaoPost() {
-			new daum.Postcode({
-				oncomplete : function(data) {
-					document.querySelector("#zipcode").value = data.zonecode;
-					document.querySelector("#address1").value = data.address
-					document.getElementById("address2").focus();
-				}
-			}).open();
 
-		}
-	</script>
+
+	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 </body>
 </html>
