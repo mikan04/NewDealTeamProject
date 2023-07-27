@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.studycafe.utils.file.service.S3Service;
+import com.studycafe.utils.file.service.S3ServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CKEditorController {
 	
 	@Autowired
-	private S3Service s3Service;
+	private S3ServiceImpl s3Service;
 	
 	// CK Editor 경로변수
 	private final String path = "ck";

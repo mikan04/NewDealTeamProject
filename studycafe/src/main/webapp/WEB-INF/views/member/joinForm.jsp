@@ -2,274 +2,453 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<script language="JavaScript"
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>최초접속페이지</title>
-<style>
-.gray {
-	background-color: #8e8e8e;
-}
+<title>타이틀입력</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/joinform.css">
+<!-- index.css 복사해다가 jsp파일이랑 이름 똑같이 바꾸고 임포트해주세요. index.css에 따로 추가하거나 바꾸지 말아주세요-->
 
-.subMenu {
-	height: 190px;
-	background-color: #343434;
-}
-
-
-.h_logo {
-	display: block;
-	margin: 0 auto;
-	width: 240px;
-	height: 114px;
-	background-image: url(../resources/img/LOGO2.png);
-	background-repeat: no-repeat;
-	background-position: 0 0;
-	background-size: 240px auto;
-	color: transparent;
-	font-size: 0;
-}
-
-.joininner {
-	max-width: 460px;
-	margin: 0 auto;
-}
-
-
-.int_adress_area {
-	position: relative;
-	margin-top: 10px;
-	padding: 0 125px 0 0;
-}
-
-.zipcodebtn {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 115px;
-	height: 51px;
-	padding: 18px 0 16px;
-	font-weight: 700;
-	text-align: center;
-	box-sizing: border-box;
-	text-decoration: none;
-}
-
-.join_address {
-	margin-top: 10px;
-}
+<style type="text/css">
 </style>
-</head>
-<body>
-	<div class="subContent">
-		<div>
-			<div class="joininner">
-				<form action="/joinPro" method="post" id="join_form" class="row g-3" onsubmit="">
-					<div id="content">
-						<!-- tg-text=title -->
-						<h2 class="blind"></h2>
-						<div class="join_content">
-							<!-- 아이디, 비밀번호 입력 -->
-							<div class="row_group">
-								<div class="join_row">
-									<h3 class="join_title">
-										<label for="id">ID</label>
-									</h3>
-									<span class="ps_box int_id">
-									<input type="text" id="username" name="username" class="int" title="EMAIL" maxlength="20">
-									</span>
-									<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
-
-								</div>
-								
-								<div>
-									<h3 class="join_title"> <label for="id">이메일</label></h3>
-									<span>
-										<input type="email" id="email" name="email">
-									</span>
-								</div>
-
-								<div class="join_row">
-									<h3 class="join_title">
-										<label for="pswd1">비밀번호</label>
-									</h3>
-									<span class="ps_box int_pass" id="pswd1Img"> 
-									<input type="password" id="password" name="password" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20">
-										<span class="lbl">
-										<span id="pswd1Span" class="step_txt"></span>
-									</span>
-									</span> 
-										<span class="error_next_box" id="pswd1Msg"
-										style="display: none" aria-live="assertive">5~12자의 영문
-										소문자, 숫자와 특수기호(_)만 사용 가능합니다.</span>
-
-									<h3 class="join_title">
-										<label for="pswd2">비밀번호 재확인</label>
-									</h3>
-									<span class="ps_box int_pass_check" id="pswd2Img"> 
-										<input type="password" id="password2" name="password2" class="int" title="비밀번호 재확인 입력" 
-										aria-describedby="pswd2Blind"
-										maxlength="20"> 
-										<span id="pswd2Blind" class="wa_blind">설정하려는 비밀번호가 맞는지 확인하기 위해 다시 입력 해주세요.</span>
-									</span> 
-									<span class="error_next_box" id="pswd2Msg" style="display: none" aria-live="assertive"></span>
-								</div>
-							</div>
-							<!-- // 아이디, 비밀번호 입력 -->
-
-							<div class="row_group">
-								<div class="join_row">
-									<h3 class="join_title">
-										<label for="name">이름</label>
-									</h3>
-									<span class="ps_box box_right_space"> <input type="text" id="name" name="name" title="이름" class="int" maxlength="40">
-									</span> 
-									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
-								</div>
-								<span class="error_next_box" id="genderMsg" style="display: none" aria-live="assertive"></span>
-								
-								<div class="join_row">
-									<h3 class="join_title">
-										<label for="nickname">닉네임</label>
-									</h3>
-									<span class="ps_box box_right_space"> <input type="text" id=nickName name="nickName" title="닉네임" class="int" maxlength="40">
-									</span> 
-									<span class="error_next_box" id="nameMsg" style="display: none" aria-live="assertive"></span>
-								</div>
-
-				
-								<div class="join_row join_email">
-									<h3 class="join_title">
-										<label for="email">주소<span class="terms_choice">(선택)</span></label>
-									</h3>
-									<div class="int_adress_area">
-										<span class="ps_box int_address"> 
-											<input type="text" id="zipcode" name="zipcode" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="5">
-										</span> 
-										<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button"> 
-										<span class="">우편번호</span>
-										</a>
-									</div>
-
-									<span class="ps_box join_address"> 
-										<input type="text" id="address1" name="address1" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
-									</span> 
-									<span class="ps_box join_address"> 
-										<input type="text" id="address2" name="address2" placeholder="선택입력" aria-label="선택입력" class="int" maxlength="100">
-									</span>
-								</div>
-								<span class="error_next_box" id="emailMsg" style="display: none" aria-live="assertive"></span>
-							</div>
-
-
-
-
-							<div class="btn_area">
-								<!-- <button type="button" id="btnJoin" class="btn_type btn_primary">
-									<span>가입하기</span>
-								</button> -->
-								<button type="submit">가입하기</button>
-							</div>
-						</div>
-					</div>
-
-
-
-
-
-					<!--                     
-                    
-					<div class="col-md-4" style="width: 100%;">
-						<div class="join_Title">
-							<label for="name" class="form-label">이름</label>
-						</div>
-						<input type="text" name="memberName" id="name" class="form-control" maxlength="10" />
-						<div class="idmsg"></div>
-
-					</div>
-					<div class="col-md-4" style="width: 100%;">
-						<div class="join_Title">
-							<label for="id" class="form-label">아이디</label>
-						</div>
-						<input type="text" name="test" id="id" class="form-control"
-							maxlength="10" required>
-						<div class="valid-feedback">ㅇㅋ</div>
-						<div class="invalid-feedback">아이디를 적으세요</div>
-
-					</div>
-					<div id="join_email">
-						<div class="join_Title">이메일</div>
-						<span class="insertbox"> <input type="text"
-							name="memberEmail" id="email" class="form-control" maxlength="40">
-						</span>
-					</div>
-					<div id="join_password1">
-						<div class="join_Title">비밀번호</div>
-						<span class="insertbox"> <input type="password"
-							name="memberPassword" id="pswd1" class="form-control"
-							maxlength="20">
-						</span>
-					</div>
-					<div id="join_password2">
-						<div class="join_Title">비밀번호 확인</div>
-						<span class="insertbox"> <input type="password"
-							id="pswd2" class="form-control" maxlength="20">
-						</span>
-					</div>
-					<div id="join_phone">
-						<div class="join_Title">연락처</div>
-						<span class="insertbox"> <input type="text"
-							name="memberMobile" id="phone" class="form-control"
-							maxlength="11"> <input type="button" value="인증">
-						</span>
-					</div>
-					<div id="join_adress">
-						<div class="join_Title">주소</div>
-						<span class="insertbox"> <input type="text"
-							name="memberZipcode" id="memberZipcode" class="form-control"
-							maxlength="5"> <input type="button" value="우편번호 찾기"
-							onclick="kakaoPost()">
-						</span> <span class="insertbox"> <input type="text"
-							name="memberAddress" id="memberAddress" class="form-control"
-							maxlength="20">
-						</span> <span class="insertbox"> <input type="text"
-							name="memberDetailAddress" id="memberDetailAddress"
-							class="form-control" maxlength="33">
-						</span>
-
-					</div>
-					<div class="btnCon">
-						<button class="submitbtn reset" type="reset">
-							<span>다시작성</span>
-						</button>
-						<button class="btn btn-primary" type="submit">
-							<span>회원가입</span>
-						</button>
-					</div> -->
-				</form>
-			</div>
-		</div>
-	</div>
-
-
-<script>
-
-function kakaoPost() {
-	new daum.Postcode({
-		oncomplete : function(data) {
-			document.querySelector("#zipcode").value = data.zonecode;		
-			document.querySelector("#address1").value = data.address
-			document.getElementById("address2").focus();
+<script type="text/javascript">
+	document.addEventListener("keyup", function() {
+		// 아이디 중복체크 버튼
+		if ($("#username").val().trim() != "") {
+			$("#idCheckBtn").attr("disabled", false);
+		} else {
+			$("#idCheckBtn").attr("disabled", true);
 		}
-	}).open();
 
-}
+		// 닉네임 중복체크 버튼
+		if ($("#nickName").val().trim() != "") {
+			$("#nickCheckBtn").attr("disabled", false);
+		} else {
+			$("#nickCheckBtn").attr("disabled", true);
+		}
+		// 이메일 본인인증 버튼
+		if ($("#email1").val().trim() != "") {
+			$("#emailCheckBtn").attr("disabled", false);
+		} else {
+			$("#emailCheckBtn").attr("disabled", true);
+		}
+
+	});
+	// 아이디 중복 체크
+	function idCheck() {
+		var username = $("#username").val();
+		$.ajax({
+			type : "post",
+			url : "/idCheck",
+			data : {
+				"username" : username
+			},
+			dataType : "json",
+			success : function(e) {
+				if (e == true) {
+					$("#useUsername").css("display", "none");
+					$("#notUseUsername").css("display", "block");
+				} else {
+					$("#notIdCheck").css("display","none");
+					$("#useUsername").css("display", "block");
+					$("#notUseUsername").css("display", "none");
+					$("#idCheck").val("1");
+				}
+			},
+			error : function() {
+				alert("알수없는에러");
+			}
+		});
+	}
+	// 닉네임 중복 체크
+	function nickCheck() {
+		var nickName = $("#nickName").val();
+		$.ajax({
+			type : "post",
+			url : "/nickCheck",
+			data : {
+				"nickName" : nickName
+			},
+			dataType : "json",
+			success : function(e) {
+				if (e == true) {
+					$("#useNick").css("display", "none");
+					$("#notUseNick").css("display", "block");
+				} else {
+					$("#notNickCheck").css("display", "none");
+					$("#useNick").css("display", "block");
+					$("#notUseNick").css("display", "none");
+					$("#nickCheck").val("1");
+				}
+			},
+			error : function() {
+				alert("알수없는에러");
+			}
+		});
+	}
+	// 이메일 인증번호 전송
+	function sendEmail() {
+		var email = $("#email1").val() + $("#email2").val();
+		$.ajax({
+			type : "POST",
+			url : "/send",
+			data : {
+				"toEmail" : email
+			},
+			success : function(data) {
+				if (data != null) {
+					alert(email + "로 이메일이 발송되었습니다");
+					$("#notEmailAuth").css("display","none");
+					$("#emailCheckBtn").css("display", "none");
+					$("#emailCheck").css("display", "block");
+					$("#emailReCheckBtn").css("display", "block");
+					$("#emailReCheckBtn").on("click", function() {
+						var emailCheck = $("#emailCheck").val();
+						if (emailCheck == data) {
+							alert("인증에 성공하였습니다.");
+							$("#emailCheck").css("display", "none");
+							$("#emailReCheckBtn").css("display", "none");
+							$("#emailAuth").val("1");
+						} else {
+							alert("인증에 실패하였습니다.");
+						}
+					});
+				}
+			},
+			error : function(xhr, status, error) {
+				alert("Failed to send message: " + error); 
+			}
+		});
+	}
+	// 회원가입
+	function join() {
+		
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var email = $("#email1").val() + $("#email2").val();
+		var nickName = $("#nickName").val();
+		var name = $("#name").val();
+		var zipcode = $("#zipcode").val();
+		var address1 = $("#address1").val();
+		var address2 = $("#address2").val();
+
+		var memberEntity = { username,password,email,nickName,name };
+
+		var memberAddressEntity = { zipcode,address1,address2 };
+
+		var data = {
+			memberEntity : memberEntity,
+			memberAddressEntity : memberAddressEntity
+		};
+		console.log(data);
+		$.ajax({
+			type : "post",
+			url : "/joinPro",
+			contentType : 'application/json',
+			data : JSON.stringify(data),
+			dataType : "json",
+			success : function(e) {
+				if (e == true) {
+					alert("회원가입이 완료되었습니다.");
+					location.href = "/";
+				}
+			},
+			error : function() {
+				alert("회원가입 실패");
+			},
+		});
+	}
+	
+	// 유효성 검사
+	function checkAll() {
+		
+		var username = $("#username").val();
+		var idCheck = $("#idCheck").val();
+		var password = $("#password").val();
+		var rePassword = $("#rePassword").val();		
+		var email = $("#email1").val() + $("#email2").val();
+		var nickName = $("#nickName").val();
+		var nickCheck = $("#nickCheck").val();
+		var name = $("#name").val();
+		var emailAuth = $("#emailAuth").val();
+		var zipcode = $("#zipcode").val();
+		var address1 = $("#address1").val();
+		var address2 = $("#address2").val();
+		
+        if (!checkUsername(username,idCheck)) {
+            return false;
+        } else if (!checkPassword(username, password,rePassword)) {
+            return false;
+        } else if (!checkNickName(nickName,nickCheck)) {
+            return false;
+        } else if (!checkName(name)){
+        	return false;	
+        }else if (!checkMail(email)) {
+            return false;
+        } else if (!checkEmailAuth(emailAuth)) {
+            return false;
+        } else if (!checkAddress(zipcode,address1)) {
+            return false;
+        }
+        
+        return join();
+    }
+	function checkUsername(username,idCheck){
+		$("#notUsername").css("display","none");
+		$("#notvaliUsername").css("display","none");
+		$("#notIdCheck").css("display","none");
+		if(username == ""){
+			$("#notUsername").css("display","block");
+			return false;
+		} 
+		var usernameRegExp =  /^[a-zA-z0-9]{6,12}$/;
+		
+		if(!usernameRegExp.test(username)){
+			$("#notvaliUsername").css("display","block");
+			return false;
+		}
+		if(idCheck != "1"){
+			$("#notIdCheck").css("display","block");
+			return false;
+		}
+		return true;
+	}
+	
+	function checkPassword(username, password,rePassword){
+		$("#notPwd").css("display","none");
+		$("#notValiPwd").css("display","none");
+		$("#notEqualPwd").css("display","none");
+		$("#equalUsername").css("display","none");
+		if(password == ""){
+			$("#notPwd").css("display","block");
+			return false;
+		}
+		 var passwordRegExp =  /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+		 
+		 if(!passwordRegExp.test(password)){
+			 $("#notValiPwd").css("display","block");
+			 return false;
+		 }
+		 if(password != rePassword || rePassword == ""){
+			 $("#notEqualPwd").css("display","block");
+			 return false;
+		 }
+		 if(username == password){
+			 $("#equalUsername").css("display","block");
+			 return false;
+		 }
+		 
+		 return true;
+	}
+	
+	function checkNickName(nickName,nickCheck){
+		$("#notNickName").css("display","none");
+		$("#notValiNickName").css("display","none");
+		$("#notNickCheck").css("display","none");
+		if(nickName == ""){
+			$("#notNickName").css("display","block");
+			return false;
+		}
+		var nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,6}$/;
+		
+		if(!nickNameRegExp.test(nickName)){
+			$("#notValiNickName").css("display","block");
+			return false;
+		}
+		
+		if(nickCheck != "1"){
+			$("#notNickCheck").css("display","block");
+			return false;
+		}
+		return true;
+	}
+	
+	 function checkName(name) {
+		$("#notName").css("display","none");
+		$("#notValiName").css("display","none");
+
+	 	if(name == ""){
+	 		$("#notName").css("display","block");
+	 		return false;
+	 	}
+		var nameRegExp = /^[가-힣]{2,4}$/;
+		if (!nameRegExp.test(name)) {
+				$("#notValiName").css("display","block");
+	            return false;
+	        }
+	        return true; 
+	    }
+	
+	function checkMail(email){
+		 $("#notEmail").css("display","none");
+		 
+		 var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+		 
+		 if(!emailRegExp.test(email) || email == ""){
+			 $("#notEmail").css("display","block");
+
+			 return false;
+		 }
+		 
+		 return true;
+	}
+	
+	 function checkEmailAuth(emailAuth) {
+		 $("#notEmailAuth").css("display","none");
+		 if(emailAuth != "1"){
+			 $("#notEmailAuth").css("display","block");
+			 return false;
+		 }
+		 return true;
+	 }
+	 function checkAddress(zipcode,address1) {
+		 $("#notAddress").css("display","none");
+		 if(zipcode == ""){
+			 $("#notAddress").css("display","block");
+			 return false;
+		 } else if (address1 == ""){
+			 $("#notAddress").css("display","block");
+			 return false;
+		 }
+		 return true;
+	 }
+	 
+	function kakaoPost() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				document.querySelector("#zipcode").value = data.zonecode;
+				document.querySelector("#address1").value = data.address
+				document.getElementById("address2").focus();
+			}
+		}).open();
+
+	}
 
 </script>
 
+</head>
+<body>
+	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
+
+	<div class="main-wrap">
+		<div class="index-ingredient">
+
+			<div class="joininner">
+
+				<div id="content">
+
+					<h2 class="blind"></h2>
+					<div class="join_content">
+
+						<div class="row_group">
+							<div class="join_row">
+								<label id="join_title">아이디</label>
+								<span class="ps_box int_id">
+									<input type="text" id="username" name="username" maxlength="12" placeholder="영문소문자,숫자조합 (6~12자)" />
+								</span>
+								<button type="button" id="idCheckBtn" name="idCheckBtn" onclick="idCheck()" disabled>중복체크</button>
+								<input type="text" style="display: none;" value="0" id="idCheck" />
+								<span id="useUsername" style="display: none; color: red;">사용 가능한 아이디 입니다.</span>
+								<span id="notUseUsername" style="display: none; color: red;">이미 존재하는 아이디 입니다.</span>
+								<span id="notvaliUsername" style="display: none; color: red;">영문, 숫자 조합으로 6자이상 12자 이하의 영문만 입력해주세요.</span>
+								<span id="notUsername" style="display: none; color: red;">아이디를 입력해주세요.</span>
+								<span id="notIdCheck" style="display: none; color: red;">아이디를 중복체크를 해주세요.</span>
+							</div>
+
+							<div class="join_row">
+								<label id="join_title">비밀번호</label>
+								<input type="password" id="password" name="password" maxlength="15" placeholder="영문,숫자,특수문자 조합 (8~15자)" />
+								<span id="notValiPwd" style="display: none; color: red;">8~15자의 영문,숫자,특수문자 조합해서 설정해주세요.</span>
+								<span id="notPwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
+								<span id="equalUsername" style="display: none; color: red;">아이디와 비밀번호를 다르게 입력해주세요.</span>
+							</div>
+
+							<div class="join_row">
+								<label id="join_title">비밀번호 확인</label>
+								<input type="password" id="rePassword" name="rePassword" maxlength="12" placeholder="비밀번호 재확인" />
+								<span id="notRePwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
+								<span id="equalPwd" style="display: none; color: red;">비밀번호가 일치합니다.</span>
+								<span id="notEqualPwd" style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
+							</div>
+						</div>
+
+						<div class="join_row">
+							<label id="join_title">닉네임</label>
+							<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" placeholder="영문,숫자,한글(2~6자)" />
+							<button type="button" id="nickCheckBtn" name="nickCheckBtn" onclick="nickCheck()" disabled>중복체크</button>
+							<input type="text" style="display: none;" value="0" id="nickCheck" />
+							<span id="useNick" style="display: none; color: red;">사용 가능한 닉네임 입니다.</span>
+							<span id="notUseNick" style="display: none; color: red;">이미 존재하는 닉네임 입니다.</span>
+							<span id="notValiNickName" style="display: none; color: red;">2~6자로 입력해주세요.</span>
+							<span id="notNickName" style="display: none; color: red;">닉네임을 입력해주세요.</span>
+							<span id="notNickCheck" style="display: none; color: red;">닉네임 중복체크를 해주세요.</span>
+						</div>
+
+						<div class="join_row">
+							<label id="join_title">이름</label>
+							<input type="text" id="name" name="name" placeholder="한글 (2~4자)" />
+							<span id="notName" style="display: none; color: red;">이름을 입력해주세요.</span>
+							<span id="notValiName" style="display: none; color: red;">2~4자 이내의 한글로 입력해주세요.</span>
+						</div>
+
+						<div>
+							<label id="join_title">이메일</label>
+
+							<input type="text" class="form-control" name="email1" id="email1" placeholder="이메일">
+							<select class="form-control" name="email2" id="email2">
+								<option>@naver.com</option>
+								<option>@daum.net</option>
+								<option>@gmail.com</option>
+								<option>@hanmail.com</option>
+								<option>@yahoo.co.kr</option>
+							</select>
+							<button type="button" id="emailCheckBtn" onclick="sendEmail()" disabled>본인인증</button>
+							<span id="notEmail" style="display: none; color: red;">이메일 주소를 올바르게 입력해 주세요.</span>
+							<span id="notEmailAuth" style="display: none; color: red;">본인인증이 필요합니다.</span>
+							<div class="mail-check-box">
+								<input id="emailCheck" placeholder="인증번호 8자리를 입력해주세요!" maxlength="8" style="display: none;">
+								<button type="button" id="emailReCheckBtn" style="display: none">본인인증</button>
+								<input id="emailAuth" style="display: none;" />
+							</div>
+
+
+						</div>
+
+						<div class="join_row">
+
+							<div>
+								<label id="join_title"> 주소 </label>
+								<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button">
+									<span class="">주소검색</span>
+								</a>
+							</div>
+
+							<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly>
+						</div>
+						<input type="text" id="address1" name="address1" placeholder="주소" readonly>
+						<input type="text" id="address2" name="address2" placeholder="상세주소">
+						<span id="notAddress" style="display: none; color: red;">주소를 입력해주세요.</span>
+					</div>
+
+				</div>
+
+
+
+
+				<div class="btn_row">
+					<button type="button" onclick="checkAll()">가입하기</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 </body>
 </html>
