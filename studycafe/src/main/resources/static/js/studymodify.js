@@ -1,6 +1,5 @@
 /**
- * 스터디 모집 게시판 지도 API 및 JS 코드
- * @author 홍정수, 김재국
+ * 
  */
 
 // Enter 키 방지
@@ -79,7 +78,7 @@ var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
-		center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		center: new kakao.maps.LatLng($('#latitude').val(), $('#longitude').val()), // 지도의 중심좌표
 		level: 3
 		// 지도의 확대 레벨
 	};
@@ -426,6 +425,22 @@ var myMarker = new kakao.maps.Marker({
 });
 // 지도에 마커를 표시합니다
 myMarker.setMap(map);
+
+searchDetailAddrFromCoords(myMarker.getPosition(), function(result, status) {
+	
+	if (status === kakao.maps.services.Status.OK) {
+		document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+	}
+	
+	road_address = !!result[0].road_address ?
+		'<p><label for="road_address_name">도로명 주소</label>' + 
+		'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '" readonly="readonly"><br></p>' : '';
+
+	var resultDiv = document.getElementById('road_address');
+	
+	resultDiv.innerHTML = road_address;
+});
+
 
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
