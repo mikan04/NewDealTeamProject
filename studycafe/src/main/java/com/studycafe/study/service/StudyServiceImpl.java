@@ -1,6 +1,7 @@
 package com.studycafe.study.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.studycafe.study.dto.StudyByMonthDto;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.repository.StudyRepository;
 
@@ -58,6 +60,36 @@ public class StudyServiceImpl implements StudyService {
 	public List<StudyEntity> studySelectByMap(int lat, int lon, LocalDate date) {
 		return studyRepository.findByMap(lat, lon, date);
 	
+	}
+
+	@Override
+	public int getStudyReserve() {
+		// TODO Auto-generated method stub
+		return studyRepository.findStudyReserve();
+	}
+
+	@Override
+	public int getStudyProg(LocalDateTime time) {
+		// TODO Auto-generated method stub
+		return studyRepository.findStudyProg(time);
+	}
+
+	@Override
+	public int getStudyDone() {
+		// TODO Auto-generated method stub
+		return studyRepository.findStudyDone();
+	}
+
+	@Override
+	public List<StudyByMonthDto> getStudyByMonth() {
+		// TODO Auto-generated method stub
+		return studyRepository.findStudyByMonth();
+	}
+
+	@Override
+	public List<StudyEntity> getAllStudy() {
+		// TODO Auto-generated method stub
+		return studyRepository.findAll();
 	}
 
 

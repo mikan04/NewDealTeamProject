@@ -1,5 +1,7 @@
 package com.studycafe.member.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public int insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity) {
+	public boolean insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity) {
 
 		try {
 			MemberEntity insert1 = memRe.save(memberEntity);
@@ -35,48 +37,67 @@ public class MemberServiceImpl implements MemberService {
 					MemberAddressEntity insert2 = memberAddRe.save(memberAddressEntity);
 					log.info("insert2 : {}", insert2);
 					if (insert2 != null) {
-						return 1;
+						return true;
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					return false;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 
-		return 0;
+		return false;
 	}
 
 	@Override
+	@Transactional
 	public boolean idCheck(String username) {
 
 		try {
-			MemberEntity idcheck = memRe.findById(username).get();
-			if (idcheck.getUsername() != null) {
+			boolean idCheck = memRe.existsByUsername(username);
+			log.info("idCheck 의 값은 ? :{}", idCheck);
+			if (idCheck == true) {
 				return true;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 		return false;
 
 	}
 
 	@Override
+	@Transactional
 	public boolean nickCheck(String nickName) {
 
 		try {
-			MemberEntity nickCheck = memRe.findByNickName(nickName);
-			if (nickCheck.getUsername() != null) {
+			boolean nickCheck = memRe.existsByNickName(nickName);
+			if (nickCheck == true) {
 				return true;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public int getNewMemberCount() {
+		// TODO Auto-generated method stub
+		return memRe.findNewUser();
+	}
+
+	@Override
+	public List<MemberEntity> getAllMember() {
+		// TODO Auto-generated method stub
+		return memRe.findAll();
 	}
 
 }

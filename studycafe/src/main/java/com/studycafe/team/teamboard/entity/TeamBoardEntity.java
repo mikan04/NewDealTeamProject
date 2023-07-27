@@ -50,13 +50,14 @@ public class TeamBoardEntity {
 	private LocalDateTime modifiedDate;
 
 	@Builder
-	public TeamBoardEntity(long teamBoardNum, @NotNull String teamBoardTitle, @NotNull String teamBoardContent,
-			@NotNull String teamBoardWriter) {
-		
+	public TeamBoardEntity(long teamBoardNum, @NotNull String teamBoardTitle, @NotNull String teamBoardContent, @NotNull String teamBoardWriter,
+			Timestamp createDate) {
+		super();
 		this.teamBoardNum = teamBoardNum;
 		this.teamBoardTitle = teamBoardTitle;
 		this.teamBoardContent = teamBoardContent;
 		this.teamBoardWriter = teamBoardWriter;
+		this.createDate = createDate;
 	}
 
 }

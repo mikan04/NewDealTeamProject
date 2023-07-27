@@ -74,6 +74,13 @@ img {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
+.admin-table {
+  max-width: 90%;
+}
+.chart-data {
+  max-height: 300px;
+}
+
 /***************************************
 	대쉬보드
 ***************************************/
@@ -82,8 +89,55 @@ img {
 	RESPONSIVE
 ***************************************/
 
-@media (max-width: 767.98px) {
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 200px) {
+  .main-content {
+    margin-left: 0rem;
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
   .sidebar {
     top: 3rem;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .sidebar {
+    top: 0rem;
+  }
+  .main-content {
+    margin-left: 7rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 800px) {
+  .main-content {
+    margin-left: 5rem;
+  }
+  /* canvas.line {
+    width: 400px !important;
+  } */
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .main-content {
+    margin-left: 10rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .main-content {
+    margin-left: 13rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1250px) {
+  .main-content {
+    margin-left: 15rem;
   }
 }
