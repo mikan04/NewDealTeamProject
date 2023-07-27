@@ -18,12 +18,11 @@ public class SecurityConfig {
 		http.authorizeRequests()
 			.antMatchers("/member/**").authenticated()
 			.antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+//			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().permitAll()
 		.and()
 			.formLogin()
-			.loginPage("/loginForm")
-			.loginProcessingUrl("/login")
+			.loginPage("/loginform")
 			.defaultSuccessUrl("/")
 		.and()
 			.logout()
@@ -37,4 +36,6 @@ public class SecurityConfig {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
 }

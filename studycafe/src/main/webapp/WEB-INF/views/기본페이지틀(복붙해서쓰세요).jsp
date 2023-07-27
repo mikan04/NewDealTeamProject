@@ -9,8 +9,10 @@
 <meta charset="UTF-8">
 <title>타이틀입력</title>
 
-<link rel="stylesheet" href="">
+<!-- 제이쿼리 최신버전 -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <!-- index.css 복사해다가 jsp파일이랑 이름 똑같이 바꾸고 임포트해주세요. index.css에 따로 추가하거나 바꾸지 말아주세요-->
+<link rel="stylesheet" type="text/css" href="/css/admin.css">
 
 </head>
 <body>

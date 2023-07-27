@@ -48,6 +48,14 @@ p input[type=file]{
 	border : none;
 }
 
+p input[readonly=readonly]{
+	background-color: #bebebe;
+	pointer-events : none;
+}
+p input[readonly=readonly]:focus{
+	outline: none;
+}
+
 .ck-editor__editable{
 	min-height : 500px;
 	width : calc(100% - 150px);

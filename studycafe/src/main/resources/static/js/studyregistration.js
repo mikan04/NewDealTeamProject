@@ -3,6 +3,77 @@
  * @author 홍정수, 김재국
  */
 
+// Enter 키 방지
+function preventSubmit(event) {
+    if (event.key === "Enter") {
+        searchPlaces();
+        return false;
+    }
+}
+
+// 유효성 검사
+function regis_check() {
+	var studytitle = $('#studyTitle');
+	var studyContent = myEditor.getData();
+	var address_name = $('#address_name');
+	var reserve = $('#reserve');
+	
+	if (studytitle.val() == "") {
+		alert("제목을 입력해주세요.");
+		studytitle.focus();
+		return false;
+	}
+	
+	if (!studyContent.trim()) {
+        alert('내용을 입력해주세요.');
+        myEditor.focus();
+        return;
+    }
+    
+	if (address_name.val() == "") {
+		alert("주소를 입력해주세요.");
+		address_name.focus();
+		return false;
+	}
+	
+	if (reserve.val() == "") {
+		alert("예약 날짜를 정해주세요.");
+		reserve.focus();
+		return false;
+	}
+	
+	document.studyregistration_form.submit();
+}
+
+// ck에디터
+var myEditor;
+ClassicEditor
+	.create(document.querySelector('#studyContent'), {
+		ckfinder: {
+			uploadUrl: '/ck/teamregisimgupload' // 내가 지정한 업로드 url (post로 요청감)
+		},
+		removePlugins: ['Heading'],
+		language: "ko"
+	})
+	.then(editor => {
+		console.log('Editor was initialized', editor);
+		myEditor = editor;
+	})
+	.catch(error => {
+		console.error(error);
+	});
+
+// 이미지 미리보기 아직안씀
+$("#file").change(function() {
+	if (this.files && this.files[0]) {
+		var reader = new FileReader;
+		reader.onload = function(data) {
+			$(".select_img img").attr("src", data.target.result).width(350).height(350);
+		}
+		reader.readAsDataURL(this.files[0]);
+	}
+});
+
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -110,25 +181,25 @@ function displayPlaces(places) {
 				function() {
 					searchDetailAddrFromCoords(marker.getPosition(), function(result, status) {
 						let markerCoordinate = marker.getPosition();
-						let clickedLongitude = markerCoordinate.getLat();
-						let clickedLatitude = markerCoordinate.getLng();
+						let lat = markerCoordinate.getLat();
+						let lng = markerCoordinate.getLng();
 		
-						var message = '<form method="post" action="/studyregistrationpro">' +
-									  '[정보 출력]<br>' +
-									  '<label for="latitude">위도 : </label>' + 
-									  '<input type="text" id="latitude" name="latitude" value="'+ clickedLongitude +'"><br>' +
-									  '<label for="longitude">경도 : </label>' + 
-									  '<input type="text" id="longitude" name="longitude" value="'+ clickedLatitude +'"><br>';
-						message += !!result[0].road_address ?
-									  '<label for="road_address_name">도로명 주소 : </label>' + 
-									  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
-						message += 	  '<label for="address_name">지번 주소 : </label>' + 
-									  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
-									  '<input type="submit" value="보내기">' +
-									  '</form>'
-	
-						var resultDiv = document.getElementById('clickLatlng');
-						resultDiv.innerHTML = message;
+						if (status === kakao.maps.services.Status.OK) {
+							document.getElementById('latitude').value = lat; // 위도
+							document.getElementById('longitude').value = lng; // 경도
+							document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+						}
+						
+						road_address = !!result[0].road_address ?
+							'<p><label for="road_address_name">도로명 주소</label>' + 
+							'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '" readonly="readonly"><br></p>' : '';
+				
+						var resultDiv = document.getElementById('road_address');
+						
+						resultDiv.innerHTML = road_address;
+						
+						selectLong = lng;
+						selectLat = lat;
 						
 						myMarker.setMap(null); // 선택한 마커 삭제
 					});
@@ -144,22 +215,19 @@ function displayPlaces(places) {
 					let lat = marker.getPosition().getLat(); // 위도
 	        		let lng = marker.getPosition().getLng(); // 경도
 	
-					var message = '<form method="post" action="/studyregistrationpro">' +
-								  '[정보 출력]<br>' +
-								  '<label for="latitude">위도 : </label>' + 
-								  '<input type="text" id="latitude" name="latitude" value="'+ lat +'"><br>' +
-								  '<label for="longitude">경도 : </label>' + 
-								  '<input type="text" id="longitude" name="longitude" value="'+ lng +'"><br>';
-					message += !!result[0].road_address ?
-								  '<label for="road_address_name">도로명 주소 : </label>' + 
-								  '<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '"><br>' : '';
-					message += 	  '<label for="address_name">지번 주소 : </label>' + 
-								  '<input type="text" id="address_name" value="'+ result[0].address.address_name + '">' +
-								  '<input type="submit" value="보내기">' +
-								  '</form>'
-
-					var resultDiv = document.getElementById('clickLatlng');
-					resultDiv.innerHTML = message;
+					if (status === kakao.maps.services.Status.OK) {
+						document.getElementById('latitude').value = lat; // 위도
+						document.getElementById('longitude').value = lng; // 경도
+						document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+					}
+					
+					road_address = !!result[0].road_address ?
+						'<p><label for="road_address_name">도로명 주소</label>' + 
+						'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '" readonly="readonly"><br></p>' : '';
+			
+					var resultDiv = document.getElementById('road_address');
+					
+					resultDiv.innerHTML = road_address;
 					
 					selectLong = lng;
 					selectLat = lat;
@@ -168,10 +236,6 @@ function displayPlaces(places) {
 					myMarker.setMap(null); // 선택한 마커 삭제
 				});
 			};
-
-			//addEventListener("click", (itemEl) => {
-			//	console.log("")
-			//});
 
 			itemEl.onmouseout = function() {
 				infowindow.close();
@@ -221,8 +285,9 @@ function getStudyDateAvailability(lat, long, date){
 
 // 예약 날짜 선택시 핸들링 함수
 function selectDateHandler(date) {
-	if(!selectLat || !selectLong){	
+	if (!selectLat || !selectLong) {
 		alert("먼저 장소를 선택해주세요");
+		$('#reserve').val('');
 		return;
 	}
 	else {
@@ -380,7 +445,18 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			document.getElementById('longitude').value = lng; // 경도
 			document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
 		}
+		
+		road_address = !!result[0].road_address ?
+			'<p><label for="road_address_name">도로명 주소</label>' + 
+			'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '" readonly="readonly"><br></p>' : '';
 
+		var resultDiv = document.getElementById('road_address');
+		
+		resultDiv.innerHTML = road_address;
+		
+		selectLong = lng;
+		selectLat = lat;
+		
 		infowindow.close(); // 인포윈도우를 지도에서 제거합니다
 	});
 	

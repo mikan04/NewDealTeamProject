@@ -17,9 +17,10 @@ ClassicEditor
 	})
 	.catch(error => {
 		console.error(error);
+		alert("2mb 이하의 파일만 업로드 가능합니다.");
 	});
 
-// 이미지 미리보기 아직안씀
+// 이미지 미리보기
 $("#file").change(function() {
 	if (this.files && this.files[0]) {
 		var reader = new FileReader;
