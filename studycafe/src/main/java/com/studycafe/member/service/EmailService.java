@@ -7,14 +7,16 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@EnableAsync
 public class EmailService {
-
 
 	private final JavaMailSender javaMailSender;
 
@@ -52,7 +54,6 @@ public class EmailService {
 		message.setSubject(title);
 		message.setFrom();
 
-
 		String content = "<div style='margin:100px;'>";
 		content += " <h1> 안녕하세요.</h1>";
 		content += "<h1> 스터디카페 입니다.</h1>";
@@ -64,18 +65,18 @@ public class EmailService {
 
 		message.setContent(content, "text/html; charset=utf-8");
 
-
 		message.addRecipients(MimeMessage.RecipientType.TO, toEmail);
 
 		return message;
 	}
 
+	@Async
 	public String sendEmail(String toEmail) throws MessagingException, UnsupportedEncodingException {
-		
+
 		MimeMessage emailForm = createEmailForm(toEmail);
 
 		javaMailSender.send(emailForm);
 
-		return authNum; 
+		return authNum;
 	}
 }
