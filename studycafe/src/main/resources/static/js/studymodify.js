@@ -41,7 +41,7 @@ function regis_check() {
 		return false;
 	}
 	
-	document.studyregistration_form.submit();
+	document.studymodify_form.submit();
 }
 
 // ck에디터
@@ -423,11 +423,15 @@ var myMarker = new kakao.maps.Marker({
 	// 지도 중심좌표에 마커를 생성합니다 
 	position: map.getCenter()
 });
+
 // 지도에 마커를 표시합니다
 myMarker.setMap(map);
 
 searchDetailAddrFromCoords(myMarker.getPosition(), function(result, status) {
-	
+	markerCoordinate = myMarker.getPosition();
+	selectLong = markerCoordinate.getLat();
+	selectLat = markerCoordinate.getLng();
+						
 	if (status === kakao.maps.services.Status.OK) {
 		document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
 	}
