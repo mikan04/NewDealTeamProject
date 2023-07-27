@@ -1,5 +1,7 @@
 package com.studycafe.member.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +86,18 @@ public class MemberServiceImpl implements MemberService {
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public int getNewMemberCount() {
+		// TODO Auto-generated method stub
+		return memRe.findNewUser();
+	}
+
+	@Override
+	public List<MemberEntity> getAllMember() {
+		// TODO Auto-generated method stub
+		return memRe.findAll();
 	}
 
 }

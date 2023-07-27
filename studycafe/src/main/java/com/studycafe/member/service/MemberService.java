@@ -1,5 +1,7 @@
 package com.studycafe.member.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.studycafe.member.entity.MemberAddressEntity;
@@ -14,4 +16,7 @@ public interface MemberService {
 	public boolean idCheck(String username);
 	// 닉네임 중복 체크
 	public boolean nickCheck(String nickName);
+	
+	public int getNewMemberCount();
+	public List<MemberEntity> getAllMember();
 }
