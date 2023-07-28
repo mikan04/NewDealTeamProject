@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,8 +91,32 @@ public class MemberController {
 		return nickCheck;
 	}
 
-	@GetMapping("/searchId")
-	public String searchId() {
+	@GetMapping("/findAccount")
+	public String findAccount() {
 		return "/member/searchId";
+	}
+
+	@PostMapping("/getUserId")
+	@ResponseBody
+	public MemberEntity getUsername(@RequestParam("email") String email) {
+		try {
+			MemberEntity memberEntity = memberService.getUsername(email);
+			if (memberEntity != null) {
+				log.info("memberEntity의 값은 :{}", memberEntity);
+				return memberEntity;
+			} else {
+				log.info("memberEntity의 값은 :{}", memberEntity);
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@GetMapping("/resultUsername/{username}")
+	public String resultUsername(@PathVariable("username") String username, Model model) {
+		model.addAttribute("username", username);
+		return "/member/resultUsername";
 	}
 }

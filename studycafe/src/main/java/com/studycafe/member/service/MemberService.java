@@ -18,5 +18,8 @@ public interface MemberService {
 	public boolean nickCheck(String nickName);
 	
 	public int getNewMemberCount();
+	
 	public List<MemberEntity> getAllMember();
+	// 아이디 찾기
+	public MemberEntity getUsername(String email);
 }

@@ -9,22 +9,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
+	window.resizeTo(500, 500);
 	function searchId() {
 		var email = $("#email").val();
-
 		$.ajax({
 			type : "post",
-			url : "/getId",
+			url : "/getUserId",
 			data : {
 				"email" : email
 			},
 			dataType : "json",
 			success : function(data) {
+				console.log(data);
 				if (data != null) {
-
-				} else {
-					alert(email + "로 등록되어있는 아이디가 없습니다.");
+					var username = data.username;
+					location.href = "/resultUsername/" + username;
 				}
+			},
+			error : function() {
+				alert(email + "로 등록되어있는 아이디가 없습니다.");
 			}
 		});
 	}
