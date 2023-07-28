@@ -417,7 +417,7 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include> --%>
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
@@ -548,6 +548,6 @@
 
 
 
-	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+<%-- 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include> --%>
 </body>
 </html>
