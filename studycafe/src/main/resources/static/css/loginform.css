@@ -1,2 +1,96 @@
 @charset "UTF-8";
 
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	min-height : 120vh;
+}
+
+.container {
+	width: 500px;
+	padding: 20px;
+	text-align: center;
+}
+
+input {
+	width: 100%;
+	padding: 0;
+}
+
+#username, #password {
+	margin: 10px 0;
+	border: none;
+	border-bottom: 1px solid black;
+	outline: none;
+	font-size: 16px;
+}
+
+.btn-login {
+	width: 100%;
+	border: none;
+	border-radius : 10px;
+	font-size: 16px;
+	background-color: #0090f9;
+	color: white;
+	font-weight: 400;
+}
+
+.btn-login:hover{
+	cursor: pointer;
+	background-color: #0B7FD3;
+}
+
+input, button, a {
+	padding: 10px;
+	text-decoration: none;
+}
+
+.login-join-box>div, .sns-login>div {
+	padding: 5px 0;
+	margin: 10px 0;
+}
+
+#kakao_id_login, #git_id_login {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#kakao_id_login {
+	background-color: yellow;
+}
+
+#kakao_id_login a{
+ 	color: #371D1E;
+ 	font-weight: 600;
+}
+
+#git_id_login {
+	background-color: black;
+}
+
+#git_id_login a {
+	color: white;
+	font-weight: 600;
+}
+
+.join-find-div a{
+	color: #0090f9;
+}
+
+fieldset{
+	margin-top: 30px;
+	border: 1px solid #bebebe;
+}
+
+legend{
+	font-weight: 500;
+	font-size : 18px;
+}
