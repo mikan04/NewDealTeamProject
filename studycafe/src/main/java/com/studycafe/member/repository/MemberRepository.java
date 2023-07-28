@@ -14,7 +14,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	@Query(value = "SELECT COUNT(*) FROM member_entity WHERE created_at >= NOW() - INTERVAL 3 DAY", nativeQuery = true)
 	public int findNewUser();
 
-	public boolean existsByUsername(String userName);
+	public boolean existsByUsername(String username);
 
 	public boolean existsByNickName(String nickName);
 

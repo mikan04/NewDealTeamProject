@@ -6,17 +6,11 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<script type="text/javascript">
-	function findId() {
-
-	}
-	function findPwd() {
-
-	}
-</script>
 </head>
 <body>
-	<a href="javascript:findId();">아이디 찾기</a>
-	<a href="javascript:findPwd();">비밀번호 찾기</a>
+	<p> 비밀번호를 찾기 위한 ID를 입력하세요</p>
+	<label>아이디</label>
+	<input type="text" id="username" name="username" placeholder="아이디를 입력해주세요"/>
+	<input type="button" value="다음" onclick=""/> 
 </body>
 </html>
