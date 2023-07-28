@@ -13,8 +13,12 @@
 <body>
 	<div class="container">
 		<div class="main-form">
+			<div>
+				<img alt="로고" src="/img/logo.png" width="250" height="80">
+			</div>
+			<h2>DSSEAD에 오신것을 환영합니다.</h2>
+			<h4>개발자를 위한 스터디 사이트입니다.</h4>
 			<form id="loginForm" method="post" action="/loginform">
-
 				<div class="input-box">
 					<div class="username-box">
 						<input type="text" id="username" name="username" class="insert" maxlength="30" placeholder="아이디">
@@ -29,14 +33,15 @@
 						<button type="submit" class="btn-login">로그인</button>
 					</div>
 					<div align="right" class="join-find-div">
-						아직 회원이 아니신가요? <a href="${contextPath}/joinform">회원가입 바로가기</a>
-					</div>
-					<div align="right" class="join-find-div">
 						회원 정보를 잊으셨나요? <a href="/member/findAccountForm">회원정보 찾기</a>
 					</div>
+					<div align="right" class="join-find-div">
+						아직 회원이 아니신가요? <a href="${contextPath}/joinform">회원가입 바로가기</a>
+					</div>
 				</div>
+
 				<fieldset>
-				<legend align="left">소셜로그인</legend>
+					<legend align="left">소셜로그인</legend>
 					<div class="sns-login">
 						<div id="kakao_id_login">
 							<img src="/img/kakao-logo.png" width="30" height="30"><a
