@@ -26,6 +26,7 @@
 			<div class="content">
 				<a href="/" class="logo"> <img alt="로고" src="/img/logo.png" width="200" height="50">
 				</a>
+
 				<ul class="links">
 					<li>
 						<a href="/gpt/opengpt" target="_blank">CharGPT</a>
@@ -49,6 +50,7 @@
 							</li>
 						</ul>
 					</li>
+
 					<c:if test="${member.teamNumber!=null}">
 						<li>
 							<a href="#" class="desktop-link">팀</a>
@@ -64,19 +66,25 @@
 							</ul>
 						</li>
 					</c:if>
+
 					<li>
 						<a href="#">고객센터</a>
 					</li>
-					<li class="member-li">
-						<a href="#" class="desktop-link">회원</a>
-						<input type="checkbox" id="show-memberInfo">
-						<label for="show-memberInfo">회원</label>
+				</ul>
+
+				<ul class="links member-ul">
+					<li>
+						<sec:authorize access="isAuthenticated()">
+							<a href="#" class="desktop-link">${member.nickName}님 반갑습니다.</a>
+							<input type="checkbox" id="show-memberInfo">
+							<label for="show-memberInfo">${member.nickName}님 반갑습니다.</label>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<a href="${contextPath}/loginform" class="desktop-link">로그인</a>
+							<input type="checkbox" id="show-memberInfo">
+							<label for="show-memberInfo">로그인</label>
+						</sec:authorize>
 						<ul>
-							<sec:authorize access="isAnonymous()">
-								<li>
-									<a href="${contextPath}/loginform">로그인</a>
-								</li>
-							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
 								<li>
 									<a href="${contextPath}/logout">로그아웃</a>
@@ -88,16 +96,6 @@
 						</ul>
 					</li>
 				</ul>
-				<div class="username" align="right">
-					<sec:authorize access="isAuthenticated()">
-						<span style="color: white;">${member.nickName}님 반갑습니다.</span>
-					</sec:authorize>
-				</div>
-				<div class="content">
-					<ul class="links">
-
-					</ul>
-				</div>
 			</div>
 		</nav>
 	</div>
