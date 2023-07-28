@@ -15,89 +15,7 @@
 
 <style type="text/css">
 
-	body{
-	font-family: Dotum,'돋움',Helvetica,sans-serif;
-    font-size: 15px;
-	}
 	
-	input{
-	width: 300px;
-	border-color: hsla(220,9%,46%,.3);
-	border-width: 1px;
-	border-radius: 0.375rem;
-	margin-top: 5px;
-	}
-	
-	select{
-	width: 300px;
-	border-color: hsla(220,9%,46%,.3);
-	border-width: 1px;
-	border-radius: 0.375rem;
-	margin-top: 5px;
-	}
-	
-	.join_row{
-	/* display: flex; */
-    align-items: center;
-    position: relative;
-    box-sizing: border-box;
-    max-width: 100%;
-    min-height: 50px;
-   	padding-top: 10px;
-	}
-	
- 	/* 왜 다 없어짐? */
-	/* .join_row id{
-	position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: inherit;
-    border: 1px solid #dfdfdf;
-    pointer-events: none;
-    content: '';
-	}  */
-	
-	
-	
-	.index-ingredient{
-	margin-bottom: 15px;
-	
-	}
-	
-	.joininner{
-	width: 400px;
-	margin: auto;
-	
-	border-radius: 15px;
-	padding: 10px
-	} 
-	
- 	.join_content{
-	
-	
-	}
-	
-	.btn_row{
-	padding-top: 30px;
-	text-align:center;
-	}
-	
-	
-	.join_btn{
-	width: 400px;
-    padding: 14px 0;
-    border-radius: 6px;
-    border: 1px solid rgba(0,144,249,.5);
-    background: rgba(0,144,249,.5);
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 22px;
-    color: #fff;
-	}
-	
-
 
 </style>
 <script type="text/javascript">
@@ -412,6 +330,10 @@
 		}).open();
 
 	}
+	
+	function zip(){
+		
+	}
 
 </script>
 
@@ -421,11 +343,17 @@
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
-
+			
 			<div class="joininner">
-
+			
 				<div id="content">
-
+					
+					<img src="/img/logo.png" class="logo"  onclick="location.href='/'">
+						
+					<div class="join_top">
+						회원가입에 필요한 기본정보를 입력해주세요.
+					</div>
+					
 					<h2 class="blind"></h2>
 					<div class="join_content">
 
@@ -525,14 +453,14 @@
 
 							<div>
 								<label id="join_title"> 주소 </label>
-								<a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button">
+								<!-- <a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button">
 									<span class="">주소검색</span>
-								</a>
+								</a> -->
 							</div>
 
-							<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly>
+							<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly	 onclick="javascript:kakaoPost();">
 						</div>
-						<input type="text" id="address1" name="address1" placeholder="주소" readonly>
+						<input type="text" id="address1" name="address1" placeholder="주소" readonly onclick="javascript:kakaoPost();">
 						<input type="text" id="address2" name="address2" placeholder="상세주소">
 						<span id="notAddress" style="display: none; color: red;">주소를 입력해주세요.</span>
 					</div>
