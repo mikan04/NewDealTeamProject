@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.study.dto.StudyByMonthDto;
@@ -18,15 +19,15 @@ import com.studycafe.study.repository.StudyRepository;
 @Service("studyService")
 public class StudyServiceImpl implements StudyService {
 
+	@Autowired
+	private StudyRepository studyRepository;
+
 	@Override
 	public void studyDelete(int id) {
 		// TODO Auto-generated method stub
-		
+
 		studyRepository.deleteById(id);
 	}
-
-	@Autowired
-	private StudyRepository studyRepository;
 
 	@Override
 	public void studyInsert(StudyEntity studyEntity) {
@@ -59,7 +60,7 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public List<StudyEntity> studySelectByMap(int lat, int lon, LocalDate date) {
 		return studyRepository.findByMap(lat, lon, date);
-	
+
 	}
 
 	@Override
@@ -91,6 +92,11 @@ public class StudyServiceImpl implements StudyService {
 		// TODO Auto-generated method stub
 		return studyRepository.findAll();
 	}
-
+	
+	@Override
+	public List<StudyEntity> getAllStudyToIndex() {
+		// TODO Auto-generated method stub
+		return studyRepository.findAll(Sort.by(Sort.Direction.DESC, "studyNum"));
+	}
 
 }

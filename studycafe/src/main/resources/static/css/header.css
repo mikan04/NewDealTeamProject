@@ -45,6 +45,10 @@ nav .content .links {
 	display: flex;
 }
 
+nav .content .member-ul{
+	margin-left : auto;
+}
+
 .logo {
 	display: flex;
 }
@@ -62,9 +66,6 @@ nav .content .links {
 	line-height: 70px;
 }
 
-.member-li{
-	margin-left : auto;
-}
 
 .content .links li a, .content .links li label {
 	color: #fff;
@@ -168,7 +169,7 @@ nav .content .links {
 }
 
 .content .links ul li a {
-	display: block;
+	display: flex;
 	width: 100%;
 	line-height: 30px;
 	border-radius: 10px !important;

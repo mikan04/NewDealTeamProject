@@ -26,4 +26,6 @@ public interface StudyService {
 	public int getStudyProg(LocalDateTime time);
 	public int getStudyDone();
 	public List<StudyByMonthDto> getStudyByMonth();
+	public List<StudyEntity> getAllStudyToIndex();
+
 }

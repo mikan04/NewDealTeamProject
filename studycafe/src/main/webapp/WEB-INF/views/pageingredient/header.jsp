@@ -26,78 +26,94 @@
 			<div class="content">
 				<a href="/" class="logo"> <img alt="로고" src="/img/logo.png" width="200" height="50">
 				</a>
+
 				<ul class="links">
 					<li>
 						<a href="/gpt/opengpt" target="_blank">CharGPT</a>
 					</li>
+
 					<li>
-						<a href="#" class="desktop-link">스터디</a>
+						<a href="#">Q &amp; A</a>
+					</li>
+
+					<li>
+						<a href="" class="desktop-link">스터디</a>
 						<input type="checkbox" id="show-features">
 						<label for="show-features">스터디</label>
 						<ul>
 							<li>
 								<a href="/study">스터디모집</a>
 							</li>
-							<sec:authorize access="isAuthenticated()">
-								<li>
-									<a href="${contextPath}/team/teamboards">팀등록</a>
-								</li>
-							</sec:authorize>
-
+							<li>
+								<a href="${contextPath}/team/teamboards">팀신청</a>
+							</li>
 							<li>
 								<a href="#">인증게시판</a>
 							</li>
 						</ul>
 					</li>
-					<c:if test="${member.teamNumber!=null}">
-						<li>
-							<a href="#" class="desktop-link">팀</a>
-							<input type="checkbox" id="show-services">
-							<label for="show-services">팀</label>
-							<ul>
-								<li>
-									<a href="#">팀관리</a>
-								</li>
-								<li>
-									<a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a>
-								</li>
-							</ul>
-						</li>
-					</c:if>
+
 					<li>
-						<a href="#">고객센터</a>
-					</li>
-					<li class="member-li">
-						<a href="#" class="desktop-link">회원</a>
-						<input type="checkbox" id="show-memberInfo">
-						<label for="show-memberInfo">회원</label>
+						<a href="#" class="desktop-link">팀관리</a>
+						<input type="checkbox" id="show-services">
+						<label for="show-services">팀관리</label>
 						<ul>
 							<sec:authorize access="isAnonymous()">
 								<li>
-									<a href="${contextPath}/loginform">로그인</a>
+									<a>로그인해주세요</a>
 								</li>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
 								<li>
-									<a href="${contextPath}/logout">로그아웃</a>
+									<a href="#">나의팀관리</a>
 								</li>
 								<li>
-									<a href="#">회원정보관리</a>
+									<a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a>
 								</li>
 							</sec:authorize>
 						</ul>
 					</li>
-				</ul>
-				<div class="username" align="right">
-					<sec:authorize access="isAuthenticated()">
-						<span style="color: white;">${member.nickName}님 반갑습니다.</span>
-					</sec:authorize>
-				</div>
-				<div class="content">
-					<ul class="links">
 
-					</ul>
-				</div>
+					<li>
+						<a href="#">고객센터</a>
+					</li>
+				</ul>
+
+				<ul class="links member-ul">
+					<li>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal" var="user" />
+							<a href="#" class="desktop-link">
+								<span style="color: yellow;">${member.nickName}</span>님 반갑습니다.
+							</a>
+							<input type="checkbox" id="show-memberInfo">
+							<label for="show-memberInfo">${member.nickName}님 반갑습니다.</label>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<a href="${contextPath}/loginform" class="desktop-link">로그인</a>
+							<input type="checkbox" id="show-memberInfo">
+							<label for="show-memberInfo">로그인</label>
+						</sec:authorize>
+						<ul>
+							<sec:authorize access="isAuthenticated()">
+								<li>
+									<a href="${contextPath}/logout">로그아웃</a>
+								</li>
+
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<li>
+										<a href="/admin/home">관리자페이지</a>
+									</li>
+								</sec:authorize>
+
+								<li>
+									<a href="">내정보관리</a>
+								</li>
+
+							</sec:authorize>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</nav>
 	</div>
