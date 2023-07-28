@@ -9,10 +9,10 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -54,5 +54,6 @@ public class StudyEntity {
 	private LocalDateTime reserveTime; // 예약 시간
 
 	@CreatedDate
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime dateTime; // 등록일자
 }
