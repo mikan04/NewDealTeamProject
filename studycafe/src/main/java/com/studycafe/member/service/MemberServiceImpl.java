@@ -65,7 +65,7 @@ public class MemberServiceImpl implements MemberService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+
 		}
 		return false;
 
@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+
 		}
 		return false;
 	}
@@ -107,8 +107,6 @@ public class MemberServiceImpl implements MemberService {
 			if (getUsername == true) {
 				MemberEntity memberEntity = memRe.findByEmail(email);
 				return memberEntity;
-			} else {
-				return null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,4 +114,26 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+	@Override
+	public MemberEntity findUsername(String username) {
+		try {
+			MemberEntity memberEntity = memRe.findById(username).get();
+			if (memberEntity != null) {
+				return memberEntity;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+//	@Override
+//	public MemberEntity findUsernameByEmail(String email) {
+//		try {
+//			MemberEntity memberEntity = findByEmail
+//		}
+//		return null;
+//	}
+	
+	
 }
