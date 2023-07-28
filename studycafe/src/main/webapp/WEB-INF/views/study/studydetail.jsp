@@ -13,6 +13,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/css/studydetail.css">
+<!-- 폰트어썸 아이콘 https://fontawesome.com/ -->
+<script src="https://kit.fontawesome.com/b780cabc8c.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
@@ -22,7 +24,7 @@
 	
 	<div class="main-wrap">
 		<div class="index-ingredient">
-			<form method="post" enctype="multipart/form-data">
+			<form class="main-form" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="studyTitle">제목</label>
 					<input type="text" id="studyTitle" name="studyTitle" value="${studyEntity.studyTitle}" readonly="readonly"></p>
@@ -51,6 +53,50 @@
 				<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/studymodify/${studyEntity.studyNum}'">수정</button>
 				<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete(${studyEntity.studyNum})">삭제</button>
 			</form>
+			<div class="content-wrap">
+				<p><label>댓글</label></p>
+				<div>
+					<ul class="reply-list">
+						<li>
+							<div class="thumb">
+								<img src="/img/user.png" width="48" height="48" class="">
+							</div>
+							<div class="reply-content">
+								<ul class="info">
+									<li class="nickname">jeongsu</li>
+									<li class="date">2023.07.21</li>
+								</ul>
+									<p class="text">같이 공부해도 될까요??</p>
+									<ul class="control">
+										<li class=""><a href="#" class="link_reply"><i class="fa fa-comment"></i>답변달기</a>
+										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>
+										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<div class="thumb_re">
+								<img src="/img/user_writer.png" width="48" height="48" class="">
+							</div>
+							<div class="reply-content reply-re_content">
+								<ul class="info">
+									<li class="nickname">jeongsu</li>
+									<li class="date">2023.07.21</li>
+								</ul>
+									<p class="text">그럼요!!</p>
+									<ul class="control">
+										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>
+										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>
+								</ul>
+							</div>
+						</li>
+					</ul>
+					<form>
+						<textarea class="comment" id="comment" rows="5" placeholder="코멘트 달기"></textarea>
+						<button class="btn btn-dark" id="commentBtn" type="button" onclick="location.href='/study/''">작성</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
  	
