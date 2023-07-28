@@ -27,7 +27,7 @@ public class TeamBoardController {
 	// 게시판 접속 및 게시글 리스트 불러오기 및 페이징
 	@GetMapping("/team/teamboards")
 	public String teamList(
-			@PageableDefault(page = 0, size = 10, sort = "teamBoardNum", direction = Sort.Direction.DESC)
+			@PageableDefault(page = 0, size = 3, sort = "teamBoardNum", direction = Sort.Direction.DESC)
 			Pageable pageable,
 			TeamBoardPageDTO teamBoardPage,
 			Model model) {
@@ -41,6 +41,10 @@ public class TeamBoardController {
 		TeamBoardPageDTO page = teamBoardPage.convertPageDTO(teamBoardDTOList);
 		
 		page.paging();
+		
+		log.info("페이징 getNumber : {}", page.getNumber());
+		log.info("페이징 getEndPage : {}", page.getEndPage());
+		log.info("페이징 getStartPage : {}", page.getStartPage());
 	
 		model.addAttribute("teamBoardList", teamBoardDTOList);
 		model.addAttribute("page", page);
