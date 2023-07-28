@@ -96,6 +96,7 @@ public class MemberController {
 		return "/member/searchId";
 	}
 
+	// 아이디 찾기
 	@PostMapping("/getUserId")
 	@ResponseBody
 	public MemberEntity getUsername(@RequestParam("email") String email) {
@@ -114,9 +115,43 @@ public class MemberController {
 		return null;
 	}
 
+	// 아이디 찾기
 	@GetMapping("/resultUsername/{username}")
 	public String resultUsername(@PathVariable("username") String username, Model model) {
 		model.addAttribute("username", username);
 		return "/member/resultUsername";
 	}
+
+	// 비밀번호 찾기 1
+	@GetMapping("/searchPwd1")
+	public String searchPwd1() {
+		return "/member/searchPwd1";
+	}
+
+	// 비밀번호 찾기1 (아이디 찾기)
+	@PostMapping("/searchPwdFindUsername")
+	@ResponseBody
+	public MemberEntity searchPwdFindUsername(@RequestParam("username") String username) {
+		MemberEntity memberEntity = memberService.findUsername(username);
+
+		return memberEntity;
+	}
+
+	// 비밀번호 찾기 2
+	@GetMapping("/searchPwd2")
+	@ResponseBody
+	public String searchPwd2(@RequestParam("username") String username, Model model) {
+		model.addAttribute("username", username);
+		return "/member/searchPwd2";
+	}
+	
+//	// 비밀번호 찾기2 (아이디 찾기)
+//		@PostMapping("/searchPwdFindEmail")
+//		@ResponseBody
+//		public MemberEntity searchPwdFindEmail(@RequestParam("email") String email) {
+//			MemberEntity memberEntity = memberService.findUsername(username);
+//
+//			return memberEntity;
+//		}
+	
 }
