@@ -9,12 +9,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="/css/loginform.css">
-<script type="text/javascript">
-	function findAccount() {
-		window.open("/findAccount",
-				"width=500,height=500","toolbar=no,menubar=no");
-	}
-</script>
+<script src="/js/loginForm.js"></script>
 </head>
 <body>
 	<div class="container">
