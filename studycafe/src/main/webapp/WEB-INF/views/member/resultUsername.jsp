@@ -4,13 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/resultusername.css">
 </head>
 <body>
-	<c:forEach items="${username}" var="username">
-		<p id="username">${username}</p>
-	</c:forEach>
+	<div>
+		<c:forEach items="${username}" var="username">
+			회원님의 아이디는 <h2 id="username">${username}</h2>입니다.
+		</c:forEach>
+	</div>
 </body>
 </html>
