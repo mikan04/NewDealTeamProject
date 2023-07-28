@@ -100,4 +100,20 @@ public class MemberServiceImpl implements MemberService {
 		return memRe.findAll();
 	}
 
+	@Override
+	public MemberEntity getUsername(String email) {
+		try {
+			boolean getUsername = memRe.existsByEmail(email);
+			if (getUsername == true) {
+				MemberEntity memberEntity = memRe.findByEmail(email);
+				return memberEntity;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
