@@ -89,4 +89,8 @@ public class MemberController {
 		return nickCheck;
 	}
 
+	@GetMapping("/searchId")
+	public String searchId() {
+		return "/member/searchId";
+	}
 }
