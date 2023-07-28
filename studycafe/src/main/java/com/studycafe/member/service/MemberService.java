@@ -22,4 +22,11 @@ public interface MemberService {
 	public List<MemberEntity> getAllMember();
 	// 아이디 찾기
 	public MemberEntity getUsername(String email);
+	
+	// 비밀번호 찾기 (아이디 찾기)
+	public MemberEntity findUsername(String username);
+	
+//	// 비밀번호 찾기 (아이디 찾기)
+//	public MemberEntity findUsernameByEmail(String email);
+	
 }
