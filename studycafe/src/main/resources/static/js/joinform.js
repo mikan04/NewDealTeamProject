@@ -86,11 +86,18 @@ function nickCheck() {
 // 이메일 인증번호 전송
 function sendEmail() {
 	var email = $("#email1").val() + $("#email2").val();
+
+	if (!emailCheck(email)) {
+		alert("이미 등록되어 있는 이메일입니다. 다른 이메일을 입력해주세요");
+		return false;
+	}
+
 	alert(email + "로 이메일이 발송되었습니다");
 	$("#notEmailAuth").css("display", "none");
 	$("#emailCheckBtn").css("display", "none");
 	$("#emailCheck").css("display", "block");
 	$("#emailReCheckBtn").css("display", "block");
+
 	$.ajax({
 		type: "POST",
 		url: "/send",
@@ -116,6 +123,24 @@ function sendEmail() {
 			alert("메세지 전송 실패: " + error);
 		}
 	});
+}
+
+function emailCheck(email) {
+
+	$.ajax({
+		type: "post",
+		url: "emailCheck",
+		data: {
+			"email": email
+		},
+		dataType: "json",
+		succeess: function(data) {
+			if (data) {
+				return false;
+			}
+			return true;
+		}
+	})
 }
 // 회원가입
 function join() {
