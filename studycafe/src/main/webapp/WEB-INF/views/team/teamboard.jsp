@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -17,12 +18,20 @@
 	<div class="main-wrap">
 		<div class="index-ingredient">
 			<div class="index main-regteam">
-				<div class="team-regist-div">
-					<button class="team-regist" onclick="location.href = '${contextPath}/team/teamregispage'">팀 등록</button>
-				</div>
-				<label>
-						팀등록 게시판
-				</label>
+			
+				<sec:authorize access="isAuthenticated()">
+					<div class="team-regist-div">
+						<button class="team-regist" onclick="location.href = '${contextPath}/team/teamregispage'">팀 신청</button>
+					</div>
+				</sec:authorize>
+				
+				<sec:authorize access="isAnonymous()">
+					<div class="team-regist-div" align="right">
+						팀등록은 로그인 시 이용 가능합니다.
+					</div>
+				</sec:authorize>
+				
+				<label> 팀등록 게시판 </label>
 				<c:forEach items="${teamBoardList.content }" var="list">
 					<div>
 						<a href="${contextPath }/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
@@ -43,40 +52,49 @@
 
 				<!-- first -->
 				<c:if test="${page.first == false }">
-					<span>
-						<a class="page-link" href="?page=0">처음</a>
+					<span class="page-bool">
+						<a class="page-link" href="?page=0" title="처음 페이지로">First</a>
 					</span>
 				</c:if>
 
 				<!-- prev -->
 				<c:if test="${page.previous == true }">
-					<span>
-						<a class="page-link" href="?page=${page.number-page.totalPagesInEachScreen}">이전</a>
+					<span class="page-bool">
+						<a class="page-link" href="?page=${(page.startPage < 10) ? 0 : (page.startPage - page.totalPagesInEachScreen - 1)}" title="이전 페이지로">Previous</a>
 					</span>
 				</c:if>
 
 				<!-- paging -->
 				<c:forEach var="i" begin="${page.startPage }" end="${page.endPage}">
-					<span class="page-item">
-						<a class="page-link" href="?page=${i-1}">${i}</a>
-					</span>
+					<c:choose>
+						<c:when test="${page.number != i }">
+							<span class="page-item">
+								<a class="page-link" href="?page=${i-1}">${i}</a>
+							</span>
+						</c:when>
+						<c:when test="${page.number == i }">
+							<span class="page-item">
+								<b class="selected-number" style="color: #0b7fd3;">${i }</b>
+							</span>
+						</c:when>
+					</c:choose>
 				</c:forEach>
 
 				<!-- next -->
 				<c:if test="${page.next == true }">
-					<span>
-						<a class="page-link" href="?page=${page.number + page.totalPagesInEachScreen }">다음</a>
+					<span class="page-bool">
+						<a class="page-link" href="?page=${page.startPage + page.totalPagesInEachScreen - 1 }" title="다음 페이지로">Next</a>
 					</span>
 				</c:if>
 
 				<!-- last -->
 				<c:if test="${page.last == false }">
-					<span>
-						<a class="page-link" href="?page=${page.totalPages-1 }">마지막</a>
+					<span class="page-bool">
+						<a class="page-link" href="?page=${page.totalPages-1 }" title="마지막 페이지로">Last</a>
 					</span>
 				</c:if>
-
 			</p>
+			<!-- // 페이징 -->
 		</div>
 	</div>
 

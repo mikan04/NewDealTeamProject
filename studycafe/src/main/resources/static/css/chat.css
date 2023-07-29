@@ -1,0 +1,121 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	width: 500px;
+	margin: 0 auto;
+	padding: 25px;
+}
+
+.container h1 {
+	text-align: left;
+	padding: 5px 0px 5px 15px;
+	color: black;
+	margin-bottom: 20px;
+	width: 500px;
+	border: 2px solid black;
+}
+
+.chating {
+	border: 2px solid black;
+	width: 500px;
+	height: 500px;
+	overflow-y: scroll;
+	background-color: #F4F4F4;
+	padding: 10px;
+}
+
+.chating p {
+	margin-bottom: 10px;
+}
+
+.inputTable {
+	display: flex;
+	margin-top: 10px;
+	width: 500px;
+	border: 2px solid black;
+}
+
+#chatting {
+	flex: 1;
+	font-size: 15px;
+	font-weight: bold;
+	border: none;
+	border-radius: 20px;
+	padding: 10px;
+	resize: none;
+	overflow: hidden;
+	width: 400px;
+	margin-left: 10px;
+}
+
+#sendBtn {
+	background-color: darkgray;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 20px;
+	cursor: pointer;
+	margin-left: 50%;
+}
+
+#sendBtn:hover {
+	background-color: gray;
+}
+
+#userName {
+	flex: 1;
+	border: none;
+	padding: 10px;
+	border-radius: 20px;
+	width: 400px;
+	margin-left: 10px;
+}
+
+#startBtn {
+	background-color: darkgray;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 20px;
+	cursor: pointer;
+	margin-left: 10%;
+}
+
+#startBtn:hover {
+	background-color: gray;
+}
+
+#yourName th, #yourMsg th {
+	width: 75%;
+}
+
+#yourName button, #yourMsg button {
+	width: 100%;
+}
+
+#yourName input:focus, #yourMsg textarea:focus {
+	outline: none;
+	border: 2px solid black;
+}
+
+.chating .me {
+	color: black;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.chating .others {
+	width: auto;
+	color: black;
+	text-align: left;
+	margin: 10px 10px 10px 10px;
+}
+
+.message {
+	border: 1px solid black;
+	border-radius: 1em;
+}
