@@ -84,3 +84,37 @@ form{
 .select_img{
 	text-align: center;
 }
+
+.modify-delete-box{
+	float : right;
+}
+
+.modify-delete-box > a{
+	text-align : center;
+	font-size : 16px;
+	font-weight : 500;
+	border : none;
+	border-radius : 5px;
+	color : white;
+	width : 150px;
+	padding : 10px;
+	margin-left : 20px;
+}
+
+.modify-delete-box > a[id=modify-btn]{
+	background-color : #0090f9;
+}
+
+.modify-delete-box > a[id=delete-btn]{
+	background-color : red;
+}
+
+.modify-delete-box > a[id=modify-btn]:hover{
+	cursor : pointer;
+	background-color : #0b7fd3;
+}
+
+.modify-delete-box > a[id=delete-btn]:hover{
+	cursor : pointer;
+	background-color : #ca0000;
+}
