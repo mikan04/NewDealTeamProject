@@ -16,6 +16,7 @@ body {
 .find-by-id {
 	display: flex;
 	flex-direction: column;
+	width : 85%;
 }
 
 .find-by-id p {

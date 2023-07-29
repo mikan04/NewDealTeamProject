@@ -45,9 +45,7 @@ public class ChatGptService {
 
 	// http header에 gpt로 보낼 정보를 담아서 보내줌.
 	public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
-		
-		log.info("buildHttpEntity 실행");
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("application/json; charset=UTF-8"));
 		headers.add("Authorization", "Bearer " + apiKey);
@@ -56,9 +54,7 @@ public class ChatGptService {
 	
 	// gpt의 응답은 restTemplate화 시켜서 들어옴.
 	public ChatGptResponseDto getResponse(HttpEntity<ChatGptRequestDto> chatGptRequestDtoHttpEntity) {
-		
-		log.info("getResponse 실행");
-		
+
 		ResponseEntity<ChatGptResponseDto> responseEntity = restTemplate.postForEntity("https://api.openai.com/v1/chat/completions",
 				chatGptRequestDtoHttpEntity, ChatGptResponseDto.class);
 
@@ -67,8 +63,7 @@ public class ChatGptService {
 	
 	// 들어온 message를 받아서 QuestionRequestDto를 통해 전달되어 builder 시킴.
 	public ChatGptResponseDto askQuestion(QuestionRequestDto requestDto) {
-		log.info("askQuestion 실행");
-		
+
 		List<ChatGptMessage> messages = new ArrayList<>();
         messages.add(ChatGptMessage.builder()
                 .role(role)

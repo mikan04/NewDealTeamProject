@@ -26,6 +26,7 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	// 팀 등록 게시판 리스트
 	@Override
+	@Transactional
 	public Page<TeamBoardDTO> getTeamBoardList(Pageable pageable) {
 
 		Page<TeamBoardEntity> boardList = teamBoardRepository.findAll(pageable);
@@ -73,6 +74,7 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	// 삭제
 	@Override
+	@Transactional
 	public boolean deleteTeamBoard(long idx) {
 
 		boolean isPresent = teamBoardRepository.findById(idx).isPresent();
@@ -95,6 +97,7 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	// 팀 신청 게시판 인덱스용
 	@Override
+	@Transactional
 	public List<TeamBoardEntity> getTeamBoardListToIndex() {
 		// TODO Auto-generated method stub
 		return teamBoardRepository.findAll(Sort.by(Sort.Direction.DESC, "teamBoardNum"));

@@ -26,6 +26,7 @@
 			<label for="show-menu" class="menu-icon">
 				<i class="fas fa-bars"></i>
 			</label>
+
 			<div class="content">
 				<a href="/" class="logo"> <img alt="로고" src="/img/logo.png" width="200" height="50">
 				</a>
@@ -99,10 +100,10 @@
 				<ul class="links member-ul">
 					<li>
 						<sec:authorize access="isAuthenticated()">
-							<a href="#" class="desktop-link"> <span style="color: yellow;">${member.nickName}</span>님 반갑습니다.
+							<a href="#" class="desktop-link"> 안녕하세요 <span style="color: yellow;">${member.nickName}</span>님
 							</a>
 							<input type="checkbox" id="show-memberInfo">
-							<label for="show-memberInfo">${member.nickName}님 반갑습니다.</label>
+							<label for="show-memberInfo">${member.nickName}</label>
 						</sec:authorize>
 
 						<sec:authorize access="isAnonymous()">
