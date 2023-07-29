@@ -190,11 +190,15 @@ nav .content .member-ul{
 }
 
 /* Responsive code */
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1300px) {
 	.wrapper nav {
 		max-width: 100%;
 		padding: 0 20px;
 	}
+	.content .logo{
+		visibility : hidden;
+	}
+	
 	nav .content .links {
 		margin-left: 30px;
 	}
