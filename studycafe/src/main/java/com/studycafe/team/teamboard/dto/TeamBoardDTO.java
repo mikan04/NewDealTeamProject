@@ -35,6 +35,7 @@ public class TeamBoardDTO {
 				.teamBoardTitle(teamBoardTitle)
 				.teamBoardContent(teamBoardContent)
 				.teamBoardWriter(teamBoardWriter)
+				.modifiedDate(modifiedDate)
 				.build();
 
 		return teamBoardEntityBuilder;

@@ -12,4 +12,6 @@ public class WebConfig {
 		// ckeditor 이미지 미리보기 가능하게
 		return new MappingJackson2JsonView();
 	}
+	
+	
 }
