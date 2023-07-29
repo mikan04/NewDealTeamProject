@@ -55,7 +55,7 @@ public class TeamBoardPageDTO {
 		endPage = (int) (Math.ceil((double)number/(double)totalPagesInEachScreen)) * totalPagesInEachScreen;
 
 		startPage = endPage - totalPagesInEachScreen + 1;
-
+		
 		// 마지막 페이지 번호 재계산, 오버플로우 방지
 		if (endPage > totalPages) {
 			endPage = totalPages;

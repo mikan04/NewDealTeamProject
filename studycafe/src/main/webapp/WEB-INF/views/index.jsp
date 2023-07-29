@@ -27,19 +27,19 @@
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td class="team-name" >팀명오버플로우테스트팀명오버플로우테스트</td>
+						<td class="team-name">팀명오버플로우테스트팀명오버플로우테스트</td>
 						<td class="auth-count">1</td>
 						<td class="team-point">1</td>
 					</tr>
 					<tr>
 						<td>2</td>
-						<td class="team-name" >2팀</td>
+						<td class="team-name">2팀</td>
 						<td class="auth-count">2</td>
 						<td class="team-point">2</td>
 					</tr>
 					<tr>
 						<td>3</td>
-						<td class="team-name" >3팀</td>
+						<td class="team-name">3팀</td>
 						<td class="auth-count">3</td>
 						<td class="team-point">3</td>
 					</tr>
@@ -47,26 +47,9 @@
 			</table>
 		</div>
 		<div class="index-ingredient">
-			<div class="index main-notice">
-				<label>
-					<a href="#">공지사항</a>
-				</label>
-				<div>
-					<a href="#">공지사항 1</a>
-				</div>
-				<div>
-					<a href="#">공지사항 1</a>
-				</div>
-				<div>
-					<a href="#">공지사항 1</a>
-				</div>
-				<div>
-					<a href="#">공지사항 1</a>
-				</div>
-			</div>
 			<div class="index main-qna">
 				<label>
-					<a href="#">Q &amp; A</a>
+					<a href="">Q &amp; A</a>
 				</label>
 				<div>
 					<a href="#">Q &amp; A 1</a>
@@ -81,26 +64,42 @@
 					<a href="#">Q &amp; A 1</a>
 				</div>
 			</div>
+
 			<div class="index main-study">
 				<label>
-					<a href="#">스터디모집</a>
+					<a href="/study">스터디모집</a>
 				</label>
-				<div>
-					<a href="#">스터디모집 1</a>
-				</div>
-				<div>
-					<a href="#">스터디모집 1</a>
-				</div>
-				<div>
-					<a href="#">스터디모집 1</a>
-				</div>
-				<div>
-					<a href="#">스터디모집 1</a>
-				</div>
+				<c:forEach items="${studyList }" var="study" begin="0" end="4">
+					<div>
+						<a href="">${study.studyTitle }</a>
+						<span style="float: right;">
+							<font size="2">
+							<fmt:parseDate var="date" value="${study.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" />
+							<fmt:formatDate var="dateTime" value="${date}" type="DATE" pattern="yyyy-MM-dd" />
+							${dateTime }
+							</font>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
+
+			<div class="index main-notice">
+				<label>
+					<a href="/team/teamboards">팀 신청</a>
+				</label>
+				<c:forEach items="${teamBoardList }" var="list" begin="0" end="4">
+					<div>
+						<a href="${contextPath }/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
+						<span style="float: right;">
+							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd" /></font>
+						</span>
+					</div>
+				</c:forEach>
+			</div>
+
 			<div class="index main-regteam">
 				<label>
-					<a href="#">팀등록</a>
+					<a href="">인증게시판</a>
 				</label>
 				<div>
 					<a href="#">팀등록 1</a>
@@ -115,6 +114,7 @@
 					<a href="#">팀등록 1</a>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>

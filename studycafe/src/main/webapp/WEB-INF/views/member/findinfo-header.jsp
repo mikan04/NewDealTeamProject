@@ -7,41 +7,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디 비번찾기 헤더</title>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
-header > nav > ul{
-	position : fixed;
-	top : 0;
-	right : 0;
-	left : 0;
+ul {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
 	display: flex;
 	flex-direction: row;
-	margin : 0;
-	padding : 0;
+	margin: 0;
+	padding: 0;
 	list-style-type: none;
-	border-bottom: 3px solid #bebebe;
+	border-bottom: 1px solid #e9e9e9;
 }
 
-header > nav > ul > li{
-	padding : 30px;
-	margin-top : 10px;
-	border : 1px solid #bebebe;
-	border-bottom : none;
+ul>li {
+	padding: 30px;
+	margin-top: 10px;
+	border: 1px solid #bebebe;
+	border-bottom: none;
 	background-color: #e9e9e9;
+}
+
+a {
+	text-decoration: none;
+	color: #999999;
 }
 </style>
 </head>
 <body>
-	<header>
-		<nav>
-			<ul>
-				<li class="search-id"><a href="/findAccount">아이디 찾기</a></li>
-				<li class="search-pwd"><a href="/searchPwd1">비밀번호 찾기</a></li>
-			</ul>
-		</nav>
-	</header>
-	
+	<ul>
+		<li class="search-id">
+			<a href="/findAccount" id="location-id">아이디 찾기</a>
+		</li>
+		<li class="search-pwd">
+			<a href="/searchPwd1" id="location-pwd">비밀번호 찾기</a>
+		</li>
+	</ul>
 	<script src="/js/findinfo-header.js"></script>
 </body>
 </html>

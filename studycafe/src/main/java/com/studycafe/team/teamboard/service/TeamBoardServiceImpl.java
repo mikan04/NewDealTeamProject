@@ -1,5 +1,6 @@
 package com.studycafe.team.teamboard.service;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
@@ -67,6 +69,13 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 				.build();
 
 		return teamBoards;
+	}
+	
+	// 팀 신청 게시판 인덱스용
+	@Override
+	public List<TeamBoardEntity> getTeamBoardListToIndex() {
+		// TODO Auto-generated method stub
+		return teamBoardRepository.findAll(Sort.by(Sort.Direction.DESC, "teamBoardNum"));
 	}
 
 }
