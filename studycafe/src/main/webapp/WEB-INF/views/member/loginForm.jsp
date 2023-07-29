@@ -9,12 +9,13 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="/css/loginform.css">
+<script src="/js/loginForm.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="main-form">
 			<div>
-				<img alt="로고" src="/img/logo.png" width="250" height="80">
+				<img alt="로고" src="/img/logo.png" width="250" height="80"">
 			</div>
 			<h2>DSSEAD에 오신것을 환영합니다.</h2>
 			<h4>개발자를 위한 스터디 사이트입니다.</h4>
@@ -33,10 +34,12 @@
 						<button type="submit" class="btn-login">로그인</button>
 					</div>
 					<div align="right" class="join-find-div">
-						회원 정보를 잊으셨나요? <a href="/member/findAccountForm">회원정보 찾기</a>
+						회원 정보를 잊으셨나요?
+						<a href="javascript:findAccount()">회원정보 찾기</a>
 					</div>
 					<div align="right" class="join-find-div">
-						아직 회원이 아니신가요? <a href="${contextPath}/joinform">회원가입 바로가기</a>
+						아직 회원이 아니신가요?
+						<a href="${contextPath}/joinform">회원가입 바로가기</a>
 					</div>
 				</div>
 
@@ -44,13 +47,14 @@
 					<legend align="left">소셜로그인</legend>
 					<div class="sns-login">
 						<div id="kakao_id_login">
-							<img src="/img/kakao-logo.png" width="30" height="30"><a
+							<img src="/img/kakao-logo.png" width="30" height="30">
+							<a
 								href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code">
 								카카오 로그인 </a>
 						</div>
 						<div id="git_id_login">
-							<img src="/img/github.png" width="30" height="30"><a href="https://github.com/login/oauth/authorize?client_id=Iv1.427e6b094359a979">
-								GitHub 로그인</a>
+							<img src="/img/github.png" width="30" height="30">
+							<a href="https://github.com/login/oauth/authorize?client_id=Iv1.427e6b094359a979"> GitHub 로그인</a>
 						</div>
 					</div>
 				</fieldset>
@@ -63,5 +67,6 @@
 			</form>
 		</div>
 	</div>
+
 </body>
 </html>

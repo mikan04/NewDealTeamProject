@@ -26,9 +26,12 @@ function studyDelete(id) {
 }
 
 /** 
- * 카카오 맵 api
+ * 댓글
  * */
 
+/** 
+ * 카카오 맵 api
+ * */
 var lat = document.getElementById('lat').value;
 var lng = document.getElementById('lng').value;
 
