@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.member.entity.MemberAddressEntity;
@@ -23,6 +24,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberAddressRepository memberAddRe;
+
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@Override
 	@Transactional
@@ -117,23 +121,61 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberEntity findUsername(String username) {
 		try {
-			MemberEntity memberEntity = memRe.findById(username).get();
-			if (memberEntity != null) {
-				return memberEntity;
+			boolean findUsername = memRe.existsByUsername(username);
+			if (!findUsername) {
+				return null;
 			}
+			MemberEntity memberEntity = memRe.findById(username).get();
+			return memberEntity;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-//	@Override
-//	public MemberEntity findUsernameByEmail(String email) {
-//		try {
-//			MemberEntity memberEntity = findByEmail
-//		}
-//		return null;
-//	}
-	
-	
+	@Override
+	public MemberEntity findUsernameByEmail(String username, String email) {
+		try {
+			MemberEntity memberEntity = memRe.findByUsernameAndEmail(username, email);
+			if (memberEntity == null) {
+				return null;
+			}
+			return memberEntity;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean updatePassword(String username, String password) {
+
+		try {
+			MemberEntity memberEntity = memRe.findById(username).get();
+
+			if (memberEntity == null) {
+				return false;
+			}
+
+			boolean passwordMatches = encoder.matches(password, memberEntity.getPassword());
+
+			if (!passwordMatches) {
+
+				memberEntity.setPassword(encoder.encode(password));
+				memRe.save(memberEntity);
+				return true;
+			} else {
+
+				return false;
+			}
+
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
