@@ -9,10 +9,13 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
@@ -127,5 +130,18 @@ public class TeamBoardController {
 	}
 
 	// 글 삭제
-
+	@ResponseBody
+	@DeleteMapping("/team/removepost")
+	public boolean deleteTeamBoard(@RequestParam("idx") long idx) {
+		
+		try {
+			boolean remove = teamBoardService.deleteTeamBoard(idx);
+			
+			return remove;
+			
+		} catch (Exception e) {
+			throw new IllegalArgumentException("존재하지 않는 게시물입니다.");
+			
+		}
+	}
 }

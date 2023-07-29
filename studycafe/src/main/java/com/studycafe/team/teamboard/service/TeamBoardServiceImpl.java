@@ -71,6 +71,28 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 		return teamBoards;
 	}
 
+	// 삭제
+	@Override
+	public boolean deleteTeamBoard(long idx) {
+
+		boolean isPresent = teamBoardRepository.findById(idx).isPresent();
+
+		try {
+			
+			if (isPresent) {
+
+				teamBoardRepository.deleteById(idx);
+
+				return true;
+			}
+		} catch (Exception e) {
+
+			throw new IllegalArgumentException("존재하지 않는 게시물입니다.");
+		}
+
+		return false;
+	}
+
 	// 팀 신청 게시판 인덱스용
 	@Override
 	public List<TeamBoardEntity> getTeamBoardListToIndex() {
