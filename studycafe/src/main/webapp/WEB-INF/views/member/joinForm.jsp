@@ -73,14 +73,14 @@
 						<div class="join_row">
 							<label id="join_title">닉네임</label>
 							<div>
-								<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" placeholder="영문,숫자,한글(2~6자)" />
+								<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" placeholder="영문,숫자,한글(2~12자)" />
 								<button type="button" id="nickCheckBtn" name="nickCheckBtn" onclick="nickCheck()" disabled>중복체크</button>
 							</div>
 							<div>
 								<input type="text" style="display: none;" value="0" id="nickCheck" />
 								<span id="useNick" style="display: none; color: blue;">사용 가능한 닉네임 입니다.</span>
 								<span id="notUseNick" style="display: none; color: red;">이미 존재하는 닉네임 입니다.</span>
-								<span id="notValiNickName" style="display: none; color: red;">2~6자로 입력해주세요.</span>
+								<span id="notValiNickName" style="display: none; color: red;">2~12자로 입력해주세요.</span>
 								<span id="notNickName" style="display: none; color: red;">닉네임을 입력해주세요.</span>
 								<span id="notNickCheck" style="display: none; color: red;">닉네임 중복체크를 해주세요.</span>
 							</div>
