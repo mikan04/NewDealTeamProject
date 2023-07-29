@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${teamPost.teamBoardTitle }</title>
+<title>${teamPost.teamBoardTitle } 수정</title>
 <link rel="stylesheet" type="text/css" href="/css/detailview.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
@@ -24,10 +24,15 @@
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data" action="/team/modifyview/${teamPost.teamBoardNum }">
+			
+				<!-- patchmapping를 사용하기 위한 히든태그 -->
+				<input type="hidden" name="_method" value="PATCH">
+			
 				<p>
 					<label for="team-title">제목</label>
-					<input type="text" id="team-title" name="teamBoardTitle" value="${teamPost.teamBoardTitle }" readonly="readonly">
+					<input type="text" id="team-title" name="teamBoardTitle" value="${teamPost.teamBoardTitle }">
+					<input type="hidden" name="teamBoardNum" value="${teamPost.teamBoardNum }">
 				</p>
 
 				<p>
@@ -37,20 +42,19 @@
 
 				<p>
 					<label for="team-head">작성날짜</label>
-					<input type="text" id="team-head" name="teamBoardWriter" value=${teamPost.createDate } readonly="readonly">
+					<input type="text" id="team-head" name="teamBoardWriter" value=${teamPost.createDate } disabled="disabled">
 				</p>
 
 				<div>
 					<label for="content">내용</label>
-					<textarea id="content" name="teamBoardContent" readonly="readonly">
+					<textarea id="content" name="teamBoardContent">
 						${teamPost.teamBoardContent }
 					</textarea>
 				</div>
 
 				<c:if test="${member.nickName.equals(teamPost.teamBoardWriter) }">
 					<p class="modify-delete-box">
-						<a type="submit" id="modify-btn" href="${contextPath }/team/modifyview/${teamPost.teamBoardNum}">수정</a>
-						<a type="submit" id="delete-btn" href="${contextPath }/">삭제</a>
+						<button id="modify-btn">수정하기</button>
 					</p>
 				</c:if>
 			</form>
@@ -59,6 +63,6 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
-	<script src="/js/detailview.js"></script>
+	<script src="/js/modifyteamboard.js"></script>
 </body>
 </html>
