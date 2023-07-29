@@ -21,5 +21,8 @@ public interface TeamBoardService {
 	
 	// 조회
 	public TeamBoardDTO getTeamBoardPost(long idx);
+	
+	// 삭제
+	public boolean deleteTeamBoard(long idx);
 
 }

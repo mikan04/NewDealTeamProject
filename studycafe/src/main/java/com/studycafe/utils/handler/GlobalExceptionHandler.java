@@ -23,4 +23,12 @@ public class GlobalExceptionHandler {
 		
 		return "/error/accessdenied";
 	}
+	
+	@ExceptionHandler(value = NullPointerException.class)
+	public String handleNullPointerException(NullPointerException ilEx, Model model) {
+		
+		model.addAttribute("error", "알 수 없는 원인이에요!");
+		
+		return "/error/500";
+	}
 }
