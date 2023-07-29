@@ -74,7 +74,7 @@ public class S3ServiceImpl implements S3FileService {
 
 			log.info("최종 파일 객체 url : {}", s3SourceUrl);
 
-			// 잔여 파일 삭제.
+			// 로컬에 저장되는 잔여 파일 삭제.
 			insertedFile.delete();
 
 			return s3SourceUrl;

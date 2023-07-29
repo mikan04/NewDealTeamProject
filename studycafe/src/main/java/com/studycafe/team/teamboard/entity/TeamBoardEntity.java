@@ -31,7 +31,7 @@ public class TeamBoardEntity {
 	private long teamBoardNum;
 
 	@NotNull
-	@Column(length = 20)
+	@Column(length = 50)
 	private String teamBoardTitle;
 
 	@Lob
@@ -39,7 +39,7 @@ public class TeamBoardEntity {
 	private String teamBoardContent;
 
 	@NotNull
-	@Column(length = 20)
+	@Column(length = 20, updatable = false)
 	private String teamBoardWriter;
 
 	@CreationTimestamp
@@ -51,13 +51,14 @@ public class TeamBoardEntity {
 
 	@Builder
 	public TeamBoardEntity(long teamBoardNum, @NotNull String teamBoardTitle, @NotNull String teamBoardContent, @NotNull String teamBoardWriter,
-			Timestamp createDate) {
+			Timestamp createDate, LocalDateTime modifiedDate) {
 		super();
 		this.teamBoardNum = teamBoardNum;
 		this.teamBoardTitle = teamBoardTitle;
 		this.teamBoardContent = teamBoardContent;
 		this.teamBoardWriter = teamBoardWriter;
 		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
 	}
 
 }

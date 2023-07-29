@@ -3,6 +3,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<!-- 로그인 한 회원 정보 사용 -->
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.member" var="member" />
+</sec:authorize>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -27,14 +33,14 @@
 				
 				<sec:authorize access="isAnonymous()">
 					<div class="team-regist-div" align="right">
-						팀등록은 로그인 시 이용 가능합니다.
+						팀 신청은 로그인 시 이용 가능합니다.
 					</div>
 				</sec:authorize>
 				
-				<label> 팀등록 게시판 </label>
+				<label> 팀 신청 게시판 </label>
 				<c:forEach items="${teamBoardList.content }" var="list">
 					<div>
-						<a href="${contextPath }/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
+						<a href="${contextPath }/team/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
 						<span>
 							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd" /></font>
 						</span>
