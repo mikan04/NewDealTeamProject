@@ -116,9 +116,9 @@ public class MemberController {
 	}
 
 	// 아이디 찾기
-	@GetMapping("/resultUsername/{username}")
-	public String resultUsername(@PathVariable("username") String username, Model model) {
-		model.addAttribute("username", username);
+	@GetMapping("/resultUsername")
+	public String resultUsername() {
+
 		return "/member/resultUsername";
 	}
 
@@ -139,19 +139,33 @@ public class MemberController {
 
 	// 비밀번호 찾기 2
 	@GetMapping("/searchPwd2")
-	@ResponseBody
-	public String searchPwd2(@RequestParam("username") String username, Model model) {
-		model.addAttribute("username", username);
+	public String searchPwd2() {
+
 		return "/member/searchPwd2";
 	}
-	
-//	// 비밀번호 찾기2 (아이디 찾기)
-//		@PostMapping("/searchPwdFindEmail")
-//		@ResponseBody
-//		public MemberEntity searchPwdFindEmail(@RequestParam("email") String email) {
-//			MemberEntity memberEntity = memberService.findUsername(username);
-//
-//			return memberEntity;
-//		}
-	
+
+	// 비밀번호 찾기2 (아이디 찾기)
+	@PostMapping("/searchPwdFindUsernameEmail")
+	@ResponseBody
+	public MemberEntity searchPwdFindUsernameEmail(@RequestParam("username") String username,
+			@RequestParam("email") String email) {
+		MemberEntity memberEntity = memberService.findUsernameByEmail(username, email);
+		log.info("memberEntity 는 : {}", memberEntity);
+		return memberEntity;
+	}
+
+	@GetMapping("/searchPwd3")
+	public String searchPwd3() {
+		return "/member/searchPwd3";
+	}
+
+	@PostMapping("/updatePassword")
+	@ResponseBody
+	public boolean updatePassword(@RequestParam("username") String username,
+			@RequestParam("password") String password) {
+
+		boolean result = memberService.updatePassword(username, password);
+
+		return result;
+	}
 }

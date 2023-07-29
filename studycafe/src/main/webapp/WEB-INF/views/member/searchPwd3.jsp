@@ -6,11 +6,15 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/searchPwd3.js"></script>
 </head>
 <body>
-	<p> 비밀번호를 찾기 위한 ID를 입력하세요</p>
-	<label>아이디</label>
-	<input type="text" id="username" name="username" placeholder="아이디를 입력해주세요"/>
-	<input type="button" value="다음" onclick=""/> 
+	<p>비밀번호 재설정</p>
+	<label>비밀번호</label>
+	<input type="password" id="password" name="password" placeholder="영문,숫자,특수문자 조합 (8~15자)" />
+	<label>비밀번호 확인</label>
+	<input type="password" id="rePassword" name="rePassword" placeholder="비밀번호를 재확인" />
+	<input type="button" value="다음" onclick="updatePassword()" />
 </body>
 </html>
