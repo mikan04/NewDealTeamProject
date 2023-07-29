@@ -1,7 +1,9 @@
 
 document.addEventListener("keyup", function() {
 	var username = $("#username").val();
+	
 	var usernameRegExp = /^[a-zA-z0-9]{6,12}$/;
+
 	// 아이디 중복체크 버튼
 	if (username == "" || username.trim() == ""||!usernameRegExp.test(username)) {
 		$("#idCheckBtn").attr("disabled", true);
@@ -196,7 +198,9 @@ function checkUsername(username, idCheck) {
 		$("#notUsername").css("display", "block");
 		return false;
 	}
+	
 	var usernameRegExp = /^[a-zA-z0-9]{6,12}$/;
+
 	if (!usernameRegExp.test(username)) {
 		$("#notvaliUsername").css("display", "block");
 		return false;
@@ -217,6 +221,7 @@ function checkPassword(username, password, rePassword) {
 		$("#notPwd").css("display", "block");
 		return false;
 	}
+	
 	var passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8, 15}$/;
 
 	if (password != rePassword || rePassword == "" || rePassword.trim() == "") {
@@ -243,7 +248,7 @@ function checkNickName(nickName, nickCheck) {
 		$("#notNickName").css("display", "block");
 		return false;
 	}
-	var nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2, 6}$/;
+	var nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2, 12}$/;
 
 	if (!nickNameRegExp.test(nickName)) {
 		$("#notValiNickName").css("display", "block");

@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal.member" var="member" />
 </sec:authorize>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html class="header-body">
@@ -29,7 +31,12 @@
 
 				<ul class="links">
 					<li>
-						<a href="/gpt/opengpt" target="_blank">CharGPT</a>
+						<sec:authorize access="isAnonymous()">
+							<a href="javascript:restrictGPT()">Chat GPT</a>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a href="/gpt/opengpt" target="_blank">Chat GPT</a>
+						</sec:authorize>
 					</li>
 
 					<li>
@@ -64,12 +71,21 @@
 								</li>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
-								<li>
-									<a href="#">나의팀관리</a>
-								</li>
-								<li>
-									<a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a>
-								</li>
+								<c:choose>
+									<c:when test="${member.teamNumber == null }">
+										<li>
+											<a>팀 등록 후 이용 가능합니다</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="#">나의팀관리</a>
+										</li>
+										<li>
+											<a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
 							</sec:authorize>
 						</ul>
 					</li>
@@ -82,13 +98,12 @@
 				<ul class="links member-ul">
 					<li>
 						<sec:authorize access="isAuthenticated()">
-							<sec:authentication property="principal" var="user" />
-							<a href="#" class="desktop-link">
-								<span style="color: yellow;">${member.nickName}</span>님 반갑습니다.
+							<a href="#" class="desktop-link"> <span style="color: yellow;">${member.nickName}</span>님 반갑습니다.
 							</a>
 							<input type="checkbox" id="show-memberInfo">
 							<label for="show-memberInfo">${member.nickName}님 반갑습니다.</label>
 						</sec:authorize>
+
 						<sec:authorize access="isAnonymous()">
 							<a href="${contextPath}/loginform" class="desktop-link">로그인</a>
 							<input type="checkbox" id="show-memberInfo">
@@ -117,5 +132,6 @@
 			</div>
 		</nav>
 	</div>
+	<script type="text/javascript" src="/js/header-js.js"></script>
 </body>
 </html>
