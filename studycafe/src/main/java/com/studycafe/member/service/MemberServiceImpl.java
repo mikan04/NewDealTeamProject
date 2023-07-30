@@ -177,5 +177,12 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return false;
 	}
+	
+	// 회원정보 수정
+	@Override
+	public MemberAddressEntity getUserAddress(String username) {
+		
+		return memberAddRe.findByMemberEntity_Username(username);
+	}
 
 }

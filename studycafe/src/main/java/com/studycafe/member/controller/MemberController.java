@@ -6,18 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studycafe.member.dto.JoinDto;
 import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.MemberService;
-import com.studycafe.member.vo.JoinVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,7 +56,7 @@ public class MemberController {
 
 	@PostMapping("/joinPro")
 	@ResponseBody
-	public boolean joinPro(@RequestBody JoinVO joinVO, HttpServletRequest request) {
+	public boolean joinPro(@RequestBody JoinDto joinVO, HttpServletRequest request) {
 
 		MemberEntity memberEntity = joinVO.getMemberEntity();
 		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
@@ -171,7 +172,18 @@ public class MemberController {
 	
 	// 회원정보 수정
 	@GetMapping("/member/modifyinfo")
-	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor) {
-		return null;
+	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor , Model model) {
+		
+		String username = memberAdaptor.getMember().getUsername();
+		
+		MemberEntity memberInfo = memberAdaptor.getMember();
+		
+		MemberAddressEntity address = memberService.getUserAddress(username);
+		
+		model.addAttribute("member", memberInfo);
+		
+		model.addAttribute("memberAddress", address);
+		
+		return "/member/modifymember";
 	}
 }

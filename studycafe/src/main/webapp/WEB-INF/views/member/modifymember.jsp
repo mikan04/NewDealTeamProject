@@ -10,10 +10,11 @@
 <title>DSSEAD 회원가입</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/joinform.css">
+<link rel="stylesheet" type="text/css" href="/css/modifymember.css">
 <script src="/js/joinform.js"></script>
 </head>
 <body>
+
 	<div class="main-wrap">
 		<div class="index-ingredient">
 
@@ -21,9 +22,9 @@
 
 				<div id="content">
 
-					<img src="/img/logo.png" class="logo" onclick="location.href='/'">
+					<a href="/"><img src="/img/logo.png" class="logo"></a>
 
-					<div class="join_top">회원가입에 필요한 기본정보를 입력해주세요.</div>
+					<div class="join_top">회원정보 수정</div>
 
 					<h2 class="blind"></h2>
 					<div class="join_content">
@@ -33,17 +34,8 @@
 								<label id="join_title">아이디</label>
 								<div>
 									<span class="ps_box int_id">
-										<input type="text" id="username" name="username" maxlength="12" placeholder="영문소문자,숫자조합 (6~12자)" />
+										<input type="text" id="username" name="username" maxlength="12" value="${member.username }" readonly="readonly"/>
 									</span>
-									<button type="button" id="idCheckBtn" name="idCheckBtn" onclick="idCheck()" disabled>중복체크</button>
-								</div>
-								<div>
-									<input type="text" style="display: none;" value="0" id="idCheck" />
-									<span id="useUsername" style="display: none; color: blue;">사용 가능한 아이디 입니다.</span>
-									<span id="notUseUsername" style="display: none; color: red;">이미 존재하는 아이디 입니다.</span>
-									<span id="notvaliUsername" style="display: none; color: red;">영문, 숫자 조합으로 6자이상 12자 이하의 영문만 입력해주세요.</span>
-									<span id="notUsername" style="display: none; color: red;">아이디를 입력해주세요.</span>
-									<span id="notIdCheck" style="display: none; color: red;">아이디를 중복체크를 해주세요.</span>
 								</div>
 							</div>
 
@@ -61,7 +53,7 @@
 
 							<div class="join_row">
 								<label id="join_title">
-									<!-- 비밀번호 확인 -->
+									비밀번호 확인
 								</label>
 								<input type="password" id="rePassword" name="rePassword" maxlength="12" placeholder="비밀번호 재확인" />
 								<span id="notRePwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
@@ -73,7 +65,7 @@
 						<div class="join_row">
 							<label id="join_title">닉네임</label>
 							<div>
-								<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" placeholder="영문,숫자,한글(2~12자)" />
+								<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" value="${member.nickName }" />
 								<button type="button" id="nickCheckBtn" name="nickCheckBtn" onclick="nickCheck()" disabled>중복체크</button>
 							</div>
 							<div>
@@ -89,11 +81,7 @@
 						<div class="join_row">
 							<label id="join_title">이름</label>
 							<div>
-								<input type="text" id="name" name="name" placeholder="한글 (2~4자)" />
-							</div>
-							<div>
-								<span id="notName" style="display: none; color: red;">이름을 입력해주세요.</span>
-								<span id="notValiName" style="display: none; color: red;">2~4자 이내의 한글로 입력해주세요.</span>
+								<input type="text" id="name" name="name" value="${member.name }" readonly="readonly"/>
 							</div>
 						</div>
 
@@ -126,15 +114,12 @@
 
 							<div>
 								<label id="join_title"> 주소 </label>
-								<!-- <a href="javascript:kakaoPost();" class="btn_verify btn_primary gray zipcodebtn" id="btnSend" role="button">
-									<span class="">주소검색</span>
-								</a> -->
 							</div>
 
-							<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly onclick="javascript:kakaoPost();">
+							<input type="text" id="zipcode" name="zipcode" value="${memberAddress.zipcode }" readonly onclick="javascript:kakaoPost();">
 						</div>
-						<input type="text" id="address1" name="address1" placeholder="주소" readonly onclick="javascript:kakaoPost();">
-						<input type="text" id="address2" name="address2" placeholder="상세주소">
+						<input type="text" id="address1" name="address1" value="${memberAddress.address1 }" readonly onclick="javascript:kakaoPost();">
+						<input type="text" id="address2" name="address2" value="${memberAddress.address2 }">
 						<span id="notAddress" style="display: none; color: red;">주소를 입력해주세요.</span>
 					</div>
 
