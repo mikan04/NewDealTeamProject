@@ -93,6 +93,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public boolean emailCheck(String email) {
+		try {
+			boolean emailCheck = memRe.existsByEmail(email);
+			if(!emailCheck) {
+				return false;
+			}
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
 	public int getNewMemberCount() {
 		// TODO Auto-generated method stub
 		return memRe.findNewUser();

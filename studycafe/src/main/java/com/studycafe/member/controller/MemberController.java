@@ -3,16 +3,16 @@ package com.studycafe.member.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.entity.Role;
@@ -73,6 +73,7 @@ public class MemberController {
 		return insert;
 	}
 
+	// 아이디 중복체크
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public boolean idCheck(@RequestParam("username") String username) {
@@ -82,6 +83,7 @@ public class MemberController {
 		return idcheck;
 	}
 
+	// 닉네임 중복체크
 	@PostMapping("/nickCheck")
 	@ResponseBody
 	public boolean nickCheck(@RequestParam("nickName") String nickName) {
@@ -89,6 +91,16 @@ public class MemberController {
 		boolean nickCheck = memberService.nickCheck(nickName);
 
 		return nickCheck;
+	}
+
+	// 이메일 중복체크
+	@PostMapping("/emailCheck")
+	@ResponseBody
+	public boolean emailCheck(@RequestParam("email") String email) {
+
+		boolean emailCheck = memberService.emailCheck(email);
+		
+		return emailCheck;
 	}
 
 	@GetMapping("/findAccount")
@@ -168,4 +180,11 @@ public class MemberController {
 
 		return result;
 	}
+
+	// 회원정보 수정
+	@GetMapping("/member/modifyinfo")
+	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor) {
+		return null;
+	}
+
 }
