@@ -26,12 +26,13 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	// 팀 등록 게시판 리스트
 	@Override
+	@Transactional
 	public Page<TeamBoardDTO> getTeamBoardList(Pageable pageable) {
-		
+
 		Page<TeamBoardEntity> boardList = teamBoardRepository.findAll(pageable);
-        
-        return new TeamBoardDTO().toDtoList(boardList);
-        
+
+		return new TeamBoardDTO().toDtoList(boardList);
+
 	}
 
 	// 팀 게시글 등록
@@ -45,12 +46,10 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	}
 
-	// 조회하기
+	// 조회
 	@Override
 	@Transactional
 	public TeamBoardDTO getTeamBoardPost(long idx) {
-
-		log.info("{} 번 게시글 조회", idx);
 
 		TeamBoardEntity teamBoardEntity = teamBoardRepository.findById(idx)
 				.orElseThrow(new Supplier<IllegalArgumentException>() {
@@ -63,16 +62,42 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 		TeamBoardDTO teamBoards = TeamBoardDTO.builder()
 
-				.teamBoardNum(teamBoardEntity.getTeamBoardNum()).teamBoardTitle(teamBoardEntity.getTeamBoardTitle())
+				.teamBoardNum(teamBoardEntity.getTeamBoardNum())
+				.teamBoardTitle(teamBoardEntity.getTeamBoardTitle())
 				.teamBoardContent(teamBoardEntity.getTeamBoardContent())
-				.teamBoardWriter(teamBoardEntity.getTeamBoardWriter()).createDate(teamBoardEntity.getCreateDate())
+				.teamBoardWriter(teamBoardEntity.getTeamBoardWriter())
+				.createDate(teamBoardEntity.getCreateDate())
 				.build();
 
 		return teamBoards;
 	}
-	
+
+	// 삭제
+	@Override
+	@Transactional
+	public boolean deleteTeamBoard(long idx) {
+
+		boolean isPresent = teamBoardRepository.findById(idx).isPresent();
+
+		try {
+			
+			if (isPresent) {
+
+				teamBoardRepository.deleteById(idx);
+
+				return true;
+			}
+		} catch (Exception e) {
+
+			throw new IllegalArgumentException("존재하지 않는 게시물입니다.");
+		}
+
+		return false;
+	}
+
 	// 팀 신청 게시판 인덱스용
 	@Override
+	@Transactional
 	public List<TeamBoardEntity> getTeamBoardListToIndex() {
 		// TODO Auto-generated method stub
 		return teamBoardRepository.findAll(Sort.by(Sort.Direction.DESC, "teamBoardNum"));
