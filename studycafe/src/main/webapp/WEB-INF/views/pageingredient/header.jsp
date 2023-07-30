@@ -40,7 +40,7 @@
 					</li>
 
 					<li>
-						<a href="#">Q &amp; A</a>
+						<a href="/qna">Q &amp; A</a>
 					</li>
 
 					<li>
