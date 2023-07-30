@@ -19,6 +19,9 @@ public interface MemberService {
 	// 닉네임 중복 체크
 	public boolean nickCheck(String nickName);
 
+	// 이메일 중복 체크
+	public boolean emailCheck(String email);
+
 	public int getNewMemberCount();
 
 	public List<MemberEntity> getAllMember();
@@ -31,10 +34,8 @@ public interface MemberService {
 
 	// 비밀번호 찾기 (아이디 찾기)
 	public MemberEntity findUsernameByEmail(String username, String email);
-	
+
 	// 비밀번호 재설정
-	public boolean updatePassword(String username,String password);
-	
-	// 회원정보 수정
-	public MemberAddressEntity getUserAddress(String username);
+	public boolean updatePassword(String username, String password);
+
 }
