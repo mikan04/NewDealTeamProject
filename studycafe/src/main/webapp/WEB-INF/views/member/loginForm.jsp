@@ -15,7 +15,7 @@
 	<div class="container">
 		<div class="main-form">
 			<div>
-				<img alt="로고" src="/img/logo.png" width="250" height="80"">
+				<a href="/"><img alt="로고" src="/img/logo.png" width="250" height="80""></a>
 			</div>
 			<h2>DSSEAD에 오신것을 환영합니다.</h2>
 			<h4>개발자를 위한 스터디 사이트입니다.</h4>
