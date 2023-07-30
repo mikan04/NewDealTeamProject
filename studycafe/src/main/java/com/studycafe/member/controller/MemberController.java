@@ -3,17 +3,20 @@ package com.studycafe.member.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studycafe.member.dto.JoinDto;
+import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
@@ -100,7 +103,7 @@ public class MemberController {
 	public boolean emailCheck(@RequestParam("email") String email) {
 
 		boolean emailCheck = memberService.emailCheck(email);
-		
+
 		return emailCheck;
 	}
 
@@ -183,20 +186,62 @@ public class MemberController {
 	}
 
 	// 회원정보 수정
+	// 비밀번호 검증
+	@GetMapping("/member/verificationpage")
+	public String varificationPage() {
+
+		return "/member/verificationpage";
+	}
+	@ResponseBody
+	@PostMapping("/member/verification")
+	public boolean varificationPassword(@AuthenticationPrincipal MemberAdaptor memberAdaptor, @RequestParam("password") String inputPwd) {
+
+		String dbPwd = memberAdaptor.getMember().getPassword();
+		
+		if (encoder.matches(inputPwd, dbPwd)) {
+
+			return true;
+		} else {
+			
+			return false;
+		}
+	}
+
+	// 검증 성공시 보내기
 	@GetMapping("/member/modifyinfo")
-	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor , Model model) {
+	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model) {
 		
-		String username = memberAdaptor.getMember().getUsername();
-		
-		MemberEntity memberInfo = memberAdaptor.getMember();
-		
-		MemberAddressEntity address = memberService.getUserAddress(username);
-		
-		model.addAttribute("member", memberInfo);
-		
-		model.addAttribute("memberAddress", address);
-		
+		try {
+			
+			if(memberAdaptor != null) {
+				String username = memberAdaptor.getMember().getUsername();
+
+				MemberEntity memberInfo = memberAdaptor.getMember();
+
+				MemberAddressEntity address = memberService.getUserAddress(username);
+				
+				model.addAttribute("member", memberInfo);
+
+				model.addAttribute("memberAddress", address);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AccessDeniedException("잘못된 접근방식입니다.");
+		}
+
 		return "/member/modifymember";
+	}
+	
+	@ResponseBody
+	@PatchMapping("/member/updateinfo")
+	public boolean updateInfo(@RequestBody MemberDto memberDto) {
+		
+		log.info("member : {}", memberDto);
+		
+		boolean result = memberService.updateInfo(memberDto);
+
+		return result;
 	}
 
 }

@@ -11,57 +11,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/modifymember.css">
-<script src="/js/joinform.js"></script>
+
 </head>
 <body>
-
 	<div class="main-wrap">
 		<div class="index-ingredient">
-
 			<div class="joininner">
-
 				<div id="content">
-
-					<a href="/"><img src="/img/logo.png" class="logo"></a>
-
-					<div class="join_top">회원정보 수정</div>
-
-					<h2 class="blind"></h2>
+					<img src="/img/logo.png" class="logo" onclick="location.href='/'">
+					<div class="join_top">회원 정보 수정</div>
 					<div class="join_content">
-
+						<!-- 아이디 -->
 						<div class="row_group">
 							<div class="join_row id">
 								<label id="join_title">아이디</label>
 								<div>
 									<span class="ps_box int_id">
-										<input type="text" id="username" name="username" maxlength="12" value="${member.username }" readonly="readonly"/>
+										<input type="text" id="username" name="username" maxlength="12" value="${member.username }" readonly="readonly" />
 									</span>
 								</div>
 							</div>
-
-							<div class="join_row password">
-								<label id="join_title">비밀번호</label>
-								<div>
-									<input type="password" id="password" name="password" maxlength="15" placeholder="영문,숫자,특수문자 조합 (8~15자)" />
-								</div>
-								<div>
-									<span id="notValiPwd" style="display: none; color: red;">8~15자의 영문,숫자,특수문자 조합해서 설정해주세요.</span>
-									<span id="notPwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
-									<span id="equalUsername" style="display: none; color: red;">아이디와 비밀번호를 다르게 입력해주세요.</span>
-								</div>
-							</div>
-
-							<div class="join_row">
-								<label id="join_title">
-									비밀번호 확인
-								</label>
-								<input type="password" id="rePassword" name="rePassword" maxlength="12" placeholder="비밀번호 재확인" />
-								<span id="notRePwd" style="display: none; color: red;">비밀번호를 입력해주세요.</span>
-								<span id="equalPwd" style="display: none; color: red;">비밀번호가 일치합니다.</span>
-								<span id="notEqualPwd" style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
-							</div>
 						</div>
 
+						<!-- 닉네임 -->
 						<div class="join_row">
 							<label id="join_title">닉네임</label>
 							<div>
@@ -78,26 +50,41 @@
 							</div>
 						</div>
 
+						<!-- 팀 -->
+						<div class="join_row">
+							<label id="join_title">속해있는 팀</label>
+							<c:choose>
+								<c:when test="${member.teamNumber == null || member.teamNumber == 0 }">
+									<div>
+										<input type="text" id=teamNumber name="teamNumber" value="팀 없음" disabled="disabled" />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div>
+										<input type="text" id=teamNumber name="teamNumber" value="${member.teamNumber }" disabled="disabled" />
+									</div>
+								</c:otherwise>
+							</c:choose>
+
+						</div>
+
+						<!-- 이름 -->
 						<div class="join_row">
 							<label id="join_title">이름</label>
 							<div>
-								<input type="text" id="name" name="name" value="${member.name }" readonly="readonly"/>
+								<input type="text" id="name" name="name" value="${member.name }" readonly="readonly" />
 							</div>
 						</div>
 
+						<!-- 이메일 -->
 						<div class="join_row">
-							<label id="join_title">이메일</label>
-							<div>
-								<input type="text" class="form-control" name="email1" id="email1" placeholder="이메일">
-								<select class="form-control" name="email2" id="email2">
-									<option>@naver.com</option>
-									<option>@daum.net</option>
-									<option>@gmail.com</option>
-									<option>@hanmail.com</option>
-									<option>@yahoo.co.kr</option>
-								</select>
-								<button type="button" id="emailCheckBtn" onclick="sendEmail()" disabled>본인인증</button>
+							<div class="join_row">
+								<label id="join_title">이메일</label>
+								<div>
+									<input type="text" class="form-control" name="email1" id="email1" value="${member.email }" readonly="readonly">
+								</div>
 							</div>
+
 							<div>
 								<span id="notEmail" style="display: none; color: red;">이메일 주소를 올바르게 입력해 주세요.</span>
 								<span id="notEmailAuth" style="display: none; color: red;">본인인증이 필요합니다.</span>
@@ -107,28 +94,29 @@
 									<input id="emailAuth" style="display: none;" />
 								</div>
 							</div>
-
 						</div>
 
+						<!-- 주소 -->
 						<div class="join_row">
-
 							<div>
 								<label id="join_title"> 주소 </label>
 							</div>
-
 							<input type="text" id="zipcode" name="zipcode" value="${memberAddress.zipcode }" readonly onclick="javascript:kakaoPost();">
 						</div>
 						<input type="text" id="address1" name="address1" value="${memberAddress.address1 }" readonly onclick="javascript:kakaoPost();">
 						<input type="text" id="address2" name="address2" value="${memberAddress.address2 }">
+
 						<span id="notAddress" style="display: none; color: red;">주소를 입력해주세요.</span>
 					</div>
 
 				</div>
 			</div>
 			<div class="btn_row">
-				<button class="join_btn" type="button" onclick="checkAll()">가입하기</button>
+				<button class="join_btn" onclick="updateMember()">수정완료</button>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript" src="/js/modifymember.js"></script>
 </body>
 </html>

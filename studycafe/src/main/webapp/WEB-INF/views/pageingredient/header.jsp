@@ -124,7 +124,7 @@
 								</sec:authorize>
 
 								<li>
-									<a href="/member/modifyinfo">내정보관리</a>
+									<a href="/member/verificationpage">내정보관리</a>
 								</li>
 
 							</sec:authorize>
