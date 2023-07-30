@@ -8,4 +8,6 @@ import com.studycafe.member.entity.MemberAddressEntity;
 @Repository
 public interface MemberAddressRepository extends JpaRepository<MemberAddressEntity, Integer> {
 
+	MemberAddressEntity findByMemberEntity_Username(String username);
+
 }

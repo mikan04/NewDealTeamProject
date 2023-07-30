@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 
@@ -37,5 +38,10 @@ public interface MemberService {
 
 	// 비밀번호 재설정
 	public boolean updatePassword(String username, String password);
+	
+	// 회원정보 수정
+	public MemberAddressEntity getUserAddress(String username);
+
+	public boolean updateInfo(MemberDto memberDto);
 
 }

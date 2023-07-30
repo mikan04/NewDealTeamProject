@@ -87,7 +87,7 @@ function nickCheck() {
 function sendEmail() {
 	var email = $("#email1").val() + $("#email2").val();
 
-	if (!emailCheck(email)) {
+	if (emailCheck(email)) {
 		alert("이미 등록되어 있는 이메일입니다. 다른 이메일을 입력해주세요");
 		return false;
 	}
@@ -136,9 +136,9 @@ function emailCheck(email) {
 		dataType: "json",
 		succeess: function(data) {
 			if (data) {
-				return false;
+				return true;
 			}
-			return true;
+			return false;
 		}
 	})
 }
