@@ -61,6 +61,24 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                       <label class="study-label-1" for="study-table-1"
                         >전체 스터디</label
                       >
+                      <div class="table-filter">
+                        <select id="filter-field"></select>
+                        <select id="filter-type">
+                          <option value="=">=</option>
+                          <option value="like">포함</option>
+                          <option value="<"><</option>
+                          <option value="<="><=</option>
+                          <option value=">">></option>
+                          <option value=">=">>=</option>
+                          <option value="!=">!=</option>
+                        </select>
+                        <input
+                          id="filter-value"
+                          type="text"
+                          placeholder="필터 값"
+                        />
+                        <button id="filter-clear">필터 초기화</button>
+                      </div>
                       <div id="study-table-1" aria-label="table"></div>
                     </div>
                   </div>
