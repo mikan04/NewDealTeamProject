@@ -84,7 +84,8 @@
 											<a href="#">나의팀관리</a>
 										</li>
 										<li>
-											<a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a>
+											<input type="hidden">
+											<a href="javascript:openTeamChat(${member.teamNumber.teamNumber })">팀채팅방</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
@@ -134,6 +135,6 @@
 			</div>
 		</nav>
 	</div>
-	<script type="text/javascript" src="/js/header-js.js"></script>
+	<script type="text/javascript" src="/js/header.js"></script>
 </body>
 </html>
