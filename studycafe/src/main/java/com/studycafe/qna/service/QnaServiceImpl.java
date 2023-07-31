@@ -38,12 +38,14 @@ public class QnaServiceImpl implements QnaService{
 	
 	}
 
-//	@Override
-//	public MemberEntity getMember(String nickName) {
-//		// TODO Auto-generated method stub
-//		
-//		return null;
-//	}
+	@Override
+	public QnaEntity selectQna(Long qnaNum) {
+		// TODO Auto-generated method stub
+		
+		return qnaRe.getById(qnaNum);
+	}
+
+
 	
 	
 	

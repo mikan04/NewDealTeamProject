@@ -70,10 +70,15 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qnaRegisterPro")
-	public String studyInsert(QnaEntity qnaEntity) {
+	public String qnaInsert(QnaEntity qnaEntity) {
 
 		qnaService.qnaRegister(qnaEntity); // 게시글 저장
 			return "redirect:/qna";
+	}
+	
+	@GetMapping("/qnaDetail/{qnaNum}")
+	public String qnaDetail(long qnaNum) {
+		return "/qna/qnaDetail";
 	}
 
 }
