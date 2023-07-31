@@ -110,13 +110,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int getNewMemberCount() {
-		
+
 		return memRe.findNewUser();
 	}
 
 	@Override
 	public List<MemberEntity> getAllMember() {
-		
+
 		return memRe.findAll();
 	}
 
@@ -200,17 +200,17 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberAddRe.findByMemberEntity_Username(username);
 	}
-	
+
 	@Override
 	@Transactional
 	public boolean updateInfo(MemberDto memberDto) {
-		
+
 		String username = memberDto.getUsername();
 
 		MemberEntity memberInfo = memRe.findById(username).orElseThrow(new Supplier<IllegalArgumentException>() {
 			@Override
 			public IllegalArgumentException get() {
-				
+
 				return new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
 			}
 		});
