@@ -2,6 +2,7 @@ package com.studycafe.member.service;
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.member.dto.MemberDto;
+import com.studycafe.member.dto.MemberMapper;
+import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberAddressRepository;
@@ -29,6 +32,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 
 	@Override
 	@Transactional
@@ -110,14 +116,14 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int getNewMemberCount() {
-		
+
 		return memRe.findNewUser();
 	}
 
-	@Override
-	public List<MemberEntity> getAllMember() {
-		
-		return memRe.findAll();
+  @Override
+	public List<MemberSafeDto> getAllMember() {
+		List<MemberEntity> mem = memRe.findAll();
+		return mem.stream().map(memberMapper::memberSafeDto).collect(Collectors.toList());
 	}
 
 	@Override
@@ -200,17 +206,17 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberAddRe.findByMemberEntity_Username(username);
 	}
-	
+
 	@Override
 	@Transactional
 	public boolean updateInfo(MemberDto memberDto) {
-		
+
 		String username = memberDto.getUsername();
 
 		MemberEntity memberInfo = memRe.findById(username).orElseThrow(new Supplier<IllegalArgumentException>() {
 			@Override
 			public IllegalArgumentException get() {
-				
+
 				return new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
 			}
 		});
