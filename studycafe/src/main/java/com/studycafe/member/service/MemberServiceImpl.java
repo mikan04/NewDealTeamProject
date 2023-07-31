@@ -1,6 +1,7 @@
 package com.studycafe.member.service;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberAddressRepository;
@@ -96,11 +98,11 @@ public class MemberServiceImpl implements MemberService {
 	public boolean emailCheck(String email) {
 		try {
 			boolean emailCheck = memRe.existsByEmail(email);
-			if(!emailCheck) {
+			if (emailCheck) {
 				return false;
 			}
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -108,13 +110,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int getNewMemberCount() {
-		// TODO Auto-generated method stub
+		
 		return memRe.findNewUser();
 	}
 
 	@Override
 	public List<MemberEntity> getAllMember() {
-		// TODO Auto-generated method stub
+		
 		return memRe.findAll();
 	}
 
@@ -189,6 +191,66 @@ public class MemberServiceImpl implements MemberService {
 		Exception e) {
 			e.printStackTrace();
 		}
+		return false;
+	}
+
+	// 회원정보 수정
+	@Override
+	public MemberAddressEntity getUserAddress(String username) {
+
+		return memberAddRe.findByMemberEntity_Username(username);
+	}
+	
+	@Override
+	@Transactional
+	public boolean updateInfo(MemberDto memberDto) {
+		
+		String username = memberDto.getUsername();
+
+		MemberEntity memberInfo = memRe.findById(username).orElseThrow(new Supplier<IllegalArgumentException>() {
+			@Override
+			public IllegalArgumentException get() {
+				
+				return new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
+			}
+		});
+
+		memberInfo.setNickName(memberDto.getNickName());
+
+		MemberAddressEntity memberAddressInfo = memberAddRe.findByMemberEntity_Username(username);
+
+		//
+		memberAddressInfo.setZipcode(memberDto.getZipcode());
+		memberAddressInfo.setAddress1(memberDto.getAddress1());
+		memberAddressInfo.setAddress2(memberDto.getAddress2());
+		//
+
+		try {
+			MemberAddressEntity result1 = memberAddRe.save(memberAddressInfo);
+
+			if (result1 == null) {
+				return false;
+			}
+
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		try {
+			MemberEntity result2 = memRe.save(memberInfo);
+
+			if (result2 == null) {
+				return false;
+			}
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
