@@ -243,5 +243,13 @@ public class MemberController {
 
 		return result;
 	}
+	
+	@PatchMapping("/member/test")
+	public String 수정테스트(@RequestBody MemberDto memberDto) {
+		
+		log.info("member들어온 값 : {}",memberDto.toString());
+		
+		return "/member/modifytest";
+	}
 
 }
