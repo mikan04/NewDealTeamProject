@@ -62,6 +62,7 @@ function kakaoPost() {
 
 // 정보 수정 완료시
 function updateMember() {
+	
 	let username = $("#username").val();
 	let nickName = $("#nickName").val();
 
