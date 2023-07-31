@@ -78,11 +78,29 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                       <label class="team-label-1" for="team-table-1"
                         >전체 팀</label
                       >
+                      <div class="table-filter">
+                        <select id="filter-field"></select>
+                        <select id="filter-type">
+                          <option value="=">=</option>
+                          <option value="like">포함</option>
+                          <option value="<"><</option>
+                          <option value="<="><=</option>
+                          <option value=">">></option>
+                          <option value=">=">>=</option>
+                          <option value="!=">!=</option>
+                        </select>
+                        <input
+                          id="filter-value"
+                          type="text"
+                          placeholder="필터 값"
+                        />
+                        <button id="filter-clear">필터 초기화</button>
+                      </div>
                       <div id="team-table-1" aria-label="table"></div>
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col">
                     <div class="admin-table">
                       <label class="team-label-1" for="team-table-1"
@@ -91,7 +109,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                       <div id="team-table-2" aria-label="table"></div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
