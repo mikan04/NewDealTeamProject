@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,7 +34,7 @@ public class KakaoController {
 	@Autowired
 	private KakaoAPI kakao;
 
-	@RequestMapping(value = "/kakaoLoginCallback1")
+	@GetMapping(value = "/kakaoLoginCallback1")
 	public String indexkakao() {
 
 		return "/member/kakaotest";
@@ -64,7 +66,7 @@ public class KakaoController {
 //	        return "redirect:/";
 //	    }
 
-	@RequestMapping(value = "/kakaoLoginCallback")
+	@GetMapping(value = "/kakaoLoginCallback")
 	public String loginkakao(@RequestParam String code, HttpServletRequest request, Model model) throws IOException {
 		String access_Token = kakao.getAccessToken(code);
 		Map<String, Object> userInfo = kakao.getUserInfo(access_Token);
@@ -99,7 +101,7 @@ public class KakaoController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/logout")
+	@PostMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		kakao.kakaoLogout((String) session.getAttribute("access_Token"));
 		session.removeAttribute("access_Token");

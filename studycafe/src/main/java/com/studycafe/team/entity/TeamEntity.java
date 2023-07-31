@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -29,6 +30,10 @@ public class TeamEntity {
 	
 	@NotNull
 	private String teamHead;
+	
+	@NotNull
+	@Min(value = 2,message = "팀 인원은 최소 2명 이상만 가능합니다.")
+	private int memberCount;
 	
 	@ColumnDefault("0")
 	private int point; 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.member.dto.MemberDto;
+import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 
@@ -25,7 +26,7 @@ public interface MemberService {
 
 	public int getNewMemberCount();
 
-	public List<MemberEntity> getAllMember();
+	public List<MemberSafeDto> getAllMember();
 
 	// 아이디 찾기
 	public MemberEntity getUsername(String email);
