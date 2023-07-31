@@ -35,7 +35,7 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	}
 
-	// 팀 게시글 등록
+	// 팀 게시글 등록 및 수정
 	@Override
 	@Transactional
 	public Long teamBoardRegis(TeamBoardDTO teamBoardDTO) {

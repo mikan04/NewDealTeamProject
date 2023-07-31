@@ -42,7 +42,7 @@
 					</li>
 
 					<li>
-						<a href="#">Q &amp; A</a>
+						<a href="/qna">Q &amp; A</a>
 					</li>
 
 					<li>
@@ -124,7 +124,7 @@
 								</sec:authorize>
 
 								<li>
-									<a href="">내정보관리</a>
+									<a href="/member/verificationpage">내정보관리</a>
 								</li>
 
 							</sec:authorize>
