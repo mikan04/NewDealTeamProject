@@ -253,5 +253,15 @@ public class MemberServiceImpl implements MemberService {
 
 		return false;
 	}
+	
+	//유저정보 불러오기
+	@Override
+	public MemberEntity getMember(String userName) {
+		// TODO Auto-generated method stub
+		
+		MemberEntity memberEn = memRe.findByNickName(userName);
+		
+		return memberEn;
+	}
 
 }

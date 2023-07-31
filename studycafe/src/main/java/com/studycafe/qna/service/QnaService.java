@@ -3,6 +3,7 @@ package com.studycafe.qna.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.qna.entity.QnaEntity;
 
 public interface QnaService {
@@ -11,6 +12,7 @@ public interface QnaService {
 	public Page<QnaEntity> qnaSearchList(String keyword, Pageable pageable);
 	
 	public void qnaRegister(QnaEntity qnaEntity); 
-
+	
+//	public MemberEntity getMember(String nickName);
 
 }
