@@ -1,3 +1,5 @@
+window.resizeTo(600,700);
+
 var ws;
 
 function wsOpen() {
@@ -14,46 +16,47 @@ function wsEvt() {
 	// WebSocket 열릴 때, 메시지를 받을 때, 열려있는 상태에서 키 입력이 발생할 때 등의 이벤트에 대한 처리
 	ws.onopen = function(data) {
 
-		$
-			.ajax({
-				type: "get",
-				url: "/chatRoomMessage/getMessage",
-				dataType: "json",
-				data: {
-					"roomIdx": $("#roomIdx").val()
-				},
-				success: function(e) {
-					for (var i = 0; i < e.length; i++) {
-						if (e[i].nickName === $("#nickName").val()) {
+		$.ajax({
+			type: "get",
+			url: "/chatRoomMessage/getMessage",
+			dataType: "json",
+			data: {
+				"roomIdx": $("#roomIdx").val()
+			},
+			success: function(e) {
+				for (var i = 0; i < e.length; i++) {
+					if (e[i].nickName === $("#nickName").val()) {
 
-							$("#chating")
-								.append(
-									"<p>"
-									+ e[i].nickName
-									+ "</p>"
-									+ "<div class='message'style='background-color:yellow'>"
-									+ "<p class='me'>"
-									+ e[i].msg + "</p>"
-									+ "</div>");
-						} else {
-							$("#chating")
-								.append(
-									"<p>"
-									+ e[i].nickName
-									+ "</p>"
-									+ "<div class='message'style='background-color:skyblue'>"
-									+ "<p class='others'>"
-									+ e[i].msg + "</p>"
-									+ "</div>");
-						}
+						$("#chating")
+							// // // // // // 나
+							.append(
+								"<div class='my-chat-box'>"
+								+ "<label>" + e[i].nickName + "</label>"
+								+ "<div class='my-msg-box'>"
+								+ "<p class='me'>" + e[i].msg + "</p>"
+								+ "</div>"
+								+ "</div>"
+							);
+					} else {
+						// // // // // // 상대
+						$("#chating")
+							.append(
+								"<div class='another-chat-box'>"
+								+ "<label>" + e[i].nickName + "</label>"
+								+ "<div class='others-msg-box'>"
+								+ "<p class='others'>" + e[i].msg + "</p>"
+								+ "</div>"
+								+ "</div>"
+							);
 					}
-					scrollToBottom();
-
-				},
-				error: function() {
-					alert("알수없는오류");
 				}
-			});
+				scrollToBottom();
+
+			},
+			error: function() {
+				alert("알수없는오류");
+			}
+		});
 	}
 
 	ws.onmessage = function(data) {
@@ -71,21 +74,23 @@ function wsEvt() {
 				if (d.username == $("#username").val()) {
 					$("#chating")
 						.append(
-							"<p>"
-							+ d.nickName
-							+ "</p>"
-							+ "<div class='message'style='background-color:yellow'>"
-							+ "<p class='me'>" + d.msg
-							+ "</p>" + "</div>");
+							"<div class='my-chat-box'>"
+							+ "<label>" + d.nickName + "</label>"
+							+ "<div class='my-msg-box'>"
+							+ "<p class='me'>" + d.msg + "</p>"
+							+ "</div>"
+							+ "</div>"
+						);
 				} else {
 					$("#chating")
 						.append(
-							"<p>"
-							+ d.nickName
-							+ "</p>"
-							+ "<div class='message'style='background-color:skyblue'>"
-							+ "<p class='others'>" + d.msg
-							+ "</p>" + "</div>");
+							+ "<div class='another-chat-box'>"
+							+ "<label>" + d.nickName + "</label>"
+							+ "<div class='others-msg-box'>"
+							+ "<p class='others'>" + d.msg + "</p>"
+							+ "</div>"
+							+ "</div>"
+						);
 				}
 
 			} else {
@@ -142,6 +147,7 @@ $(document).ready(function() {
 		var msg = $(this).val();
 
 		if (msg == null || msg.trim() === "") {
+			// // // // // // btn btn
 			$("#sendBtn").hide();
 		} else {
 			$("#sendBtn").show();
@@ -154,3 +160,12 @@ function scrollToBottom() {
 	var chatingDiv = document.getElementById("chating");
 	chatingDiv.scrollTop = chatingDiv.scrollHeight;
 }
+
+// 엔터 : 전송 , 엔터+쉬프트 : 줄바꿈
+$('#chatting').on('keydown', function(event) {
+	if (event.keyCode == 13)
+		if (!event.shiftKey) {
+			event.preventDefault();
+			$('#userInputForm').submit();
+		}
+});

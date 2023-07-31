@@ -27,7 +27,7 @@
 								<label id="join_title">아이디</label>
 								<div>
 									<span class="ps_box int_id">
-										<input type="text" id="username" name="username" maxlength="12" value="${member.username }" readonly="readonly" />
+										<input type="text" id="username" name="username" maxlength="12" value="${member.username}" readonly="readonly" />
 									</span>
 								</div>
 							</div>
@@ -37,7 +37,7 @@
 						<div class="join_row">
 							<label id="join_title">닉네임</label>
 							<div>
-								<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" value="${member.nickName }" />
+								<input type="text" id=nickName name="nickName" title="닉네임" maxlength="6" value="${member.nickName}" />
 								<button type="button" id="nickCheckBtn" name="nickCheckBtn" onclick="nickCheck()" disabled>중복체크</button>
 							</div>
 							<div>
@@ -54,14 +54,14 @@
 						<div class="join_row">
 							<label id="join_title">속해있는 팀</label>
 							<c:choose>
-								<c:when test="${member.teamNumber == null || member.teamNumber == 0 }">
+								<c:when test="${member.teamNumber == null }">
 									<div>
 										<input type="text" id=teamNumber name="teamNumber" value="팀 없음" disabled="disabled" />
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div>
-										<input type="text" id=teamNumber name="teamNumber" value="${member.teamNumber }" disabled="disabled" />
+										<input type="text" id=teamNumber name="teamNumber" value="${member.teamNumber.teamNumber}" disabled="disabled" />
 									</div>
 								</c:otherwise>
 							</c:choose>
@@ -72,7 +72,7 @@
 						<div class="join_row">
 							<label id="join_title">이름</label>
 							<div>
-								<input type="text" id="name" name="name" value="${member.name }" readonly="readonly" />
+								<input type="text" id="name" name="name" value="${member.name}" readonly="readonly" />
 							</div>
 						</div>
 
@@ -81,7 +81,7 @@
 							<div class="join_row">
 								<label id="join_title">이메일</label>
 								<div>
-									<input type="text" class="form-control" name="email1" id="email1" value="${member.email }" readonly="readonly">
+									<input type="text" class="form-control" name="email1" id="email1" value="${member.email}" readonly="readonly">
 								</div>
 							</div>
 
@@ -101,10 +101,12 @@
 							<div>
 								<label id="join_title"> 주소 </label>
 							</div>
-							<input type="text" id="zipcode" name="zipcode" value="${memberAddress.zipcode }" readonly onclick="javascript:kakaoPost();">
+							<input type="text" id="zipcode" name="zipcode" value="${memberAddress.zipcode}" readonly
+								onclick="javascript:kakaoPost();">
 						</div>
-						<input type="text" id="address1" name="address1" value="${memberAddress.address1 }" readonly onclick="javascript:kakaoPost();">
-						<input type="text" id="address2" name="address2" value="${memberAddress.address2 }">
+						<input type="text" id="address1" name="address1" value="${memberAddress.address1}" readonly
+							onclick="javascript:kakaoPost();">
+						<input type="text" id="address2" name="address2" value="${memberAddress.address2}">
 
 						<span id="notAddress" style="display: none; color: red;">주소를 입력해주세요.</span>
 					</div>
