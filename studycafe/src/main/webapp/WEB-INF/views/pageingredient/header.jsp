@@ -16,7 +16,7 @@
 <title>헤더</title>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body class="header-body">
 	<div class="wrapper">
@@ -85,8 +85,9 @@
 										</li>
 										<li>
 											<input type="hidden">
-											<a href="javascript:openTeamChat(${member.teamNumber.teamNumber })">팀채팅방</a>
+											<a href="javascript:openTeamChat(${member.teamNumber.teamNumber})">팀채팅방</a>
 										</li>
+											<input type="text" id = "username" value="${member.username}" hidden="hidden"/>
 									</c:otherwise>
 								</c:choose>
 							</sec:authorize>
