@@ -506,6 +506,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		var selectDate = document.getElementById("reserveDate").value;
 		const date = new Date(selectDate);
 		date.setHours(hour);
+		console.log(date);
+
 		document.getElementById("reserveTime").value = date.toISOString();
 	});
 	}	

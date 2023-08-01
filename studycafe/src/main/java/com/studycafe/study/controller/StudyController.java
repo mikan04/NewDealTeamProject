@@ -105,7 +105,8 @@ public class StudyController {
 	public String studyModify(StudyFormDto studyFormDto) {
 		try {
 			int num = studyFormDto.getStudyNum();
-			studyService.studyInsert(StudyFormDto.toStudyEntity(studyFormDto)); // 게시글 저장
+			StudyEntity study = StudyFormDto.toStudyEntity(studyFormDto);
+			studyService.studyInsert(study); // 게시글 저장
 			return "redirect:/studydetail/" + num;
 		} catch (Exception e) {
 			return "/study";
