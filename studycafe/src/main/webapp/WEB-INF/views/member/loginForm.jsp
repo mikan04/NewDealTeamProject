@@ -15,7 +15,9 @@
 	<div class="container">
 		<div class="main-form">
 			<div>
-				<a href="/"><img alt="로고" src="/img/logo.png" width="250" height="80""></a>
+				<a href="/">
+					<img alt="로고" src="/img/logo.png" width="250" height="80"">
+				</a>
 			</div>
 			<h2>DSSEAD에 오신것을 환영합니다.</h2>
 			<h4>개발자를 위한 스터디 사이트입니다.</h4>
@@ -28,7 +30,10 @@
 						<input type="password" id="password" name="password" class="insert" maxlength="20" placeholder="비밀번호">
 					</div>
 				</div>
-
+				<div style="align-content: flex-end;">
+					<label>자동로그인 : </label>
+					<input type="checkbox" id="remember-me" name="remember-me" />
+				</div>
 				<div class="login-join-box">
 					<div class="login-div">
 						<button type="submit" class="btn-login">로그인</button>
