@@ -5,13 +5,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studycafe.member.entity.MemberAdaptor;
+import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.qna.entity.QnaEntity;
 import com.studycafe.qna.service.QnaService;
 
@@ -53,15 +57,28 @@ public class QnaController {
 	
 	//qna등록폼
 	@GetMapping("/qnaRegister")
-	public String qnaRegister() {
+	public String qnaRegister(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model) {
+		
+		
+		MemberEntity memberInfo = memberAdaptor.getMember();
+		
+		System.out.println("뭐나오냥.............."+memberInfo);
+		
+		model.addAttribute("member", memberInfo);
+		
 		return "/qna/qnaRegister";
 	}
 	
 	@PostMapping("/qnaRegisterPro")
-	public String studyInsert(QnaEntity qnaEntity) {
+	public String qnaInsert(QnaEntity qnaEntity) {
 
 		qnaService.qnaRegister(qnaEntity); // 게시글 저장
 			return "redirect:/qna";
+	}
+	
+	@GetMapping("/qnaDetail/{qnaNum}")
+	public String qnaDetail(long qnaNum) {
+		return "/qna/qnaDetail";
 	}
 
 }

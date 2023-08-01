@@ -45,7 +45,8 @@ function loadPosts(keyword, page) {
                 		'<a href="/qnaDetail/' + post.qnaNum + '">' + post.qnaTitle + '</a>' +
                 		'</th>' +
                 		'<td>' + post.qnaWriter + '</td>' +
-                		' <td>' + day.getFullYear() + '.' + (day.getMonth() + 1) + '.' + day.getDate() + '</td>' +
+                		/*' <td>' + day.getFullYear() + '.' + (day.getMonth() + 1) + '.' + day.getDate() + '</td>' +*/
+                		' <td>' + formatDate(post.qnaDate) +'</td>' +
                 		'</tr>'
 	                );
 	            });
@@ -57,6 +58,19 @@ function loadPosts(keyword, page) {
 			console.log("에러 : " + error);
 		}
 	});
+}
+
+function formatDate(dateStr) {
+    // dateStr을 Date 객체로 변환
+    var date = new Date(dateStr);
+
+    // 원하는 형식으로 날짜 정보 추출
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var day = String(date.getDate()).padStart(2, '0');
+
+    // "YYYY-MM-DD" 형식으로 반환
+    return year + '.' + month + '.' + day;
 }
 
 // 페이징 처리

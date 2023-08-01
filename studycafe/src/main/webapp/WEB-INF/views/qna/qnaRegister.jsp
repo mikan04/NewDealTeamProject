@@ -20,7 +20,7 @@
 
 	<div class="main-wrap">
 		<div class="index-ingredient">
-			<form action="/studyregistrationpro" name="studyregistration_form" method="post" enctype="multipart/form-data">
+			<form action="/qnaRegisterPro" name="studyregistration_form" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="studytitle">제목</label>
 					<input type="text" id="studyTitle" name="qnaTitle" value="" placeholder="제목 입력">
@@ -28,7 +28,7 @@
 
 				<p>
 					<label for="studyWriter">작성자</label>
-					<input type="text" id="studyWriter" name="qnaWriter" readonly="readonly">
+					<input type="text" id="studyWriter" name="qnaWriter" readonly="readonly" value="${member.nickName }">
 				</p>
 
 				<div>
@@ -52,8 +52,7 @@
 				
 				
 				<!-- hidden 데이터 -->
-				<input type="hidden" id="latitude" name="latitude">
-				<input type="hidden" id="longitude" name="longitude">
+				
 				<button class="btn btn-dark" id="registerBtn" type="button" onclick="regis_check();">등록</button>
 			</form>
 		</div>
