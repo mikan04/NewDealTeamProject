@@ -6,7 +6,8 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <meta charset="UTF-8">
 <title>Chatting</title>
 <link rel="shortcut icon" href="#">
@@ -29,30 +30,34 @@ p {
 	margin: 0;
 	padding: 10px;
 	border-radius: 10px;
-	display : flex;
+	display: flex;
 	flex-direction: column;
 }
-p[class=others]{
+
+p[class=others] {
 	align-items: flex-start;
 	background-color: #4f5458;
 	color: white;
 }
-p[class=me]{
+
+p[class=me] {
 	align-items: flex-end;
 	background-color: #fce92a;
 	color: black;
 }
-h1{
+
+h1 {
 	margin-top: 0;
 }
 
 /* 화면전체 */
-.outline-chat-box{
-	width : 500px;
-	border : 1px solid black;
+.outline-chat-box {
+	width: 500px;
+	border: 1px solid black;
 	padding: 15px;
 	border-radius: 10px;
 }
+
 .chating {
 	display: flex;
 	flex-direction: column;
@@ -83,11 +88,11 @@ label {
 }
 
 /* 채팅박스 내 메세지박스 */
-.my-msg-box, .others-msg-box{
-	max-width : 70%;
-	margin-top : 5px;
+.my-msg-box, .others-msg-box {
+	max-width: 70%;
+	margin-top: 5px;
 	border-radius: 10px;
-	word-break : break-all;
+	word-break: break-all;
 }
 
 /* 메세지 전송 */
@@ -123,10 +128,10 @@ label {
 		<h1>${room.roomName}</h1>
 		<div class="outline-chat-box">
 			<div id="chating" class="chating">
-				<input type="hidden" id="username" value="${member.username}">
-				<input type="hidden" id="nickName" value="${member.nickName }">
-				<input type="hidden" id="roomIdx" value="${room.roomIdx}">
-				<input type="hidden" id="teamNumber" value="${member.teamNumber.teamNumber}">
+				<input type="text" id="username" value="${member.username}" style="display: none;">
+				<input type="text" id="nickName" value="${member.nickName }" style="display: none;">
+				<input type="text" id="roomIdx" value="${room.roomIdx}" style="display: none;">
+				<input type="text" id="teamNumber" value="${member.teamNumber.teamNumber}" style="display: none;">
 			</div>
 		</div>
 
