@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.studycafe.chatroom.entity.ChatRoomMessageEntity;
 import com.studycafe.chatroom.service.ChatRoomMessageServiceImpl;
 
-/* 메세지 컨트롤러 */
+import lombok.extern.slf4j.Slf4j;
 
+/* 메세지 컨트롤러 */
+@Slf4j
 @Controller
 @RequestMapping("/chatRoomMessage/*")
 public class ChatRoomMessageController {
@@ -38,8 +40,9 @@ public class ChatRoomMessageController {
 	public void insertMessage(@RequestParam("username") String username, @RequestParam("nickName") String nickName,
 			@RequestParam("roomIdx") Long roomIdx, @RequestParam("msg") String msg) {
 
-		ChatRoomMessageEntity chatRoomMessage = new ChatRoomMessageEntity();
+		log.info("chatRoomMessage 123123: {}", username);
 
+		ChatRoomMessageEntity chatRoomMessage = new ChatRoomMessageEntity();
 		chatRoomMessage.setMsg(msg);
 		chatRoomMessage.setRoomIdx(roomIdx);
 		chatRoomMessage.setUsername(username);

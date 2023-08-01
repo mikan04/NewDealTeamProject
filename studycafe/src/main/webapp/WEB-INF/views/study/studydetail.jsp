@@ -48,6 +48,7 @@
 						style="width: 100%; height: 500px; position: relative; overflow: hidden;"></div>
 					<input type="hidden" id="lat" value="${studyEntity.latitude}">
 					<input type="hidden" id="lng" value="${studyEntity.longitude}">
+					<input type="hidden" id="studyNum" value="${studyEntity.studyNum}">
 				</div>
 				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/study/''">목록</button>
 				<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/studymodify/${studyEntity.studyNum}'">수정</button>
@@ -56,45 +57,11 @@
 			<div class="content-wrap">
 				<p><label>댓글</label></p>
 				<div>
-					<ul class="reply-list">
-						<li>
-							<div class="thumb">
-								<img src="/img/user.png" width="48" height="48" class="">
-							</div>
-							<div class="reply-content">
-								<ul class="info">
-									<li class="nickname">jeongsu</li>
-									<li class="date">2023.07.21</li>
-								</ul>
-									<p class="text">같이 공부해도 될까요??</p>
-									<ul class="control">
-										<li class=""><a href="#" class="link_reply"><i class="fa fa-comment"></i>답변달기</a>
-										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>
-										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>
-								</ul>
-							</div>
-						</li>
-						<li>
-							<div class="thumb_re">
-								<img src="/img/user_writer.png" width="48" height="48" class="">
-							</div>
-							<div class="reply-content reply-re_content">
-								<ul class="info">
-									<li class="nickname">jeongsu</li>
-									<li class="date">2023.07.21</li>
-								</ul>
-									<p class="text">그럼요!!</p>
-									<ul class="control">
-										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>
-										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>
-								</ul>
-							</div>
-						</li>
-					</ul>
-					<form>
+					<ul class="reply-list" id="reply-list"></ul>
+					<div>
 						<textarea class="comment" id="comment" rows="5" placeholder="코멘트 달기"></textarea>
-						<button class="btn btn-dark" id="commentBtn" type="button" onclick="location.href='/study/''">작성</button>
-					</form>
+						<button class="btn btn-dark" id="commentBtn" type="button" onclick="studyReplyInsert();">작성</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -103,5 +70,10 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=59e92bd7943f48f31ff73b322a4e5603&libraries=services,clusterer,drawing"></script>
 	<script src="/js/studydetail.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+	<script>
+		$(document).ready(function () {
+			studyReplyList();
+		});
+	</script>
 </body>
 </html>

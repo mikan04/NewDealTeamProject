@@ -15,8 +15,7 @@ function preventSubmit(event) {
 function regis_check() {
 	var studytitle = $('#studyTitle');
 	var studyContent = myEditor.getData();
-	var address_name = $('#address_name');
-	var reserve = $('#reserve');
+	
 	
 	if (studytitle.val() == "") {
 		alert("제목을 입력해주세요.");
