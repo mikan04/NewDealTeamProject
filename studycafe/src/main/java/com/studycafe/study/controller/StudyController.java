@@ -22,31 +22,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nimbusds.jose.shaded.json.JSONArray;
 import com.nimbusds.jose.shaded.json.JSONObject;
+import com.studycafe.study.dto.StudyFormDto;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.service.StudyService;
 
 @Controller
 public class StudyController {
-	
+
 	/**
 	 * @author 홍정수
 	 */
-	
+
 	@Autowired
 	private StudyService studyService;
-	
+
 	// 스터디 모집 게시판 폼
 	@GetMapping("/study")
 	public String studyList() {
 		return "/study/studylist";
 	}
-	
+
 	// 스터디 모집 게시판 리스트 호출
 	@GetMapping("/studylist")
 	@ResponseBody
-	public Page<StudyEntity> studyListAjax(@PageableDefault(page = 0, size = 10, sort = "studyNum", direction = Sort.Direction.DESC) Pageable pageable,
+	public Page<StudyEntity> studyListAjax(
+			@PageableDefault(page = 0, size = 10, sort = "studyNum", direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam(required = false) String keyword) {
-		
+
 		Page<StudyEntity> list = null;
 
 		if (keyword == null) {
@@ -54,10 +56,10 @@ public class StudyController {
 		} else {
 			list = studyService.studySearchList(keyword, pageable);
 		}
-		
+
 		int nowPage = list.getPageable().getPageNumber() + 1;
-		int startPage = Math.max(nowPage -4, 1);
-		int endPage = Math.min(nowPage + 5,  list.getTotalPages());
+		int startPage = Math.max(nowPage - 4, 1);
+		int endPage = Math.min(nowPage + 5, list.getTotalPages());
 
 		return list;
 	}
@@ -67,49 +69,51 @@ public class StudyController {
 	public String studyRegis() {
 		return "/study/studyregistration";
 	}
-	
+
 	// 스터디 모집 게시물 등록
 	@PostMapping("/studyregistrationpro")
-	public String studyInsert(StudyEntity studyEntity) {
+	public String studyInsert(StudyFormDto studyFormDto) {
+		StudyEntity studyEntity = StudyFormDto.toStudyEntity(studyFormDto);
+		System.out.println(studyEntity);
 
 		studyService.studyInsert(studyEntity); // 게시글 저장
-			return "redirect:/study";
+		return "redirect:/study";
 	}
-	
+
 	// 스터디 모집 게시물 수정 폼
 	@GetMapping("/studymodify/{no}")
 	public String studyModifyForm(@PathVariable("no") int id, Model model) {
-		
+
 		/**
 		 * 게시글 수정 아이디 체크 넣기
-		 * */
-		
+		 */
+
 		try {
 			StudyEntity studyEntity = new StudyEntity();
-			
+
 			studyEntity = studyService.studySelect(id);
-	
+
 			model.addAttribute("studyEntity", studyEntity);
-			
+
 			return "/study/studymodify";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "/study";
 		}
 	}
-	
+
 	// 스터디 모집 게시물 수정
 	@PostMapping("/studymodifypro")
 	public String studyModify(StudyEntity studyEntity) {
 		try {
 			int num = studyEntity.getStudyNum();
-			
+
 			studyService.studyInsert(studyEntity); // 게시글 저장
 			return "redirect:/studydetail/" + num;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "/study";
 		}
 	}
-	
+
 	// 스터디 모집 게시글 삭제 Ajax
 	@PostMapping("/studydelete")
 	@ResponseBody
@@ -119,44 +123,44 @@ public class StudyController {
 
 		/**
 		 * 게시글 삭제 아이디 체크 넣기
-		 * */
-		
+		 */
+
 		int id = (int) map.get("id");
 
 		try {
 			studyService.studyDelete(id);
 			result.put("status", "ok");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("status", "fail");
 		}
 		return result;
 	}
-	
+
 	// 스터디 모집 게시물 열람
 	@GetMapping("/studydetail/{no}")
 	public String studySelect(@PathVariable("no") int id, Model model) {
-		
+
 		StudyEntity studyEntity = new StudyEntity();
-		
+
 		studyEntity = studyService.studySelect(id);
-		
+
 		model.addAttribute("studyEntity", studyEntity);
-		
+
 		return "/study/studydetail";
 	}
-	
-	
+
 	@GetMapping("/studyTime")
 	@ResponseBody
-	public String studySelectTimeByMap(@RequestParam("lat") int lat, @RequestParam("long") int lon,@RequestParam("date") String date) {
+	public String studySelectTimeByMap(@RequestParam("lat") String lat, @RequestParam("long") String lon,
+			@RequestParam("date") String date) {
 		LocalDate localDate = LocalDate.parse(date);
-		
-		List<StudyEntity> studyEntity = studyService.studySelectByMap(lat, lon, localDate);
-		
+		List<StudyEntity> studyEntity = studyService.studySelectByMap(Double.parseDouble(lat), Double.parseDouble(lon),
+				localDate);
+
 		JSONArray times = new JSONArray();
-		for(int i=0; i> studyEntity.size(); i++) {
-			
+		for (int i = 0; i > studyEntity.size(); i++) {
+
 			LocalDateTime reserveTime = studyEntity.get(0).getReserveTime();
 			JSONObject time = new JSONObject();
 			time.put("time", reserveTime);

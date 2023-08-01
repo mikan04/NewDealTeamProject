@@ -62,6 +62,7 @@ public class StudyEntity {
 	@Builder
 	public StudyEntity(int studyNum, String studyContent, String studyWriter, String studyTitle, String studyFilePath, double latitude,
 			double longitude, LocalDate reserveDate, LocalDateTime reserveTime, LocalDateTime dateTime) {
+		
 
 		this.studyNum = studyNum;
 		this.studyContent = studyContent;

@@ -20,7 +20,7 @@ public interface StudyRepository extends JpaRepository<StudyEntity, Integer> {
 	Page<StudyEntity> findBystudyTitleContaining(String keyword, Pageable pageable);
 
 	@Query(value = "SELECT * FROM study_entity WHERE longitude= :longitude and latitude= :latitude and reserve_date=:date", nativeQuery = true)
-	List<StudyEntity> findByMap(@Param("longitude") int longitude, @Param("latitude") int latitude,
+	List<StudyEntity> findByMap(@Param("longitude") double longitude, @Param("latitude") double latitude,
 			@Param("date") LocalDate date);
 
 	@Query(value = "SELECT COUNT(*) FROM study_entity WHERE reserve_date >= NOW() + INTERVAL 1 DAY", nativeQuery = true)
