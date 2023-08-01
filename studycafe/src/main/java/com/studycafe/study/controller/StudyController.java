@@ -74,7 +74,6 @@ public class StudyController {
 	@PostMapping("/studyregistrationpro")
 	public String studyInsert(StudyFormDto studyFormDto) {
 		StudyEntity studyEntity = StudyFormDto.toStudyEntity(studyFormDto);
-		System.out.println(studyEntity);
 
 		studyService.studyInsert(studyEntity); // 게시글 저장
 		return "redirect:/study";
@@ -103,11 +102,10 @@ public class StudyController {
 
 	// 스터디 모집 게시물 수정
 	@PostMapping("/studymodifypro")
-	public String studyModify(StudyEntity studyEntity) {
+	public String studyModify(StudyFormDto studyFormDto) {
 		try {
-			int num = studyEntity.getStudyNum();
-
-			studyService.studyInsert(studyEntity); // 게시글 저장
+			int num = studyFormDto.getStudyNum();
+			studyService.studyInsert(StudyFormDto.toStudyEntity(studyFormDto)); // 게시글 저장
 			return "redirect:/studydetail/" + num;
 		} catch (Exception e) {
 			return "/study";

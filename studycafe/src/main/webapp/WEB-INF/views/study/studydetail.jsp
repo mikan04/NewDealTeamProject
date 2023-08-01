@@ -34,6 +34,9 @@
 				<p>
 					<label for="dateTime">작성날짜</label>
 					<input type="text" id="dateTime" name="dateTime" value="${dateTime}" readonly="readonly"></p>
+				<p>
+					<label for="dateTime">예약 시간</label>
+					<input type="text" id="dateTime" name="dateTime" value="${studyEntity.reserveTime}" readonly="readonly"></p>
 				<div>
 					<label for="studyContent">내용</label>
 					<textarea id="studyContent" name="studyContent" readonly="readonly">${studyEntity.studyContent}</textarea></div>

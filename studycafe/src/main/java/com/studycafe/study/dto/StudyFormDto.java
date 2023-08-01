@@ -21,7 +21,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class StudyFormDto {
-
+	private int studyNum;
 	private String studyTitle;
 	private String studyWriter;
 	private String studyContent;
@@ -30,16 +30,17 @@ public class StudyFormDto {
 	private double longitude;
 	private String reserveDate;
 	private String reserveTime;
-
+	private String dateTime;
+	
 	public static StudyEntity toStudyEntity(StudyFormDto studyFormDto) {
-//		String timeSliced = studyFormDto.getReserveTime().substring(0, 0)
 		
-		StudyEntity study = StudyEntity.builder().studyTitle(studyFormDto.getStudyTitle()).studyWriter(studyFormDto.getStudyWriter())
+		StudyEntity study = StudyEntity.builder().studyNum(studyFormDto.getStudyNum()).studyTitle(studyFormDto.getStudyTitle()).studyWriter(studyFormDto.getStudyWriter())
 				.studyContent(studyFormDto.getStudyContent())
 				.studyFilePath(studyFormDto.getStudyFilePath())
 				.latitude(studyFormDto.getLatitude()).longitude(studyFormDto.getLongitude())
 				.reserveDate(LocalDate.parse(studyFormDto.getReserveDate()))
-				.reserveTime(LocalDateTime.parse(studyFormDto.getReserveTime(), DateTimeFormatter.ISO_DATE_TIME)).build();
+				.reserveTime(LocalDateTime.parse(studyFormDto.getReserveTime(), DateTimeFormatter.ISO_DATE_TIME))
+				.dateTime(LocalDateTime.parse(studyFormDto.getDateTime(), DateTimeFormatter.ISO_DATE_TIME)).build();
 
 		return study;
 

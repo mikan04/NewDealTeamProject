@@ -295,7 +295,7 @@ function getStudyDateAvailability(lat, long, date){
 function selectDateHandler(date) {
 	if (!selectLat || !selectLong) {
 		alert("먼저 장소를 선택해주세요");
-		$('#reserve').val('');
+		$('#reserveDate').val('');
 		return;
 	}
 	else {
