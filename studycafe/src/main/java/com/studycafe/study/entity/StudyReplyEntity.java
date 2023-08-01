@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-
 import lombok.Data;
 
 
@@ -41,10 +40,10 @@ public class StudyReplyEntity {
 	@Column(length = 10)
 	private String isDeleted;	 // 스터디 댓글 삭제 여부
 	
+	private long studyReplyRef; // 스터디 부모 댓글 번호
+	
 	@CreationTimestamp
 	private Timestamp studyReplyDate;  // 스터디 댓글 등록 일자
 	
 	private int studyReplyDepth;  // 스터디 댓글 깊이
-
-
 }
