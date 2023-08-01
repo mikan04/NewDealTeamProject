@@ -2,14 +2,14 @@
 
 .main-wrap {
 	min-height: calc(100% - 200px);
-	padding-top: 100px;
+	padding-top: 120px;
 	width: 100%;
 	margin: auto;
 }
 
 .btn {
   float: right;
-  margin: 50px 0 50px 10px;
+  margin: 20px 0 20px 10px;
   width: 100px;
   height: 42px;
   padding: 0 30px;
