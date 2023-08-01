@@ -1,5 +1,5 @@
-window.resizeTo(600,700);
-
+window.resizeTo(600, 700);
+var username1 = sessionStorage.getItem("username");
 var ws;
 
 function wsOpen() {
@@ -24,8 +24,9 @@ function wsEvt() {
 				"roomIdx": $("#roomIdx").val()
 			},
 			success: function(e) {
+
 				for (var i = 0; i < e.length; i++) {
-					if (e[i].nickName === $("#nickName").val()) {
+					if (e[i].username == username1) {
 
 						$("#chating")
 							// // // // // // 나
@@ -71,11 +72,11 @@ function wsEvt() {
 					$("#username").val(si);
 				}
 			} else if (d.type == "message") {
-				if (d.username == $("#username").val()) {
+				if (d.username == username1) {
 					$("#chating")
 						.append(
-							"<div class='my-chat-box'>"
-							+ "<label>" + d.nickName + "</label>"
+							"<div class='my-chat-box'><label>" 
+							+ d.nickName + "</label>"
 							+ "<div class='my-msg-box'>"
 							+ "<p class='me'>" + d.msg + "</p>"
 							+ "</div>"
@@ -84,8 +85,8 @@ function wsEvt() {
 				} else {
 					$("#chating")
 						.append(
-							+ "<div class='another-chat-box'>"
-							+ "<label>" + d.nickName + "</label>"
+							 "<div class='another-chat-box'>"
+							+"<label>"+d.nickName+"</label>"
 							+ "<div class='others-msg-box'>"
 							+ "<p class='others'>" + d.msg + "</p>"
 							+ "</div>"
@@ -111,20 +112,20 @@ function wsEvt() {
 }
 
 function send() {
-
 	var option = {
 		type: "message",
-		username: $("#username").val(),
+		username: username1,
 		nickName: $("#nickName").val(),
 		roomIdx: $("#roomIdx").val(),
 		msg: $("#chatting").val()
 	}
+
 	$.ajax({
 		type: "POST",
 		url: "/chatRoomMessage/insertMessage",
 		dataType: "json",
 		data: {
-			"username": $("#username").val(),
+			"username": username1,
 			"nickName": $("#nickName").val(),
 			"roomIdx": $("#roomIdx").val(),
 			"msg": $("#chatting").val(),
@@ -139,7 +140,6 @@ function send() {
 }
 
 $(document).ready(function() {
-
 	wsOpen();
 
 	$("#chatting").on("input", function() {
