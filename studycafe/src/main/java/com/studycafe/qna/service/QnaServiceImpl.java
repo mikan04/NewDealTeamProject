@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.qna.entity.QnaEntity;
 import com.studycafe.qna.repository.QnaRepository;
 
@@ -36,6 +37,15 @@ public class QnaServiceImpl implements QnaService{
 		qnaRe.save(qnaEntity);
 	
 	}
+
+	@Override
+	public QnaEntity selectQna(Long qnaNum) {
+		// TODO Auto-generated method stub
+		
+		return qnaRe.getById(qnaNum);
+	}
+
+
 	
 	
 	

@@ -8,8 +8,9 @@ import com.studycafe.qna.entity.QnaEntity;
 import com.studycafe.study.entity.StudyEntity;
 
 /*@Repository*/
-public interface QnaRepository  extends JpaRepository<QnaEntity, String>  {
+public interface QnaRepository  extends JpaRepository<QnaEntity, Long>  {
 	
 	Page<QnaEntity> findByqnaTitleContaining(String keyword, Pageable pageable);
+
 
 }
