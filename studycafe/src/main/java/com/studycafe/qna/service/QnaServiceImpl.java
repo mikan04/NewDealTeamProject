@@ -45,6 +45,14 @@ public class QnaServiceImpl implements QnaService{
 		return qnaRe.getById(qnaNum);
 	}
 
+	@Override
+	public void qnaDelete(long qnaNum) {
+		// TODO Auto-generated method stub
+		
+		qnaRe.deleteById(qnaNum);
+		
+	}
+
 
 	
 	
