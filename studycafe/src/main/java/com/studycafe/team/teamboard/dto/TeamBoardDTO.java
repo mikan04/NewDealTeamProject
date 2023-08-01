@@ -8,14 +8,10 @@ import org.springframework.data.domain.Page;
 import com.studycafe.team.teamboard.entity.TeamBoardEntity;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 public class TeamBoardDTO {
 	// Data Transferation to TeamBoardEntity
@@ -35,6 +31,7 @@ public class TeamBoardDTO {
 				.teamBoardTitle(teamBoardTitle)
 				.teamBoardContent(teamBoardContent)
 				.teamBoardWriter(teamBoardWriter)
+				.modifiedDate(modifiedDate)
 				.build();
 
 		return teamBoardEntityBuilder;

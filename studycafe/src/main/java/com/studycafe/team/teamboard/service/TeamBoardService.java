@@ -18,8 +18,11 @@ public interface TeamBoardService {
 
 	// 팀 게시글 등록
 	public Long teamBoardRegis(TeamBoardDTO teamBoardDTO);
-
+	
 	// 조회
 	public TeamBoardDTO getTeamBoardPost(long idx);
+	
+	// 삭제
+	public boolean deleteTeamBoard(long idx);
 
 }

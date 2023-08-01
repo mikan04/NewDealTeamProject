@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<!-- 로그인 한 회원 정보 사용 -->
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal.member" var="member" />
 </sec:authorize>
@@ -15,7 +16,7 @@
 <title>헤더</title>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body class="header-body">
 	<div class="wrapper">
@@ -25,6 +26,7 @@
 			<label for="show-menu" class="menu-icon">
 				<i class="fas fa-bars"></i>
 			</label>
+
 			<div class="content">
 				<a href="/" class="logo"> <img alt="로고" src="/img/logo.png" width="200" height="50">
 				</a>
@@ -40,7 +42,7 @@
 					</li>
 
 					<li>
-						<a href="#">Q &amp; A</a>
+						<a href="/qna">Q &amp; A</a>
 					</li>
 
 					<li>
@@ -82,8 +84,10 @@
 											<a href="#">나의팀관리</a>
 										</li>
 										<li>
-											<a href="/chatRoom/moveChating?teamNumber=${member.teamNumber.teamNumber}">팀채팅방</a>
+											<input type="hidden">
+											<a href="javascript:openTeamChat(${member.teamNumber.teamNumber})">팀채팅방</a>
 										</li>
+											<input type="text" id = "username" value="${member.username}" hidden="hidden"/>
 									</c:otherwise>
 								</c:choose>
 							</sec:authorize>
@@ -91,17 +95,17 @@
 					</li>
 
 					<li>
-						<a href="#">고객센터</a>
+						<a href="${contextPath}/cs/csboard">고객센터</a>
 					</li>
 				</ul>
 
 				<ul class="links member-ul">
 					<li>
 						<sec:authorize access="isAuthenticated()">
-							<a href="#" class="desktop-link"> <span style="color: yellow;">${member.nickName}</span>님 반갑습니다.
+							<a href="#" class="desktop-link"> 안녕하세요 <span style="color: yellow;">${member.nickName}</span>님
 							</a>
 							<input type="checkbox" id="show-memberInfo">
-							<label for="show-memberInfo">${member.nickName}님 반갑습니다.</label>
+							<label for="show-memberInfo">${member.nickName}</label>
 						</sec:authorize>
 
 						<sec:authorize access="isAnonymous()">
@@ -111,6 +115,7 @@
 						</sec:authorize>
 						<ul>
 							<sec:authorize access="isAuthenticated()">
+							
 								<li>
 									<a href="${contextPath}/logout">로그아웃</a>
 								</li>
@@ -122,7 +127,7 @@
 								</sec:authorize>
 
 								<li>
-									<a href="">내정보관리</a>
+									<a href="/member/verificationpage">내정보관리</a>
 								</li>
 
 							</sec:authorize>
@@ -132,6 +137,6 @@
 			</div>
 		</nav>
 	</div>
-	<script type="text/javascript" src="/js/header-js.js"></script>
+	<script type="text/javascript" src="/js/header.js"></script>
 </body>
 </html>
