@@ -95,7 +95,7 @@
 					</li>
 
 					<li>
-						<a href="#">고객센터</a>
+						<a href="${contextPath}/cs/csboard">고객센터</a>
 					</li>
 				</ul>
 
@@ -115,6 +115,7 @@
 						</sec:authorize>
 						<ul>
 							<sec:authorize access="isAuthenticated()">
+							
 								<li>
 									<a href="${contextPath}/logout">로그아웃</a>
 								</li>

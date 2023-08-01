@@ -44,5 +44,7 @@ public interface MemberService {
 	public MemberAddressEntity getUserAddress(String username);
 
 	public boolean updateInfo(MemberDto memberDto);
-
+	
+	//회원정보 불러오기
+	public MemberEntity getMember(String userName);
 }
