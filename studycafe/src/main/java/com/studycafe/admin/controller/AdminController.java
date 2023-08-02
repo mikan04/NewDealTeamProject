@@ -162,8 +162,8 @@ public class AdminController {
 	public String getStudyData() {
 		JSONObject collector = new JSONObject();
 		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
 		objectMapper.registerModule(new JavaTimeModule());
+		objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
 
 		Integer studyReserve = studyService.getStudyReserve();
 		Integer studyDone = studyService.getStudyDone();
@@ -191,7 +191,7 @@ public class AdminController {
 		collector.put("studyDone", studyDone);
 
 		try {
-			collector.put("allStudies", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(allStudies));
+			collector.put("allStudies", objectMapper.writeValueAsString(allStudies));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

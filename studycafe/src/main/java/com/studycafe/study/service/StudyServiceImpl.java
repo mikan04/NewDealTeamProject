@@ -50,11 +50,7 @@ public class StudyServiceImpl implements StudyService {
 		return studyRepository.getById(id);
 	}
 
-	@Override
-	public List<StudyEntity> studySelectByMap(int lat, int lon, LocalDate date) {
-		return studyRepository.findByMap(lat, lon, date);
 
-	}
 
 	@Override
 	public int getStudyReserve() {
@@ -91,5 +87,12 @@ public class StudyServiceImpl implements StudyService {
 		// TODO Auto-generated method stub
 		return studyRepository.findAll(Sort.by(Sort.Direction.DESC, "studyNum"));
 	}
+
+	@Override
+	public List<StudyEntity> studySelectByMap(double lat, double lon, LocalDate date) {
+		// TODO Auto-generated method stub		
+		return studyRepository.findByMap(lat, lon, date);
+	}
+
 
 }
