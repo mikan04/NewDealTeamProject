@@ -6,11 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface S3FileService {
 	
-	String saveFile(MultipartFile file, String filePath);
+	String saveFile(MultipartFile file , String identifier);
 	
 	byte[] downloadFile(String filename);
 	
-	String deleteFile(String filename);
+	String deleteFile(String fileKey);
 	
 	List<String> listAllFiles();
+	
+	String getKey(MultipartFile file ,String identifier);
+
 }

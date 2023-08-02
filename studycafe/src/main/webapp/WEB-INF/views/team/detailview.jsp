@@ -50,7 +50,7 @@
 				<c:if test="${member.nickName.equals(teamPost.teamBoardWriter) }">
 					<p class="modify-delete-box">
 						<a type="submit" id="modify-btn" href="${contextPath }/team/modifyview/${teamPost.teamBoardNum}">수정</a>
-						<a type="submit" id="delete-btn" href="javascript:removeTeamPost('${teamPost.teamBoardNum}')">삭제</a>
+						<a type="submit" id="delete-btn" href="javascript:removePost('${teamPost.teamBoardNum}','tb')">삭제</a>
 					</p>
 				</c:if>
 			</form>

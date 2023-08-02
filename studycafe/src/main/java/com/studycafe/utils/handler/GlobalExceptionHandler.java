@@ -31,4 +31,12 @@ public class GlobalExceptionHandler {
 		
 		return "/error/500";
 	}
+	
+	@ExceptionHandler(value = RuntimeException.class)
+	public String handleRuntimeException(RuntimeException ilEx, Model model) {
+		
+		model.addAttribute("error", ilEx.getMessage());
+		
+		return "/error/500";
+	}
 }

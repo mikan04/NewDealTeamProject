@@ -81,8 +81,9 @@ form{
 	color: white;
 }
 
-.select_img{
-	text-align: center;
+img{
+	max-width: 100%;
+	max-height : 500px;
 }
 
 .modify-delete-box{
