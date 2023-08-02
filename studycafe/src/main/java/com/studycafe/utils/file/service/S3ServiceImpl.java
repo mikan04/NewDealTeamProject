@@ -45,11 +45,6 @@ public class S3ServiceImpl implements S3FileService {
 			File insertedFile = convertMultiPartToFile(file);
 
 			String objectKey = getKey(file, identifier);
-			
-			if("".equals(objectKey)) {
-				
-				objectKey = "none_key";
-			}
 
 			s3.putObject(bucketName, objectKey, insertedFile);
 
@@ -139,15 +134,17 @@ public class S3ServiceImpl implements S3FileService {
 
 	// 파일 삭제
 	@Override
-	public String deleteFile(String fileKey) {
+	public void deleteFile(String fileKey) {
 
 		boolean isExistObject = s3.doesObjectExist(bucketName, fileKey);
 
 		if (isExistObject) {
+			log.info("s3 파일 삭제 시작, 키 : {}", fileKey);
+
 			s3.deleteObject(bucketName, fileKey);
+
 		}
 
-		return "파일 삭제 완료";
 	}
 
 	// S3에 저장된 파일 리스트 가져오기

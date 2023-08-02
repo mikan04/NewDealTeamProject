@@ -1,5 +1,6 @@
 package com.studycafe.cs.dto;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -12,9 +13,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class CsBoardDTO {
+public class CsBoardDTO implements Serializable{
+	
+	
+	/**
+	 * @serial CsBoardDTO
+	 */
+	private static final long serialVersionUID = 3138806864541130044L;
+	
 	// Data Transferation to TeamBoardEntity
-
 	private long idx;
 	private String csTitle;
 	private String csContent;
@@ -27,19 +34,19 @@ public class CsBoardDTO {
 	private LocalDateTime modifiedDate;
 
 	// 단일 dto->entity
-	public CsEntity sendDataToEntity(CsBoardDTO csDto) {
+	public CsEntity sendDataToEntity() {
 
 		CsEntity csEntityBuilder = CsEntity.builder()
-				.idx(csDto.getIdx())
-				.csTitle(csDto.getCsTitle())
-				.csContent(csDto.getCsContent())
-				.csWriter(csDto.getCsWriter())
-				.filePath(csDto.getFilePath())
-				.fileKey(csDto.getFileKey())
-				.secret(csDto.isSecret())
-				.username(csDto.getUsername())
-				.createDate(csDto.getCreateDate())
-				.modifiedDate(csDto.getModifiedDate())
+				.idx(idx)
+				.csTitle(csTitle)
+				.csContent(csContent)
+				.csWriter(csWriter)
+				.filePath(filePath)
+				.fileKey(fileKey)
+				.secret(secret)
+				.username(username)
+				.createDate(createDate)
+				.modifiedDate(modifiedDate)
 				.build();
 
 		return csEntityBuilder;

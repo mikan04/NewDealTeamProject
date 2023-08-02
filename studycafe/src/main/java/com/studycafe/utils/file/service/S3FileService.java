@@ -10,7 +10,7 @@ public interface S3FileService {
 	
 	byte[] downloadFile(String filename);
 	
-	String deleteFile(String fileKey);
+	void deleteFile(String fileKey);
 	
 	List<String> listAllFiles();
 	

@@ -59,7 +59,8 @@ public class CsServiceImpl implements CsService {
 		csBoardDTO.setFilePath(s3ObjectUrl + fileKey);
 		csBoardDTO.setFileKey(fileKey);
 
-		return csRepository.save(csBoardDTO.sendDataToEntity(csBoardDTO)).getIdx();
+		return csRepository.save(csBoardDTO.sendDataToEntity()).getIdx();
+
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class CsServiceImpl implements CsService {
 		csBoardDTO.setFilePath(s3ObjectUrl + fileKey);
 		csBoardDTO.setFileKey(fileKey);
 
-		return csRepository.save(csBoardDTO.sendDataToEntity(csBoardDTO));
+		return csRepository.save(csBoardDTO.sendDataToEntity());
 
 	}
 
