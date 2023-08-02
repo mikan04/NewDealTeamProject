@@ -11,10 +11,17 @@
 <head>
 <meta charset="utf-8">
 <title>스터디 모집 등록</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+crossorigin="anonymous"
+/>
 <link rel="stylesheet" type="text/css" href="/css/studyregistration.css">
 </head>
 <body>
@@ -82,9 +89,9 @@
 				<br>
 				<p>
 					<label for="reserve">예약 날짜</label>
-					<input type="date" id="reserve" name="reserve" onchange="selectDateHandler(this.value)" value="${studyEntity.reserveDate}">
+					<input type="date" id="reserveDate" name="reserveDate" onchange="selectDateHandler(this.value)" value="${studyEntity.reserveDate}">
 					<!-- action="action_page.php?reserve=2023-06-16" -->
-					<button type="button" class="btn btn-dark" id="reserveBtn" onclick="location.href='action_page.php?' + $('#reserve').val()">조회</button>
+					<!-- <button type="button" class="btn btn-dark" id="reserveBtn" onclick="location.href='action_page.php?' + $('#reserve').val()">조회</button> -->
 				</p>
 					
 				<div class="reserve-info">
@@ -116,6 +123,107 @@
 							</tr>
 						</tbody>
 					</table>
+					<div id="accordion">
+						<div class="card">
+						  <div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+							  <button
+								type="button"
+								class="btn"
+								data-toggle="collapse"
+								data-target="#collapse1"
+								aria-expanded="true"
+								aria-controls="collapseOne"
+							  >
+								날짜
+							  </button>
+							</h5>
+						  </div>
+						  <div
+							id="collapse1"
+							class="collapse show"
+							data-parent="#accordion"
+						  >
+							<div class="card-body">
+							  <div id="accordion-date"></div>
+							</div>
+						  </div>
+						  <div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+							  <button
+								type="button"
+								class="btn"
+								data-toggle="collapse"
+								data-target="#collapse2"
+								aria-expanded="true"
+								aria-controls="collapseOne"
+							  >
+								시간 선택
+							  </button>
+							</h5>
+						  </div>
+						  <div
+							id="collapse2"
+							class="collapse show"
+							data-parent="#accordion"
+						  >
+							<div class="card-body">
+							  <div class="d-flex flex-wrap gap-3">
+								<div class="accordion-study-time enabled" data-time="08">
+								  08:00 ~ 11:00
+								</div>
+								<div class="accordion-study-time enabled" data-time="11">
+								  11:00 ~ 14:00
+								</div>
+								<div class="accordion-study-time disabled" data-time="14">
+								  14:00 ~ 17:00
+								</div>
+								<div class="accordion-study-time disabled" data-time="17">
+								  17:00 ~ 20:00
+								</div>
+								<div class="accordion-study-time enabled" data-time="20">
+								  20:00 ~ 23:00
+								</div>
+							  </div>
+							</div>
+						  </div>
+						  <div class="card-header" id="headingTwo">
+							<h5 class="mb-0">
+							  <button
+								type="button"
+								class="btn collapsed"
+								data-toggle="collapse"
+								data-target="#collapse3"
+								aria-expanded="false"
+								aria-controls="collapseTwo"
+							  >
+								인원
+							  </button>
+							</h5>
+						  </div>
+						  <div
+							id="collapse3"
+							class="collapse show"
+							data-parent="#accordion"
+						  >
+							<div class="card-body">
+							  <div class="d-flex justify-content-between">
+								<label for="numOfMember"> 인원 선택 </label>
+								<div>
+								  <input
+									type="number"
+									id="numOfMember"
+									name="numOfMember"
+									min="2"
+									max="8"
+									value="2"
+								  />
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
 				</div>
 				
 				<!-- hidden 데이터 -->
@@ -123,11 +231,16 @@
 				<input type="hidden" id="longitude" name="longitude" value="${studyEntity.longitude}">
 				<input type="hidden" id="dateTime" name="dateTime" value="${studyEntity.dateTime}">
 				<input type="hidden" id="studyNum" name="studyNum" value="${studyEntity.studyNum}">
+				<input type="hidden" id="reserveTime" name="reserveTime" />
 				<button class="btn btn-dark" id="registerBtn" type="button" onclick="regis_check();">수정</button>
 			</form>
 		</div>
 	</div>
-
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=59e92bd7943f48f31ff73b322a4e5603&libraries=services,clusterer,drawing"></script>
 
