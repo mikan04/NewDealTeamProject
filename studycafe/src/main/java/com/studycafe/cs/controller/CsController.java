@@ -101,7 +101,7 @@ public class CsController {
 
 		CsEntity getWriter = csRepository.findById(idx).get();
 		
-		log.info("file name : {}", getWriter.getFileKey());
+		log.info("수정페이지 파일키 수정페이지 파일키 : {}", getWriter.getFileKey());
 
 		if (memberAdaptor == null) {
 
@@ -129,7 +129,9 @@ public class CsController {
 	// 글 수정
 	@PatchMapping("/cs/modifyview/{idx}")
 	public String modifyCsBoard(CsBoardDTO csBoardDTO, @RequestParam("file") MultipartFile file) {
-
+		
+		log.info("수정시에 파일키 수정시에 파일키 : {}", csBoardDTO.getFileKey());
+		
 		csService.csBoardModify(csBoardDTO, identifier, file);
 
 		return "redirect:/cs/csboard/{idx}";

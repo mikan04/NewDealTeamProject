@@ -37,13 +37,13 @@
 
 				<p>
 					<label for="team-secret">비밀글 여부</label>
-					<span class="secret-yn">
+					<span>
 						공개
-						<input type="radio" id="team-secret" name="secret" value="0" checked="checked">
+						<input type="radio" class="secret-yn" id="team-secret" name="secret" value="0" checked="checked">
 					</span>
 					<span class="secret-yn">
 						비공개
-						<input type="radio" name="secret" value="1">
+						<input type="radio" class="secret-yn" name="secret" value="1">
 					</span>
 				</p>
 
