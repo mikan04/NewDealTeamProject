@@ -23,13 +23,6 @@ public class StudyServiceImpl implements StudyService {
 	private StudyRepository studyRepository;
 
 	@Override
-	public void studyDelete(int id) {
-		// TODO Auto-generated method stub
-
-		studyRepository.deleteById(id);
-	}
-
-	@Override
 	public void studyInsert(StudyEntity studyEntity) {
 		// TODO Auto-generated method stub
 
@@ -39,14 +32,14 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public Page<StudyEntity> studyList(Pageable pageable) {
 		// TODO Auto-generated method stub
-		return studyRepository.findAll(pageable);
+		return studyRepository.findByisDeleted(pageable, 0);
 	}
 
-	@Override
+	@Override 
 	@Transactional
 	public Page<StudyEntity> studySearchList(String keyword, Pageable pageable) {
 		// TODO Auto-generated method stub
-		Page<StudyEntity> list = studyRepository.findBystudyTitleContaining(keyword, pageable);
+		Page<StudyEntity> list = studyRepository.findBystudyTitleContainingAndIsDeleted(pageable, keyword, 0);
 		return list;
 	}
 

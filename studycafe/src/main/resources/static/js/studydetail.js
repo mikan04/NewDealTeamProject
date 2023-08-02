@@ -5,15 +5,21 @@
 /** 
  * 게시글 삭제 Ajax
  * */
-function studyDelete(id) {
+function studyDelete() {
+
+	var jsonData = {
+			id: $('#studyNum').val()
+		};
+	
 	$.ajax({
 		url: "/studydelete"
 		, contentType : "application/json; charset=utf-8"
 		, type : 'POST'
-		, data : JSON.stringify({"id": id})
+		, dataType : 'json'
+		, data : JSON.stringify(jsonData)
 		, success: function(data) {
 			if (data.status === 'ok' ) {
-				alert(id + "번 게시글을 삭제했습니다.");
+				alert("게시글을 삭제했습니다.");
 				location.href = "/study";
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
@@ -40,7 +46,7 @@ function studyReplyInsert(index, ref) {
 			studyEntity: {
 				studyNum: $('#studyNum').val()
 			},
-			studyReplyWriter: "jeongsu",
+			studyReplyWriter: $('#nickName').val(),
 			studyReplyContent: $('#re_comment_' + index).val(),
 			studyReplyDepth: 1,
 			studyReplyRef: ref
@@ -50,7 +56,7 @@ function studyReplyInsert(index, ref) {
 			studyEntity: {
 				studyNum: $('#studyNum').val()
 			},
-			studyReplyWriter: "jeongsu",
+			studyReplyWriter: $('#nickName').val(),
 			studyReplyContent: $('#comment').val(),
 			studyReplyDepth: 0
 		};
@@ -77,7 +83,7 @@ function studyReplyInsert(index, ref) {
 	});
 }
 
-function studyDelete(id) {
+function studyReplyDelete(id) {
 	
 	var jsonData = {
 		studyReplyNum: id
@@ -90,6 +96,7 @@ function studyDelete(id) {
 		, data : JSON.stringify(jsonData)
 		, success: function(data) {
 			if (data.status === "ok") {
+				alert("댓을을 삭제했습니다.");
 				studyReplyList();
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
@@ -182,10 +189,12 @@ function studyReplyList() {
 						'</ul>' +
 						'<p class="text" id="reply_content_' + index + '">' + post.studyReplyContent + '</p>' +
 						'<ul class="control">'
+					if ($('#nickName').val() != null) 
 					htmls += !!post.studyReplyDepth ? '' : '<li><a href="#" onclick="re_comment_open(' + index + ', ' + post.studyReplyRef + '); return false;" class="link_reply"><i class="fa fa-comment"></i>답변달기</a>';
+					if ($('#nickName').val() === post.studyReplyWriter)
 					htmls += '<li><a href="#" onclick="comment_modify_open(' + index + ', ' + post.studyReplyRef + '); return false;" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>' +
-						'<li><a href="#" onclick="studyDelete(' + post.studyReplyNum + '); return false;" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>' +
-						'</ul>' +
+						'<li><a href="#" onclick="studyReplyDelete(' + post.studyReplyNum + '); return false;" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>'
+					htmls += '</ul>' +
 						'<input type="hidden" id="replyNum_' + index + '" value="' + post.studyReplyNum + '">' +
 						'<input type="hidden" id="studyReplyWriter_' + index + '" value="' + post.studyReplyWriter + '">' +
 						'<input type="hidden" id="studyReplyRef_' + index + '" value="' + post.studyReplyRef + '">' +
@@ -194,7 +203,6 @@ function studyReplyList() {
 						'<div id="comment_modify_open_' + index + '"></div>' +
 						'</div>' +
 						'</li>'
-					
 					postList.append(htmls);
 				});
 			}
