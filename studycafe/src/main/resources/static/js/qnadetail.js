@@ -140,6 +140,11 @@ function studyReplyList() {
 		}
 	};
 	
+	//alert(JSON.stringify(jsonData));
+	// alert(jsonData.qnaEntity.qnaNum); // qnaNum 값만 확인
+	// alert(jsonData.qnaEntity); // qnaEntity 객체 확인
+	 alert(jsonData); // 전체 jsonData 확인
+	
 	$.ajax({
 		url: "/qnaReList"
 		, contentType: "application/json; charset=utf-8"
@@ -326,6 +331,7 @@ function searchDetailAddrFromCoords(coords, callback) {
  * CK 에디터 
  * */
 
+/* 이부분 불러오기 p태그 확인*/
 var myEditor;
 
 ClassicEditor

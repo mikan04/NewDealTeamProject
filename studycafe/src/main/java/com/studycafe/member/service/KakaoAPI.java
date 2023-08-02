@@ -20,6 +20,7 @@ import com.google.gson.JsonParser;
 
 @Service
 public class KakaoAPI {
+	
     
     public String getAccessToken (String authorize_code) {
         String access_Token = "";
@@ -197,5 +198,9 @@ public class KakaoAPI {
             e.printStackTrace();
         }
     }
+    
+    //카카오로그인 시작
+    
+   
 
 }

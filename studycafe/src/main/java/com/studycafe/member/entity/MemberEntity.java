@@ -17,11 +17,15 @@ import com.studycafe.team.entity.TeamEntity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 public class MemberEntity {
 
 	// 시큐리티 필드
@@ -72,5 +76,17 @@ public class MemberEntity {
 		this.createdAt = createdAt;
 		this.teamNumber = teamNumber;
 	}
+	
+	//카카오 로그인처리 시작
+	@Column(nullable = true)
+    private Long kakaoId;
+	
+	public MemberEntity(String username, String password, String email, Role role, Long kakaoId) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.kakaoId = kakaoId;
+    }
 
 }
