@@ -81,15 +81,16 @@ form{
 	color: white;
 }
 
-.select_img{
-	text-align: center;
+img{
+	max-width: 100%;
+	max-height : 500px;
 }
 
 .modify-delete-box{
 	float : right;
 }
 
-.modify-delete-box > a{
+.modify-delete-box > a, #modify-btn{
 	text-align : center;
 	font-size : 16px;
 	font-weight : 500;
@@ -101,7 +102,7 @@ form{
 	margin-left : 20px;
 }
 
-.modify-delete-box > a[id=modify-btn]{
+.modify-delete-box > a[id=modify-btn] , #modify-btn{
 	background-color : #0090f9;
 }
 
@@ -109,7 +110,8 @@ form{
 	background-color : red;
 }
 
-.modify-delete-box > a[id=modify-btn]:hover{
+.modify-delete-box > a[id=modify-btn]:hover,
+#modify-btn:hover{
 	cursor : pointer;
 	background-color : #0b7fd3;
 }
@@ -118,3 +120,8 @@ form{
 	cursor : pointer;
 	background-color : #ca0000;
 }
+
+.secret-yn{
+	margin-right : 20px;
+}
+

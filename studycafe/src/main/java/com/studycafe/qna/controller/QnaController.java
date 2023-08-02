@@ -1,5 +1,8 @@
 package com.studycafe.qna.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +12,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +23,7 @@ import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.qna.entity.QnaEntity;
 import com.studycafe.qna.service.QnaService;
+import com.studycafe.study.entity.StudyEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,8 +83,70 @@ public class QnaController {
 	}
 	
 	@GetMapping("/qnaDetail/{qnaNum}")
-	public String qnaDetail(long qnaNum) {
+	public String qnaDetail(@PathVariable("qnaNum") long qnaNum, Model model) {
+		
+		QnaEntity qnaEntity  = new QnaEntity();
+		
+		qnaEntity = qnaService.selectQna(qnaNum);
+		
+		model.addAttribute("datail", qnaEntity);
+		
 		return "/qna/qnaDetail";
 	}
+	
+	@GetMapping("/qnaModify/{qnaNum}")
+	public String qnaModifyForm(@PathVariable("qnaNum") long qnaNum, Model model) {
+		
+		/**
+		 * 게시글 수정 아이디 체크 넣기
+		 * */
+		
+		try {
+			QnaEntity qnaEntity = new QnaEntity();
+			
+			qnaEntity = qnaService.selectQna(qnaNum);
+	
+			model.addAttribute("modify", qnaEntity);
+			
+			return "/qna/qnaModify";
+		} catch(Exception e) {
+			return "/qna";
+		}
+	}
+	
+	@PostMapping("/qnaModifyPro")
+	public String qnaModify(QnaEntity qnaEntity) {
+		try {
+			long num = qnaEntity.getQnaNum();
+			
+			qnaService.qnaRegister(qnaEntity); // 게시글 저장
+			return "redirect:/qnaDetail/" + num;
+		} catch(Exception e) {
+			return "/qna";
+		}
+	}
+	
+	@PostMapping("/qnaDelete")
+	@ResponseBody
+	public Map<String, Object> qnaDeleteAjax(@RequestBody Map<String, Object> map) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		/**
+		 * 게시글 삭제 아이디 체크 넣기
+		 * */
+		
+		long id = (long) map.get("qnaNum");
+
+		try {
+			qnaService.qnaDelete(id);
+			result.put("status", "ok");
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.put("status", "fail");
+		}
+		return result;
+	}
+	
 
 }

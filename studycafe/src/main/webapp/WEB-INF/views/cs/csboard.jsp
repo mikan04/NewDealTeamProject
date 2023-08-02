@@ -41,21 +41,35 @@
 				<label> 문의 게시판 </label>
 				<c:forEach items="${csBoardList.content }" var="list">
 					<div>
-						<a href="${contextPath }/cs/csboard/${list.idx}">${list.csTitle }</a>
+						<c:choose>
+							<c:when test="${list.secret == true}">
+								<c:choose>
+									<c:when test="${list.username eq member.username || member.role eq 'ROLE_ADMIN'}">
+										<i class="fas fa-lock"></i>
+										&emsp;
+										<a href="${contextPath }/cs/csboard/${list.idx}">${list.csTitle }</a>
+									</c:when>
+									<c:otherwise>
+										<i class="fas fa-lock"></i>
+										&emsp;
+										<a class="secret-list">비밀글입니다</a>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+							
+							<c:otherwise>
+								<i class="fas fa-lock-open"></i>
+								&emsp;
+								<a href="${contextPath }/cs/csboard/${list.idx}">${list.csTitle }</a>
+							</c:otherwise>
+						</c:choose>
+
 						<span>
+							<font size="2">${list.csWriter }</font>
+							<br>
 							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd" /></font>
 						</span>
-						<br>
-						<span>
-							<c:choose>
-								<c:when test="">
-									<i class="fas fa-lock"></i>
-								</c:when>
-								<c:otherwise>
-									<i class="fas fa-lock-open"></i>
-								</c:otherwise>
-							</c:choose>
-						</span>
+
 					</div>
 				</c:forEach>
 			</div>

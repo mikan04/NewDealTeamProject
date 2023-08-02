@@ -1,4 +1,4 @@
-package com.studycafe.study.entity;
+package com.studycafe.qna.entity;
 
 import java.sql.Timestamp;
 
@@ -15,35 +15,35 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
 
-
 @Entity
 @Data
-public class StudyReplyEntity {
+public class QnaReEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long studyReplyNum; // 스터디 댓글 번호
+	private long qnaReNum;
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "studyNum")	
-	private StudyEntity studyEntity; // 스터디 번호 외래키
-
+	@JoinColumn(name = "qnaNum")
+	private QnaEntity qnaEntity;
+	
 	@Column(length = 20)
 	@NotNull
-	private String studyReplyWriter; // 스터디 댓글 작성자
+	private String QnaReWriter;
 	
-	@NotNull
 	@Column(columnDefinition = "TEXT")
-	private String studyReplyContent; // 스터디 댓글 내용
-
-	@Column(length = 10)
-	private String isDeleted;	 // 스터디 댓글 삭제 여부
+	@NotNull
+	private String qnaReContent;
 	
-	private long studyReplyRef; // 스터디 부모 댓글 번호
+	@Column(length = 10)
+	private String isDeleted;
+	
+	private long qnaReRef;
 	
 	@CreationTimestamp
-	private Timestamp studyReplyDate;  // 스터디 댓글 등록 일자
+	private Timestamp qnaReDate;
 	
-	private int studyReplyDepth;  // 스터디 댓글 깊이
+	private int qnaReDepth;
+
 }
