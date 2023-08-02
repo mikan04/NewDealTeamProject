@@ -13,4 +13,6 @@ public interface QnaService {
 	public void qnaRegister(QnaEntity qnaEntity); 
 
 	public QnaEntity selectQna(Long qnaNum);
+	
+	public void qnaDelete(long qnaNum);
 }
