@@ -19,24 +19,30 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 </head>
+<script>
+$(document).ready(function() {
+    alert($("#qnaNum").val());
+});
+</script>
 <body>
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
 	
 	<div class="main-wrap">
 		<div class="index-ingredient">
 			<form class="main-form" method="post" enctype="multipart/form-data">
+			<input type="hidden" id="qnaNum" value="${datail.qnaNum}">
 				<p>
 					<label for="studyTitle">제목</label>
-					<input type="text" id="studyTitle" name="studyTitle" value="${datail.qnaTitle}" readonly="readonly"></p>
+					<input type="text" id="studyTitle" name="qnaTitle" value="${datail.qnaTitle}" readonly="readonly"></p>
 				<p>
 					<label for="studyWriter">작성자</label>
-					<input type="text" id="studyWriter" name="studyWriter" value="${datail.qnaWriter}" readonly="readonly"></p>
+					<input type="text" id="studyWriter" name="qnaWriter" value="${datail.qnaWriter}" readonly="readonly"></p>
 				<p>
 					<label for="dateTime">작성날짜</label>
 					<input type="text" id="dateTime" name="dateTime" value="${datail.qnaDate}" readonly="readonly" pattern="yyyy-MM-dd"></p>
 				<div>
 					<label for="studyContent">내용</label>
-					<textarea class="texta" id="studyContent" name="studyContent" readonly="readonly">${datail.qnaContent}</textarea>
+					<textarea class="texta" id="studyContent" name="qnaContent" readonly="readonly">${datail.qnaContent}</textarea>
 				</div>
 				
 				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/qna/'">목록</button>
@@ -47,7 +53,7 @@
 				<p><label>댓글</label></p>
 				<div>
 					<ul class="reply-list">
-						<li>
+						<!-- <li>
 							<div class="thumb">
 								<img src="/img/user.png" width="48" height="48" class="">
 							</div>
@@ -79,11 +85,11 @@
 										<li class=""><a href="#" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>
 								</ul>
 							</div>
-						</li>
+						</li> -->
 					</ul>
 					<form>
 						<textarea class="comment" id="comment" rows="5" placeholder="코멘트 달기"></textarea>
-						<button class="btn btn-dark" id="commentBtn" type="button" onclick="location.href='/study/''">작성</button>
+						<button class="btn btn-dark" id="commentBtn" type="button" onclick="studyReplyInsert();">작성</button>
 					</form>
 				</div>
 			</div>
