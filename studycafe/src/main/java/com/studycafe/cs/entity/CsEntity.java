@@ -1,5 +1,6 @@
 package com.studycafe.cs.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -25,7 +26,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class CsEntity {
+public class CsEntity implements Serializable{
+
+	/**
+	 * @serial CsEntity
+	 */
+	private static final long serialVersionUID = 5490166481439133586L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

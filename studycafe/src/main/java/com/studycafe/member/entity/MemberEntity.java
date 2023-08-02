@@ -1,5 +1,6 @@
 package com.studycafe.member.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -22,7 +23,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class MemberEntity {
+public class MemberEntity implements Serializable {
+	
+	
+
+	/**
+	 * @serial MemberEntity
+	 */
+	private static final long serialVersionUID = -8751826630478201593L;
 
 	// 시큐리티 필드
 	@Id
