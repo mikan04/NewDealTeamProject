@@ -55,7 +55,7 @@
 							<span>첨부파일 없음</span>
 						</c:when>
 						<c:otherwise>
-							<img src="${csPost.filePath }"/>
+							<img class="file-img" src="${csPost.filePath }"/>
 						</c:otherwise>
 					</c:choose>
 				</p>
