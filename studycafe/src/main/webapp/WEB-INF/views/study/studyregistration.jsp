@@ -1,8 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%> <%@ taglib prefix="fn"
-uri="http://java.sun.com/jsp/jstl/functions"%> <%@ taglib prefix="fmt"
-uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<!-- 로그인 한 회원 정보 사용 -->
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.member" var="member" />
+</sec:authorize>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -43,17 +49,11 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
             />
           </p>
 
-          <p>
-            <label for="studyWriter">작성자</label>
-            <input
-              type="text"
-              id="studyWriter"
-              name="studyWriter"
-              value="jeongsu"
-              readonly="readonly"
-            />
-          </p>
-
+				<p>
+					<label for="studyWriter">작성자</label>
+					<input type="text" id="studyWriter" name="studyWriter" value="${member.nickName}" readonly="readonly">
+				</p>
+          
           <div>
             <label for="studyContent">내용</label>
             <textarea

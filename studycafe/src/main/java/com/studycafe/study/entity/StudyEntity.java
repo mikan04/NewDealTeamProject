@@ -58,11 +58,12 @@ public class StudyEntity {
 	@CreatedDate
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime dateTime; // 등록일자
+	
+	private int isDeleted; // 댓글 삭제 여부
 
 	@Builder
 	public StudyEntity(int studyNum, String studyContent, String studyWriter, String studyTitle, String studyFilePath, double latitude,
-			double longitude, LocalDate reserveDate, LocalDateTime reserveTime, LocalDateTime dateTime) {
-		
+			double longitude, LocalDate reserveDate, LocalDateTime reserveTime, LocalDateTime dateTime, int isDeleted) {
 
 		this.studyNum = studyNum;
 		this.studyContent = studyContent;
@@ -74,6 +75,7 @@ public class StudyEntity {
 		this.reserveDate = reserveDate;
 		this.reserveTime = reserveTime;
 		this.dateTime = dateTime;
+		this.isDeleted = isDeleted;
 	}
 
 }

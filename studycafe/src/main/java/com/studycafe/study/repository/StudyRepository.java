@@ -17,7 +17,9 @@ import com.studycafe.study.entity.StudyEntity;
 @Repository
 public interface StudyRepository extends JpaRepository<StudyEntity, Integer> {
 
-	Page<StudyEntity> findBystudyTitleContaining(String keyword, Pageable pageable);
+
+	Page<StudyEntity> findBystudyTitleContainingAndIsDeleted(Pageable pageable, String keyword, int isDeleted); 
+	Page<StudyEntity> findByisDeleted(Pageable pageable, int isDeleted);
 
 	@Query(value = "SELECT * FROM study_entity WHERE longitude= :longitude and latitude= :latitude and reserve_date=:date", nativeQuery = true)
 	List<StudyEntity> findByMap(@Param("longitude") double longitude, @Param("latitude") double latitude,

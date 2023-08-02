@@ -83,7 +83,15 @@ form{
 	cursor: pointer;
 	color: white;
 }
-
 .select_img{
-	text-align: center;
+	text-align: right;
+}
+
+img[class=inner-img]{
+	max-width : calc(100% - 150px);
+	max-height : 500px;
+}
+
+span[class=secret-yn]{
+	margin-right : 20px;
 }

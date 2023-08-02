@@ -119,15 +119,19 @@ public class StudyController {
 	public Map<String, Object> studyDeleteAjax(@RequestBody Map<String, Object> map) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		StudyEntity studyEntity = new StudyEntity(); // 객체 생성
 
-		/**
-		 * 게시글 삭제 아이디 체크 넣기
-		 */
+		int id = Integer.parseInt((String)map.get("id")); // 게시글 번호
 
-		int id = (int) map.get("id");
+		studyEntity = studyService.studySelect(id); // 게시글 조회
+		
+		studyEntity.setIsDeleted(1); // 게시글 삭제
 
+		studyService.studyInsert(studyEntity); // 게시글 수정
+		
 		try {
-			studyService.studyDelete(id);
+			
 			result.put("status", "ok");
 		} catch (Exception e) {
 			e.printStackTrace();
