@@ -16,7 +16,8 @@ function regis_check() {
 	var studytitle = $('#studyTitle');
 	var studyContent = myEditor.getData();
 	var address_name = $('#address_name');
-	var reserve = $('#reserve');
+	var reserve = $('#reserveDate');
+	var reserve_time = $('.accordion-study-time.selected');
 	
 	if (studytitle.val() == "") {
 		alert("제목을 입력해주세요.");
@@ -41,7 +42,13 @@ function regis_check() {
 		reserve.focus();
 		return false;
 	}
-	
+
+	if(reserve_time.length === 0 ) {
+		alert("시간을 정해주세요.");
+		reserve_time.focus();
+		return false;
+	}
+
 	document.studyregistration_form.submit();
 }
 
@@ -267,17 +274,18 @@ function getStudyDateAvailability(lat, long, date){
 			if (httpRequest.readyState === XMLHttpRequest.DONE) {
 			if (this.readyState == 4 && httpRequest.status === 200) {
 				result = JSON.parse(httpRequest.responseText);
+
 				updateTable(result);
 			} else {
 				alert("httpRequest 요청에 문제가 있습니다.");
 			}
 			}
 		} catch (e) {
-			alert(`Caught Exception: ${e.description}`);
+			alert(`에러가 발생하였습니다: ${e.description}`);
 		}
 		};
 		
-		let url = `/studyTime?lat=${Math.floor(lat)}&long=${Math.floor(long)}&date=${date}`;
+		let url = `/studyTime?lat=${lat}&long=${long}&date=${date}`;
 		httpRequest.open("GET", url);
 		httpRequest.send();
 		
@@ -287,13 +295,13 @@ function getStudyDateAvailability(lat, long, date){
 function selectDateHandler(date) {
 	if (!selectLat || !selectLong) {
 		alert("먼저 장소를 선택해주세요");
-		$('#reserve').val('');
+		$('#reserveDate').val('');
 		return;
 	}
 	else {
-		getStudyDateAvailability(Math.floor(selectLat), Math.floor(selectLong), date );
+		getStudyDateAvailability(selectLat, selectLong, date);
+		document.getElementById("accordion-date").innerHTML = date;
 	}
-	
 }
 
 // 예약 가능 테이블을 업데이트 하는 함수.
@@ -309,8 +317,22 @@ function updateTable(times){
 				row.children[1].innerHTML = "예약 불가능";
 			}
 		});
+		const study_times = document.getElementsByClassName("accordion-study-time");
+		study_times.forEach((t)=>{
+			const data = parseInt(t.dataset.time);
+			if(data === time){
+				t.addClass("disabled");
+				t.removeClass("enabled");
+			}
+		})
+
+		
+
 	} );
 	document.getElementById("reserve-info-table").style.display = "block";
+	document.getElementById("accordion").style.display = "block";
+
+
 }
 
 
@@ -466,3 +488,28 @@ function searchDetailAddrFromCoords(coords, callback) {
 	// 좌표로 법정동 상세 주소 정보를 요청합니다
 	geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  // 지난 날짜 선택 불가
+  document.getElementById("reserveDate").min = new Date().toISOString().split('T')[0];
+
+  // 스터디 타임 이벤트 리스너 추가
+  var times = document.getElementsByClassName("accordion-study-time");
+  for (var i = 0; i < times.length; i++) {
+	times[i].addEventListener("click", function(){
+		var selectedEl = document.querySelector(".accordion-study-time.selected");
+		if(selectedEl){
+			selectedEl.classList.remove("selected");
+		}
+		this.classList.add("selected");
+		var hour = this.dataset.time;
+		var selectDate = document.getElementById("reserveDate").value;
+		const date = new Date(selectDate);
+		date.setHours(hour);
+		console.log(date);
+
+		document.getElementById("reserveTime").value = date.toISOString();
+	});
+	}	
+});
+
