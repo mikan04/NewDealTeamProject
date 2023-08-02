@@ -40,6 +40,7 @@
 				<p>
 					<label for="team-head">작성자</label>
 					<input type="text" id="team-head" name="csWriter" value="${csPost.csWriter }" readonly="readonly">
+					<input type="hidden" name="username" value="${member.username }" readonly="readonly">
 				</p>
 
 				<p>
