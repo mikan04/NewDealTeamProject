@@ -123,3 +123,7 @@ div>a:hover, label>a:hover, span>a:hover {
 #team-head[readonly=readonly]{
 	background-color: gray;
 }
+
+.secret-list{
+	pointer-events : none;
+}

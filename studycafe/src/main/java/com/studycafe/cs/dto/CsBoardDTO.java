@@ -19,22 +19,49 @@ public class CsBoardDTO {
 	private String csTitle;
 	private String csContent;
 	private String csWriter;
+	private String username;
+	private String filePath;
+	private String fileKey;
+	private boolean secret;
 	private Timestamp createDate;
 	private LocalDateTime modifiedDate;
 
-	// 단일 dto 리턴
-	public CsEntity sendDataToEntity() {
+	// 단일 dto->entity
+	public CsEntity sendDataToEntity(CsBoardDTO csDto) {
 
-		CsEntity teamBoardEntityBuilder = CsEntity.builder()
-				.idx(idx)
-				.csTitle(csTitle)
-				.csContent(csContent)
-				.csWriter(csWriter)
-				.createDate(createDate)
-				.modifiedDate(modifiedDate)
+		CsEntity csEntityBuilder = CsEntity.builder()
+				.idx(csDto.getIdx())
+				.csTitle(csDto.getCsTitle())
+				.csContent(csDto.getCsContent())
+				.csWriter(csDto.getCsWriter())
+				.filePath(csDto.getFilePath())
+				.fileKey(csDto.getFileKey())
+				.secret(csDto.isSecret())
+				.username(csDto.getUsername())
+				.createDate(csDto.getCreateDate())
+				.modifiedDate(csDto.getModifiedDate())
 				.build();
 
-		return teamBoardEntityBuilder;
+		return csEntityBuilder;
+	}
+
+	// 단일 entity->dto
+	public static CsBoardDTO sendDataToDto(CsEntity csEntity) {
+
+		CsBoardDTO csDtoBuilder = CsBoardDTO.builder()
+				.idx(csEntity.getIdx())
+				.csTitle(csEntity.getCsTitle())
+				.csContent(csEntity.getCsContent())
+				.csWriter(csEntity.getCsWriter())
+				.filePath(csEntity.getFilePath())
+				.fileKey(csEntity.getFileKey())
+				.secret(csEntity.isSecret())
+				.username(csEntity.getUsername())
+				.createDate(csEntity.getCreateDate())
+				.modifiedDate(csEntity.getModifiedDate())
+				.build();
+
+		return csDtoBuilder;
 	}
 
 	// 페이징 객체 DTO 변환작업
@@ -45,8 +72,10 @@ public class CsBoardDTO {
 				.csTitle(list.getCsTitle())
 				.csContent(list.getCsContent())
 				.csWriter(list.getCsWriter())
+				.username(list.getUsername())
+				.fileKey(list.getFileKey())
+				.secret(list.isSecret())
 				.createDate(list.getCreateDate())
-				.modifiedDate(list.getModifiedDate())
 				.build());
 
 		return csDtoList;
@@ -54,12 +83,21 @@ public class CsBoardDTO {
 	}
 
 	@Builder
-	public CsBoardDTO(long idx, String csTitle, String csContent, String csWriter, Timestamp createDate, LocalDateTime modifiedDate) {
+	public CsBoardDTO(
+			long idx, String csTitle,
+			String csContent, String csWriter,
+			Timestamp createDate, LocalDateTime modifiedDate,
+			String filePath, String fileKey,
+			boolean secret, String username) {
 
 		this.idx = idx;
 		this.csTitle = csTitle;
 		this.csContent = csContent;
 		this.csWriter = csWriter;
+		this.username = username;
+		this.filePath = filePath;
+		this.fileKey = fileKey;
+		this.secret = secret;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
 	}

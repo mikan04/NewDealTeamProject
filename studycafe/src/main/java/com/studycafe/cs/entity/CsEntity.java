@@ -40,8 +40,18 @@ public class CsEntity {
 	private String csContent;
 
 	@NotNull
-	@Column(length = 20, updatable = false)
+	@Column(length = 20)
 	private String csWriter;
+	
+	@NotNull
+	@Column(length = 20, updatable = false)
+	private String username;
+	
+	@Lob
+	private String filePath;
+	
+	@Lob
+	private String fileKey;
 	
 	@ColumnDefault("0")
 	private boolean secret;
@@ -54,14 +64,17 @@ public class CsEntity {
 	private LocalDateTime modifiedDate;
 
 	@Builder
-	public CsEntity(long idx, @NotNull String csTitle, @NotNull String csContent, @NotNull String csWriter, Timestamp createDate,
-			LocalDateTime modifiedDate, boolean secret) {
+	public CsEntity(long idx, @NotNull String csTitle, @NotNull String csContent, @NotNull String csWriter, String filePath ,Timestamp createDate,
+			LocalDateTime modifiedDate, String fileKey , boolean secret , String username) {
 		
 		this.idx = idx;
 		this.csTitle = csTitle;
 		this.csContent = csContent;
 		this.csWriter = csWriter;
+		this.filePath = filePath;
 		this.secret = secret;
+		this.username = username;
+		this.fileKey = fileKey;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
 	}
