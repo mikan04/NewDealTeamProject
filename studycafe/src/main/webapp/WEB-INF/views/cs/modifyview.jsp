@@ -72,7 +72,7 @@
 				</p>
 
 				<div class="select_img" align="right">
-					<img src="${csPost.filePath }" />
+					<img class="file-img" src="${csPost.filePath }" />
 				</div>
 
 				<c:if test="${member.nickName.equals(csPost.csWriter) }">
