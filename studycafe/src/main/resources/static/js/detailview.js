@@ -27,40 +27,87 @@ $("#file").change(function() {
 	if (this.files && this.files[0]) {
 		var reader = new FileReader;
 		reader.onload = function(data) {
-			$(".select_img img").attr("src", data.target.result).width(350).height(350);
+			$(".select_img img").attr("src", data.target.result);
 		}
 		reader.readAsDataURL(this.files[0]);
 	}
 });
 
 // 게시글 삭제
-
-function removeTeamPost(teamBoardNum) {
+function removePost(idx, identifier) {
 
 	let askRemove = confirm("게시글을 정말 삭제하시겠습니까?");
 
 	if (askRemove == true) {
-		$.ajax({
-			url: "/team/removepost",
-			type: "DELETE",
-			data: {
-				"idx": teamBoardNum
-			},
-			dataType: "json",
+		
+		if (identifier === "tb") {
+			$.ajax({
+				url: identifying(identifier).tb,
+				type: "DELETE",
+				data: {
+					"idx": idx
+				},
+				dataType: "json",
 
-			success: function(result) {
+				success: function(result) {
 
-				if (result == true) {
-					alert("삭제가 완료되었습니다.");
-					
-					location.href = "/team/teamboards?page=0";
+					if (result == true) {
+						alert("삭제가 완료되었습니다.");
+
+						location.href = identifying(identifier).tbHref;
+					}
+				},
+				error: function(error) {
+
+					alert("에러가 발생하였습니다.");
 				}
-			},
-			error: function(error) {
+			})
+			
+		} else if(identifier === "cs"){
+			
+			$.ajax({
+				url: identifying(identifier).cs,
+				type: "DELETE",
+				data: {
+					"idx": idx
+				},
+				dataType: "json",
 
-				alert("에러가 발생하였습니다.");
-			}
-		})
+				success: function(result) {
+
+					if (result == true) {
+						alert("삭제가 완료되었습니다.");
+
+						location.href = identifying(identifier).csHref;
+					}
+				},
+				error: function(error) {
+
+					alert("에러가 발생하였습니다.");
+				}
+			})
+		}
+		
 	}
 
+}
+
+function identifying(identifier) {
+
+	let tbArr = {
+		tb: "/team/removepost",
+		tbHref: "/team/teamboards?page=0"
+	};
+
+	let csArr = {
+		cs: "/cs/removepost",
+		csHref: "/cs/csboard?page=0"
+	};
+
+	if (identifier === "tb") {
+		return tbArr;
+
+	} else if (identifier === "cs") {
+		return csArr;
+	}
 }
