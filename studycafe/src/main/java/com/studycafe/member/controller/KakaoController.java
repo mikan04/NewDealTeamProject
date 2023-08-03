@@ -185,8 +185,9 @@ public class KakaoController {
 	    if (check == 1) {
 			// 결과가 있다면 가입한 이용자이므로 세션 설정하고 메인으로 보내기
 			log.info("회원가입 있음.");
-			session.setAttribute("memberAdaptor", memberAdaptor);
+			
 			memberAdaptor = new MemberAdaptor(loginUser);
+			session.setAttribute("memberAdaptor", memberAdaptor);
 			log.info("너 뭐나오냐: " + memberAdaptor);
 			return "redirect:/";
 		}
