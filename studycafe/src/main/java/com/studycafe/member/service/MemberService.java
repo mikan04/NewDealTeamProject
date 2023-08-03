@@ -47,4 +47,10 @@ public interface MemberService {
 	
 	//회원정보 불러오기
 	public MemberEntity getMember(String userName);
+	
+	//카카오 닉네임 중복
+	public int checkNick(String nickName);
+	
+	//카카오 억지가입
+	public void insertKaKao(MemberEntity memberEntity);
 }

@@ -23,4 +23,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	public MemberEntity findByEmail(String email);
 
 	public MemberEntity findByUsernameAndEmail(String username, String email);
+	
+	@Query(value = "SELECT COUNT(1) FROM member_entity WHERE nick_name = :nickName", nativeQuery = true)
+	public int checkNick(String nickName);
 }
