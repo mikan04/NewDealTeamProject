@@ -24,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberServiceImpl implements MemberService {
 
+	
+
 	@Autowired
 	private MemberRepository memRe;
 
@@ -269,5 +271,22 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberEn;
 	}
+	
+	//카카오닉네임첵
+	@Override
+	public int checkNick(String nickName) {
+		// TODO Auto-generated method stub
+		return memRe.checkNick(nickName);
+	}
+	
+	//카카오 억지가입
+	@Override
+	public void insertKaKao(MemberEntity memberEntity) {
+		// TODO Auto-generated method stub
+		memRe.save(memberEntity);
+	}
+
+
+	
 
 }
