@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.dto.MemberMapper;
 import com.studycafe.member.dto.MemberSafeDto;
+import com.studycafe.member.entity.Join;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberAddressRepository;
@@ -40,8 +41,21 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public boolean insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity) {
 
+		MemberEntity insert1 = memRe.save(memberEntity);
+		
+		String joinMethod = memberEntity.getJoinMethod().toString();
+		
+		if(joinMethod.equals(Join.GIT_HUB.toString())) {
+			memberEntity.setJoinMethod(Join.GIT_HUB);
+			
+		} else if(joinMethod.equals(Join.KAKAO.toString())) {
+			memberEntity.setJoinMethod(Join.KAKAO);
+			
+		} else {
+			memberEntity.setJoinMethod(Join.NORMAL);
+		}
+		
 		try {
-			MemberEntity insert1 = memRe.save(memberEntity);
 			log.info("insert1 : {}", insert1);
 			if (insert1 != null) {
 				try {
@@ -269,5 +283,22 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberEn;
 	}
+	
+	//카카오닉네임첵
+	@Override
+	public int checkNick(String nickName) {
+		// TODO Auto-generated method stub
+		return memRe.checkNick(nickName);
+	}
+	
+	//카카오 억지가입
+	@Override
+	public void insertKaKao(MemberEntity memberEntity) {
+		// TODO Auto-generated method stub
+		memRe.save(memberEntity);
+	}
+
+
+	
 
 }

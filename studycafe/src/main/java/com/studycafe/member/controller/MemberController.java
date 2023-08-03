@@ -62,6 +62,9 @@ public class MemberController {
 	public boolean joinPro(@RequestBody JoinDto joinVO, HttpServletRequest request) {
 
 		MemberEntity memberEntity = joinVO.getMemberEntity();
+		
+		log.info("조인메소드 : {}", memberEntity.toString());
+		
 		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
 
 		String rawPassword = memberEntity.getPassword();
@@ -197,12 +200,12 @@ public class MemberController {
 	public boolean varificationPassword(@AuthenticationPrincipal MemberAdaptor memberAdaptor, @RequestParam("password") String inputPwd) {
 
 		String dbPwd = memberAdaptor.getMember().getPassword();
-		
+
 		if (encoder.matches(inputPwd, dbPwd)) {
 
 			return true;
 		} else {
-			
+
 			return false;
 		}
 	}
@@ -210,21 +213,21 @@ public class MemberController {
 	// 검증 성공시 보내기
 	@GetMapping("/member/modifyinfo")
 	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model) {
-		
+
 		try {
-			
-			if(memberAdaptor != null) {
+
+			if (memberAdaptor != null) {
 				String username = memberAdaptor.getMember().getUsername();
 
 				MemberEntity memberInfo = memberAdaptor.getMember();
 
 				MemberAddressEntity address = memberService.getUserAddress(username);
-				
+
 				model.addAttribute("member", memberInfo);
 
 				model.addAttribute("memberAddress", address);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AccessDeniedException("잘못된 접근방식입니다.");
@@ -232,24 +235,33 @@ public class MemberController {
 
 		return "/member/modifymember";
 	}
-	
+
 	@ResponseBody
 	@PatchMapping("/member/updateinfo")
 	public boolean updateInfo(@RequestBody MemberDto memberDto) {
-		
+
 		log.info("member : {}", memberDto);
-		
+
 		boolean result = memberService.updateInfo(memberDto);
 
 		return result;
 	}
-	
-	@PatchMapping("/member/test")
-	public String 수정테스트(@RequestBody MemberDto memberDto) {
-		
-		log.info("member들어온 값 : {}",memberDto.toString());
-		
-		return "/member/modifytest";
+
+	// 비밀번호 변경
+	@GetMapping("/member/changepwd")
+	public String pwdPage() {
+		return "/member/verificationpage-changepwd";
+	}
+
+	// 비밀번호 변경 로직
+	@PostMapping("/changePassword")
+	@ResponseBody
+	public boolean changePwd(@AuthenticationPrincipal MemberAdaptor memberAdaptor,
+			@RequestParam("password") String password) {
+
+		boolean result = memberService.updatePassword(memberAdaptor.getUsername(), password);
+
+		return result;
 	}
 
 }
