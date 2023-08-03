@@ -30,7 +30,7 @@
 
 						<div class="row_group">
 							<div class="join_row id">
-								<input type="hidden" id="username" name="username" maxlength="12" value="git_${id}" readonly="readonly" />
+								<input id="username" name="username" maxlength="12" value="git_${id}" readonly="readonly" />
 							</div>
 
 							<div class="join_row password">

@@ -62,6 +62,9 @@ public class MemberController {
 	public boolean joinPro(@RequestBody JoinDto joinVO, HttpServletRequest request) {
 
 		MemberEntity memberEntity = joinVO.getMemberEntity();
+		
+		log.info("조인메소드 : {}", memberEntity.toString());
+		
 		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
 
 		String rawPassword = memberEntity.getPassword();
