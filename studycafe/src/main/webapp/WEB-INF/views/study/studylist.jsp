@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<!-- 로그인 한 회원 정보 사용 -->
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.member" var="member" />
+</sec:authorize>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -59,7 +66,14 @@
 		            
 		            <!-- 페이징 처리 출력 -->
 				    <div id="pagination"></div>
-				    <button type="button" id="registerBtn" class="btn btn-dark" onclick="location.href='studyregistration'">글쓰기</button>
+
+					<c:set var="nickName" value="${member.nickName}" />
+					
+					<c:choose>
+						<c:when test="${not empty nickName}">
+							<button type="button" id="registerBtn" class="btn btn-dark" onclick="location.href='studyregistration'">글쓰기</button>
+						</c:when>
+					</c:choose>
 		        </div>
 		    </div>
 		</section>

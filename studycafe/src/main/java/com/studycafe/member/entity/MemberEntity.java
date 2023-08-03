@@ -1,5 +1,6 @@
 package com.studycafe.member.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -17,16 +18,19 @@ import com.studycafe.team.entity.TeamEntity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
-public class MemberEntity {
+public class MemberEntity implements Serializable {
+	
+	
+
+	/**
+	 * @serial MemberEntity
+	 */
+	private static final long serialVersionUID = -8751826630478201593L;
 
 	// 시큐리티 필드
 	@Id
@@ -76,17 +80,5 @@ public class MemberEntity {
 		this.createdAt = createdAt;
 		this.teamNumber = teamNumber;
 	}
-	
-	//카카오 로그인처리 시작
-	@Column(nullable = true)
-    private Long kakaoId;
-	
-	public MemberEntity(String username, String password, String email, Role role, Long kakaoId) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.kakaoId = kakaoId;
-    }
 
 }

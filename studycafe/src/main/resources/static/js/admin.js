@@ -401,7 +401,9 @@ function renderTeam() {
           `<div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" value="${
             approved ? "on" : "off"
-          }" role="switch" id="flexSwitchCheckDefault" ${approved ? "checked" : ""}>
+          }" role="switch" id="flexSwitchCheckDefault" ${
+            approved ? "checked" : ""
+          }>
         </div>`
         );
         switchEl.addEventListener("click", (e) => {
@@ -409,6 +411,7 @@ function renderTeam() {
             e.target.value = "on";
 
             teamApprove("/admin/api/team/approve", teamNum);
+            cell.getRow().update;
           } else {
             e.target.value = "off";
             teamApprove("/admin/api/team/disapprove", teamNum);
