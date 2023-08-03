@@ -45,4 +45,33 @@ public class IndexController {
 		
 		return "index";
 	}
+	
+	//카카오 시도중
+//	@GetMapping("/")
+//	public String 접속컨트롤러(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model, Pageable pageable, HttpServletRequest request) {
+//		
+//		HttpSession session = request.getSession();
+//		
+//		memberAdaptor = (MemberAdaptor) session.getAttribute("memberAdaptor");
+//		
+//		log.info("메인페이지 접속");
+//		
+//		if (memberAdaptor != null) {
+//			log.info("회원 접속");
+//			
+//			log.info(memberAdaptor.getUsername());
+//			log.info(memberAdaptor.getPassword()); // 시큐리티로 인해 null출력
+//			log.info("현재 유저의 권한 : {}" , memberAdaptor.getAuthorities());
+//			log.info("memberAdaptor.getMember() : {}" , memberAdaptor.getMember());
+//			
+//		} else {
+//			log.info("비회원 접속");
+//		}
+//		
+//		model.addAttribute("studyList", studyService.getAllStudyToIndex());
+//		model.addAttribute("teamBoardList", teamBoardService.getTeamBoardListToIndex());
+//		
+//		return "index";
+//	}
 }
+

@@ -1,11 +1,11 @@
 
 document.addEventListener("keyup", function() {
 	var username = $("#username").val();
-	
+
 	var usernameRegExp = /^[a-zA-z0-9]{6,12}$/;
 
 	// 아이디 중복체크 버튼
-	if (username == "" || username.trim() == ""||!usernameRegExp.test(username)) {
+	if (username == "" || username.trim() == "" || !usernameRegExp.test(username)) {
 		$("#idCheckBtn").attr("disabled", true);
 	} else {
 		$("#idCheckBtn").attr("disabled", false);
@@ -86,11 +86,18 @@ function nickCheck() {
 // 이메일 인증번호 전송
 function sendEmail() {
 	var email = $("#email1").val() + $("#email2").val();
+
+	if (emailCheck(email)) {
+		alert("이미 등록되어 있는 이메일입니다. 다른 이메일을 입력해주세요");
+		return false;
+	}
+
 	alert(email + "로 이메일이 발송되었습니다");
 	$("#notEmailAuth").css("display", "none");
 	$("#emailCheckBtn").css("display", "none");
 	$("#emailCheck").css("display", "block");
 	$("#emailReCheckBtn").css("display", "block");
+
 	$.ajax({
 		type: "POST",
 		url: "/send",
@@ -116,6 +123,24 @@ function sendEmail() {
 			alert("메세지 전송 실패: " + error);
 		}
 	});
+}
+
+function emailCheck(email) {
+
+	$.ajax({
+		type: "post",
+		url: "emailCheck",
+		data: {
+			"email": email
+		},
+		dataType: "json",
+		succeess: function(data) {
+			if (data) {
+				return true;
+			}
+			return false;
+		}
+	})
 }
 // 회원가입
 function join() {
@@ -198,7 +223,7 @@ function checkUsername(username, idCheck) {
 		$("#notUsername").css("display", "block");
 		return false;
 	}
-	
+
 	var usernameRegExp = /^[a-zA-z0-9]{6,12}$/;
 
 	if (!usernameRegExp.test(username)) {
@@ -221,8 +246,8 @@ function checkPassword(username, password, rePassword) {
 		$("#notPwd").css("display", "block");
 		return false;
 	}
-	
-	var passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8, 15}$/;
+
+	var passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 
 	if (password != rePassword || rePassword == "" || rePassword.trim() == "") {
 		$("#notEqualPwd").css("display", "block");
@@ -248,7 +273,7 @@ function checkNickName(nickName, nickCheck) {
 		$("#notNickName").css("display", "block");
 		return false;
 	}
-	var nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2, 12}$/;
+	var nickNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,12}$/;
 
 	if (!nickNameRegExp.test(nickName)) {
 		$("#notValiNickName").css("display", "block");
@@ -270,7 +295,7 @@ function checkName(name) {
 		$("#notName").css("display", "block");
 		return false;
 	}
-	var nameRegExp = /^[가-힣]{2, 4}$/;
+	var nameRegExp = /^[가-힣]{2,4}$/;
 	if (!nameRegExp.test(name)) {
 		$("#notValiName").css("display", "block");
 		return false;
@@ -281,7 +306,7 @@ function checkName(name) {
 function checkMail(email) {
 	$("#notEmail").css("display", "none");
 
-	var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1, 3}$/;
+	var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
 
 	if (!emailRegExp.test(email) || email == "" || email.trim() == "") {
 		$("#notEmail").css("display", "block");

@@ -38,7 +38,7 @@
 					<label for="content">내용</label>
 					<textarea id="content" name="teamBoardContent">
 						팀 이름&nbsp;&nbsp; :<br>
-						팀원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+						팀원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 반드시 팀원의 "ID"를 입력해주세요!
 					</textarea>
 				</div>
 				<button class="regis-btn">팀 등록</button>

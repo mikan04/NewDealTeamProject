@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum Role {
 	
 	ROLE_ADMIN("관리자"),
+	ROLE_MANAGER("매니저"),
 	ROLE_MENTOR("멘토"),
 	ROLE_MEMBER("일반회원");
 	

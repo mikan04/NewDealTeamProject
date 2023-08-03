@@ -1,15 +1,26 @@
 package com.studycafe.utils.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+	
+
+	private final UserDetailServiceSub userDetailService;
+	private final DataSource dataSource;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -18,6 +29,7 @@ public class SecurityConfig {
 		http.authorizeRequests()
 			.antMatchers("/member/**").authenticated()
 			.antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+//			.antMatchers("/studyregistration").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('TEAM_HEAD')")
 //			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().permitAll()
 		.and()
@@ -27,8 +39,11 @@ public class SecurityConfig {
 		.and()
 			.logout()
 			.logoutUrl("/logout")
-			.logoutSuccessUrl("/");
-
+			.logoutSuccessUrl("/")
+		.and()
+			.rememberMe()
+			.userDetailsService(userDetailService)
+			.tokenRepository(tokenRepository());
 		return http.build();
 	}
 
@@ -37,5 +52,11 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
+	 @Bean
+	 public PersistentTokenRepository tokenRepository() { 
+	        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+	        jdbcTokenRepository.setDataSource(dataSource);
+	        return jdbcTokenRepository;
+	    }
 	
 }
