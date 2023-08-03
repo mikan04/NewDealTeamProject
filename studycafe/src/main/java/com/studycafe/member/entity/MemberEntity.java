@@ -47,7 +47,6 @@ public class MemberEntity implements Serializable {
 	private Role role;
 
 	// 나머지
-	@NotNull
 	@Column(length = 50)
 	private String email;
 
@@ -62,18 +61,23 @@ public class MemberEntity implements Serializable {
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp createdAt;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Join joinMethod;
 
 	@ManyToOne
 	@JoinColumn(name = "teamNumber")
 	private TeamEntity teamNumber;
 
 	@Builder
-	public MemberEntity(@NotNull String username, @NotNull String password, @NotNull Role role, @NotNull String email, @NotNull String nickName,
+	public MemberEntity(@NotNull String username, @NotNull String password, @NotNull Role role,Join joinMethod ,@NotNull String email, @NotNull String nickName,
 			@NotNull String name, Timestamp createdAt, TeamEntity teamNumber) {
 
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.joinMethod = joinMethod;
 		this.email = email;
 		this.nickName = nickName;
 		this.name = name;
