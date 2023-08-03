@@ -47,7 +47,6 @@ public class MemberEntity implements Serializable {
 	private Role role;
 
 	// 나머지
-	@NotNull
 	@Column(length = 50)
 	private String email;
 

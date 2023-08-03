@@ -12,11 +12,14 @@ import java.net.URL;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.studycafe.member.service.MemberService;
 
 
 
@@ -32,6 +35,10 @@ public class MemberApiController {
 	 * 
 	 * */
 	
+	@Autowired
+	private MemberService memberService;
+	
+	
 	/* 깃허브 액세스 키 */
 	@Value("${key.github.id}")
     private String githubId;
@@ -39,12 +46,24 @@ public class MemberApiController {
     private String githubSecret;
 	
 	@GetMapping("/git")
-	public ResponseEntity<String> getGitUserInfo(@RequestParam String code) throws IOException, ParseException{
-		
+	public String getGitUserInfo(@RequestParam String code, Model model) throws IOException, ParseException{
 		// 로그인한 아이디 Code 값을 받아온다.
 	    String accessToken = getAccessToken(code);
 
-		return ResponseEntity.ok(accessToken);
+	    JSONParser parser = new JSONParser();
+	    JSONObject jsonToken = (JSONObject) parser.parse(accessToken);
+	   
+	    String id = (String) jsonToken.get("login");
+	    
+	    // 스터디 사이트 가입여부 확인
+	    if (memberService.idCheck("git_" + id)) {
+	    	// 로그인 성공 메인 페이지
+	    	return "/member/joinForm_git";
+	    }
+	    
+	    model.addAttribute("id", id);
+	    
+		return "/member/joinForm_git";
 	}
 	
 	// 토큰 값 조회
@@ -103,7 +122,7 @@ public class MemberApiController {
 	}
 
 	
-    private String getResponse(HttpURLConnection conn, int responseCode) throws IOException {
+    private String getResponse(HttpURLConnection conn, int responseCode) throws IOException, ParseException {
         StringBuilder sb = new StringBuilder();
         
         if (responseCode == 200) {
@@ -114,6 +133,7 @@ public class MemberApiController {
                 }
             }
         }
+        
         return sb.toString();
     }
 }
