@@ -81,8 +81,8 @@ form{
 	color: white;
 }
 
-img{
-	max-width: 100%;
+.file-img{
+	max-width: calc(100% - 150px);
 	max-height : 500px;
 }
 

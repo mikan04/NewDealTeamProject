@@ -7,14 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 확인</title>
+<link rel="stylesheet" href="/css/verification.css">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-
-	<p>회원님의 소중한 개인정보 보호를 위해 회원가입시 입력한 비밀번호를 입력해주세요</p>
-	<input type="password" name="password" id="password">
-	<a href="javascript:verification()">확인</a>
-
-<script type="text/javascript" src="/js/verificationpage.js"></script>
+	<div class="wrapper">
+		<jsp:include page="../member/verificationpage-aside.jsp"></jsp:include>
+		<div class="password-wrapper">
+			<h2>회원정보변경</h2>
+			<p>회원님의 소중한 개인정보 보호를 위해 회원가입시 입력한 비밀번호를 입력해주세요</p>
+			<div class="password-div">
+				<input type="password" name="password" id="password">
+				<a href="javascript:verification()">확인</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/verificationpage.js"></script>
 </body>
 </html>
