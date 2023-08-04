@@ -40,6 +40,11 @@ public interface MemberService {
 	// 비밀번호 재설정
 	public boolean updatePassword(String username, String password);
 	
+	// 비밀번호 변경 1
+	public boolean checkPassword(String username,String oneraepassword);
+	// 비밀번호 변경 2
+	public boolean changePassword(String username, String password);
+	
 	// 회원정보 수정
 	public MemberAddressEntity getUserAddress(String username);
 
