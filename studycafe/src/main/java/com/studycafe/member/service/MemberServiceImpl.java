@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
+
 	@Autowired
 	private MemberMapper memberMapper;
 
@@ -42,19 +42,19 @@ public class MemberServiceImpl implements MemberService {
 	public boolean insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity) {
 
 		MemberEntity insert1 = memRe.save(memberEntity);
-		
+
 		String joinMethod = memberEntity.getJoinMethod().toString();
-		
-		if(joinMethod.equals(Join.GIT_HUB.toString())) {
+
+		if (joinMethod.equals(Join.GIT_HUB.toString())) {
 			memberEntity.setJoinMethod(Join.GIT_HUB);
-			
-		} else if(joinMethod.equals(Join.KAKAO.toString())) {
+
+		} else if (joinMethod.equals(Join.KAKAO.toString())) {
 			memberEntity.setJoinMethod(Join.KAKAO);
-			
+
 		} else {
 			memberEntity.setJoinMethod(Join.NORMAL);
 		}
-		
+
 		try {
 			log.info("insert1 : {}", insert1);
 			if (insert1 != null) {
@@ -134,7 +134,7 @@ public class MemberServiceImpl implements MemberService {
 		return memRe.findNewUser();
 	}
 
-  @Override
+	@Override
 	public List<MemberSafeDto> getAllMember() {
 		List<MemberEntity> mem = memRe.findAll();
 		return mem.stream().map(memberMapper::memberSafeDto).collect(Collectors.toList());
@@ -273,32 +273,65 @@ public class MemberServiceImpl implements MemberService {
 
 		return false;
 	}
-	
-	//유저정보 불러오기
+
+	// 유저정보 불러오기
 	@Override
 	public MemberEntity getMember(String userName) {
 		// TODO Auto-generated method stub
-		
+
 		MemberEntity memberEn = memRe.findByNickName(userName);
-		
+
 		return memberEn;
 	}
-	
-	//카카오닉네임첵
+
+	// 카카오닉네임첵
 	@Override
 	public int checkNick(String nickName) {
 		// TODO Auto-generated method stub
 		return memRe.checkNick(nickName);
 	}
-	
-	//카카오 억지가입
+
+	// 카카오 억지가입
 	@Override
 	public void insertKaKao(MemberEntity memberEntity) {
 		// TODO Auto-generated method stub
 		memRe.save(memberEntity);
 	}
 
+	@Override
+	public boolean checkPassword(String username, String oneraepassword) {
+		MemberEntity memberEntity = findUsername(username);
+		try {
+			boolean passwordMatches1 = encoder.matches(oneraepassword, memberEntity.getPassword());
+			if (!passwordMatches1) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
-	
+	@Override
+	public boolean changePassword(String username, String password) {
+
+		MemberEntity memberEntity = findUsername(username);
+
+		try {
+
+			boolean passwordMatches2 = encoder.matches(password, memberEntity.getPassword());
+			if (passwordMatches2) {
+				return false;
+			}
+			memberEntity.setPassword(encoder.encode(password));
+			memRe.save(memberEntity);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
 
 }
