@@ -35,7 +35,7 @@ public class MemberEntity implements Serializable {
 	// 시큐리티 필드
 	@Id
 	@NotNull
-	@Column(length = 20)
+	@Column(length = 50)
 	private String username;
 
 	@NotNull

@@ -51,6 +51,9 @@ public class MemberApiController {
 
 	@GetMapping("/git")
 	public String getGitUserInfo(@RequestParam String code, Model model) throws IOException, ParseException {
+		
+		log.info("깃허브 로그인");
+		
 		// 로그인한 아이디 Code 값을 받아온다.
 		String accessToken = getGitAccessToken(code);
 
