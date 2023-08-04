@@ -22,7 +22,7 @@ public class CsReplyContoller {
 	@Autowired
 	private CsReplyService csReplyService;
 
-	// 스터디 모집 댓글 Ajax
+	// 고객센터 모집 댓글 Ajax
 	@PostMapping("/csReplyInsert")
 	@ResponseBody
 	public Map<String, Object> studyReplyInsert(@RequestBody CsReplyEntity csReplyEntity) {
@@ -54,7 +54,7 @@ public class CsReplyContoller {
 		}
 	}
 
-	// 스터디 댓글 삭제
+	// 고객센터 댓글 삭제
 	@PostMapping("/csReplyDelete")
 	@ResponseBody
 	public Map<String, Object> csReplyDelete(@RequestBody CsReplyEntity csReplyEntity) {
@@ -63,7 +63,7 @@ public class CsReplyContoller {
 
 		try {
 
-			Long id = (Long) csReplyEntity.getCsReplyNum();
+			Long id = csReplyEntity.getCsReplyNum();
 
 			csReplyService.CsReplyDelete(id);
 
@@ -78,7 +78,7 @@ public class CsReplyContoller {
 		}
 	}
 
-	// 스터디 모집 댓글 Ajax
+	// 고객센터 모집 댓글 Ajax
 	@PostMapping("/csReplyModify")
 	@ResponseBody
 	public Map<String, Object> csReplyModify(@RequestBody CsReplyEntity csReplyEntity) {
@@ -101,7 +101,7 @@ public class CsReplyContoller {
 		}
 	}
 
-	// 스터디 댓글 리스트
+	// 고객센터 댓글 리스트
 	@PostMapping("/csReplyList")
 	@ResponseBody
 	public List<CsReplyEntity> csReplyList(@RequestBody CsReplyEntity csReplyEntity) {

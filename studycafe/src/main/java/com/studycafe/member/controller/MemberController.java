@@ -253,14 +253,24 @@ public class MemberController {
 		return "/member/verificationpage-changepwd";
 	}
 
-	// 비밀번호 변경 로직
+	// 비밀번호 변경 로직1
+	@PostMapping("/checkPassword")
+	@ResponseBody
+	public boolean checkPassword(@AuthenticationPrincipal MemberAdaptor memberAdaptor, @RequestParam("oneraepassword") String oneraepassword) {
+		
+		boolean result = memberService.checkPassword(memberAdaptor.getUsername(),oneraepassword);
+
+		return result;
+	}
+	
+	// 비밀번호 변경 로직2
 	@PostMapping("/changePassword")
 	@ResponseBody
 	public boolean changePwd(@AuthenticationPrincipal MemberAdaptor memberAdaptor,
 			@RequestParam("password") String password) {
-
-		boolean result = memberService.updatePassword(memberAdaptor.getUsername(), password);
-
+		
+		boolean result = memberService.changePassword(memberAdaptor.getUsername(), password);
+		
 		return result;
 	}
 

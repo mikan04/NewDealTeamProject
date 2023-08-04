@@ -170,9 +170,6 @@ public class KakaoController {
 		
 		memberService.insertKaKao(loginUser);
 		
-		
-		
-	
 		String nickName = loginUser.getNickName();
 		
 		log.info("카카오 로그인유저 셋팅 : " + loginUser);
