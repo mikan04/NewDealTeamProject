@@ -18,7 +18,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${studyEntity.studyTitle}</title>
 <link rel="stylesheet" type="text/css" href="/css/studydetail.css">
 <!-- 폰트어썸 아이콘 https://fontawesome.com/ -->
 <script src="https://kit.fontawesome.com/b780cabc8c.js" crossorigin="anonymous"></script>
