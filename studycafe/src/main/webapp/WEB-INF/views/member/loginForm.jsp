@@ -31,7 +31,7 @@
 				</div>
 				<div class="login-join-box">
 					<div class="remember-me">
-						<label for="remember-me"> 계정 정보 저장하기 </label>						
+						<label for="remember-me"> 계정 정보 저장하기 </label>
 						<input type="checkbox" id="remember-me" name="remember-me" />
 					</div>
 
@@ -50,8 +50,8 @@
 					<legend align="left">소셜로그인</legend>
 					<div class="sns-login">
 						<div id="kakao_id_login">
-							<img src="/img/kakao-logo.png" width="30" height="30">
-              <a href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code">
+							<img src="/img/kakao-logo.png" width="30" height="30"> <a
+								href="https://kauth.kakao.com/oauth/authorize?client_id=8cf10493bca5fb96602027f51d020cba&redirect_uri=http://localhost:8080/login/oauth_kakao&response_type=code">
 								카카오 로그인 </a>
 						</div>
 						<div id="git_id_login">

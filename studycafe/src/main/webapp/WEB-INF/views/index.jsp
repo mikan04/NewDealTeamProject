@@ -89,7 +89,7 @@
 				</label>
 				<c:forEach items="${teamBoardList }" var="list" begin="0" end="4">
 					<div>
-						<a href="${contextPath }/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
+						<a href="${contextPath }/team/teamboard/${list.teamBoardNum}">${list.teamBoardTitle }</a>
 						<span style="float: right;">
 							<font size="2"><fmt:formatDate value="${list.createDate }" pattern="yyyy-MM-dd" /></font>
 						</span>
