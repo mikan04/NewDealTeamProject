@@ -27,8 +27,13 @@ public class MemberDto {
 	// 객체 dto 변환작업
 	public MemberEntity toMemberEntity(MemberDto memberDto) {
 
-		MemberEntity member = MemberEntity.builder().username(memberDto.getUsername()).password(memberDto.getPassword())
-				.email(memberDto.getEmail()).nickName(memberDto.getNickName()).name(memberDto.getName()).build();
+		MemberEntity member = MemberEntity.builder()
+				.username(memberDto.getUsername())
+				.password(memberDto.getPassword())
+				.email(memberDto.getEmail())
+				.nickName(memberDto.getNickName())
+				.name(memberDto.getName())
+				.build();
 
 		return member;
 

@@ -55,8 +55,11 @@
 								카카오 로그인 </a>
 						</div>
 						<div id="git_id_login">
-							<img src="/img/github.png" width="30" height="30"> <a href="https://github.com/login/oauth/authorize?client_id=Iv1.427e6b094359a979">
+							<img src="/img/github.png" width="30" height="30"> <a href="/oauth2/authorization/github">
 								GitHub 로그인</a>
+						</div>
+						<div id="google_id_login">
+							<a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
 						</div>
 					</div>
 				</fieldset>

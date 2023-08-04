@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.studycafe.member.entity.MemberAdaptor;
+import com.studycafe.member.oauth2.dto.SessionUser;
 import com.studycafe.study.service.StudyService;
 import com.studycafe.team.teamboard.service.TeamBoardService;
 
@@ -26,36 +27,16 @@ public class IndexController {
 	@Autowired
 	private TeamBoardService teamBoardService;
 	
-//	@GetMapping("/")
-//	public String 접속컨트롤러(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model, Pageable pageable) {
-//		
-//		log.info("메인페이지 접속");
-//		
-//		if (memberAdaptor != null) {
-//			log.info("회원 접속");
-//			
-//			log.info(memberAdaptor.getUsername());
-//			log.info(memberAdaptor.getPassword()); // 시큐리티로 인해 null출력
-//			log.info("현재 유저의 권한 : {}" , memberAdaptor.getAuthorities());
-//			log.info("memberAdaptor.getMember() : {}" , memberAdaptor.getMember());
-//			
-//		} else {
-//			log.info("비회원 접속");
-//		}
-//		
-//		model.addAttribute("studyList", studyService.getAllStudyToIndex());
-//		model.addAttribute("teamBoardList", teamBoardService.getTeamBoardListToIndex());
-//		
-//		return "index";
-//	}
-	
-	//카카오 시도중
 	@GetMapping("/")
 	public String 접속컨트롤러(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model, Pageable pageable, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		
-		memberAdaptor = (MemberAdaptor) session.getAttribute("memberAdaptor");
+		SessionUser user = (SessionUser)session.getAttribute("user");
+		
+		if(user != null) {
+			
+		}
 		
 		log.info("메인페이지 접속");
 		
@@ -69,6 +50,7 @@ public class IndexController {
 			
 		} else {
 			log.info("비회원 접속");
+			
 		}
 		
 		model.addAttribute("studyList", studyService.getAllStudyToIndex());

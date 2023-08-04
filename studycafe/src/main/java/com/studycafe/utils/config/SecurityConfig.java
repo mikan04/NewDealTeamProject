@@ -11,6 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.studycafe.member.oauth2.service.CustomOauth2UserService;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -18,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	
-
+	private final CustomOauth2UserService customOauth2UserService;
 	private final UserDetailServiceSub userDetailService;
 	private final DataSource dataSource;
 	
@@ -43,7 +45,12 @@ public class SecurityConfig {
 		.and()
 			.rememberMe()
 			.userDetailsService(userDetailService)
-			.tokenRepository(tokenRepository());
+			.tokenRepository(tokenRepository())
+		.and()
+			.oauth2Login()
+			.userInfoEndpoint() // oauth2 로그인 성공시 가져올 설정.
+			.userService(customOauth2UserService);
+			
 		return http.build();
 	}
 
