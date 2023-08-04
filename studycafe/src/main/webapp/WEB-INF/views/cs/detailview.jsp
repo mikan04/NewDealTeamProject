@@ -28,6 +28,7 @@
 				<p>
 					<label for="team-title">제목</label>
 					<input type="text" id="team-title" name="csTitle" value="${csPost.csTitle }" readonly="readonly">
+					<input type="text" id="idx" name="idx" value="${csPost.idx}" hidden="hidden">
 				</p>
 
 				<p>
@@ -67,7 +68,22 @@
 					</p>
 				</c:if>
 			</form>
-
+			<div class="content-wrap">
+				<p><label>댓글</label></p>
+				
+				<div>
+					<ul class="reply-list" id="reply-list"></ul>
+					<c:choose>
+						<c:when test="${not empty member.nickName}">
+						<div>
+							<input type="hidden" id="nickName" value="${member.nickName}">
+							<textarea class="comment" id="comment" rows="5" placeholder="코멘트 달기"></textarea>
+							<button class="btn btn-dark" id="commentBtn" type="button" onclick="csReplyInsert();">작성</button>
+						</div>
+						</c:when>
+					</c:choose>
+				</div>
+			</div>
 		</div>
 	</div>
 
