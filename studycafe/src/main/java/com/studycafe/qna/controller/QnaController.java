@@ -49,6 +49,8 @@ public class QnaController {
 
 		if (keyword == null) {
 			list = qnaService.findByIsDeletedEquals(0, pageable);
+			System.out.println("어떻게나오나.............."+list);
+			
 		} else {
 			list = qnaService.qnaSearchList(keyword, pageable);
 		}
@@ -147,7 +149,6 @@ public class QnaController {
 	
 
 		try {
-			qnaService.qnaDelete(qnaNum);
 			result.put("status", "ok");
 		}catch(Exception e) {
 			e.printStackTrace();

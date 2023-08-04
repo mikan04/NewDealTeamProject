@@ -50,6 +50,8 @@ function studyReplyInsert(index, ref) {
 			qnaReDepth: 1,
 			qnaReRef: ref
 		};
+		
+		alert("대댓글"+JSON.stringify(jsonData));
 	} else { // 일반 댓글
 		jsonData = {
 			qnaEntity: {
@@ -82,14 +84,13 @@ function studyReplyInsert(index, ref) {
 	});
 }
 
-function studyReDelete(id) {
+function studyReplyDelete(id) {
 	
 	var jsonData = {
 		qnaReNum: id
 	};
 	
 	alert("댓글댓글"+JSON.stringify(jsonData));
-	 alert(jsonData.qnaEntity.qnaNum);
 	
 	$.ajax({
 		url: "/qnaReDelete"
@@ -111,18 +112,21 @@ function studyReDelete(id) {
 
 function studyModify(index) {
 	var jsonData = {
-		studyEntity: {
-			studyNum: $('#studyNum').val()
+		qnaEntity: {
+			qnaNum: $('#qnaNum').val()
 		},
-		studyReplyNum: $('#replyNum_' + index).val(),
-		studyReplyContent: $('#modify_comment_' + index).val(),
-		studyReplyWriter: $('#studyReplyWriter_' + index).val(),
-		studyReplyRef: $('#studyReplyRef_' + index).val(),
-		studyReplyDepth: $('#studyReplyDepth_' + index).val()
+		qnaReNum: $('#replyNum_' + index).val(),
+		qnaReContent: $('#modify_comment_' + index).val(),
+		qnaReWriter: $('#studyReplyWriter_' + index).val(),
+		qnaReRef: $('#studyReplyRef_' + index).val(),
+		qnaReDepth: $('#studyReplyDepth_' + index).val()
 	};
 	
+	alert("댓글댓글"+JSON.stringify(jsonData));
+
+	
 	$.ajax({
-		url: "/studyReplyModify"
+		url: "/qnaReModify"
 		, contentType: "application/json; charset=utf-8"
 		, type : "POST"
 		, data : JSON.stringify(jsonData)
@@ -150,8 +154,8 @@ function studyReplyList() {
 		}
 	};
 	
-	 alert(JSON.stringify(jsonData));
-	 alert(jsonData.qnaEntity.qnaNum); // qnaNum 값만 확인
+	 //alert(JSON.stringify(jsonData));
+	 //alert(jsonData.qnaEntity.qnaNum); // qnaNum 값만 확인
 	 //alert(jsonData.qnaEntity); // qnaEntity 객체 확인
 	 //alert(jsonData); // 전체 jsonData 확인
 	
@@ -238,7 +242,7 @@ function re_comment_open(index, ref) {
 		
 		comment.append(
 			'<textarea class="comment" id="re_comment_' + index + '" rows="5" placeholder="코멘트 달기"></textarea>' +
-			'<button class="btn btn-dark" id="re_commentBtn_' + index + '" type="button" onclick="qnaReInsert(' + index + ', ' + ref + ');">작성</button>'
+			'<button class="btn btn-dark" id="re_commentBtn_' + index + '" type="button" onclick="studyReplyInsert(' + index + ', ' + ref + ');">작성</button>'
     	);
 	} else {
 		comment.empty();

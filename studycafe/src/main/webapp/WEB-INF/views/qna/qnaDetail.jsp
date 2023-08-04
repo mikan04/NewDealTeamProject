@@ -62,7 +62,7 @@
 				
 				<c:choose>
 					<c:when test="${nickName eq writer}">
-						<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/studymodify/${studyEntity.studyNum}'">수정</button>
+						<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/qnaModify/${qnaEntity.qnaNum}'">수정</button>
 						<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete()">삭제</button>
 					</c:when>
 				</c:choose>
@@ -98,8 +98,8 @@
 			studyReplyList();
 		});
 		
-		 var nickName = "${nickName}";
-		    alert(nickName);
+		/*  var nickName = "${nickName}";
+		    alert(nickName); */
 	</script>
 </body>
 </html>

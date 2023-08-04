@@ -14,6 +14,8 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/css/qnaRegister.css">
+
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
@@ -52,14 +54,14 @@
 				
 				
 				<!-- hidden 데이터 -->
-				
+			
 				<button class="btn btn-dark" id="registerBtn" type="button" onclick="regis_check();">등록</button>
 			</form>
 		</div>
 	</div>
 
 	
-
+	
 	<script src="/js/qnaRegister.js"></script>
 </body>
 </html>
