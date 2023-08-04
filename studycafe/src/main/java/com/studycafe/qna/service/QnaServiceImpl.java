@@ -53,6 +53,13 @@ public class QnaServiceImpl implements QnaService{
 		
 	}
 
+	//isdeleted가 0인것만 불러오기
+	@Override
+	public Page<QnaEntity> findByIsDeletedEquals(int isDeletedValue, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return qnaRe.findByIsDeletedEquals(isDeletedValue, pageable);
+	}
+
 
 	
 	

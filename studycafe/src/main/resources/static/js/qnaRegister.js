@@ -14,7 +14,7 @@ function preventSubmit(event) {
 // 유효성 검사
 function regis_check() {
 	var studytitle = $('#studyTitle');
-	var studyContent = myEditor.getData();
+	var qnaContent = myEditor.getData();
 	
 	
 	if (studytitle.val() == "") {
@@ -23,7 +23,7 @@ function regis_check() {
 		return false;
 	}
 	
-	if (!studyContent.trim()) {
+	if (!qnaContent.trim()) {
         alert('내용을 입력해주세요.');
         myEditor.focus();
         return;
@@ -36,7 +36,7 @@ function regis_check() {
 // ck에디터
 var myEditor;
 ClassicEditor
-	.create(document.querySelector('#studyContent'), {
+	.create(document.querySelector('#qnaContent'), {
 		ckfinder: {
 			uploadUrl: '/ck/teamregisimgupload' // 내가 지정한 업로드 url (post로 요청감)
 		},

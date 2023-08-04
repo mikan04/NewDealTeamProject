@@ -76,9 +76,9 @@ public class QnaReController {
 		
 		try {
 
-			Long qnaNum = (Long)qnaReEntity.getQnaReNum();
+			Long qnaReNum = (Long)qnaReEntity.getQnaReNum();
 			
-			qnaReSer.qnaReDelete(qnaNum);
+			qnaReSer.qnaReDelete(qnaReNum);
 			
 			result.put("status", "ok");
 			
