@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.studycafe.member.entity.Join;
 import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.entity.Role;
@@ -153,7 +152,7 @@ public class KakaoController {
 		log.info("닉네임 : " + ninkname);
 		log.info("이메일 : " + email);
 		log.info("아이디 : " + id);
-		
+
 		MemberEntity kakaoResultInfo = new MemberEntity();
 		kakaoResultInfo.setNickName(ninkname);
 		kakaoResultInfo.setEmail(email);
@@ -161,24 +160,16 @@ public class KakaoController {
 		HttpSession session = request.getSession();
 		session.setAttribute("kakaoResultInfo", kakaoResultInfo);
 		
-		
 		MemberEntity loginUser = kakaoResultInfo;
-		
 		loginUser.setUsername("김용주");
 		loginUser.setNickName(kakaoResultInfo.getNickName());
 		loginUser.setEmail(kakaoResultInfo.getEmail());
 		loginUser.setName("으아아");
 		loginUser.setPassword("123");
 		loginUser.setRole(Role.ROLE_MEMBER);
-		userInfo.put("username", id);
-		userInfo.put("joinMethod", Join.KAKAO.toString());
 		
-		//여기서부터 안도는거같음
 		memberService.insertKaKao(loginUser);
 		
-		
-		log.info("어디까지도냐");
-	
 		String nickName = loginUser.getNickName();
 		
 		log.info("카카오 로그인유저 셋팅 : " + loginUser);
