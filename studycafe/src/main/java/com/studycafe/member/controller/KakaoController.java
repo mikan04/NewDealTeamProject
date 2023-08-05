@@ -1,23 +1,13 @@
 package com.studycafe.member.controller;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.studycafe.member.entity.MemberAdaptor;
-import com.studycafe.member.entity.MemberEntity;
-import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.KakaoAPI;
 import com.studycafe.member.service.MemberService;
 
@@ -135,61 +125,61 @@ public class KakaoController {
 //	}
 	
 	//두번째.
-	@GetMapping(value = "/kakaoLoginCallback")
-	public String loginkakao(@RequestParam String code, HttpServletRequest request, Model model, @AuthenticationPrincipal MemberAdaptor memberAdaptor) throws IOException {
-		String access_Token = kakao.getAccessToken(code);
-		Map<String, Object> userInfo = kakao.getUserInfo(access_Token);
-		System.out.println("login Controller : " + userInfo);
-
-		@SuppressWarnings("unchecked")
-		Map<String, Object> account = (Map<String, Object>) userInfo.get("kakao_account");
-
-		@SuppressWarnings("unchecked")
-		String ninkname = (String) ((Map<String, Object>) account.get("profile")).get("nickname");
-		String email = (String) account.get("email");
-		String id = (String) userInfo.get("id");
-
-		log.info("닉네임 : " + ninkname);
-		log.info("이메일 : " + email);
-		log.info("아이디 : " + id);
-
-		MemberEntity kakaoResultInfo = new MemberEntity();
-		kakaoResultInfo.setNickName(ninkname);
-		kakaoResultInfo.setEmail(email);
-
-		HttpSession session = request.getSession();
-		session.setAttribute("kakaoResultInfo", kakaoResultInfo);
-		
-		MemberEntity loginUser = kakaoResultInfo;
-		loginUser.setUsername("김용주");
-		loginUser.setNickName(kakaoResultInfo.getNickName());
-		loginUser.setEmail(kakaoResultInfo.getEmail());
-		loginUser.setName("으아아");
-		loginUser.setPassword("123");
-		loginUser.setRole(Role.ROLE_MEMBER);
-		
-		memberService.insertKaKao(loginUser);
-		
-		String nickName = loginUser.getNickName();
-		
-		log.info("카카오 로그인유저 셋팅 : " + loginUser);
-		
-		 //닉넴중복쳌
-	    int check = memberService.checkNick(nickName);
-	    log.info("nickName 체크 : " + check);
-	    
-	    
-	    if (check == 1) {
-			// 결과가 있다면 가입한 이용자이므로 세션 설정하고 메인으로 보내기
-			log.info("회원가입 있음.");
-			
-			memberAdaptor = new MemberAdaptor(loginUser);
-			session.setAttribute("memberAdaptor", memberAdaptor);
-			log.info("너 뭐나오냐: " + memberAdaptor);
-			return "redirect:/";
-		}
-	    return "redirect:/";
-	}
+//	@GetMapping(value = "/kakaoLoginCallback")
+//	public String loginkakao(@RequestParam String code, HttpServletRequest request, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
+//		String access_Token = kakao.getAccessToken(code);
+//		Map<String, Object> userInfo = kakao.getUserInfo(access_Token);
+//		System.out.println("login Controller : " + userInfo);
+//
+//		@SuppressWarnings("unchecked")
+//		Map<String, Object> account = (Map<String, Object>) userInfo.get("kakao_account");
+//
+//		@SuppressWarnings("unchecked")
+//		String ninkname = (String) ((Map<String, Object>) account.get("profile")).get("nickname");
+//		String email = (String) account.get("email");
+//		String id = (String) userInfo.get("id");
+//
+//		log.info("닉네임 : " + ninkname);
+//		log.info("이메일 : " + email);
+//		log.info("아이디 : " + id);
+//
+//		MemberEntity kakaoResultInfo = new MemberEntity();
+//		kakaoResultInfo.setNickName(ninkname);
+//		kakaoResultInfo.setEmail(email);
+//
+//		HttpSession session = request.getSession();
+//		session.setAttribute("kakaoResultInfo", kakaoResultInfo);
+//		
+//		MemberEntity loginUser = kakaoResultInfo;
+//		loginUser.setUsername("김용주");
+//		loginUser.setNickName(kakaoResultInfo.getNickName());
+//		loginUser.setEmail(kakaoResultInfo.getEmail());
+//		loginUser.setName("으아아");
+//		loginUser.setPassword("123");
+//		loginUser.setRole(Role.ROLE_MEMBER);
+//		
+//		memberService.insertKaKao(loginUser);
+//		
+//		String nickName = loginUser.getNickName();
+//		
+//		log.info("카카오 로그인유저 셋팅 : " + loginUser);
+//		
+//		 //닉넴중복쳌
+//	    int check = memberService.checkNick(nickName);
+//	    log.info("nickName 체크 : " + check);
+//	    
+//	    
+//	    if (check == 1) {
+//			// 결과가 있다면 가입한 이용자이므로 세션 설정하고 메인으로 보내기
+//			log.info("회원가입 있음.");
+//			
+//			principalDetails = new MemberAdaptor(loginUser);
+//			session.setAttribute("memberAdaptor", principalDetails);
+//			log.info("너 뭐나오냐: " + principalDetails);
+//			return "redirect:/";
+//		}
+//	    return "redirect:/";
+//	}
 	
 	
 	//제일 처음거.

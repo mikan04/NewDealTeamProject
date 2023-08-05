@@ -11,7 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
-import com.studycafe.member.oauth2.service.CustomOauth2UserService;
+import com.studycafe.member.auth.PrincipalDetailsService;
+import com.studycafe.member.oauth2.service.Oauth2MemberAdaptor;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,8 +21,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	
-	private final CustomOauth2UserService customOauth2UserService;
-	private final UserDetailServiceSub userDetailService;
+	private final Oauth2MemberAdaptor customOauth2UserService;
+	private final PrincipalDetailsService principalDetailsService;
 	private final DataSource dataSource;
 	
 	@Bean
@@ -44,7 +45,7 @@ public class SecurityConfig {
 			.logoutSuccessUrl("/")
 		.and()
 			.rememberMe()
-			.userDetailsService(userDetailService)
+			.userDetailsService(principalDetailsService)
 			.tokenRepository(tokenRepository())
 		.and()
 			.oauth2Login()

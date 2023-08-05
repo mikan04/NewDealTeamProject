@@ -61,6 +61,10 @@ public class MemberEntity {
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp createdAt;
+	
+	// oauth2
+	private String oauth2Path; // provider
+	private String oauth2Id; // attributes의 sub
 
 	@ManyToOne
 	@JoinColumn(name = "teamNumber")

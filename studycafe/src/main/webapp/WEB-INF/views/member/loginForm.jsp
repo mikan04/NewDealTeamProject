@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>로그인</title>
 <link rel="stylesheet" href="/css/loginform.css">
 <script src="/js/loginForm.js"></script>
 </head>
