@@ -1,7 +1,6 @@
 package com.studycafe.utils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.studycafe.member.entity.MemberAdaptor;
-import com.studycafe.member.oauth2.dto.SessionUser;
+import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.study.service.StudyService;
 import com.studycafe.team.teamboard.service.TeamBoardService;
 
@@ -28,25 +26,17 @@ public class IndexController {
 	private TeamBoardService teamBoardService;
 	
 	@GetMapping("/")
-	public String 접속컨트롤러(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model, Pageable pageable, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		SessionUser user = (SessionUser)session.getAttribute("user");
-		
-		if(user != null) {
-			
-		}
+	public String 접속컨트롤러(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model, Pageable pageable, HttpServletRequest request) {
 		
 		log.info("메인페이지 접속");
 		
-		if (memberAdaptor != null) {
+		if (principalDetails != null) {
 			log.info("회원 접속");
 			
-			log.info(memberAdaptor.getUsername());
-			log.info(memberAdaptor.getPassword()); // 시큐리티로 인해 null출력
-			log.info("현재 유저의 권한 : {}" , memberAdaptor.getAuthorities());
-			log.info("memberAdaptor.getMember() : {}" , memberAdaptor.getMember());
+			log.info(principalDetails.getUsername());
+			log.info(principalDetails.getPassword()); // 시큐리티로 인해 null출력
+			log.info("현재 유저의 권한 : {}" , principalDetails.getAuthorities());
+			log.info("principalDetails.getMember() : {}" , principalDetails.getMemberEntity());
 			
 		} else {
 			log.info("비회원 접속");

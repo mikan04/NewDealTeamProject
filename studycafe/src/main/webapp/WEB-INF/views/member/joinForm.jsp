@@ -52,7 +52,6 @@
 									<c:otherwise>
 										<div class="join_row id">
 											<input id="username" name="username" maxlength="12" value="${userInfo.username}" readonly="readonly" />
-											<input type="hidden" id="joinMethod" name="joinMethod" value="${userInfo.joinMethod}" readonly="readonly" />
 										</div>
 									</c:otherwise>
 								</c:choose>
