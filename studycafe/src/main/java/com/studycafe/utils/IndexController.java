@@ -18,35 +18,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class IndexController {
-	
+
 	@Autowired
 	private StudyService studyService;
-	
+
 	@Autowired
 	private TeamBoardService teamBoardService;
-	
+
 	@GetMapping("/")
-	public String 접속컨트롤러(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model, Pageable pageable, HttpServletRequest request) {
-		
+	public String connectController(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model, Pageable pageable,
+			HttpServletRequest request) {
+
 		log.info("메인페이지 접속");
-		
+
 		if (principalDetails != null) {
+			
 			log.info("회원 접속");
 			
-			log.info(principalDetails.getUsername());
-			log.info(principalDetails.getPassword()); // 시큐리티로 인해 null출력
-			log.info("현재 유저의 권한 : {}" , principalDetails.getAuthorities());
-			log.info("principalDetails.getMember() : {}" , principalDetails.getMemberEntity());
-			
+			log.info("principalDetails.getMember() : {}", principalDetails.getMemberEntity());
+
 		} else {
 			log.info("비회원 접속");
-			
+
 		}
-		
+
 		model.addAttribute("studyList", studyService.getAllStudyToIndex());
 		model.addAttribute("teamBoardList", teamBoardService.getTeamBoardListToIndex());
-		
+
 		return "index";
 	}
 }
-

@@ -26,16 +26,16 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username","nickName"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username", "nickName"}))
 public class MemberEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idx;
-	
+
 	// 시큐리티 필드
 	@NotNull
-	@Column(length = 50)
+	@Column(length = 500)
 	private String username;
 
 	@NotNull
@@ -49,40 +49,33 @@ public class MemberEntity {
 	// 나머지
 	@Column(length = 50)
 	private String email;
-	
+
 	@NotNull
-	@Column(length = 15)
+	@Column(length = 300)
 	private String nickName;
 
 	@NotNull
-	@Column(length = 10)
+	@Column(length = 20)
 	private String name;
 
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp createdAt;
-	
+
 	// oauth2
+	@Column(length = 30)
 	private String oauth2Path; // provider
+
+	@Column(length = 100)
 	private String oauth2Id; // attributes의 sub
 
 	@ManyToOne
 	@JoinColumn(name = "teamNumber")
 	private TeamEntity teamNumber;
-	
-	// oauth2
-	public MemberEntity oauth2UserUpdate(String name, String username) {
-		this.name = name;
-		this.username = username;
-		
-		return this;
-	}
 
 	@Builder
-	public MemberEntity(@NotNull String username, @NotNull String password,
-			@NotNull Role role, @NotNull String email,
-			@NotNull String nickName,
-			@NotNull String name, Timestamp createdAt, TeamEntity teamNumber) {
+	public MemberEntity(@NotNull String username, @NotNull String password, @NotNull Role role, String email, @NotNull String nickName,
+			@NotNull String name, Timestamp createdAt, String oauth2Path, String oauth2Id, TeamEntity teamNumber) {
 
 		this.username = username;
 		this.password = password;
@@ -91,6 +84,8 @@ public class MemberEntity {
 		this.nickName = nickName;
 		this.name = name;
 		this.createdAt = createdAt;
+		this.oauth2Path = oauth2Path;
+		this.oauth2Id = oauth2Id;
 		this.teamNumber = teamNumber;
 	}
 

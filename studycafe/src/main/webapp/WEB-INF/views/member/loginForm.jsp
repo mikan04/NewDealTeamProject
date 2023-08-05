@@ -50,16 +50,14 @@
 					<legend align="left">소셜로그인</legend>
 					<div class="sns-login">
 						<div id="kakao_id_login">
-							<img src="/img/kakao-logo.png" width="30" height="30"> <a
-								href="https://kauth.kakao.com/oauth/authorize?client_id=8cf10493bca5fb96602027f51d020cba&redirect_uri=http://localhost:8080/login/oauth_kakao&response_type=code">
-								카카오 로그인 </a>
+							<img src="/img/kakao-logo.png" width="30" height="30"> <a href="/oauth2/authorization/kakao"> Kakao Login </a>
 						</div>
 						<div id="git_id_login">
-							<img src="/img/github.png" width="30" height="30"> <a href="/oauth2/authorization/github">
-								GitHub 로그인</a>
+							<img src="/img/github.png" width="30" height="30"> <a href="/oauth2/authorization/github"> GitHub Login </a>
 						</div>
 						<div id="google_id_login">
-							<a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+							<img src="/img/google-logo.png" width="30" height="30"> <a href="/oauth2/authorization/google" class="btn btn-success active"
+								role="button">Google Login</a>
 						</div>
 					</div>
 				</fieldset>

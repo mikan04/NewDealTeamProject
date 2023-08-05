@@ -71,7 +71,7 @@
 				</label>
 				<c:forEach items="${studyList }" var="study" begin="0" end="4">
 					<div>
-						<a href="">${study.studyTitle }</a>
+						<a href="/studydetail/${study.studyNum }">${study.studyTitle }</a>
 						<span style="float: right;">
 							<font size="2">
 							<fmt:parseDate var="date" value="${study.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" />

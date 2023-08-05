@@ -1,6 +1,5 @@
 /**
- * 스터디 모집 게시판 지도 API 및 JS 코드
- * @author 홍정수, 김재국
+ * 
  */
 
 // Enter 키 방지
@@ -14,7 +13,7 @@ function preventSubmit(event) {
 // 유효성 검사
 function regis_check() {
 	var studytitle = $('#studyTitle');
-	var qnaContent = myEditor.getData();
+	var studyContent = myEditor.getData();
 	
 	
 	if (studytitle.val() == "") {
@@ -23,20 +22,21 @@ function regis_check() {
 		return false;
 	}
 	
-	if (!qnaContent.trim()) {
+	if (!studyContent.trim()) {
         alert('내용을 입력해주세요.');
         myEditor.focus();
         return;
     }
-
+    
 	
-	document.studyregistration_form.submit();
+	
+	document.studymodify_form.submit();
 }
 
 // ck에디터
 var myEditor;
 ClassicEditor
-	.create(document.querySelector('#qnaContent'), {
+	.create(document.querySelector('#studyContent'), {
 		ckfinder: {
 			uploadUrl: '/ck/teamregisimgupload' // 내가 지정한 업로드 url (post로 요청감)
 		},
@@ -67,7 +67,7 @@ var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
-		center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		center: new kakao.maps.LatLng($('#latitude').val(), $('#longitude').val()), // 지도의 중심좌표
 		level: 3
 		// 지도의 확대 레벨
 	};
@@ -261,11 +261,11 @@ function getStudyDateAvailability(lat, long, date){
 			}
 			}
 		} catch (e) {
-			alert(`Caught Exception: ${e.description}`);
+			alert(`에러가 발생하였습니다: ${e.description}`);
 		}
 		};
 		
-		let url = `/studyTime?lat=${Math.floor(lat)}&long=${Math.floor(long)}&date=${date}`;
+		let url = `/studyTime?lat=${lat}&long=${long}&date=${date}`;
 		httpRequest.open("GET", url);
 		httpRequest.send();
 		
@@ -275,11 +275,12 @@ function getStudyDateAvailability(lat, long, date){
 function selectDateHandler(date) {
 	if (!selectLat || !selectLong) {
 		alert("먼저 장소를 선택해주세요");
-		$('#reserve').val('');
+		$('#reserveDate').val('');
 		return;
 	}
 	else {
-		getStudyDateAvailability(Math.floor(selectLat), Math.floor(selectLong), date );
+		getStudyDateAvailability(selectLat, selectLong, date );
+		document.getElementById("accordion-date").innerHTML = date;
 	}
 	
 }
@@ -299,6 +300,7 @@ function updateTable(times){
 		});
 	} );
 	document.getElementById("reserve-info-table").style.display = "block";
+	document.getElementById("accordion").style.display = "block";
 }
 
 
@@ -412,8 +414,28 @@ var myMarker = new kakao.maps.Marker({
 	// 지도 중심좌표에 마커를 생성합니다 
 	position: map.getCenter()
 });
+
 // 지도에 마커를 표시합니다
 myMarker.setMap(map);
+
+searchDetailAddrFromCoords(myMarker.getPosition(), function(result, status) {
+	markerCoordinate = myMarker.getPosition();
+	selectLong = markerCoordinate.getLat();
+	selectLat = markerCoordinate.getLng();
+						
+	if (status === kakao.maps.services.Status.OK) {
+		document.getElementById('address_name').value = result[0].address.address_name; // 지번주소
+	}
+	
+	road_address = !!result[0].road_address ?
+		'<p><label for="road_address_name">도로명 주소</label>' + 
+		'<input type="text" id="road_address_name" value="'+ result[0].road_address.address_name + '" readonly="readonly"><br></p>' : '';
+
+	var resultDiv = document.getElementById('road_address');
+	
+	resultDiv.innerHTML = road_address;
+});
+
 
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
@@ -454,3 +476,25 @@ function searchDetailAddrFromCoords(coords, callback) {
 	// 좌표로 법정동 상세 주소 정보를 요청합니다
 	geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+	// 지난 날짜 선택 불가
+	document.getElementById("reserveDate").min = new Date().toISOString().split('T')[0];
+  
+	// 스터디 타임 이벤트 리스너 추가
+	var times = document.getElementsByClassName("accordion-study-time");
+	for (var i = 0; i < times.length; i++) {
+	  times[i].addEventListener("click", function(){
+		  var selectedEl = document.querySelector(".accordion-study-time.selected");
+		  if(selectedEl){
+			  selectedEl.classList.remove("selected");
+		  }
+		  this.classList.add("selected");
+		  var hour = this.dataset.time;
+		  var selectDate = document.getElementById("reserveDate").value;
+		  const date = new Date(selectDate);
+		  date.setHours(hour);
+		  document.getElementById("reserveTime").value = date.toISOString();
+	  });
+	  }	
+  });

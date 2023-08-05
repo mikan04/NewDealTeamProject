@@ -57,7 +57,7 @@ input, button, a {
 	margin: 10px 0;
 }
 
-#kakao_id_login, #git_id_login {
+#kakao_id_login, #git_id_login, #google_id_login {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -78,6 +78,15 @@ input, button, a {
 
 #git_id_login a {
 	color: white;
+	font-weight: 600;
+}
+
+#google_id_login{
+	background-color: #e9e9e9;
+}
+
+#google_id_login a{
+	color : black;
 	font-weight: 600;
 }
 
