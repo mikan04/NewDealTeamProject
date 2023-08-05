@@ -23,7 +23,7 @@ import com.studycafe.cs.dto.CsBoardPageDTO;
 import com.studycafe.cs.entity.CsEntity;
 import com.studycafe.cs.repository.CsRepository;
 import com.studycafe.cs.service.CsService;
-import com.studycafe.member.entity.MemberAdaptor;
+import com.studycafe.member.auth.PrincipalDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -95,7 +95,7 @@ public class CsController {
 
 	// 글 수정 페이지 진입
 	@GetMapping("/cs/modifyview/{idx}")
-	public String modifyCsBoardPostPage(@PathVariable("idx") long idx, Model model, @AuthenticationPrincipal MemberAdaptor memberAdaptor) {
+	public String modifyCsBoardPostPage(@PathVariable("idx") long idx, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
 		CsBoardDTO getPost = csService.getCsBoardPost(idx);
 
@@ -103,7 +103,7 @@ public class CsController {
 		
 		log.info("수정페이지 파일키 수정페이지 파일키 : {}", getWriter.getFileKey());
 
-		if (memberAdaptor == null) {
+		if (principalDetails == null) {
 
 			throw new AccessDeniedException("남의 게시글을 함부러 수정하려고 하시면 안돼요!!");
 
@@ -111,7 +111,7 @@ public class CsController {
 
 			String csBoardWriter = getWriter.getCsWriter();
 
-			String loginedUserNickName = memberAdaptor.getMember().getNickName();
+			String loginedUserNickName = principalDetails.getNickName();
 
 			if (!csBoardWriter.equals(loginedUserNickName)) {
 

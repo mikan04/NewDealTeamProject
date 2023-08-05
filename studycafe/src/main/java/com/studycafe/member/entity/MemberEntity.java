@@ -1,15 +1,18 @@
 package com.studycafe.member.entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,17 +26,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class MemberEntity implements Serializable {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username","nickName"}))
+public class MemberEntity {
 	
-	
-
-	/**
-	 * @serial MemberEntity
-	 */
-	private static final long serialVersionUID = -8751826630478201593L;
-
-	// 시큐리티 필드
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idx;
+	
+	// 시큐리티 필드
 	@NotNull
 	@Column(length = 50)
 	private String username;
@@ -49,9 +49,9 @@ public class MemberEntity implements Serializable {
 	// 나머지
 	@Column(length = 50)
 	private String email;
-
+	
 	@NotNull
-	@Column(unique = true, length = 15)
+	@Column(length = 15)
 	private String nickName;
 
 	@NotNull
@@ -62,22 +62,31 @@ public class MemberEntity implements Serializable {
 	@CreationTimestamp
 	private Timestamp createdAt;
 	
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private Join joinMethod;
+	// oauth2
+	private String oauth2Path; // provider
+	private String oauth2Id; // attributes의 sub
 
 	@ManyToOne
 	@JoinColumn(name = "teamNumber")
 	private TeamEntity teamNumber;
+	
+	// oauth2
+	public MemberEntity oauth2UserUpdate(String name, String username) {
+		this.name = name;
+		this.username = username;
+		
+		return this;
+	}
 
 	@Builder
-	public MemberEntity(@NotNull String username, @NotNull String password, @NotNull Role role,Join joinMethod ,@NotNull String email, @NotNull String nickName,
+	public MemberEntity(@NotNull String username, @NotNull String password,
+			@NotNull Role role, @NotNull String email,
+			@NotNull String nickName,
 			@NotNull String name, Timestamp createdAt, TeamEntity teamNumber) {
 
 		this.username = username;
 		this.password = password;
 		this.role = role;
-		this.joinMethod = joinMethod;
 		this.email = email;
 		this.nickName = nickName;
 		this.name = name;

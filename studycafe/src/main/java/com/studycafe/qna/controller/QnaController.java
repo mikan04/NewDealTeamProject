@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.studycafe.member.entity.MemberAdaptor;
+import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.qna.entity.QnaEntity;
 import com.studycafe.qna.service.QnaService;
-import com.studycafe.study.entity.StudyEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,10 +64,10 @@ public class QnaController {
 	
 	//qna등록폼
 	@GetMapping("/qnaRegister")
-	public String qnaRegister(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model) {
+	public String qnaRegister(@AuthenticationPrincipal PrincipalDetails PrincipalDetails, Model model) {
 		
 		
-		MemberEntity memberInfo = memberAdaptor.getMember();
+		MemberEntity memberInfo = PrincipalDetails.getMemberEntity();
 		
 		System.out.println("뭐나오냥.............."+memberInfo);
 		
