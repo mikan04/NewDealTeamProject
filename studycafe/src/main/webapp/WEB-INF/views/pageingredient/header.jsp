@@ -87,7 +87,7 @@
 											<input type="hidden">
 											<a href="javascript:openTeamChat(${member.teamNumber.teamNumber})">팀채팅방</a>
 										</li>
-											<input type="text" id = "username" value="${member.username}" hidden="hidden"/>
+										<input type="text" id="username" value="${member.username}" hidden="hidden" />
 									</c:otherwise>
 								</c:choose>
 							</sec:authorize>
@@ -115,7 +115,7 @@
 						</sec:authorize>
 						<ul>
 							<sec:authorize access="isAuthenticated()">
-							
+
 								<li>
 									<a href="${contextPath}/logout">로그아웃</a>
 								</li>
@@ -126,9 +126,18 @@
 									</li>
 								</sec:authorize>
 
-								<li>
-									<a href="/member/verificationpage">내정보관리</a>
-								</li>
+								<c:choose>
+									<c:when test="${member.oauth2Path == null }">
+										<li>
+											<a href="/member/verificationpage">내정보관리</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="javascript:alertToSocial()">내정보관리</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
 
 							</sec:authorize>
 						</ul>
