@@ -1,5 +1,7 @@
 package com.studycafe.member.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	public boolean existsByEmail(String email);
 
 	public MemberEntity findByEmail(String email);
+	
+	public Optional<MemberEntity> findByUsername(String email);
 
 	public MemberEntity findByUsernameAndEmail(String username, String email);
 	
