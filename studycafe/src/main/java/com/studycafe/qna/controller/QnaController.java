@@ -47,7 +47,9 @@ public class QnaController {
 		Page<QnaEntity> list = null;
 
 		if (keyword == null) {
-			list = qnaService.qnaList(pageable);
+			list = qnaService.findByIsDeletedEquals(0, pageable);
+			System.out.println("어떻게나오나.............."+list);
+			
 		} else {
 			list = qnaService.qnaSearchList(keyword, pageable);
 		}
@@ -69,7 +71,7 @@ public class QnaController {
 		
 		System.out.println("뭐나오냥.............."+memberInfo);
 		
-		model.addAttribute("member", memberInfo);
+		model.addAttribute("qnaEntity", memberInfo);
 		
 		return "/qna/qnaRegister";
 	}
@@ -88,7 +90,7 @@ public class QnaController {
 		
 		qnaEntity = qnaService.selectQna(qnaNum);
 		
-		model.addAttribute("datail", qnaEntity);
+		model.addAttribute("qnaEntity", qnaEntity);
 		
 		return "/qna/qnaDetail";
 	}
@@ -105,7 +107,7 @@ public class QnaController {
 			
 			qnaEntity = qnaService.selectQna(qnaNum);
 	
-			model.addAttribute("modify", qnaEntity);
+			model.addAttribute("qnaEntity", qnaEntity);
 			
 			return "/qna/qnaModify";
 		} catch(Exception e) {
@@ -131,14 +133,21 @@ public class QnaController {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
-		/**
-		 * 게시글 삭제 아이디 체크 넣기
-		 * */
+		QnaEntity qnaEntity = new QnaEntity(); // 객체 생성
+
+		Long qnaNum = Long.parseLong((String) map.get("id")); // 게시글 번호
 		
-		long id = (long) map.get("qnaNum");
+		log.info("너 몇번??:" + qnaNum);
+
+		qnaEntity = qnaService.selectQna(qnaNum); // 게시글 조회
+		
+		qnaEntity.setIsDeleted(1); // 게시글 삭제
+
+		qnaService.qnaRegister(qnaEntity); // 게시글 수정
+		
+	
 
 		try {
-			qnaService.qnaDelete(id);
 			result.put("status", "ok");
 		}catch(Exception e) {
 			e.printStackTrace();
