@@ -10,6 +10,9 @@ public interface QnaService {
 	
 	public Page<QnaEntity> qnaSearchList(String keyword, Pageable pageable);
 	
+	//isDeleted가 0인것만 불러오
+    public Page<QnaEntity> findByIsDeletedEquals(int isDeletedValue, Pageable pageable);
+	
 	public void qnaRegister(QnaEntity qnaEntity); 
 
 	public QnaEntity selectQna(Long qnaNum);
