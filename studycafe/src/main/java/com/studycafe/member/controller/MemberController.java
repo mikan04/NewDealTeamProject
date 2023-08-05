@@ -37,7 +37,7 @@ public class MemberController {
 
 	@GetMapping("/loginform")
 	public String loginPage() {
-		
+
 		log.info("로그인 페이지 접속");
 
 		return "/member/loginForm";
@@ -47,7 +47,7 @@ public class MemberController {
 	public String login() {
 
 		log.info("로그인 로직 실행");
-		
+
 		return "redirect:/";
 	}
 
@@ -66,7 +66,7 @@ public class MemberController {
 	public boolean joinPro(@RequestBody JoinDto joinVO, HttpServletRequest request) {
 
 		MemberEntity memberEntity = joinVO.getMemberEntity();
-		
+
 		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
 
 		String rawPassword = memberEntity.getPassword();
@@ -259,20 +259,20 @@ public class MemberController {
 	@PostMapping("/checkPassword")
 	@ResponseBody
 	public boolean checkPassword(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam("oneraepassword") String oneraepassword) {
-		
-		boolean result = memberService.checkPassword(principalDetails.getUsername(),oneraepassword);
+
+		boolean result = memberService.checkPassword(principalDetails.getUsername(), oneraepassword);
 
 		return result;
 	}
-	
+
 	// 비밀번호 변경 로직2
 	@PostMapping("/changePassword")
 	@ResponseBody
 	public boolean changePwd(@AuthenticationPrincipal PrincipalDetails principalDetails,
 			@RequestParam("password") String password) {
-		
+
 		boolean result = memberService.changePassword(principalDetails.getUsername(), password);
-		
+
 		return result;
 	}
 

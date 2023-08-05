@@ -97,19 +97,6 @@ select {
 	min-height: 50px;
 	padding-top: 10px;
 }
-
-/* 왜 다 없어짐? */
-/* .join_row id{
-	position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: inherit;
-    border: 1px solid #dfdfdf;
-    pointer-events: none;
-    content: '';
-	}  */
 .index-ingredient {
 	margin-bottom: 15px;
 }
