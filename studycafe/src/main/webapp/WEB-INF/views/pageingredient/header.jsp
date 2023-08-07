@@ -81,7 +81,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="#">나의팀관리</a>
+											<a href="${contextPath}/myteam/${member.teamNumber.teamNumber}">나의팀관리</a>
 										</li>
 										<li>
 											<input type="hidden">
