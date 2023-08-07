@@ -30,3 +30,14 @@ $("#file").change(function() {
 		reader.readAsDataURL(this.files[0]);
 	}
 });
+
+function validPost(){
+	let errorMsg = document.querySelectorAll(".error-box > input");
+	
+	if(errorMsg != null || errorMsg != ""){
+		for(let i = 0; i < errorMsg.length; i++){
+			console.log(errorMsg[i].value);
+			alert(errorMsg[i].value);
+		}
+	}
+}
