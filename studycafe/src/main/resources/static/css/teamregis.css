@@ -116,3 +116,57 @@ span[class=secret-yn] {
 	border: none;
 	background-color: white;
 }
+
+.success-box>span {
+	margin : 0;
+	padding : 0;
+	color: lightgreen;
+	border: none;
+	/* background-color: white; */
+}
+
+.team-add-btn {
+	margin-left: 150px;
+	width: 4rem;
+	height: 2rem;
+	border: none;
+	background-color: #fff;
+	box-shadow: 0px 0px 1.3rem #cecece;
+}
+
+.team-add-btn:hover {
+cursor: pointer;
+}
+
+#user-table  {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+
+#user-table td, #user-table th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#user-table tr:nth-child(even){background-color: #f2f2f2;}
+
+
+#user-table tr:hover {
+	background-color: #ddd;
+	cursor: pointer;
+}
+
+#user-table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #04AA6D;
+	color: white;
+  }
+
+
+#userSelectDiv {
+	display: none;
+}

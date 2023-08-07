@@ -1,5 +1,7 @@
 package com.studycafe.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.member.dto.JoinDto;
 import com.studycafe.member.dto.MemberDto;
+import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.MemberService;
+import com.studycafe.utils.Views;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -274,6 +283,24 @@ public class MemberController {
 		boolean result = memberService.changePassword(principalDetails.getUsername(), password);
 
 		return result;
+	}
+	
+	@PostMapping("/member/searchUser")
+	@ResponseBody
+	public String searchUser( @RequestParam("username") String username) {
+		List<MemberSafeDto> search =  memberService.searchMember(username);
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
+	    try {
+			String result = mapper
+				      .writerWithView(Views.Public.class)
+				      .writeValueAsString(search);
+			return result;
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return e.getMessage();
+		}		
 	}
 
 }
