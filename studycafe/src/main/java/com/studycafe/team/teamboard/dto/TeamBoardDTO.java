@@ -24,8 +24,7 @@ public class TeamBoardDTO {
 	@NotBlank(message = "제목을 반드시 입력해주세요.")
 	private String teamBoardTitle;
 	
-	@NotBlank
-	@Size(min = 12, max = 1200 , message = "12자 이상 1200자 이하의 내용만 가능합니다.")
+	@Size(min = 12, max = 500 , message = "12자 이상 500자 이하의 내용만 가능합니다.")
 	private String teamBoardContent;
 	private String teamBoardWriter;
 	private Timestamp createDate;
