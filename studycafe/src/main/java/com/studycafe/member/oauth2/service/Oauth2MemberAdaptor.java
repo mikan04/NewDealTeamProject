@@ -1,5 +1,7 @@
 package com.studycafe.member.oauth2.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -34,23 +36,17 @@ public class Oauth2MemberAdaptor extends DefaultOAuth2UserService {
 	// 소셜로그인으로 받은 데이터 후처리 메소드.
 	// 해당 함수 종료시 @AuthenticationPrincipal 어노테이션이 만들어진다. (중요)
 	@Override
+	@Transactional
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
-		// 탐색전
+		// 들어온 정보
 		log.info("userRequest getClientRegistration : {}", userRequest.getClientRegistration());
 		log.info("userRequest getAccessToken().getTokenValue() : {}", userRequest.getAccessToken().getTokenValue());
 
-		// 구글 로그인 버튼 클릭 -> 구글로그인창 -> 로그인완료 -> code리턴(Oauth2-Client 라이브러리) -> Accesstoken요청
+		// 로그인 버튼 클릭 -> 로그인창 -> 로그인완료 -> code리턴(Oauth2-Client 라이브러리) -> Accesstoken요청
 		// userRequest에 회원 프로필 정보가 담김 -> 이때 loadUser메소드로 추출가능.
 		OAuth2User oauth2User = super.loadUser(userRequest);
 		log.info("소셜 로그인 정보 : {}", oauth2User.getAttributes());
-
-		// 저장방식
-		// username : google_super.loadUser(userRequest).getAttributes().구글에서 제공하는 PK
-		// password : 암호화(페이지이름)
-		// email : email
-		// role = ROLE_MEMBER
-		// 으로 할 예정 오케이 렛츠꼬
 
 		// 회원가입
 		String oauth2Path = userRequest.getClientRegistration().getRegistrationId(); // 들어온 경로(중요)
