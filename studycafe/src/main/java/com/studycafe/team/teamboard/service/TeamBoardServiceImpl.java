@@ -80,7 +80,7 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 		boolean isPresent = teamBoardRepository.findById(idx).isPresent();
 
 		try {
-			
+
 			if (isPresent) {
 
 				teamBoardRepository.deleteById(idx);
@@ -102,5 +102,4 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 		// TODO Auto-generated method stub
 		return teamBoardRepository.findAll(Sort.by(Sort.Direction.DESC, "teamBoardNum"));
 	}
-
 }
