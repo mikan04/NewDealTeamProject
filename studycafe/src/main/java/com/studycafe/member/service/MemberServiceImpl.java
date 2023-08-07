@@ -215,8 +215,8 @@ public class MemberServiceImpl implements MemberService {
 		String username = memberDto.getUsername();
 
 		MemberEntity memberInfo = memRe.findByUsername(username);
-		
-		if(memberInfo == null) {
+
+		if (memberInfo == null) {
 			throw new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
 		}
 
@@ -320,6 +320,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber) {
+		
+		List<MemberEntity> member = memRe.findByTeamNumber(teamNumber);
+		return member;
+	}
+
 	public List<MemberSafeDto> searchMember(String username) {
 		// TODO Auto-generated method stub
 		List<MemberEntity> mem = memRe.findByUsernameContainingIgnoreCase(username);
@@ -343,6 +349,5 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
-
 
 }

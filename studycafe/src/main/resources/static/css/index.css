@@ -35,17 +35,17 @@ tr>th {
 	flex-direction: column;
 	justify-content: center;
 	margin: auto;
-	width: 100%;
+	width: 80%;
 	min-height : 600px;
 	text-align: center;
 	align-items: center;
 	
 	background-image: linear-gradient(
-        rgba(0, 0, 0, 0.1),
-        rgba(0, 0, 0, 0.1)
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.7)
       ),url("/img/ranking-img.png");
       
-	background-repeat: no-repeat;
+	background-repeat: round;
 	background-size: cover;
 }
 
