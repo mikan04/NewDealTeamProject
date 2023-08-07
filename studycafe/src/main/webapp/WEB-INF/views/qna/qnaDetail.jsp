@@ -46,13 +46,10 @@
 					<input type="text" id="dateTime" name="dateTime" value="${dateTime}" readonly="readonly" pattern="yyyy-MM-dd HH:mm" ></p>
 				<div>
 					<label for="qnaContent">내용</label>
-					<textarea id="qnaContent" name="qnaContent" readonly="readonly">${qnaEntity.qnaContent}</textarea></div>
-								
-				<!-- 없는 div들 추가해보자 -->
-				<div id="road_address"></div> 
-			
-					
-					<input type="hidden" id="qnaNum" value="${qnaEntity.qnaNum}">
+					<textarea id="qnaContent" name="qnaContent" readonly="readonly">${qnaEntity.qnaContent}</textarea>
+				</div>
+												
+				<input type="hidden" id="qnaNum" value="${qnaEntity.qnaNum}">
 				
 				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/qna/'">목록</button>
 				
@@ -66,10 +63,6 @@
 						<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete()">삭제</button>
 					</c:when>
 				</c:choose>
-				
-			
-					
-				
 				
 			</form>
 			
@@ -97,13 +90,5 @@
  	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=59e92bd7943f48f31ff73b322a4e5603&libraries=services,clusterer,drawing"></script>
 	<script src="/js/qnadetail.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
-	<script>
-		$(document).ready(function () {
-			studyReplyList();
-		});
-		
-		/*  var nickName = "${nickName}";
-		    alert(nickName); */
-	</script>
 </body>
 </html>

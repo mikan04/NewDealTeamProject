@@ -67,34 +67,6 @@
 			</div>
 		</section>
 	</div>
-	<script>
-
-		function qnaRegister() {
-			let username = $("#username").val();
-			if (username == null) {
-				alert("로그인 후 이용가능합니다.");
-				return false;
-			}
-			location.href = "/qnaRegister"
-		}
-		$('#search').keydown(function(key) {
-			if (key.keyCode == 13) {
-				$('#searchBtn').click();
-			}
-		});
-
-		$(document).ready(function() {
-			loadPosts($('#search').val(), $(this).data('page'));
-
-			$('#searchBtn').on('click', function() {
-				loadPosts($('#search').val(), 0); // 검색어가 바뀌면 첫 페이지부터 검색 결과를 보여줍니다.
-			});
-
-			$(document).on('click', '.pagination-link', function() {
-				loadPosts($('#search').val(), $(this).data('page'));
-			});
-		});
-	</script>
 	<script src="/js/qnaList.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 </body>
