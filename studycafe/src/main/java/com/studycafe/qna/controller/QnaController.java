@@ -47,11 +47,14 @@ public class QnaController {
 		Page<QnaEntity> list = null;
 
 		if (keyword == null) {
-			list = qnaService.findByIsDeletedEquals(0, pageable);
-			System.out.println("어떻게나오나.............."+list);
+			list = qnaService.qnaSearchList(keyword, pageable);
+			System.out.println("누가실행됩니까.............."+list);
 			
 		} else {
-			list = qnaService.qnaSearchList(keyword, pageable);
+//			list = qnaService.qnaSearchList(keyword, pageable, 0);
+			
+			list = qnaService.findByIsDeletedEquals(0, pageable);
+			System.out.println("어떻게나오나.............."+list);
 		}
 		
 	
@@ -155,6 +158,8 @@ public class QnaController {
 		}
 		return result;
 	}
+	
+	//삭제시도 1
 	
 
 }
