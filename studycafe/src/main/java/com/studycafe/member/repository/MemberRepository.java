@@ -36,5 +36,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	public List<MemberEntity> findByTeamNumber(TeamEntity teamNumber);
 
 	public List<MemberEntity> findByUsernameContainingIgnoreCase(String username);
+
+	public MemberEntity findByUsernameAndTeamNumberTeamNumber(String username, long teamNumber);
 	
 }
