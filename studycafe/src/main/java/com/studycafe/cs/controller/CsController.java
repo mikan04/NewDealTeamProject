@@ -96,7 +96,7 @@ public class CsController {
 
 			}
 
-			return "/team/teamregis";
+			return "/cs/csregis";
 		}
 
 		csService.csBoardRegis(csBoardDTO, identifier, file);

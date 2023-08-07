@@ -29,9 +29,9 @@
 					<input type="text" id="team-title" name="csTitle" placeholder="제목 입력">
 				</p>
 				
-				<p>
+				<p class="error-box">
 					<label></label>
-					<input type="text" id="team-title" name="csTitle" placeholder="제목 입력">
+					<span>${valid_csTitle }</span>
 				</p>
 
 				<p>
@@ -58,6 +58,11 @@
 						문의 내역을 입력해주세요.
 					</textarea>
 				</div>
+				
+				<p class="error-box">
+					<label></label>
+					<span>${valid_csContent }</span>
+				</p>
 
 				<!-- 이미지 첨부시 미리보기 -->
 				<p>
