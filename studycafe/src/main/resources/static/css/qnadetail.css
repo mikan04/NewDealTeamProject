@@ -132,10 +132,10 @@ p input[readonly=readonly]:focus{
 	text-align: center;
 }
 
-.texta {
+.map_wrap {
 	display: flex;
 	justify-content: space-between;
-
+	position: relative;
 	text-align : center;
 	width : calc(100% - 150px);
 	left: 150px;

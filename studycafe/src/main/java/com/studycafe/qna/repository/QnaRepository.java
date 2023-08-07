@@ -12,5 +12,8 @@ public interface QnaRepository  extends JpaRepository<QnaEntity, Long>  {
 	
 	Page<QnaEntity> findByqnaTitleContaining(String keyword, Pageable pageable);
 
-
+	Page<QnaEntity> findByisDeleted(Pageable pageable, int isDeleted);
+	
+//	이게 되나?
+	Page<QnaEntity> findByIsDeletedEquals(int isDeletedValue, Pageable pageable);
 }

@@ -21,6 +21,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	public boolean existsByEmail(String email);
 
 	public MemberEntity findByEmail(String email);
+	
+	public MemberEntity findByUsername(String email);
 
 	public MemberEntity findByUsernameAndEmail(String username, String email);
 	

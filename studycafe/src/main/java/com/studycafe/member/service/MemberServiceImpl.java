@@ -1,7 +1,6 @@
 package com.studycafe.member.service;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.dto.MemberMapper;
 import com.studycafe.member.dto.MemberSafeDto;
-import com.studycafe.member.entity.Join;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberAddressRepository;
@@ -42,18 +40,6 @@ public class MemberServiceImpl implements MemberService {
 	public boolean insertMember(MemberEntity memberEntity, MemberAddressEntity memberAddressEntity) {
 
 		MemberEntity insert1 = memRe.save(memberEntity);
-
-		String joinMethod = memberEntity.getJoinMethod().toString();
-
-		if (joinMethod.equals(Join.GIT_HUB.toString())) {
-			memberEntity.setJoinMethod(Join.GIT_HUB);
-
-		} else if (joinMethod.equals(Join.KAKAO.toString())) {
-			memberEntity.setJoinMethod(Join.KAKAO);
-
-		} else {
-			memberEntity.setJoinMethod(Join.NORMAL);
-		}
 
 		try {
 			log.info("insert1 : {}", insert1);
@@ -161,7 +147,7 @@ public class MemberServiceImpl implements MemberService {
 			if (!findUsername) {
 				return null;
 			}
-			MemberEntity memberEntity = memRe.findById(username).get();
+			MemberEntity memberEntity = memRe.findByUsername(username);
 			return memberEntity;
 
 		} catch (Exception e) {
@@ -188,7 +174,7 @@ public class MemberServiceImpl implements MemberService {
 	public boolean updatePassword(String username, String password) {
 
 		try {
-			MemberEntity memberEntity = memRe.findById(username).get();
+			MemberEntity memberEntity = memRe.findByUsername(username);
 
 			if (memberEntity == null) {
 				return false;
@@ -227,13 +213,11 @@ public class MemberServiceImpl implements MemberService {
 
 		String username = memberDto.getUsername();
 
-		MemberEntity memberInfo = memRe.findById(username).orElseThrow(new Supplier<IllegalArgumentException>() {
-			@Override
-			public IllegalArgumentException get() {
-
-				return new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
-			}
-		});
+		MemberEntity memberInfo = memRe.findByUsername(username);
+		
+		if(memberInfo == null) {
+			throw new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
+		}
 
 		memberInfo.setNickName(memberDto.getNickName());
 
