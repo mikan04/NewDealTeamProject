@@ -33,7 +33,7 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
-	@RequestMapping("/qna")
+	@GetMapping("/qna")
 	public String qnaList() {
 		return "/qna/qnaList";
 	}
@@ -67,15 +67,7 @@ public class QnaController {
 	
 	//qna등록폼
 	@GetMapping("/qnaRegister")
-	public String qnaRegister(@AuthenticationPrincipal PrincipalDetails PrincipalDetails, Model model) {
-		
-		
-		MemberEntity memberInfo = PrincipalDetails.getMemberEntity();
-		
-		System.out.println("뭐나오냥.............."+memberInfo);
-		
-		model.addAttribute("qnaEntity", memberInfo);
-		
+	public String qnaRegister() {
 		return "/qna/qnaRegister";
 	}
 	

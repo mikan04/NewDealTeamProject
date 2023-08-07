@@ -1,5 +1,9 @@
 package com.studycafe.team.teamboard.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +13,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -69,8 +75,22 @@ public class TeamBoardController {
 
 	// 글 등록 로직
 	@PostMapping("/team/teamregis")
-	public String teamRegist(TeamBoardDTO teamBoardDTO) {
+	public String teamRegist(@Valid TeamBoardDTO teamBoardDTO, BindingResult bindingResult, Model model) {
 
+		if(bindingResult.hasErrors()) {
+			// ObjectError => spring validation
+			List<ObjectError> registErrors = bindingResult.getAllErrors();
+			
+			for(ObjectError error : registErrors) {
+				
+				log.info(error.getDefaultMessage());
+				
+				model.addAttribute("error", error);
+			}
+			
+			return "/team/teamregis";
+		}
+		
 		teamBoardService.teamBoardRegis(teamBoardDTO);
 
 		return "redirect:/team/teamboards";
