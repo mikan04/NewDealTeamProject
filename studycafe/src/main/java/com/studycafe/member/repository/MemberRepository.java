@@ -1,10 +1,13 @@
 package com.studycafe.member.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.team.entity.TeamEntity;
 
 @Repository
 public interface MemberRepository extends JpaRepository<MemberEntity, String> {
@@ -21,11 +24,13 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	public boolean existsByEmail(String email);
 
 	public MemberEntity findByEmail(String email);
-	
+
 	public MemberEntity findByUsername(String email);
 
 	public MemberEntity findByUsernameAndEmail(String username, String email);
-	
+
 	@Query(value = "SELECT COUNT(1) FROM member_entity WHERE nick_name = :nickName", nativeQuery = true)
 	public int checkNick(String nickName);
+
+	public List<MemberEntity> findByTeamNumber(TeamEntity teamNumber);
 }

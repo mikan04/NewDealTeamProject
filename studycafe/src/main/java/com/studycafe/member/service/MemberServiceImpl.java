@@ -16,6 +16,7 @@ import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberAddressRepository;
 import com.studycafe.member.repository.MemberRepository;
+import com.studycafe.team.entity.TeamEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -214,8 +215,8 @@ public class MemberServiceImpl implements MemberService {
 		String username = memberDto.getUsername();
 
 		MemberEntity memberInfo = memRe.findByUsername(username);
-		
-		if(memberInfo == null) {
+
+		if (memberInfo == null) {
 			throw new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
 		}
 
@@ -316,6 +317,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber) {
+		
+		List<MemberEntity> member = memRe.findByTeamNumber(teamNumber);
+		return member;
 	}
 
 }
