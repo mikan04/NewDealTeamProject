@@ -11,11 +11,12 @@
 </sec:authorize>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>스터디 게시판</title>
+	<title>스터디 인증 게시판</title>
 	<link rel="stylesheet" type="text/css" href="/css/studylist.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
@@ -25,7 +26,7 @@
 		<section class="notice">
 		  <div class="page-title">
 		        <div class="container">
-		            <h3>스터디 모집 게시판</h3>
+		            <h3>스터디 인증 게시판</h3>
 		        </div>
 		    </div>
 		
@@ -51,12 +52,14 @@
 						            <col width="60%">
 						            <col width="15%">
 						            <col width="15">
+						            <col width="15">
 	        					</colgroup>
 		                <thead>
 		                <tr>
 		                    <th scope="col" class="th-num">번호</th>
 		                    <th scope="col" class="th-title">제목</th>
 		                    <th scope="col" class="th-write">작성자</th>
+		                    <th scope="col" class="th-state">상태</th>
 		                    <th scope="col" class="th-date">등록일</th>
 		                </tr>
 		                </thead>

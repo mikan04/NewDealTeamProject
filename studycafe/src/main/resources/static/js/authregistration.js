@@ -1,10 +1,7 @@
-$(document).ready(function(){
-	let username = $("#username").val();
-	if(username == null || username == ""){
-		alert("로그인 후 이용가능합니다.");
-		location.href = "/loginform";
-	}
-})
+/**
+ * 스터디 모집 게시판 지도 API 및 JS 코드
+ * @author 홍정수, 김재국
+ */
 
 // Enter 키 방지
 function preventSubmit(event) {
@@ -16,30 +13,28 @@ function preventSubmit(event) {
 
 // 유효성 검사
 function regis_check() {
-	var studytitle = $('#studyTitle');
-	var qnaContent = myEditor.getData();
+	var authtitle = $('#resultAuthTitle');
+	var authContent = myEditor.getData();
 	
-	
-	if (studytitle.val() == "") {
+	if (authtitle.val() == "") {
 		alert("제목을 입력해주세요.");
-		studytitle.focus();
+		authtitle.focus();
 		return false;
 	}
 	
-	if (!qnaContent.trim()) {
+	if (!authContent.trim()) {
         alert('내용을 입력해주세요.');
         myEditor.focus();
         return;
     }
 
-	
-	document.studyregistration_form.submit();
+	document.resultAuthregistration_form.submit();
 }
 
 // ck에디터
 var myEditor;
 ClassicEditor
-	.create(document.querySelector('#qnaContent'), {
+	.create(document.querySelector('#resultAuthContent'), {
 		ckfinder: {
 			uploadUrl: '/ck/teamregisimgupload' // 내가 지정한 업로드 url (post로 요청감)
 		},
@@ -64,4 +59,3 @@ $("#file").change(function() {
 		reader.readAsDataURL(this.files[0]);
 	}
 });
-

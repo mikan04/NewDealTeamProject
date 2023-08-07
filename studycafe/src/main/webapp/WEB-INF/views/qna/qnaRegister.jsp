@@ -37,6 +37,7 @@
 				<p>
 					<label for="studyWriter">작성자</label>
 					<input type="text" id="qnaWriter" name="qnaWriter" readonly="readonly" value="${member.nickName}">
+					<input type="text" id="username" name="username" value="${member.username}" hidden="hidden"/>
 				</p>
 
 				<div>
