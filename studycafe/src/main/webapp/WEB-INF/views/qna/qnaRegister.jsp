@@ -4,6 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<!-- 로그인 한 회원 정보 사용 -->
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.memberEntity" var="member" />
+</sec:authorize>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,12 +31,12 @@
 			<form action="/qnaRegisterPro" name="studyregistration_form" method="post" enctype="multipart/form-data">
 				<p>
 					<label for="studytitle">제목</label>
-					<input type="text" id="studyTitle" name="qnaTitle" value="" placeholder="제목 입력">
+					<input type="text" id="qnaTitle" name="qnaTitle" placeholder="제목 입력">
 				</p>
 
 				<p>
 					<label for="studyWriter">작성자</label>
-					<input type="text" id="studyWriter" name="qnaWriter" readonly="readonly" value="${qnaEntity.nickName }">
+					<input type="text" id="qnaWriter" name="qnaWriter" readonly="readonly" value="${member.nickName}">
 				</p>
 
 				<div>
