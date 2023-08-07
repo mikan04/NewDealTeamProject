@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
 	<div class="main-wrap">
 		<div class="main-ranking">
-			<h1>랭킹</h1>
+			<h1>Ranking</h1>
 			<table>
 				<thead>
 					<tr>
@@ -27,19 +27,19 @@
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td class="team-name">팀명오버플로우테스트팀명오버플로우테스트</td>
+						<td class="team-name">여기를</td>
 						<td class="auth-count">1</td>
 						<td class="team-point">1</td>
 					</tr>
 					<tr>
 						<td>2</td>
-						<td class="team-name">2팀</td>
+						<td class="team-name">디자인</td>
 						<td class="auth-count">2</td>
 						<td class="team-point">2</td>
 					</tr>
 					<tr>
 						<td>3</td>
-						<td class="team-name">3팀</td>
+						<td class="team-name">해야합니다</td>
 						<td class="auth-count">3</td>
 						<td class="team-point">3</td>
 					</tr>
@@ -49,7 +49,7 @@
 		<div class="index-ingredient">
 			<div class="index main-qna">
 				<label>
-					<a href="">Q &amp; A</a>
+					<a href="/qna">Q &amp; A</a>
 				</label>
 				<div>
 					<a href="#">Q &amp; A 1</a>
@@ -83,7 +83,7 @@
 				</c:forEach>
 			</div>
 
-			<div class="index main-notice">
+			<div class="index main-team">
 				<label>
 					<a href="/team/teamboards">팀 신청</a>
 				</label>
@@ -97,7 +97,7 @@
 				</c:forEach>
 			</div>
 
-			<div class="index main-regteam">
+			<div class="index main-auth">
 				<label>
 					<a href="">인증게시판</a>
 				</label>

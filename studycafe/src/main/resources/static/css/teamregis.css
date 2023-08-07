@@ -68,6 +68,9 @@ p input[readonly=readonly]:focus {
 form {
 	width: 80%;
 }
+form > div{
+	margin-top : 20px;
+}
 
 .regis-btn {
 	float: right;
