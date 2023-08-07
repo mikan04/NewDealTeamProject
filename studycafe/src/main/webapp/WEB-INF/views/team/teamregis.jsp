@@ -44,9 +44,12 @@
 					</textarea>
 				</div>
 				<button class="regis-btn">팀 등록</button>
-
 			</form>
 		</div>
+	</div>
+	
+	<div class="error-box">
+		${error.defaultMessage }
 	</div>
 
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
