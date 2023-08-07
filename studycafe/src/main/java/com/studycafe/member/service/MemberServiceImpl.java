@@ -326,4 +326,28 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
+	public List<MemberSafeDto> searchMember(String username) {
+		// TODO Auto-generated method stub
+		List<MemberEntity> mem = memRe.findByUsernameContainingIgnoreCase(username);
+		return mem.stream().map(memberMapper::memberSafeDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean updateTeamInfo(String members, TeamEntity teamEntity) {
+		String[] mems = members.split(",");
+
+		try {
+			for(String mem: mems) {
+				MemberEntity member = memRe.findByUsername(mem.trim());
+				if(member != null) member.setTeamNumber(teamEntity);
+				memRe.saveAndFlush(member);
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+
 }

@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studycafe.member.auth.PrincipalDetails;
+import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.service.MemberService;
+import com.studycafe.team.entity.TeamEntity;
+import com.studycafe.team.service.TeamService;
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
 import com.studycafe.team.teamboard.dto.TeamBoardPageDTO;
 import com.studycafe.team.teamboard.entity.TeamBoardEntity;
@@ -41,6 +45,12 @@ public class TeamBoardController {
 
 	@Autowired
 	private TeamBoardService teamBoardService;
+	
+	@Autowired
+	private TeamService teamService;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@Autowired
 	private TeamBoardRepository teamBoardRepository;
@@ -70,9 +80,24 @@ public class TeamBoardController {
 
 	// 글등록 페이지
 	@GetMapping("/team/teamregispage")
-	public String teamRegistPage() {
+	public String teamRegistPage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 		log.info("팀 등록 글 작성 페이지");
+		
+		if (principalDetails == null) {
 
+			throw new AccessDeniedException("회원만 팀 신청을 할 수 있습니다.");
+
+		} else {
+			String loginUser = principalDetails.getUsername();
+			MemberEntity mem = memberService.findUsername(loginUser);
+		
+			if (mem.getTeamNumber().getTeamNumber() > 0 ) {
+
+				throw new AccessDeniedException("이미 소속된 팀이 있으므로 팀을 신청할수 없습니다.\n팀에서 탈퇴한 후 다시 신청해주세요.");
+
+			}
+		}
+		
 		return "/team/teamregis";
 	}
 
@@ -92,8 +117,18 @@ public class TeamBoardController {
 
 			return "/team/teamregis";
 		}
-
+		
+		
+		// 팀 보드 생성
 		teamBoardService.teamBoardRegis(teamBoardDTO);
+		
+		// 새로운 팀 생성
+		TeamEntity newTeamEntity = teamService.teamInsert(teamBoardDTO.toTeamEntity());
+		
+		
+		// 유저 팀 업데이트
+		String member = teamBoardDTO.getTeamMember();
+		memberService.updateTeamInfo(member, newTeamEntity);
 
 		return "redirect:/team/teamboards";
 	}
