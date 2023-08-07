@@ -28,6 +28,11 @@
 					<label for="team-title">제목</label>
 					<input type="text" id="team-title" name="csTitle" placeholder="제목 입력">
 				</p>
+				
+				<p>
+					<label></label>
+					<input type="text" id="team-title" name="csTitle" placeholder="제목 입력">
+				</p>
 
 				<p>
 					<label for="team-head">작성자</label>
