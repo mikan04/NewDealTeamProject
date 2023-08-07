@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <sec:authentication property="principal.memberEntity" var="member" />
@@ -31,9 +31,10 @@
 					<label for="team-title">제목</label>
 					<input type="text" id="team-title" name="teamBoardTitle" placeholder="제목 입력">
 				</p>
+
 				<p class="error-box">
 					<label></label>
-					<span style="color: red;">${valid_teamBoardTitle }</span>
+					<span>${valid_teamBoardTitle }</span>
 				</p>
 
 				<p>
@@ -51,9 +52,9 @@
 				</div>
 				<p class="error-box">
 					<label></label>
-					<span style="color: red;">${valid_teamBoardContent }</span>
+					<span>${valid_teamBoardContent }</span>
 				</p>
-				<button class="regis-btn">팀 등록</button>
+				<button class="regis-btn" onclick="validPost()">팀 등록</button>
 			</form>
 		</div>
 	</div>

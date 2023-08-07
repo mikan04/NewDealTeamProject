@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class TeamBoardController {
-	
+
 	@Autowired
 	private ValidationHandler validationHandler;
 
@@ -80,20 +80,19 @@ public class TeamBoardController {
 	@PostMapping("/team/teamregis")
 	public String teamRegist(@Valid TeamBoardDTO teamBoardDTO, BindingResult bindingResult, Model model) {
 
-		if(bindingResult.hasErrors()) {
-			
-			Map<String,String> validationResult = validationHandler.validateHandling(bindingResult);
-			
-			for(String errorKey : validationResult.keySet()) {
-				
+		if (bindingResult.hasErrors()) {
+
+			Map<String, String> validationResult = validationHandler.validateHandling(bindingResult);
+
+			for (String errorKey : validationResult.keySet()) {
+
 				model.addAttribute(errorKey, validationResult.get(errorKey));
-				
+
 			}
-			
-			
+
 			return "/team/teamregis";
 		}
-		
+
 		teamBoardService.teamBoardRegis(teamBoardDTO);
 
 		return "redirect:/team/teamboards";
@@ -120,11 +119,11 @@ public class TeamBoardController {
 		TeamBoardEntity getWriter = teamBoardRepository.findById(idx).get();
 
 		if (principalDetails == null) {
-			
+
 			throw new AccessDeniedException("남의 게시글을 함부러 수정하려고 하시면 안돼요!!");
-			
+
 		} else {
-			
+
 			String teamBoardWriter = getWriter.getTeamBoardWriter();
 
 			String loginedUserNickName = principalDetails.getNickName();
@@ -156,15 +155,15 @@ public class TeamBoardController {
 	@ResponseBody
 	@DeleteMapping("/team/removepost")
 	public boolean deleteTeamBoard(@RequestParam("idx") long idx) {
-		
+
 		try {
 			boolean remove = teamBoardService.deleteTeamBoard(idx);
-			
+
 			return remove;
-			
+
 		} catch (Exception e) {
 			throw new IllegalArgumentException("존재하지 않는 게시물입니다.");
-			
+
 		}
 	}
 }
