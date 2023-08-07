@@ -39,6 +39,16 @@
 					<label for="team-head">작성자(팀장)</label>
 					<input type="text" id="team-head" name="teamBoardWriter" value="${teamPost.teamBoardWriter }" readonly="readonly">
 				</p>
+				<p>
+					<label for="team-head">팀 이름</label>
+					<input type="text" id="team-name" name="teamName" value="${teamPost.teamName}"  readonly="readonly">
+	
+				</p>
+				<p>
+					<label for="team-head">팀원</label>
+					<input type="text" id="team-member" name="teamMember" value="${teamPost.teamMember}" readonly="readonly">
+
+				</p>
 
 				<p>
 					<label for="team-head">작성날짜</label>
