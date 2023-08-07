@@ -274,6 +274,7 @@ function getStudyDateAvailability(lat, long, date){
 			if (httpRequest.readyState === XMLHttpRequest.DONE) {
 			if (this.readyState == 4 && httpRequest.status === 200) {
 				result = JSON.parse(httpRequest.responseText);
+				console.log(result);
 
 				updateTable(result);
 			} else {
@@ -308,6 +309,7 @@ function selectDateHandler(date) {
 function updateTable(times){
 	times.forEach((t)=>{
 		const time = Number(t.getHours());
+		console.log(time);
 		const rows = document.querySelectorAll('#reserve-info-table tr');
 		rows.forEach((row)=>{
 			const data = parseInt(row.dataset.time);

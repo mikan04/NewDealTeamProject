@@ -8,6 +8,7 @@ import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.team.entity.TeamEntity;
 
 @Service
 public interface MemberService {
@@ -27,6 +28,8 @@ public interface MemberService {
 	public int getNewMemberCount();
 
 	public List<MemberSafeDto> getAllMember();
+	
+	public List<MemberSafeDto> searchMember(String username);
 
 	// 아이디 찾기
 	public MemberEntity getUsername(String email);
@@ -58,4 +61,11 @@ public interface MemberService {
 	
 	//카카오 억지가입
 	public void insertKaKao(MemberEntity memberEntity);
+
+	// 나의 팀 관리
+	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber);
+
+	// 회원 팀 정보 수정
+	public boolean updateTeamInfo(String members, TeamEntity teamEntity);
+
 }

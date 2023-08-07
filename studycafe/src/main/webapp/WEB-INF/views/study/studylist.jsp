@@ -78,7 +78,6 @@
 		    </div>
 		</section>
 	</div>
-	
 	<script>
 		$('#search').keydown(function(key) {
 			if (key.keyCode == 13) {
