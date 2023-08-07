@@ -40,6 +40,7 @@ public class QnaEntity {
 	private Timestamp qnaDate;  // 질문 답변 작성일
 
 	private int isDeleted; // 댓글 삭제 여부
+	
 
 	
 	

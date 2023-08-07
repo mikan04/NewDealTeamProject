@@ -38,6 +38,14 @@ public class QnaServiceImpl implements QnaService{
 	
 	}
 
+//	@Override
+//	public Page<QnaEntity> qnaSearchList(String keyword, Pageable pageable, int isDeletedValue) {
+//		// TODO Auto-generated method stub
+//		
+//		Page<QnaEntity> list = qnaRe.qnaSerchList(pageable, keyword, isDeletedValue);
+//		return list;
+//	}
+
 	@Override
 	public QnaEntity selectQna(Long qnaNum) {
 		// TODO Auto-generated method stub
@@ -57,7 +65,9 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public Page<QnaEntity> findByIsDeletedEquals(int isDeletedValue, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return qnaRe.findByIsDeletedEquals(isDeletedValue, pageable);
+		Page<QnaEntity> list = qnaRe.findByIsDeletedEquals(isDeletedValue, pageable); 
+		
+		return list;
 	}
 
 
