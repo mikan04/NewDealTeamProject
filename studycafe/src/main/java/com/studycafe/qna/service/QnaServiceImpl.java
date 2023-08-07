@@ -38,6 +38,14 @@ public class QnaServiceImpl implements QnaService{
 	
 	}
 
+//	@Override
+//	public Page<QnaEntity> qnaSearchList(String keyword, Pageable pageable, int isDeletedValue) {
+//		// TODO Auto-generated method stub
+//		
+//		Page<QnaEntity> list = qnaRe.qnaSerchList(pageable, keyword, isDeletedValue);
+//		return list;
+//	}
+
 	@Override
 	public QnaEntity selectQna(Long qnaNum) {
 		// TODO Auto-generated method stub
@@ -51,6 +59,15 @@ public class QnaServiceImpl implements QnaService{
 		
 		qnaRe.deleteById(qnaNum);
 		
+	}
+
+	//isdeleted가 0인것만 불러오기
+	@Override
+	public Page<QnaEntity> findByIsDeletedEquals(int isDeletedValue, Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<QnaEntity> list = qnaRe.findByIsDeletedEquals(isDeletedValue, pageable); 
+		
+		return list;
 	}
 
 

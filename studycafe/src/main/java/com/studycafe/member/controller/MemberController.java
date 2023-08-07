@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.member.dto.JoinDto;
 import com.studycafe.member.dto.MemberDto;
-import com.studycafe.member.entity.MemberAdaptor;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.entity.Role;
@@ -38,11 +38,15 @@ public class MemberController {
 	@GetMapping("/loginform")
 	public String loginPage() {
 
+		log.info("로그인 페이지 접속");
+
 		return "/member/loginForm";
 	}
 
 	@PostMapping("/loginform")
 	public String login() {
+
+		log.info("로그인 로직 실행");
 
 		return "redirect:/";
 	}
@@ -62,9 +66,7 @@ public class MemberController {
 	public boolean joinPro(@RequestBody JoinDto joinVO, HttpServletRequest request) {
 
 		MemberEntity memberEntity = joinVO.getMemberEntity();
-		
-		log.info("조인메소드 : {}", memberEntity.toString());
-		
+
 		MemberAddressEntity memberAddressEntity = joinVO.getMemberAddressEntity();
 
 		String rawPassword = memberEntity.getPassword();
@@ -197,9 +199,9 @@ public class MemberController {
 	}
 	@ResponseBody
 	@PostMapping("/member/verification")
-	public boolean varificationPassword(@AuthenticationPrincipal MemberAdaptor memberAdaptor, @RequestParam("password") String inputPwd) {
+	public boolean varificationPassword(@AuthenticationPrincipal PrincipalDetails PrincipalDetails, @RequestParam("password") String inputPwd) {
 
-		String dbPwd = memberAdaptor.getMember().getPassword();
+		String dbPwd = PrincipalDetails.getPassword();
 
 		if (encoder.matches(inputPwd, dbPwd)) {
 
@@ -212,14 +214,14 @@ public class MemberController {
 
 	// 검증 성공시 보내기
 	@GetMapping("/member/modifyinfo")
-	public String modifyUser(@AuthenticationPrincipal MemberAdaptor memberAdaptor, Model model) {
+	public String modifyUser(@AuthenticationPrincipal PrincipalDetails PrincipalDetails, Model model) {
 
 		try {
 
-			if (memberAdaptor != null) {
-				String username = memberAdaptor.getMember().getUsername();
+			if (PrincipalDetails != null) {
+				String username = PrincipalDetails.getUsername();
 
-				MemberEntity memberInfo = memberAdaptor.getMember();
+				MemberEntity memberInfo = PrincipalDetails.getMemberEntity();
 
 				MemberAddressEntity address = memberService.getUserAddress(username);
 
@@ -253,13 +255,23 @@ public class MemberController {
 		return "/member/verificationpage-changepwd";
 	}
 
-	// 비밀번호 변경 로직
+	// 비밀번호 변경 로직1
+	@PostMapping("/checkPassword")
+	@ResponseBody
+	public boolean checkPassword(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam("oneraepassword") String oneraepassword) {
+
+		boolean result = memberService.checkPassword(principalDetails.getUsername(), oneraepassword);
+
+		return result;
+	}
+
+	// 비밀번호 변경 로직2
 	@PostMapping("/changePassword")
 	@ResponseBody
-	public boolean changePwd(@AuthenticationPrincipal MemberAdaptor memberAdaptor,
+	public boolean changePwd(@AuthenticationPrincipal PrincipalDetails principalDetails,
 			@RequestParam("password") String password) {
 
-		boolean result = memberService.updatePassword(memberAdaptor.getUsername(), password);
+		boolean result = memberService.changePassword(principalDetails.getUsername(), password);
 
 		return result;
 	}

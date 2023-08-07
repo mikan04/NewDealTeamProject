@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>로그인</title>
 <link rel="stylesheet" href="/css/loginform.css">
 <script src="/js/loginForm.js"></script>
 </head>
@@ -31,7 +31,7 @@
 				</div>
 				<div class="login-join-box">
 					<div class="remember-me">
-						<label for="remember-me"> 계정 정보 저장하기 </label>						
+						<label for="remember-me"> 계정 정보 저장하기 </label>
 						<input type="checkbox" id="remember-me" name="remember-me" />
 					</div>
 
@@ -50,13 +50,14 @@
 					<legend align="left">소셜로그인</legend>
 					<div class="sns-login">
 						<div id="kakao_id_login">
-							<img src="/img/kakao-logo.png" width="30" height="30">
-              <a href="https://kauth.kakao.com/oauth/authorize?client_id=c96d28f0d334c324686022712a4e5ed0&redirect_uri=http://localhost:8080/kakaoLoginCallback&response_type=code">
-								카카오 로그인 </a>
+							<img src="/img/kakao-logo.png" width="30" height="30"> <a href="/oauth2/authorization/kakao"> Kakao Login </a>
 						</div>
 						<div id="git_id_login">
-							<img src="/img/github.png" width="30" height="30"> <a href="https://github.com/login/oauth/authorize?client_id=Iv1.427e6b094359a979">
-								GitHub 로그인</a>
+							<img src="/img/github.png" width="30" height="30"> <a href="/oauth2/authorization/github"> GitHub Login </a>
+						</div>
+						<div id="google_id_login">
+							<img src="/img/google-logo.png" width="30" height="30"> <a href="/oauth2/authorization/google" class="btn btn-success active"
+								role="button">Google Login</a>
 						</div>
 					</div>
 				</fieldset>

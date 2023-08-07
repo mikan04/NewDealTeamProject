@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.studycafe.member.entity.MemberAdaptor;
+import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
 import com.studycafe.team.teamboard.dto.TeamBoardPageDTO;
 import com.studycafe.team.teamboard.entity.TeamBoardEntity;
@@ -90,13 +90,13 @@ public class TeamBoardController {
 
 	// 글 수정 페이지 진입
 	@GetMapping("/team/modifyview/{idx}")
-	public String modifyTeamBoardPostPage(@PathVariable("idx") long idx, Model model, @AuthenticationPrincipal MemberAdaptor memberAdaptor) {
+	public String modifyTeamBoardPostPage(@PathVariable("idx") long idx, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
 		TeamBoardDTO getPost = teamBoardService.getTeamBoardPost(idx);
 
 		TeamBoardEntity getWriter = teamBoardRepository.findById(idx).get();
 
-		if (memberAdaptor == null) {
+		if (principalDetails == null) {
 			
 			throw new AccessDeniedException("남의 게시글을 함부러 수정하려고 하시면 안돼요!!");
 			
@@ -104,7 +104,7 @@ public class TeamBoardController {
 			
 			String teamBoardWriter = getWriter.getTeamBoardWriter();
 
-			String loginedUserNickName = memberAdaptor.getMember().getNickName();
+			String loginedUserNickName = principalDetails.getNickName();
 
 			if (!teamBoardWriter.equals(loginedUserNickName)) {
 
