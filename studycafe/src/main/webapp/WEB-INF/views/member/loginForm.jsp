@@ -62,11 +62,6 @@
 					</div>
 				</fieldset>
 
-				<!-- end loginForm -->
-				<div class="validate-box">
-					<p id="validate-message"></p>
-				</div>
-
 			</form>
 		</div>
 	</div>
