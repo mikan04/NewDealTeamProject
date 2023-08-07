@@ -102,7 +102,7 @@
 				<ul class="links member-ul">
 					<li>
 						<sec:authorize access="isAuthenticated()">
-							<a href="#" class="desktop-link"> 안녕하세요 <span style="color: yellow;">${member.nickName}</span>님
+							<a href="#" class="desktop-link"> 안녕하세요 <span style="color: yellow;">${member.name}</span>님
 							</a>
 							<input type="checkbox" id="show-memberInfo">
 							<label for="show-memberInfo">${member.nickName}</label>

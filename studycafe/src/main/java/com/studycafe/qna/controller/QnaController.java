@@ -33,7 +33,7 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
-	@RequestMapping("/qna")
+	@GetMapping("/qna")
 	public String qnaList() {
 		return "/qna/qnaList";
 	}
@@ -47,16 +47,13 @@ public class QnaController {
 		Page<QnaEntity> list = null;
 
 		if (keyword == null) {
-			list = qnaService.qnaSearchList(keyword, pageable);
+			list = qnaService.qnaList(pageable);
 			System.out.println("누가실행됩니까.............."+list);
 			
 		} else {
-//			list = qnaService.qnaSearchList(keyword, pageable, 0);
-			
-			list = qnaService.findByIsDeletedEquals(0, pageable);
-			System.out.println("어떻게나오나.............."+list);
+			list = qnaService.qnaSearchList(keyword, pageable);
+
 		}
-		
 	
 		int nowPage = list.getPageable().getPageNumber() + 1;
 		int startPage = Math.max(nowPage -4, 1);
@@ -67,15 +64,7 @@ public class QnaController {
 	
 	//qna등록폼
 	@GetMapping("/qnaRegister")
-	public String qnaRegister(@AuthenticationPrincipal PrincipalDetails PrincipalDetails, Model model) {
-		
-		
-		MemberEntity memberInfo = PrincipalDetails.getMemberEntity();
-		
-		System.out.println("뭐나오냥.............."+memberInfo);
-		
-		model.addAttribute("qnaEntity", memberInfo);
-		
+	public String qnaRegister() {
 		return "/qna/qnaRegister";
 	}
 	
