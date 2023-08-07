@@ -8,13 +8,13 @@
 
 <!-- 로그인 한 회원 정보 사용 -->
 <sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal.member" var="member" />
+	<sec:authentication property="principal.memberEntity" var="member" />
 </sec:authorize>
 
 
 <%-- <fmt:parseDate var="date" value="${qnaEntity.qnaDate}" pattern="yyyy-MM-dd'T'HH:mm"/> --%>
-<fmt:formatDate  var="dateTime" value="${qnaEntity.qnaDate}" type="DATE" pattern="yyyy-MM-dd HH:mm"/>
-
+<fmt:formatDate  var="dateTime" value="${qnaEntity.qnaDate}" pattern="yyyy-MM-dd HH:mm"/>
+<%-- <fmt:formatDate  var="dateTime" value="${date}" type="DATE" pattern="yyyy-MM-dd HH:mm"/> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +43,7 @@
 					<input type="text" id="studyWriter" name="qnaWriter" value="${qnaEntity.qnaWriter}" readonly="readonly"></p>
 				<p>
 					<label for="dateTime">작성날짜</label>
-					<input type="text" id="dateTime" name="dateTime" value="${qnaEntity.qnaDate}" readonly="readonly" pattern="yyyy-MM-dd HH:mm" ></p>
+					<input type="text" id="dateTime" name="dateTime" value="${dateTime}" readonly="readonly" pattern="yyyy-MM-dd HH:mm" ></p>
 				<div>
 					<label for="qnaContent">내용</label>
 					<textarea id="qnaContent" name="qnaContent" readonly="readonly">${qnaEntity.qnaContent}</textarea></div>
@@ -66,6 +66,10 @@
 						<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete()">삭제</button>
 					</c:when>
 				</c:choose>
+				
+			
+					
+				
 				
 			</form>
 			
