@@ -3,6 +3,9 @@ package com.studycafe.team.teamboard.dto;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.domain.Page;
 
 import com.studycafe.team.teamboard.entity.TeamBoardEntity;
@@ -17,7 +20,12 @@ public class TeamBoardDTO {
 	// Data Transferation to TeamBoardEntity
 
 	private long teamBoardNum;
+	
+	@NotBlank(message = "제목을 반드시 입력해주세요.")
 	private String teamBoardTitle;
+	
+	@NotBlank
+	@Size(min = 12, max = 1200 , message = "12자 이상 1200자 이하의 내용만 가능합니다.")
 	private String teamBoardContent;
 	private String teamBoardWriter;
 	private Timestamp createDate;
