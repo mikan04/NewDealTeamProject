@@ -81,6 +81,12 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepository.existsByTeamName(name);
 	}
 
+	@Override
+	public TeamEntity getMyTeam(long teamNumber) {
+		TeamEntity team = teamRepository.findByTeamNumber(teamNumber);
+		return team;
+	}
+
 
 
 }
