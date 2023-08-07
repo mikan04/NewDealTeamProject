@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studycafe.member.auth.PrincipalDetails;
+import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.service.MemberService;
+import com.studycafe.team.entity.TeamEntity;
+import com.studycafe.team.service.TeamService;
 import com.studycafe.team.teamboard.dto.TeamBoardDTO;
 import com.studycafe.team.teamboard.dto.TeamBoardPageDTO;
 import com.studycafe.team.teamboard.entity.TeamBoardEntity;
@@ -35,12 +39,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class TeamBoardController {
-	
+
 	@Autowired
 	private ValidationHandler validationHandler;
 
 	@Autowired
 	private TeamBoardService teamBoardService;
+	
+	@Autowired
+	private TeamService teamService;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@Autowired
 	private TeamBoardRepository teamBoardRepository;
@@ -70,9 +80,24 @@ public class TeamBoardController {
 
 	// 글등록 페이지
 	@GetMapping("/team/teamregispage")
-	public String teamRegistPage() {
+	public String teamRegistPage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 		log.info("팀 등록 글 작성 페이지");
+		
+		if (principalDetails == null) {
 
+			throw new AccessDeniedException("회원만 팀 신청을 할 수 있습니다.");
+
+		} else {
+			String loginUser = principalDetails.getUsername();
+			MemberEntity mem = memberService.findUsername(loginUser);
+		
+			if (mem.getTeamNumber().getTeamNumber() > 0 ) {
+
+				throw new AccessDeniedException("이미 소속된 팀이 있으므로 팀을 신청할수 없습니다.\n팀에서 탈퇴한 후 다시 신청해주세요.");
+
+			}
+		}
+		
 		return "/team/teamregis";
 	}
 
@@ -80,21 +105,30 @@ public class TeamBoardController {
 	@PostMapping("/team/teamregis")
 	public String teamRegist(@Valid TeamBoardDTO teamBoardDTO, BindingResult bindingResult, Model model) {
 
-		if(bindingResult.hasErrors()) {
-			
-			Map<String,String> validationResult = validationHandler.validateHandling(bindingResult);
-			
-			for(String errorKey : validationResult.keySet()) {
-				
+		if (bindingResult.hasErrors()) {
+
+			Map<String, String> validationResult = validationHandler.validateHandling(bindingResult);
+
+			for (String errorKey : validationResult.keySet()) {
+
 				model.addAttribute(errorKey, validationResult.get(errorKey));
-				
+
 			}
-			
-			
+
 			return "/team/teamregis";
 		}
 		
+		
+		// 팀 보드 생성
 		teamBoardService.teamBoardRegis(teamBoardDTO);
+		
+		// 새로운 팀 생성
+		TeamEntity newTeamEntity = teamService.teamInsert(teamBoardDTO.toTeamEntity());
+		
+		
+		// 유저 팀 업데이트
+		String member = teamBoardDTO.getTeamMember();
+		memberService.updateTeamInfo(member, newTeamEntity);
 
 		return "redirect:/team/teamboards";
 	}
@@ -120,11 +154,11 @@ public class TeamBoardController {
 		TeamBoardEntity getWriter = teamBoardRepository.findById(idx).get();
 
 		if (principalDetails == null) {
-			
+
 			throw new AccessDeniedException("남의 게시글을 함부러 수정하려고 하시면 안돼요!!");
-			
+
 		} else {
-			
+
 			String teamBoardWriter = getWriter.getTeamBoardWriter();
 
 			String loginedUserNickName = principalDetails.getNickName();
@@ -156,15 +190,15 @@ public class TeamBoardController {
 	@ResponseBody
 	@DeleteMapping("/team/removepost")
 	public boolean deleteTeamBoard(@RequestParam("idx") long idx) {
-		
+
 		try {
 			boolean remove = teamBoardService.deleteTeamBoard(idx);
-			
+
 			return remove;
-			
+
 		} catch (Exception e) {
 			throw new IllegalArgumentException("존재하지 않는 게시물입니다.");
-			
+
 		}
 	}
 }
