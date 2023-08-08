@@ -15,6 +15,6 @@ public interface TeamService {
     public boolean findTeamByName(String name);
     public List<TopTeamDto> getTopTeamByPoint();
     public List<TopTeamDto> getTopTeamByApproveCount();    
-    public List<TeamMonthCountDto> getNewTeamByMonth();
+    public List<TeamMonthCountDto> getTeamByMonth();
     public TeamEntity getMyTeam(long teamNumber);
 }

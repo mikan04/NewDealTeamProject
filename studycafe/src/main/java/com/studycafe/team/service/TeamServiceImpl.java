@@ -45,9 +45,9 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public List<TeamMonthCountDto> getNewTeamByMonth() {
+	public List<TeamMonthCountDto> getTeamByMonth() {
 		// TODO Auto-generated method stub
-		return teamRepository.findApproveTeamByMonth();
+		return teamRepository.findTeamByMonth();
 	}
 
 	@Override
