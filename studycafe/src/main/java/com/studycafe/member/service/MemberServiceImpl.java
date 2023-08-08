@@ -16,6 +16,7 @@ import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberAddressRepository;
 import com.studycafe.member.repository.MemberRepository;
+import com.studycafe.team.entity.TeamEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -214,8 +215,8 @@ public class MemberServiceImpl implements MemberService {
 		String username = memberDto.getUsername();
 
 		MemberEntity memberInfo = memRe.findByUsername(username);
-		
-		if(memberInfo == null) {
+
+		if (memberInfo == null) {
 			throw new IllegalArgumentException("회원의 정보가 일치하지 않습니다.");
 		}
 
@@ -316,6 +317,49 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber) {
+
+		List<MemberEntity> member = memRe.findByTeamNumber(teamNumber);
+		return member;
+	}
+
+	public List<MemberSafeDto> searchMember(String username) {
+		// TODO Auto-generated method stub
+		List<MemberEntity> mem = memRe.findByUsernameContainingIgnoreCase(username);
+		return mem.stream().map(memberMapper::memberSafeDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean updateTeamInfo(String members, TeamEntity teamEntity) {
+		String[] mems = members.split(",");
+
+		try {
+			for (String mem : mems) {
+				MemberEntity member = memRe.findByUsername(mem.trim());
+				if (member != null)
+					member.setTeamNumber(teamEntity);
+				memRe.saveAndFlush(member);
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+	@Override
+	public MemberEntity getOutTeam(String username, long teamNumber) {
+		MemberEntity member = memRe.findByUsernameAndTeamNumberTeamNumber(username, teamNumber);
+		return member;
+	}
+
+	@Override
+	public void getOutTeamSave(MemberEntity memberEntity) {
+		memRe.save(memberEntity);
 	}
 
 }

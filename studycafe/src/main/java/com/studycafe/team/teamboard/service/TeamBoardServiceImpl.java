@@ -65,6 +65,8 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 				.teamBoardNum(teamBoardEntity.getTeamBoardNum())
 				.teamBoardTitle(teamBoardEntity.getTeamBoardTitle())
 				.teamBoardContent(teamBoardEntity.getTeamBoardContent())
+				.teamName(teamBoardEntity.getTeamName())
+				.teamMember(teamBoardEntity.getTeamMember())
 				.teamBoardWriter(teamBoardEntity.getTeamBoardWriter())
 				.createDate(teamBoardEntity.getCreateDate())
 				.build();

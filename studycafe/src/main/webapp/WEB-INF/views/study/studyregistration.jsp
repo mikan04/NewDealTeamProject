@@ -233,10 +233,10 @@
                       <div class="accordion-study-time enabled" data-time="11">
                         11:00 ~ 14:00
                       </div>
-                      <div class="accordion-study-time disabled" data-time="14">
+                      <div class="accordion-study-time enabled" data-time="14">
                         14:00 ~ 17:00
                       </div>
-                      <div class="accordion-study-time disabled" data-time="17">
+                      <div class="accordion-study-time enabled" data-time="17">
                         17:00 ~ 20:00
                       </div>
                       <div class="accordion-study-time enabled" data-time="20">
