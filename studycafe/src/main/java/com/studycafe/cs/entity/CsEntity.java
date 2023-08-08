@@ -46,7 +46,7 @@ public class CsEntity implements Serializable{
 	private String csContent;
 
 	@NotNull
-	@Column(length = 20)
+	@Column(length = 100)
 	private String csWriter;
 	
 	@NotNull

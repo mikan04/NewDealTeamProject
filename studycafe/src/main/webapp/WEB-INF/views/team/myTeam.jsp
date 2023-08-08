@@ -56,6 +56,20 @@
 				</div>
 
 			</c:forEach>
+			<div class="team-info">
+				<div>
+					<label>
+						<b>현재 포인트</b>
+					</label>
+					<span>${team.point } 점</span>
+				</div>
+				<div>
+					<label>
+						<b>인증 횟수</b>
+					</label>
+					<span>${team.approveCount } 회</span>
+				</div>
+			</div>
 		</div>
 	</div>
 	<input id="teamHead" type="hidden" value="${team.teamHead }">

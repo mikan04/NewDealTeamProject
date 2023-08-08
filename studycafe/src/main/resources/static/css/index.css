@@ -53,6 +53,10 @@ tr>th {
 	margin-bottom: 20px;
 }
 
+#ranking-chart{
+	width : 500px;
+}
+
 .main-ranking>ul {
 	list-style-type: decimal;
 	list-style-position: inside;
