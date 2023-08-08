@@ -1,23 +1,19 @@
-$(document).ready(function() {
-	studyReplyList();
-});
-/** 
- * 게시글 삭제 Ajax
- * */
-function studyDelete() {
+
+function qnaDelete() {
 
 	var jsonData = {
 		id: $('#qnaNum').val()
 	};
 
 	$.ajax({
-		url: "/qnaDelete"
+		url: "/qnadelete"
 		, contentType: "application/json; charset=utf-8"
 		, type: 'POST'
+		, dataType: 'json'
 		, data: JSON.stringify(jsonData)
 		, success: function(data) {
 			if (data.status === 'ok') {
-				alert(jsonData.id + "번 게시글을 삭제했습니다.");
+				alert("게시글을 삭제했습니다.");
 				location.href = "/qna";
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
@@ -36,7 +32,7 @@ function studyDelete() {
 var comment_counts = {}; // 대댓글 클릭 카운트
 var modify_counts = {}; // 댓글 수정 클릭 카운트
 
-function studyReplyInsert(index, ref) {
+function qnaReplyInsert(index, ref) {
 	var jsonData = {};
 
 	if (ref != null) { // 대댓글
@@ -44,26 +40,24 @@ function studyReplyInsert(index, ref) {
 			qnaEntity: {
 				qnaNum: $('#qnaNum').val()
 			},
-			qnaReWriter: $('#nickName').val(),
-			qnaReContent: $('#re_comment_' + index).val(),
-			qnaReDepth: 1,
-			qnaReRef: ref
+			qnaReplyWriter: $('#nickName').val(),
+			qnaReplyContent: $('#re_comment_' + index).val(),
+			qnaReplyDepth: 1,
+			qnaReplyRef: ref
 		};
-
-		alert("대댓글" + JSON.stringify(jsonData));
 	} else { // 일반 댓글
 		jsonData = {
 			qnaEntity: {
 				qnaNum: $('#qnaNum').val()
 			},
-			qnaReWriter: $('#nickName').val(),
-			qnaReContent: $('#comment').val(),
-			qnaReDepth: 0
+			qnaReplyWriter: $('#nickName').val(),
+			qnaReplyContent: $('#comment').val(),
+			qnaReplyDepth: 0
 		};
 	}
 
 	$.ajax({
-		url: "/qnaReInsert"
+		url: "/qnaReplyInsert"
 		, contentType: "application/json; charset=utf-8"
 		, type: "POST"
 		, data: JSON.stringify(jsonData)
@@ -72,7 +66,7 @@ function studyReplyInsert(index, ref) {
 				modify_counts[index]++;
 				comment_counts[index]++;
 				$('#comment').val('');
-				studyReplyList();
+				qnaReplyList();
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
 			}
@@ -83,22 +77,21 @@ function studyReplyInsert(index, ref) {
 	});
 }
 
-function studyReplyDelete(id) {
+function qnaReplyDelete(id) {
 
 	var jsonData = {
-		qnaReNum: id
+		qnaReplyNum: id
 	};
 
-	alert("댓글댓글" + JSON.stringify(jsonData));
-
 	$.ajax({
-		url: "/qnaReDelete"
+		url: "/qnaReplyDelete"
 		, contentType: "application/json; charset=utf-8"
 		, type: "POST"
 		, data: JSON.stringify(jsonData)
 		, success: function(data) {
 			if (data.status === "ok") {
-				studyReplyList();
+				alert("댓을을 삭제했습니다.");
+				qnaReplyList();
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
 			}
@@ -109,23 +102,20 @@ function studyReplyDelete(id) {
 	});
 }
 
-function studyModify(index) {
+function qnaModify(index) {
 	var jsonData = {
 		qnaEntity: {
 			qnaNum: $('#qnaNum').val()
 		},
-		qnaReNum: $('#replyNum_' + index).val(),
-		qnaReContent: $('#modify_comment_' + index).val(),
-		qnaReWriter: $('#studyReplyWriter_' + index).val(),
-		qnaReRef: $('#studyReplyRef_' + index).val(),
-		qnaReDepth: $('#studyReplyDepth_' + index).val()
+		qnaReplyNum: $('#replyNum_' + index).val(),
+		qnaReplyContent: $('#modify_comment_' + index).val(),
+		qnaReplyWriter: $('#qnaReplyWriter_' + index).val(),
+		qnaReplyRef: $('#qnaReplyRef_' + index).val(),
+		qnaReplyDepth: $('#qnaReplyDepth_' + index).val()
 	};
 
-	alert("댓글댓글" + JSON.stringify(jsonData));
-
-
 	$.ajax({
-		url: "/qnaReModify"
+		url: "/qnaReplyModify"
 		, contentType: "application/json; charset=utf-8"
 		, type: "POST"
 		, data: JSON.stringify(jsonData)
@@ -133,7 +123,7 @@ function studyModify(index) {
 			if (data.status === "ok") {
 				modify_counts[index]++;
 				comment_counts[index]++;
-				studyReplyList();
+				qnaReplyList();
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
 			}
@@ -144,22 +134,15 @@ function studyModify(index) {
 	});
 }
 
-
-//댓글 리스트
-function studyReplyList() {
+function qnaReplyList() {
 	var jsonData = {
 		qnaEntity: {
 			qnaNum: $('#qnaNum').val()
 		}
 	};
 
-	//alert(JSON.stringify(jsonData));
-	//alert(jsonData.qnaEntity.qnaNum); // qnaNum 값만 확인
-	//alert(jsonData.qnaEntity); // qnaEntity 객체 확인
-	//alert(jsonData); // 전체 jsonData 확인
-
 	$.ajax({
-		url: "/qnaReList"
+		url: "/qnaReplyList"
 		, contentType: "application/json; charset=utf-8"
 		, type: "POST"
 		, data: JSON.stringify(jsonData)
@@ -171,16 +154,16 @@ function studyReplyList() {
 			// 댓글이 있을 경우
 			if (data.length) {
 				$.each(data, function(index, post) {
-					var day = new Date(post.qnaReDate);
+					var day = new Date(post.qnaReplyDate);
 
-					if (post.qnaEntity.qnaWriter === post.qnaReWriter) {
+					if (post.qnaEntity.qnaWriter === post.qnaReplyWriter) {
 						img = "/img/user_writer.png"; // 글쓴이 이미지
 					} else {
 						img = "/img/user.png"; // 일반 이미지
 					}
 
 					// 댓글 깊이 (대댓글 일 경우)
-					if (post.qnaReDepth === 1) {
+					if (post.qnaReplyDepth === 1) {
 						imgClass = "thumb_re" // 이미지 클래스
 						contentClass = "reply-content reply-re_content"; // 댓글 클래스
 					} else {
@@ -195,21 +178,21 @@ function studyReplyList() {
 						'</div>' +
 						'<div class="' + contentClass + '">' +
 						'<ul class="info">' +
-						'<li class="nickname" id="nickname_' + index + '">' + post.qnaReWriter + '</li>' +
+						'<li class="nickname" id="nickname_' + index + '">' + post.qnaReplyWriter + '</li>' +
 						'<li class="date">&nbsp;&nbsp;' + dateFormat(day) + '</li>' +
 						'</ul>' +
-						'<p class="text" id="reply_content_' + index + '">' + post.qnaReContent + '</p>' +
+						'<p class="text" id="reply_content_' + index + '">' + post.qnaReplyContent + '</p>' +
 						'<ul class="control">'
 					if ($('#nickName').val() != null)
-						htmls += !!post.qnaReDepth ? '' : '<li><a href="#" onclick="re_comment_open(' + index + ', ' + post.qnaReRef + '); return false;" class="link_reply"><i class="fa fa-comment"></i>답변달기</a>';
-					if ($('#nickName').val() === post.qnaReWriter)
-						htmls += '<li><a href="#" onclick="comment_modify_open(' + index + ', ' + post.qnaReRef + '); return false;" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>' +
-							'<li><a href="#" onclick="studyReplyDelete(' + post.qnaReNum + '); return false;" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>'
+						htmls += !!post.qnaReplyDepth ? '' : '<li><a href="#" onclick="re_comment_open(' + index + ', ' + post.qnaReplyRef + '); return false;" class="link_reply"><i class="fa fa-comment"></i>답변달기</a>';
+					if ($('#nickName').val() === post.qnaReplyWriter)
+						htmls += '<li><a href="#" onclick="comment_modify_open(' + index + ', ' + post.qnaReplyRef + '); return false;" class="link_reply"><i class="fa-solid fa-pencil"></i>수정</a>' +
+							'<li><a href="#" onclick="qnaReplyDelete(' + post.qnaReplyNum + '); return false;" class="link_reply"><i class="fa-solid fa-trash-can"></i>삭제</a>'
 					htmls += '</ul>' +
-						'<input type="hidden" id="replyNum_' + index + '" value="' + post.qnaReNum + '">' +
-						'<input type="hidden" id="studyReplyWriter_' + index + '" value="' + post.qnaReWriter + '">' +
-						'<input type="hidden" id="studyReplyRef_' + index + '" value="' + post.qnaReRef + '">' +
-						'<input type="hidden" id="studyReplyDepth_' + index + '" value="' + post.qnaReDepth + '">' +
+						'<input type="hidden" id="replyNum_' + index + '" value="' + post.qnaReplyNum + '">' +
+						'<input type="hidden" id="qnaReplyWriter_' + index + '" value="' + post.qnaReplyWriter + '">' +
+						'<input type="hidden" id="qnaReplyRef_' + index + '" value="' + post.qnaReplyRef + '">' +
+						'<input type="hidden" id="qnaReplyDepth_' + index + '" value="' + post.qnaReplyDepth + '">' +
 						'<div id="re_comment_open_' + index + '"></div>' +
 						'<div id="comment_modify_open_' + index + '"></div>' +
 						'</div>' +
@@ -241,7 +224,7 @@ function re_comment_open(index, ref) {
 
 		comment.append(
 			'<textarea class="comment" id="re_comment_' + index + '" rows="5" placeholder="코멘트 달기"></textarea>' +
-			'<button class="btn btn-dark" id="re_commentBtn_' + index + '" type="button" onclick="studyReplyInsert(' + index + ', ' + ref + ');">작성</button>'
+			'<button class="btn btn-dark" id="re_commentBtn_' + index + '" type="button" onclick="qnaReplyInsert(' + index + ', ' + ref + ');">작성</button>'
 		);
 	} else {
 		comment.empty();
@@ -267,7 +250,7 @@ function comment_modify_open(index, ref) {
 
 		modify.append(
 			'<textarea class="comment" id="modify_comment_' + index + '" rows="5" placeholder="' + $("#reply_content_" + index).text() + '"></textarea>' +
-			'<button class="btn btn-dark" id="modify_commentBtn_' + index + '" type="button" onclick="studyModify(' + index + ')">수정</button>'
+			'<button class="btn btn-dark" id="modify_commentBtn_' + index + '" type="button" onclick="qnaModify(' + index + ')">수정</button>'
 		);
 	} else {
 		modify.empty();
@@ -291,6 +274,7 @@ function dateFormat(date) {
 
 	return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
 }
+
 
 /** 
  * CK 에디터 

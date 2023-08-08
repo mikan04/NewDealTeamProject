@@ -21,29 +21,29 @@ public class QnaReEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long qnaReNum;
+	private long qnaReplyNum;
 	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "qnaNum")
 	private QnaEntity qnaEntity;
 	
-	@Column(length = 20)
+	@Column(length = 100)
 	@NotNull
-	private String QnaReWriter;
+	private String QnaReplyWriter;
 	
 	@Column(columnDefinition = "TEXT")
 	@NotNull
-	private String qnaReContent;
+	private String qnaReplyContent;
 	
 	@Column(length = 10)
 	private String isDeleted;
 	
-	private long qnaReRef;
+	private long qnaReplyRef;
 	
 	@CreationTimestamp
-	private Timestamp qnaReDate;
+	private Timestamp qnaReplyDate;
 	
-	private int qnaReDepth;
+	private int qnaReplyDepth;
 
 }
