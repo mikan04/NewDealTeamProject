@@ -16,7 +16,6 @@ public class QnaReServiceImpl implements QnaReService {
 
 	@Override
 	public void qnaReInsert(QnaReEntity qnaReEntity) {
-		// TODO Auto-generated method stub
 		
 		qnaReRe.save(qnaReEntity);
 		
