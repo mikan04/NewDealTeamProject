@@ -1,3 +1,9 @@
+/*********************************************************
+ * 
+ *  상수
+ * 
+ *********************************************************/
+
 const MONTHS = [
   "January",
   "February",
@@ -13,15 +19,33 @@ const MONTHS = [
   "December",
 ];
 
-const CHART_COLORS = {
-  red: "rgb(255, 99, 132)",
-  orange: "rgb(255, 159, 64)",
-  yellow: "rgb(255, 205, 86)",
-  green: "rgb(75, 192, 192)",
-  blue: "rgb(54, 162, 235)",
-  purple: "rgb(153, 102, 255)",
-  grey: "rgb(201, 203, 207)",
-};
+const BACKGROUND_COLORS = [
+    "yellow",
+    "aqua",
+    "pink",
+    "lightgreen",
+    "gold",
+    "lightblue",
+]
+const CHART_BG_COLORS =  [
+  'rgba(255, 99, 132, 0.2)',
+  'rgba(255, 159, 64, 0.2)',
+  'rgba(255, 205, 86, 0.2)',
+  'rgba(75, 192, 192, 0.2)',
+  'rgba(54, 162, 235, 0.2)',
+  'rgba(153, 102, 255, 0.2)',
+  'rgba(201, 203, 207, 0.2)'
+];
+
+const CHART_COLORS =  [
+  'rgb(255, 99, 132)',
+  'rgb(255, 159, 64)',
+  'rgb(255, 205, 86)',
+  'rgb(75, 192, 192)',
+  'rgb(54, 162, 235)',
+  'rgb(153, 102, 255)',
+  'rgb(201, 203, 207)'
+];
 
 const DEFAULT_CHART_OPTIONS = {
   responsive: true,
@@ -41,8 +65,12 @@ const DEFAULT_TABLE_OPTIONS = {
     tooltip: true,
   },
 };
-// 유틸 함수
 
+/*********************************************************
+ * 
+ *  유틸 함수
+ * 
+ *********************************************************/
 // Text를 Html DOM으로 변환
 function htmlToElements(html) {
   var template = document.createElement("template");
@@ -69,7 +97,6 @@ function updateFilter(table) {
 }
 
 // 필터 필드 설정 함수
-
 function setFilterFields(cols) {
   cols.forEach((col) => {
     let option = document.createElement("option");
@@ -79,6 +106,8 @@ function setFilterFields(cols) {
   });
 }
 
+
+// 차트 생성 함수
 function createChart(el, type, data, options) {
   return new Chart(el, {
     type,
@@ -87,6 +116,8 @@ function createChart(el, type, data, options) {
   });
 }
 
+
+// AJAX request 함수
 function createHTTPRequest(url) {
   let httpRequest = new XMLHttpRequest();
   let result;
@@ -114,6 +145,8 @@ function createHTTPRequest(url) {
   return result;
 }
 
+
+// 팀 승인 함수
 function teamApprove(url, teamNum) {
   let httpRequest = new XMLHttpRequest();
 
@@ -154,47 +187,44 @@ function teamApprove(url, teamNum) {
   httpRequest.send(JSON.stringify({ teamNum: teamNum }));
 }
 
+
+
+/*********************************************************
+ * 
+ *  페이지 렌더링 함수
+ * 
+ *********************************************************/
+////////////////// 
+//대쉬보드 차트 설정
+///////////////////
 function renderDashboard() {
-  // 대쉬보드 차트 설정
+  
+  const dashboard_data = JSON.parse(createHTTPRequest("/admin/api/dashboard"));
+  
+  const topTeam = JSON.parse(dashboard_data.topTeamList);
   const chrt1 = document.getElementById("home-donught-1").getContext("2d");
-
-  const dashboard_data = createHTTPRequest("/admin/api/dashboard");
-  console.log(JSON.parse(dashboard_data));
-
   const chrt1_data = {
-    labels: ["팀1", "팀2", "팀3", "팀4", "팀5", "팀6"],
+    labels: topTeam.map(team=> {return team.teamName}),
     datasets: [
       {
-        label: "팀 점수 순위",
-        data: [20, 40, 13, 35, 20, 38],
-        backgroundColor: [
-          "yellow",
-          "aqua",
-          "pink",
-          "lightgreen",
-          "gold",
-          "lightblue",
-        ],
+        label: "팀 점수",
+        data: topTeam.map(team=> {return team.point}),
+        backgroundColor: BACKGROUND_COLORS.slice(0,topTeam.length),
         hoverOffset: 5,
       },
     ],
   };
 
+
+  const topApprove = JSON.parse(dashboard_data.topApproveList);
   const chrt2 = document.getElementById("home-donught-2").getContext("2d");
   const chrt2_data = {
-    labels: ["팀1", "팀2", "팀3", "팀4", "팀5", "팀6"],
+    labels: topApprove.map(team=> {return team.teamName}),
     datasets: [
       {
-        label: "인증 횟수 순위",
-        data: [10, 20, 40, 23, 70, 44],
-        backgroundColor: [
-          "yellow",
-          "aqua",
-          "pink",
-          "lightgreen",
-          "gold",
-          "lightblue",
-        ],
+        label: "인증 횟수",
+        data: topApprove.map(team=> {return team.point}),
+        backgroundColor: BACKGROUND_COLORS.slice(0,topApprove.length),
         hoverOffset: 5,
       },
     ],
@@ -231,11 +261,12 @@ function renderDashboard() {
   createChart(chrt3, "pie", chrt3_data, DEFAULT_CHART_OPTIONS);
   createChart(chrt4, "pie", chrt4_data, DEFAULT_CHART_OPTIONS);
 
-  const line1 = document.getElementById("home-line-1").getContext("2d");
-  const line2 = document.getElementById("home-line-2").getContext("2d");
-
-  const line_options = (text) => {
-    return {
+  //////////////////////////////////////////////////
+  // 차트 라인 생성!!!
+  //////////////////////////////////////////////////
+  const teamByMonth = JSON.parse(dashboard_data.teamByMonth);
+  const line = document.getElementById("home-line-1").getContext("2d");
+  const line_options = {
       responsive: true,
       interaction: {
         mode: "index",
@@ -244,7 +275,7 @@ function renderDashboard() {
       plugins: {
         title: {
           display: true,
-          text: text,
+          text: "팀 등록 현황",
         },
       },
       scales: {
@@ -257,103 +288,107 @@ function renderDashboard() {
           type: "linear",
           display: true,
           position: "right",
-
           grid: {
             drawOnChartArea: false,
           },
         },
       },
-    };
   };
 
-  const line_labels = MONTHS.slice(2, 10);
-  const line1_data = {
-    labels: line_labels,
+
+
+  const labels = teamByMonth.map(team => team.month).filter((value, index, array) => array.indexOf(value) === index);
+  const pending = teamByMonth.filter(team=> team.approve  === "PENDING");
+  const approved = teamByMonth.filter(team=> team.approve  === "APPROVED");
+
+  const line_data = {
+    labels: labels,
     datasets: [
       {
         label: "등록 신청",
-        data: [105, 203, 55, 68, 77, 105, 155],
+        data: labels.map(label=> {
+          return pending.find(p=>p.month === label) ? pending.find(p=>p.month === label).count : 0;
+        }),
         fill: false,
         borderColor: CHART_COLORS.green,
-        // backgroundColor: rgba(75, 192, 192, 0.5),
+        backgroundColor: CHART_COLORS.greenBG,
         yAxisID: "y",
       },
       {
         label: "등록 완료",
-        data: [42, 167, 50, 53, 55, 88, 102],
+        data: labels.map(label=> {
+          return approved.find(p=>p.month === label) ? approved.find(p=>p.month === label).count : 0;
+        }),
         fill: false,
         borderColor: CHART_COLORS.purple,
-        // backgroundColor: rgba(153, 102, 255, 0.5),
+        backgroundColor: CHART_COLORS.purpleBG,
         yAxisID: "y",
       },
     ],
   };
 
-  const line2_data = {
-    labels: line_labels,
+
+  
+  ///////////////////////
+  // 차트 바 생성!!!
+  ///////////////////////
+  const studyByMonth = JSON.parse(dashboard_data.studyByMonth);
+  const bar = document.getElementById("home-bar-1").getContext("2d");
+
+  const bar_option = {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+
+  const bar_data = {
+    labels: studyByMonth.map(study => study.month).filter((value, index, array) => array.indexOf(value) === index),
     datasets: [
       {
-        label: "예약 신청",
-        data: [23, 54, 76, 25, 88, 42, 75],
-        fill: false,
-        borderColor: CHART_COLORS.red,
-        // backgroundColor: rgba(75, 192, 192, 0.5),
-        yAxisID: "y",
-      },
-      {
-        label: "예약 완료",
-        data: [20, 50, 60, 22, 66, 40, 59],
-        fill: false,
-        borderColor: CHART_COLORS.yellow,
-        // backgroundColor: rgba(153, 102, 255, 0.5),
+        label: "월별 스터디",
+        data: studyByMonth.map(study=> study.count),
+        fill: true,
+        borderColor: CHART_COLORS.slice(0,studyByMonth.length),
+        backgroundColor: CHART_BG_COLORS.slice(0,studyByMonth.length),
         yAxisID: "y",
       },
     ],
   };
 
-  createChart(line1, "line", line1_data, line_options("팀 등록 현황"));
-  createChart(line2, "line", line2_data, line_options("예약 현황"));
+  createChart(line, "line", line_data, line_options);
+  createChart(bar, "bar", bar_data, bar_option);
 }
 
 function renderTeam() {
   // 팀 차트 설정
   const team_data = JSON.parse(createHTTPRequest("/admin/api/team"));
-  console.log(team_data);
 
+  const topTeam = JSON.parse(team_data.topTeamList);
   const chrt1 = document.getElementById("team-donught-1").getContext("2d");
   const chrt1_data = {
-    labels: ["팀1", "팀2", "팀3", "팀4", "팀5", "팀6"],
+    labels: topTeam.map(team=> {return team.teamName}),
     datasets: [
       {
-        label: "팀 점수 랭킹",
-        data: [20, 40, 13, 32, 45, 22],
-        backgroundColor: [
-          "yellow",
-          "aqua",
-          "pink",
-          "lightgreen",
-          "gold",
-          "lightblue",
-        ],
+        label: "팀 점수",
+        data: topTeam.map(team=> {return team.point}),
+        backgroundColor: BACKGROUND_COLORS.slice(0,topTeam.length),
         hoverOffset: 5,
       },
     ],
   };
+
+
+  const topApprove = JSON.parse(team_data.topApproveList);
   const chrt2 = document.getElementById("team-donught-2").getContext("2d");
   const chrt2_data = {
-    labels: ["팀1", "팀2", "팀3", "팀4", "팀5", "팀6"],
+    labels: topApprove.map(team=> {return team.teamName}),
     datasets: [
       {
-        label: "인증 횟수 랭킹",
-        data: [25, 44, 15, 23, 70, 32],
-        backgroundColor: [
-          "yellow",
-          "aqua",
-          "pink",
-          "lightgreen",
-          "gold",
-          "lightblue",
-        ],
+        label: "인증 횟수",
+        data: topApprove.map(team=> {return team.point}),
+        backgroundColor: BACKGROUND_COLORS.slice(0,topApprove.length),
         hoverOffset: 5,
       },
     ],
@@ -432,20 +467,6 @@ function renderTeam() {
     columns: table1_cols,
     ...DEFAULT_TABLE_OPTIONS,
   });
-
-  // const table2 = new Tabulator("#team-table-2", {
-  //   index: "id",
-  //   layout: "fitcolumns",
-  //   data: team_data.notApproveTeam,
-  //   columns: [
-  //     { title: "id", field: "teamNumber" },
-  //     { title: "이름", field: "teamName" },
-  //     { title: "헤드", field: "teamHead" },
-  //     { title: "팀인원", field: "memberCount" },
-  //     { title: "신청날짜", field: "createDate" },
-  //   ],
-  //   ...DEFAULT_TABLE_OPTIONS,
-  // });
 
   return table1;
 }

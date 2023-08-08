@@ -32,7 +32,9 @@ public interface StudyRepository extends JpaRepository<StudyEntity, Integer> {
 	@Query(value = "SELECT COUNT(*) FROM study_entity WHERE reserve_date <= NOW() - INTERVAL 1 DAY AND reserve_date >= NOW() - INTERVAL 5 DAY ", nativeQuery = true)
 	int findStudyDone();
 
-	@Query(value = "SELECT MONTHNAME(reserve_date) as month, COUNT(*) as count FROM study_entity WHERE reserve_date <= NOW() AND reserve_time <= NOW() - INTERVAL 4 HOUR GROUP BY MONTH(reserve_date)", nativeQuery = true)
+	@Query(value = "SELECT MONTHNAME(reserve_date) as month, COUNT(*) as count "
+			+ "FROM study_entity WHERE reserve_date >= NOW() "
+			+ "GROUP BY MONTH(reserve_date) ORDER BY reserve_date", nativeQuery = true)
 	List<StudyByMonthDto> findStudyByMonth();
 
 }
