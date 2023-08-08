@@ -11,10 +11,7 @@
 	<sec:authentication property="principal.memberEntity" var="member" />
 </sec:authorize>
 
-
-<%-- <fmt:parseDate var="date" value="${qnaEntity.qnaDate}" pattern="yyyy-MM-dd'T'HH:mm"/> --%>
 <fmt:formatDate  var="dateTime" value="${qnaEntity.qnaDate}" pattern="yyyy-MM-dd HH:mm"/>
-<%-- <fmt:formatDate  var="dateTime" value="${date}" type="DATE" pattern="yyyy-MM-dd HH:mm"/> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +33,11 @@
 			<form class="main-form" method="post" enctype="multipart/form-data">
 			
 				<p>
-					<label for="studyTitle">제목</label>
-					<input type="text" id="studyTitle" name="qnaTitle" value="${qnaEntity.qnaTitle}" readonly="readonly"></p>
+					<label for="qnaTitle">제목</label>
+					<input type="text" id="qnaTitle" name="qnaTitle" value="${qnaEntity.qnaTitle}" readonly="readonly"></p>
 				<p>
-					<label for="studyWriter">작성자</label>
-					<input type="text" id="studyWriter" name="qnaWriter" value="${qnaEntity.qnaWriter}" readonly="readonly"></p>
+					<label for="qnaWriter">작성자</label>
+					<input type="text" id="qnaWriter" name="qnaWriter" value="${qnaEntity.qnaWriter}" readonly="readonly"></p>
 				<p>
 					<label for="dateTime">작성날짜</label>
 					<input type="text" id="dateTime" name="dateTime" value="${dateTime}" readonly="readonly" pattern="yyyy-MM-dd HH:mm" ></p>
@@ -60,7 +57,7 @@
 				<c:choose>
 					<c:when test="${nickName eq writer}">
 						<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/qnaModify/${qnaEntity.qnaNum}'">수정</button>
-						<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete()">삭제</button>
+						<button class="btn btn-dark" id="deleteBtn" type="button" onclick="qnaDelete()">삭제</button>
 					</c:when>
 				</c:choose>
 				
@@ -78,7 +75,7 @@
 						<div>
 							<input type="hidden" id="nickName" value="${member.nickName}">
 							<textarea class="comment" id="comment" rows="5" placeholder="코멘트 달기"></textarea>
-							<button class="btn btn-dark" id="commentBtn" type="button" onclick="studyReplyInsert();">작성</button>
+							<button class="btn btn-dark" id="commentBtn" type="button" onclick="qnaReplyInsert();">작성</button>
 						</div>
 						</c:when>
 					</c:choose>
@@ -90,5 +87,10 @@
  	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=59e92bd7943f48f31ff73b322a4e5603&libraries=services,clusterer,drawing"></script>
 	<script src="/js/qnadetail.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+		<script>
+		$(document).ready(function () {
+			qnaReplyList();
+		});
+	</script>
 </body>
 </html>
