@@ -87,13 +87,13 @@ public class AdminController {
 
 		List<TopTeamDto> topteams = teamService.getTopTeamByPoint();
 		List<TopTeamDto> topApproves = teamService.getTopTeamByApproveCount();
-		List<TeamMonthCountDto> newTeam = teamService.getNewTeamByMonth();
+		List<TeamMonthCountDto> teamByMonth = teamService.getTeamByMonth();
 		List<StudyByMonthDto> studyByMonth = studyService.getStudyByMonth();
 
 		try {
 			collector.put("topTeamList", objectMapper.writeValueAsString(topteams));
 			collector.put("topApproveList", objectMapper.writeValueAsString(topApproves));
-			collector.put("newTeamByMonth", objectMapper.writeValueAsString(newTeam));
+			collector.put("teamByMonth", objectMapper.writeValueAsString(teamByMonth));
 			collector.put("studyByMonth", objectMapper.writeValueAsString(studyByMonth));
 
 		} catch (JsonProcessingException e) {
