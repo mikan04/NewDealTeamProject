@@ -147,8 +147,7 @@ public class QnaController {
 		}
 		return result;
 	}
-	
-	//삭제시도 1
+
 	
 
 }
