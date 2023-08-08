@@ -51,18 +51,14 @@
 				<label>
 					<a href="/qna">Q &amp; A</a>
 				</label>
-				<div>
-					<a href="#">Q &amp; A 1</a>
-				</div>
-				<div>
-					<a href="#">Q &amp; A 1</a>
-				</div>
-				<div>
-					<a href="#">Q &amp; A 1</a>
-				</div>
-				<div>
-					<a href="#">Q &amp; A 1</a>
-				</div>
+				<c:forEach items="${qnaList }" var="qnaList" begin="0" end="4">
+					<div>
+						<a href="/studydetail/${qnaList.qnaNum }">${qnaList.qnaTitle }</a>
+						<span style="float: right;">
+							<font size="2"><fmt:formatDate value="${qnaList.qnaDate }" pattern="yyyy-MM-dd" /></font>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
 
 			<div class="index main-study">

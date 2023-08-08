@@ -51,7 +51,7 @@
 												
 				<input type="hidden" id="qnaNum" value="${qnaEntity.qnaNum}">
 				
-				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/qna/'">목록</button>
+				<button class="btn btn-list btn-dark" id="listBtn" type="button" onclick="location.href='/qna/'">목록</button>
 				
 				
 				<c:set var="nickName" value="${member.nickName}" />
