@@ -48,12 +48,10 @@
               placeholder="제목 입력"
             />
           </p>
-
-				<p>
-					<label for="studyWriter">작성자</label>
-					<input type="text" id="studyWriter" name="studyWriter" value="${member.nickName}" readonly="readonly">
-				</p>
-          
+			<p>
+				<label for="studyWriter">작성자</label>
+				<input type="text" id="studyWriter" name="studyWriter" value="${member.nickName}" readonly="readonly">
+			</p>
           <div>
             <label for="studyContent">내용</label>
             <textarea
