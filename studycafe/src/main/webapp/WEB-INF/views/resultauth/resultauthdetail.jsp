@@ -11,14 +11,13 @@
 	<sec:authentication property="principal.memberEntity" var="member" />
 </sec:authorize>
 
-<fmt:parseDate var="date" value="${studyEntity.dateTime}" pattern="yyyy-MM-dd'T'HH:mm"/>
-<fmt:formatDate  var="dateTime" value="${date}" type="DATE" pattern="yyyy-MM-dd HH:mm"/>
+<fmt:formatDate  var="dateTime" value="${resultAuthEntity.createDate}" type="DATE" pattern="yyyy-MM-dd HH:mm"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${studyEntity.studyTitle}</title>
+<title>${resultAuthEntity.resultAuthTitle}</title>
 <link rel="stylesheet" type="text/css" href="/css/authdetail.css">
 <!-- 폰트어썸 아이콘 https://fontawesome.com/ -->
 <script src="https://kit.fontawesome.com/b780cabc8c.js" crossorigin="anonymous"></script>
@@ -32,38 +31,40 @@
 	<div class="main-wrap">
 		<div class="index-ingredient">
 			<form class="main-form" method="post" enctype="multipart/form-data">
+				<input type="hidden" id="resultAuthNum" name="resultAuthNum" value="${resultAuthEntity.resultAuthNum}">
 				<p>
-					<label for="studyTitle">제목</label>
-					<input type="text" id="studyTitle" name="studyTitle" value="${studyEntity.studyTitle}" readonly="readonly"></p>
+					<label for="resultAuthTitle">제목</label>
+					<input type="text" id="resultAuthTitle" name="resultAuthTitle" value="${resultAuthEntity.resultAuthTitle}" readonly="readonly"></p>
 				<p>
-					<label for="studyWriter">작성자</label>
-					<input type="text" id="studyWriter" name="studyWriter" value="${studyEntity.studyWriter}" readonly="readonly"></p>
+					<label for="resultAuthWriter">작성자</label>
+					<input type="text" id="resultAuthWriter" name="resultAuthWriter" value="${resultAuthEntity.resultAuthWriter}" readonly="readonly"></p>
 				<p>
 					<label for="dateTime">작성날짜</label>
 					<input type="text" id="dateTime" name="dateTime" value="${dateTime}" readonly="readonly"></p>
 				<div>
-					<label for="studyContent">내용</label>
-					<textarea id="studyContent" name="studyContent" readonly="readonly">${studyEntity.studyContent}</textarea></div>
-
-				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/study/''">목록</button>
-
-				<c:set var="nickName" value="${member.nickName}" />
-				<c:set var="writer" value="${studyEntity.studyWriter}" />
-				
-				<c:choose>
-					<c:when test="${nickName eq writer}">
-						<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/studymodify/${studyEntity.studyNum}'">수정</button>
-						<button class="btn btn-dark" id="deleteBtn" type="button" onclick="studyDelete()">삭제</button>
-					</c:when>
-				</c:choose>
+					<label for="resultAuthContent">내용</label>
+					<textarea id="resultAuthContent" name="resultAuthContent" readonly="readonly">${resultAuthEntity.resultAuthContent}</textarea></div>
+				<div class="buttons">
+					<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/auth'">목록</button>
+	
+					<c:set var="nickName" value="${member.nickName}" />
+					<c:set var="writer" value="${resultAuthEntity.resultAuthWriter}" />
+					
+					<c:choose>
+						<c:when test="${nickName eq writer}">
+							<button class="btn btn-dark" id="modifyBtn" type="button" onclick="location.href='/auth/modify/${resultAuthEntity.resultAuthNum}'">수정</button>
+							<button class="btn btn-dark" id="deleteBtn" type="button" onclick="resultAuthDelete()">삭제</button>
+						</c:when>
+					</c:choose>
+				</div>
 			</form>
 			<div class="content-wrap">
 				<p><label>댓글</label></p>
 				<div>
 					<ul class="reply-list" id="reply-list"></ul>
 					<c:choose>
-						<c:when test="${not empty nickName}">
-						<div class="flex items-center">평가</div>
+						<c:when test="${member.role eq 'ROLE_ADMIN' and resultAuthEntity.resultAuthScore eq 0}">
+						<div class="flex items-center">점수</div>
 						<div class="star-rating mx-auto">
 						  <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
 						  <label for="5-stars" class="star">★</label>
@@ -77,23 +78,22 @@
 						  <label for="1-star" class="star">★</label>
 						</div>
 						<div>
-							<input type="hidden" id="nickName" value="${member.nickName}">
 							<textarea class="comment" id="comment" rows="5" placeholder="코멘트 달기"></textarea>
-							<button class="btn btn-dark" id="commentBtn" type="button" onclick="studyReplyInsert();">작성</button>
+							<button class="btn btn-dark" id="commentBtn" type="button" onclick="resultAuthScore();">작성</button>
 						</div>
 						</c:when>
-					</c:choose>
-				</div>
+					</c:choose>				
+</div>
 			</div>
 		</div>
 	</div>
  	
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=59e92bd7943f48f31ff73b322a4e5603&libraries=services,clusterer,drawing"></script>
-	<script src="/js/studydetail.js"></script>
+	<script src="/js/authdetail.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 	<script>
 		$(document).ready(function () {
-			studyReplyList();
+			resultAuthScoreList();
 		});
 	</script>
 </body>

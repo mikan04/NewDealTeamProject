@@ -52,14 +52,12 @@
 						            <col width="60%">
 						            <col width="15%">
 						            <col width="15">
-						            <col width="15">
 	        					</colgroup>
 		                <thead>
 		                <tr>
 		                    <th scope="col" class="th-num">번호</th>
 		                    <th scope="col" class="th-title">제목</th>
 		                    <th scope="col" class="th-write">작성자</th>
-		                    <th scope="col" class="th-state">상태</th>
 		                    <th scope="col" class="th-date">등록일</th>
 		                </tr>
 		                </thead>
@@ -74,7 +72,7 @@
 					
 					<c:choose>
 						<c:when test="${not empty nickName}">
-							<button type="button" id="registerBtn" class="btn btn-dark" onclick="location.href='studyregistration'">글쓰기</button>
+							<button type="button" id="registerBtn" class="btn btn-dark" onclick="location.href='/auth/registration'">글쓰기</button>
 						</c:when>
 					</c:choose>
 		        </div>
@@ -101,7 +99,7 @@
 		    });
 		});
 	</script>
-	<script src="/js/studylist.js"></script>
+	<script src="/js/authlist.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 </body>
 </html>
