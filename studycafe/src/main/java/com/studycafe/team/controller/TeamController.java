@@ -81,5 +81,14 @@ public class TeamController {
 
 		return false;
 	}
+	
+	@PostMapping("/team/rankingchart")
+	@ResponseBody
+	public List<TeamEntity> getRanking() {
+		
+		
+		
+		return null;
+	}
 
 }

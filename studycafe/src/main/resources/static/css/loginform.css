@@ -24,6 +24,15 @@ input {
 	padding: 0;
 }
 
+.logo {
+	background: black;
+	text-align: center;
+	width: 250px;
+	height: 80;
+	display: flex;
+	margin: auto;
+}
+
 #username, #password {
 	margin: 10px 0;
 	border: none;
@@ -81,12 +90,12 @@ input, button, a {
 	font-weight: 600;
 }
 
-#google_id_login{
+#google_id_login {
 	background-color: #e9e9e9;
 }
 
-#google_id_login a{
-	color : black;
+#google_id_login a {
+	color: black;
 	font-weight: 600;
 }
 

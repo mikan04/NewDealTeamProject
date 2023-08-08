@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.studycafe.team.dto.TeamMonthCountDto;
 import com.studycafe.team.dto.TopTeamDto;
@@ -27,5 +26,7 @@ public interface TeamRepository extends JpaRepository<TeamEntity, Long> {
 	public boolean existsByTeamName(String teamName);
 
 	public TeamEntity findByTeamNumber(long TeamNumber);
+	
+	List<TeamEntity> findTop3ByPointOrderByPointDesc(String name);
 
 }
