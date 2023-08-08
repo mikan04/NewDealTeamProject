@@ -67,5 +67,9 @@ public interface MemberService {
 
 	// 회원 팀 정보 수정
 	public boolean updateTeamInfo(String members, TeamEntity teamEntity);
+	
+	public MemberEntity getOutTeam(String username, long teamNumber);
+	
+    public void getOutTeamSave(MemberEntity memberEntity);
 
 }

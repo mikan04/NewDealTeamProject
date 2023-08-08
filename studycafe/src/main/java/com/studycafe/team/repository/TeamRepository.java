@@ -20,12 +20,12 @@ public interface TeamRepository extends JpaRepository<TeamEntity, Long> {
 
 	@Query(value = "SELECT MONTHNAME(create_date) as month, COUNT(*) as count FROM team_entity GROUP BY MONTH(create_date)", nativeQuery = true)
 	List<TeamMonthCountDto> findApproveTeamByMonth();
-	
 
 	@Query(value = "SELECT * FROM team_entity WHERE approve_date IS NULL", nativeQuery = true)
 	List<TeamEntity> findNotApprovedTeam();
-		
+
 	public boolean existsByTeamName(String teamName);
 
+	public TeamEntity findByTeamNumber(long TeamNumber);
 
 }

@@ -321,7 +321,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber) {
-		
+
 		List<MemberEntity> member = memRe.findByTeamNumber(teamNumber);
 		return member;
 	}
@@ -337,9 +337,10 @@ public class MemberServiceImpl implements MemberService {
 		String[] mems = members.split(",");
 
 		try {
-			for(String mem: mems) {
+			for (String mem : mems) {
 				MemberEntity member = memRe.findByUsername(mem.trim());
-				if(member != null) member.setTeamNumber(teamEntity);
+				if (member != null)
+					member.setTeamNumber(teamEntity);
 				memRe.saveAndFlush(member);
 			}
 			return true;
@@ -347,7 +348,18 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 			return false;
 		}
-		
+
+	}
+
+	@Override
+	public MemberEntity getOutTeam(String username, long teamNumber) {
+		MemberEntity member = memRe.findByUsernameAndTeamNumberTeamNumber(username, teamNumber);
+		return member;
+	}
+
+	@Override
+	public void getOutTeamSave(MemberEntity memberEntity) {
+		memRe.save(memberEntity);
 	}
 
 }
