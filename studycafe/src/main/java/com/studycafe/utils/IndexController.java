@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.studycafe.member.auth.PrincipalDetails;
+import com.studycafe.qna.service.QnaService;
 import com.studycafe.study.service.StudyService;
 import com.studycafe.team.teamboard.service.TeamBoardService;
 
@@ -18,6 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class IndexController {
+	
+	@Autowired
+	private QnaService qnaService;
 
 	@Autowired
 	private StudyService studyService;
@@ -41,7 +45,8 @@ public class IndexController {
 			log.info("비회원 접속");
 
 		}
-
+		
+		model.addAttribute("qnaList", qnaService.getQnaBoardListToIndex());
 		model.addAttribute("studyList", studyService.getAllStudyToIndex());
 		model.addAttribute("teamBoardList", teamBoardService.getTeamBoardListToIndex());
 
