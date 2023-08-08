@@ -91,7 +91,7 @@ function resultAuthScoreList() {
 				htmls = '' +
 						'<li>' +
 						'<div class="thumb">' +
-						'<img src="/img/user_writer.png" width="48" height="48" class="">' +
+						'<img src="/img/admin.png" width="48" height="48" class="">' +
 						'</div>' +
 						'<div class="reply-content">' +
 						'<ul class="info">' +
