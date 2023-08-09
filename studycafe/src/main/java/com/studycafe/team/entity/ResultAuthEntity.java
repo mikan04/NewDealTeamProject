@@ -38,9 +38,12 @@ public class ResultAuthEntity {
 	@Column(updatable = false)
 	private Timestamp createDate;
 	
+	private Timestamp commentDate;
+	
 	@Column(length = 500)
 	private String resultAuthFilePath;
+	
+	private String resultAuthComment;
 
 	private int resultAuthScore;
-	private int isDeleted;
 }
