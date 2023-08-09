@@ -58,7 +58,7 @@ public class TeamBoardEntity {
 	@Builder
 	public TeamBoardEntity(long teamBoardNum, @NotNull String teamBoardTitle, @NotNull String teamBoardContent, @NotNull String teamBoardWriter, @NotNull String teamName,
 			@NotNull String teamMember, Timestamp createDate, LocalDateTime modifiedDate) {
-		super();
+		
 		this.teamBoardNum = teamBoardNum;
 		this.teamBoardTitle = teamBoardTitle;
 		this.teamBoardContent = teamBoardContent;

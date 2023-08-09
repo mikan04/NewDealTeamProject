@@ -42,7 +42,8 @@ public class IndexController {
 			log.info("principalDetails.getMember() : {}", principalDetails.getMemberEntity());
 
 		} else {
-			log.info("비회원 접속");
+			
+			log.info("비회원 접속 : {}", principalDetails);
 
 		}
 		
