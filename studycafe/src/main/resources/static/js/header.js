@@ -19,9 +19,7 @@ function alertToSocial(){
 	return false;
 }
 
-function openMyTeam(teamNum) {
-	console.log(username);
-	
+function openTeamManagement(teamNum){
 	window.open("/myteam/" + teamNum,
 		"top=50, left=50", "toolbar=no,menubar=no");
 }

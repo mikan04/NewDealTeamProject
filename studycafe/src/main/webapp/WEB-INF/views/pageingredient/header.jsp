@@ -81,7 +81,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="javascript:openMyTeam(${member.teamNumber.teamNumber})">나의팀관리</a>
+											<a href="javascript:openTeamManagement(${member.teamNumber.teamNumber})">나의팀관리</a>
 										</li><%-- ${contextPath}/myteam/${member.teamNumber.teamNumber} --%>
 										<li>
 											<input type="hidden">

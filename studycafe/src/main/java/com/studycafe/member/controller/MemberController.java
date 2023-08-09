@@ -65,6 +65,9 @@ public class MemberController {
 
 	@GetMapping("/logout")
 	public String logout() {
+		
+		log.info("회원 로그아웃");
+		
 		return "/";
 	}
 

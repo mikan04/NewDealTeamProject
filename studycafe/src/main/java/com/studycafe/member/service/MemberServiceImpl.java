@@ -187,8 +187,11 @@ public class MemberServiceImpl implements MemberService {
 			if (!passwordMatches) {
 
 				memberEntity.setPassword(encoder.encode(password));
+				
 				memRe.save(memberEntity);
+				
 				return true;
+				
 			} else {
 
 				return false;
@@ -328,6 +331,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
 	public List<MemberSafeDto> searchMember(String username) {
 		// TODO Auto-generated method stub
 		List<MemberEntity> mem = memRe.findByUsernameContainingIgnoreCase(username);

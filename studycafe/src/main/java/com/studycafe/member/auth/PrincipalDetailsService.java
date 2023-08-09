@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.repository.MemberRepository;
 
-// 시큐리티 설정에서 login 관련 url 접속시 동작함. 
 @Service
 public class PrincipalDetailsService implements UserDetailsService{
 	

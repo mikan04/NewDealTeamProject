@@ -1,8 +1,6 @@
 package com.studycafe.chatroom.controller;
 
-
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +19,6 @@ import com.studycafe.chatroom.service.ChatRoomServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 /* 채팅방 컨트롤러 */
 
 @Slf4j
@@ -32,7 +29,7 @@ public class ChatRoomController {
 	@Autowired
 	private ChatRoomServiceImpl RoomService;
 
-	List<ChatRoomEntity> roomList = new ArrayList<ChatRoomEntity>();
+	final List<ChatRoomEntity> roomList = new ArrayList<ChatRoomEntity>();
 
 	@GetMapping("/chat")
 	public ModelAndView chat() {
@@ -64,14 +61,14 @@ public class ChatRoomController {
 
 	/* 채팅방 */
 	@GetMapping("/moveChating")
-	public ModelAndView chating(@RequestParam("teamNumber")Long teamNumber) {
+	public ModelAndView chating(@RequestParam("teamNumber") Long teamNumber) {
 		ModelAndView mv = new ModelAndView();
-		log.info("teamNumber : {}",teamNumber);
+		log.info("teamNumber : {}", teamNumber);
 		ChatRoomEntity room = RoomService.findRoom(teamNumber);
-		log.info("룸:{}",room);
-	if (room.getRoomIdx() != null && room.getRoomName() != null && room.getTeamEntity() != null) {
+		log.info("룸:{}", room);
+		if (room.getRoomIdx() != null && room.getRoomName() != null && room.getTeamEntity() != null) {
 			mv.addObject("roomIdx", room.getRoomIdx());
-			mv.addObject("room",room);
+			mv.addObject("room", room);
 			mv.setViewName("chatroom/chat");
 		} else {
 			mv.setViewName("/");

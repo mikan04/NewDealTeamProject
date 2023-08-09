@@ -39,7 +39,7 @@
 
 				<p>
 					<label for="team-head">작성자(팀장)</label>
-					<input type="text" id="team-head" name="teamBoardWriter" value="${member.nickName }" readonly="readonly">
+					<input type="text" id="team-head" name="teamBoardWriter" value="${member.username }" readonly="readonly">
 				</p>
 
 
