@@ -27,6 +27,6 @@ public interface TeamRepository extends JpaRepository<TeamEntity, Long> {
 
 	public TeamEntity findByTeamNumber(long TeamNumber);
 	
-	List<TeamEntity> findTop3ByPointOrderByPointDesc(String name);
+	List<TeamEntity> findTop5ByOrderByPointDesc();
 
 }

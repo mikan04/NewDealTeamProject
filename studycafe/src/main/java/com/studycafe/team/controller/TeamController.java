@@ -86,9 +86,7 @@ public class TeamController {
 	@ResponseBody
 	public List<TeamEntity> getRanking() {
 		
-		
-		
-		return null;
+		return teamService.getRanking();
 	}
 
 }

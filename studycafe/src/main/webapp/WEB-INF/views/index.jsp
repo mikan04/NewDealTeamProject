@@ -16,7 +16,7 @@
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
 	<div class="main-wrap">
 		<div class="main-ranking">
-			<h1>Ranking</h1>
+			<h1>DSSEAD TOP 5</h1>
 			<canvas id="ranking-chart" width="800" height="500"></canvas>
 		</div>
 		
