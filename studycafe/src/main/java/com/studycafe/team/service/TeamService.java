@@ -17,4 +17,5 @@ public interface TeamService {
     public List<TopTeamDto> getTopTeamByApproveCount();    
     public List<TeamMonthCountDto> getTeamByMonth();
     public TeamEntity getMyTeam(long teamNumber);
+	public List<TeamEntity> getRanking();
 }

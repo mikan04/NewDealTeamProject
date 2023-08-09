@@ -18,7 +18,11 @@
 				<div class="left box">
 					<h2>About us</h2>
 					<div class="content">
-						<p>뉴딜 팀 프로젝트 입니다.</p>
+						<p>
+							DSSEAD는 Developers should study even after death의 약자로 <br>
+							"개발자는 죽어서도 공부해야한다" 라는 뜻입니다. <br>
+							개발자를 위한 스터디 모집 및 점수제도를 통한 이로운 경쟁도 가능한 웹 사이트입니다.
+						</p>
 					</div>
 				</div>
 				<div class="center box">
