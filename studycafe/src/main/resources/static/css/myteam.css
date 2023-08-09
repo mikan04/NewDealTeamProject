@@ -44,7 +44,7 @@
 	padding : 10px;
 }
 
-.member-info > div > button{
+.member-info button{
 	padding : 10px;
 	width : 100px;
 	border : none;
@@ -55,7 +55,7 @@
 	color : white;
 }
 
-.member-info > div > button:hover{
+.member-info button:hover{
 	cursor: pointer;
 	background-color: #b20000;
 }

@@ -319,13 +319,14 @@ public class MemberServiceImpl implements MemberService {
 
 		return false;
 	}
-
+	
 	@Override
 	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber) {
 
 		List<MemberEntity> member = memRe.findByTeamNumber(teamNumber);
 		return member;
 	}
+
 
 	public List<MemberSafeDto> searchMember(String username) {
 		// TODO Auto-generated method stub
@@ -342,7 +343,7 @@ public class MemberServiceImpl implements MemberService {
 				MemberEntity member = memRe.findByUsername(mem.trim());
 				if (member != null)
 					member.setTeamNumber(teamEntity);
-				memRe.saveAndFlush(member);
+				memRe.save(member);
 			}
 			return true;
 		} catch (Exception e) {
@@ -353,9 +354,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberEntity getOutTeam(String username, long teamNumber) {
-		MemberEntity member = memRe.findByUsernameAndTeamNumberTeamNumber(username, teamNumber);
-		return member;
+	public boolean getOutTeam(String username, TeamEntity teamNumber) {
+		MemberEntity member = memRe.findByUsernameAndTeamNumber(username, teamNumber);
+		if(member != null) {
+			member.setTeamNumber(null);
+			memRe.save(member);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -369,7 +376,7 @@ public class MemberServiceImpl implements MemberService {
 			MemberEntity member = memRe.findByUsername(username);
 			member.setRole(role);
 			System.out.println(member);
-			memRe.saveAndFlush(member);
+			memRe.save(member);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
