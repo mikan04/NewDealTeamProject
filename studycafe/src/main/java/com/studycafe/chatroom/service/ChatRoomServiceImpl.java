@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.chatroom.entity.ChatRoomEntity;
+import com.studycafe.chatroom.repository.ChatRoomMessageRepository;
 import com.studycafe.chatroom.repository.ChatRoomRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +17,29 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
 	@Autowired
 	private ChatRoomRepository chatRoomRepository;
+	
+	@Autowired
+	private ChatRoomMessageRepository chatRoomMessageRepository;
 
 	/* 채팅방 등록 */
 	@Override
 	public void addChatRoom(ChatRoomEntity chatRoom) {
-
+		
 		chatRoomRepository.save(chatRoom);
+	}
+	
+	// 팀 삭제 전 메세지 삭제
+	@Override
+	public void deleteChatRoomMessage(Long roomId) {
+		
+		chatRoomMessageRepository.deleteByRoomIdx(roomId);
+	}
+	
+	// 팀 삭제
+	@Override
+	public void deleteChatRoom(Long roomId) {
+		
+		chatRoomRepository.deleteById(roomId);
 	}
 
 	/* 채팅방 목록 불러오기 */

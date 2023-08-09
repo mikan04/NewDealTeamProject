@@ -39,19 +39,21 @@
 
 				<p>
 					<label for="team-head">작성자(팀장)</label>
-					<input type="text" id="team-head" name="teamBoardWriter" value="${member.nickName }" readonly="readonly">
+					<input type="text" id="team-head" name="teamBoardWriter" value="${member.username }" readonly="readonly">
 				</p>
-				
+
 
 				<p>
 					<label for="team-head">팀 이름</label>
-					<input type="text" id="team-name" name="teamName"  readonly="readonly">
-					<div>
-						<button type="button" class="team-add-btn" onclick="teamNameAdd();">
-							추가하기
-						</button>
-					</div>
+					<input type="text" id="team-name" name="teamName" readonly="readonly">
+
 				</p>
+
+				<p>
+					<label></label>
+					<button type="button" class="team-add-btn" onclick="teamNameAdd();">이름등록</button>
+				</p>
+
 				<p class="error-box">
 					<label></label>
 					<span>${valid_teamName }</span>
@@ -59,12 +61,12 @@
 				<p>
 					<label for="team-head">팀원</label>
 					<input type="text" id="team-member" name="teamMember" value="${member.username}" readonly="readonly">
-					<div>
-						<button type="button" onclick="teamMemberAdd();" class="team-add-btn">
-							추가하기
-						</button>
-					</div>
 				</p>
+				<p>
+					<label></label>
+					<button type="button" onclick="teamMemberAdd();" class="team-add-btn">팀원추가</button>
+				</p>
+				
 				<p class="error-box">
 					<label></label>
 					<span>${valid_teamMember }</span>
@@ -83,7 +85,7 @@
 					<span>${valid_teamBoardContent }</span>
 				</p>
 				<button type="submit" class="regis-btn">팀 등록</button>
-			</form>	
+			</form>
 		</div>
 	</div>
 

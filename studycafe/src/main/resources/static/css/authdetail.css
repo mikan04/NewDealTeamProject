@@ -54,6 +54,10 @@
 	color: #fff;
 }
 
+.buttons {
+	margin: 0 0 0 70px;
+}
+
 .index-ingredient {
 	display: flex;
 	flex-direction: column;
@@ -273,6 +277,9 @@ p input[readonly=readonly]:focus {
 	text-align: center;
 	margin-right: 10px;
 }
+
+.star {
+	color: gold;}
 
 .star-rating {
   display: flex;

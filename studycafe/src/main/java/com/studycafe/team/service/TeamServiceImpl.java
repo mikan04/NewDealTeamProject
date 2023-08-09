@@ -2,7 +2,6 @@ package com.studycafe.team.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,9 +44,9 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public List<TeamMonthCountDto> getNewTeamByMonth() {
+	public List<TeamMonthCountDto> getTeamByMonth() {
 		// TODO Auto-generated method stub
-		return teamRepository.findApproveTeamByMonth();
+		return teamRepository.findTeamByMonth();
 	}
 
 	@Override
@@ -58,21 +57,20 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public void approveTeam(Long teamId) {
-//		teamRepository.approveTeam(teamId);
+		// teamRepository.approveTeam(teamId);
 		TeamEntity teamEntity = teamRepository.findById(teamId).orElseThrow(IllegalArgumentException::new);
 		teamEntity.setApproveDate(LocalDate.now());
 		teamRepository.saveAndFlush(teamEntity);
-			
-		
+
 	}
 
 	@Override
 	public void disapproveTeam(Long teamId) {
-//		teamRepository.disapproveTeam(teamId);
+		// teamRepository.disapproveTeam(teamId);
 		TeamEntity teamEntity = teamRepository.findById(teamId).orElseThrow(IllegalArgumentException::new);
 		teamEntity.setApproveDate(null);
 		teamRepository.saveAndFlush(teamEntity);
-		
+
 	}
 
 	@Override
@@ -80,6 +78,13 @@ public class TeamServiceImpl implements TeamService {
 		// TODO Auto-generated method stub
 		return teamRepository.existsByTeamName(name);
 	}
+	
+	@Override
+	public TeamEntity findTeamById(Long id) {
+		// TODO Auto-generated method stub
+		return teamRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+	}
+
 
 	@Override
 	public TeamEntity getMyTeam(long teamNumber) {
@@ -87,6 +92,16 @@ public class TeamServiceImpl implements TeamService {
 		return team;
 	}
 
+	@Override
+	public void deleteTeam(long teamNumber) {
+		teamRepository.deleteById(teamNumber);
+		
+	}
 
+	@Override
+	public List<TeamEntity> getRanking() {
+		
+		return teamRepository.findTop5ByOrderByPointDesc();
+	}
 
 }

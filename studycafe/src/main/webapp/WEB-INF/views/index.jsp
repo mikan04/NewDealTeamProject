@@ -9,43 +9,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>최초접속페이지</title>
 <link rel="stylesheet" href="/css/index.css">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/pageingredient/header.jsp"></jsp:include>
 	<div class="main-wrap">
 		<div class="main-ranking">
-			<h1>Ranking</h1>
-			<table>
-				<thead>
-					<tr>
-						<th>순위</th>
-						<th>팀이름</th>
-						<th>인증횟수</th>
-						<th>포인트</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td class="team-name">여기를</td>
-						<td class="auth-count">1</td>
-						<td class="team-point">1</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td class="team-name">디자인</td>
-						<td class="auth-count">2</td>
-						<td class="team-point">2</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td class="team-name">해야합니다</td>
-						<td class="auth-count">3</td>
-						<td class="team-point">3</td>
-					</tr>
-				</tbody>
-			</table>
+			<h1>DSSEAD TOP 5</h1>
+			<canvas id="ranking-chart" width="800" height="500"></canvas>
 		</div>
+		
 		<div class="index-ingredient">
 			<div class="index main-qna">
 				<label>
@@ -69,10 +43,8 @@
 					<div>
 						<a href="/studydetail/${study.studyNum }">${study.studyTitle }</a>
 						<span style="float: right;">
-							<font size="2">
-							<fmt:parseDate var="date" value="${study.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" />
-							<fmt:formatDate var="dateTime" value="${date}" type="DATE" pattern="yyyy-MM-dd" />
-							${dateTime }
+							<font size="2"> <fmt:parseDate var="date" value="${study.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" /> <fmt:formatDate var="dateTime"
+									value="${date}" type="DATE" pattern="yyyy-MM-dd" /> ${dateTime }
 							</font>
 						</span>
 					</div>
@@ -113,6 +85,7 @@
 
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include><script type="text/javascript" src="/js/index.js"></script>
+	<script type="text/javascript" src="/js/index.js"></script>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.studycafe.team.entity;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-
-import com.studycafe.team.teamboard.dto.TeamBoardDTO;
 
 import lombok.Builder;
 import lombok.Data;

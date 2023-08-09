@@ -16,5 +16,12 @@ public interface ChatRoomService {
 	/* 채팅방 이동 */
 	public ChatRoomEntity findRoom(Long teamNumber);
 	
+	// 팀 메세지 삭제
+	void deleteChatRoomMessage(Long roomId);
+	
+	// 팀 폭파
+	public void deleteChatRoom(Long roomId);
+	
+	
 }
 

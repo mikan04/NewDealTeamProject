@@ -51,9 +51,10 @@ select {
 }
 
 .logo {
+	background : black;
 	text-align: center;
 	width: 250px;
-	height: 80;
+	height: 80px;
 	display: flex;
 	margin: auto;
 }

@@ -57,7 +57,7 @@
 								<a href="${contextPath}/team/teamboards">팀신청</a>
 							</li>
 							<li>
-								<a href="#">인증게시판</a>
+								<a href="/auth">인증게시판</a>
 							</li>
 						</ul>
 					</li>
@@ -81,7 +81,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="javascript:openMyTeam(${member.teamNumber.teamNumber})">나의팀관리</a>
+											<a href="javascript:openTeamManagement(${member.teamNumber.teamNumber})">나의팀관리</a>
 										</li><%-- ${contextPath}/myteam/${member.teamNumber.teamNumber} --%>
 										<li>
 											<input type="hidden">
