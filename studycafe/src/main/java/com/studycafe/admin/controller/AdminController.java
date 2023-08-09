@@ -20,10 +20,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.studycafe.member.dto.MemberSafeDto;
+import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.MemberService;
 import com.studycafe.study.dto.StudyByMonthDto;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.service.StudyService;
+import com.studycafe.team.controller.TeamController;
 import com.studycafe.team.dto.TeamMonthCountDto;
 import com.studycafe.team.dto.TopTeamDto;
 import com.studycafe.team.entity.TeamEntity;
@@ -33,6 +35,7 @@ import com.studycafe.team.service.TeamService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class AdminController {
 
 	@Autowired
@@ -87,13 +90,13 @@ public class AdminController {
 
 		List<TopTeamDto> topteams = teamService.getTopTeamByPoint();
 		List<TopTeamDto> topApproves = teamService.getTopTeamByApproveCount();
-		List<TeamMonthCountDto> newTeam = teamService.getNewTeamByMonth();
+		List<TeamMonthCountDto> teamByMonth = teamService.getTeamByMonth();
 		List<StudyByMonthDto> studyByMonth = studyService.getStudyByMonth();
 
 		try {
 			collector.put("topTeamList", objectMapper.writeValueAsString(topteams));
 			collector.put("topApproveList", objectMapper.writeValueAsString(topApproves));
-			collector.put("newTeamByMonth", objectMapper.writeValueAsString(newTeam));
+			collector.put("teamByMonth", objectMapper.writeValueAsString(teamByMonth));
 			collector.put("studyByMonth", objectMapper.writeValueAsString(studyByMonth));
 
 		} catch (JsonProcessingException e) {
@@ -219,5 +222,37 @@ public class AdminController {
 		}
 
 		return collector.toJSONString();
+	}
+	
+	// 멤버 롤 업데이트
+	@PostMapping("/admin/api/member/updateRole")
+	@ResponseBody
+	public boolean updateRole(@RequestBody HashMap<String, Object> map) {
+		boolean result = false;
+		String username = map.get("username").toString();
+		String role = map.get("role").toString();
+		log.info("Role의 값은 :{}", role);
+		switch (role) {
+		case "ROLE_ADMIN":
+			System.out.println("ROLE_ADMIN");
+			result = memberService.updateRole(username, Role.ROLE_ADMIN);
+			break;
+		case "ROLE_MANAGER":
+			System.out.println("ROLE_MANAGER");
+			result = memberService.updateRole(username, Role.ROLE_MANAGER);
+			break;
+		case "ROLE_MENTOR":
+			System.out.println("ROLE_MENTOR");
+			result = memberService.updateRole(username, Role.ROLE_MENTOR);
+			break;
+		case "ROLE_MEMBER":
+			System.out.println("ROLE_MEMBER");
+			result = memberService.updateRole(username, Role.ROLE_MEMBER);
+			break;
+		default:
+			break;
+		}
+		return result;
+		
 	}
 }
