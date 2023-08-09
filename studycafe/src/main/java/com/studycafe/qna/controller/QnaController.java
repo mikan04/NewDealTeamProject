@@ -84,6 +84,8 @@ public class QnaController {
 		
 		model.addAttribute("qnaEntity", qnaEntity);
 		
+		log.info("qnaEntity : {}", qnaEntity);
+		
 		return "/qna/qnaDetail";
 	}
 	
