@@ -14,6 +14,7 @@ import com.studycafe.member.dto.MemberMapper;
 import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.Role;
 import com.studycafe.member.repository.MemberAddressRepository;
 import com.studycafe.member.repository.MemberRepository;
 import com.studycafe.team.entity.TeamEntity;
@@ -360,6 +361,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void getOutTeamSave(MemberEntity memberEntity) {
 		memRe.save(memberEntity);
+	}
+
+	@Override
+	public boolean updateRole(String username, Role role) {
+		try {
+			MemberEntity member = memRe.findByUsername(username);
+			member.setRole(role);
+			System.out.println(member);
+			memRe.saveAndFlush(member);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

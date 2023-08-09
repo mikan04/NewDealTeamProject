@@ -60,7 +60,7 @@
 					<input type="hidden" id="lng" value="${studyEntity.longitude}">
 					<input type="hidden" id="studyNum" value="${studyEntity.studyNum}">
 				</div>
-				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/study/''">목록</button>
+				<button class="btn btn-dark" id="listBtn" type="button" onclick="location.href='/study/'">목록</button>
 
 				<c:set var="nickName" value="${member.nickName}" />
 				<c:set var="writer" value="${studyEntity.studyWriter}" />
