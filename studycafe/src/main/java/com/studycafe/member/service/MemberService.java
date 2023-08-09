@@ -64,12 +64,12 @@ public interface MemberService {
 	public void insertKaKao(MemberEntity memberEntity);
 
 	// 나의 팀 관리
-	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber);
+	public List<MemberEntity> getMyTeamMember(TeamEntity teamEntity);
 
 	// 회원 팀 정보 수정
 	public boolean updateTeamInfo(String members, TeamEntity teamEntity);
 	
-	public MemberEntity getOutTeam(String username, long teamNumber);
+	public boolean getOutTeam(String username, TeamEntity teamNumber);
 	
     public void getOutTeamSave(MemberEntity memberEntity);
     

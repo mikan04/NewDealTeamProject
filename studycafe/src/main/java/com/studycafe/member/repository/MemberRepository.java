@@ -29,6 +29,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 	public MemberEntity findByUsername(String username);
 
 	public MemberEntity findByUsernameAndEmail(String username, String email);
+	
 
 	@Query(value = "SELECT COUNT(1) FROM member_entity WHERE nick_name = :nickName", nativeQuery = true)
 	public int checkNick(String nickName);
@@ -37,6 +38,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 
 	public List<MemberEntity> findByUsernameContainingIgnoreCase(String username);
 
-	public MemberEntity findByUsernameAndTeamNumberTeamNumber(String username, long teamNumber);
+	public MemberEntity findByUsernameAndTeamNumber(String username, TeamEntity teamNumber);
 	
 }

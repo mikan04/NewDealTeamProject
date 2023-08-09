@@ -13,9 +13,12 @@ public interface TeamService {
     public List<TeamEntity> getAllTeam();
     public List<TeamEntity> getNotApprovedTeam();
     public boolean findTeamByName(String name);
+    public TeamEntity findTeamById(Long id);
     public List<TopTeamDto> getTopTeamByPoint();
     public List<TopTeamDto> getTopTeamByApproveCount();    
     public List<TeamMonthCountDto> getTeamByMonth();
     public TeamEntity getMyTeam(long teamNumber);
-	public List<TeamEntity> getRanking();
+    public void deleteTeam(long teamNumber);
+	  public List<TeamEntity> getRanking();
+  
 }

@@ -19,7 +19,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nimbusds.jose.shaded.json.JSONObject;
+import com.studycafe.chatroom.entity.ChatRoomEntity;
+import com.studycafe.chatroom.service.ChatRoomService;
+import com.studycafe.chatroom.service.ChatRoomServiceImpl;
 import com.studycafe.member.dto.MemberSafeDto;
+import com.studycafe.member.entity.MemberEntity;
 import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.MemberService;
 import com.studycafe.study.dto.StudyByMonthDto;
@@ -44,6 +48,8 @@ public class AdminController {
 	private MemberService memberService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private ChatRoomService roomService;
 
 	// 관리자 메인 페이지
 	@GetMapping("/admin/home")
@@ -139,7 +145,20 @@ public class AdminController {
 	public String approveTeam(@RequestBody HashMap<String, Object> map) {
 		try {
 			System.out.println(map.get("teamNum").toString());
-			teamService.approveTeam(Long.parseLong(map.get("teamNum").toString()));
+			Long teamNum = Long.parseLong(map.get("teamNum").toString());
+			String teamName = map.get("teamName").toString();
+			
+			
+			if (teamNum != null && teamName != null && !teamName.trim().equals("")) {
+				teamService.approveTeam(teamNum);
+		
+				ChatRoomEntity room = new ChatRoomEntity();
+				room.setRoomName(teamName+"룸");
+				room.setTeamEntity(teamService.findTeamById(teamNum));
+				roomService.addChatRoom(room);
+				log.info("룸 추가");
+			}
+			
 			return "Success";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -149,14 +168,25 @@ public class AdminController {
 
 	@PostMapping("/admin/api/team/disapprove")
 	@ResponseBody
-	public String disapproveTeam(@RequestBody HashMap<String, Object> map) {
+	public boolean disapproveTeam(@RequestBody HashMap<String, Object> map) {
 		try {
-			System.out.println(map.get("teamNum").toString());
-			teamService.disapproveTeam(Long.parseLong(map.get("teamNum").toString()));
-			return "Success";
+			boolean result = false;
+			Long teamNum = Long.parseLong(map.get("teamNum").toString());
+			if (teamNum != null) {
+				// 팀 승인 해제
+				teamService.disapproveTeam(teamNum);
+			}
+			// 채팅룸 삭제
+			ChatRoomEntity chatRoom = roomService.findRoom(teamNum);
+			if( chatRoom != null && chatRoom.getRoomIdx() != null) {
+				roomService.deleteChatRoom(chatRoom.getRoomIdx());
+				log.info("채팅룸 삭제 {}", chatRoom.getRoomIdx());
+			}
+			return result;
 		} catch (Exception e) {
 			// TODO: handle exception
-			return e.getMessage();
+			e.printStackTrace();
+			return false;
 		}
 	}
 
