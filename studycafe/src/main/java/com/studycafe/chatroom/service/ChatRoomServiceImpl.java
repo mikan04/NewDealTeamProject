@@ -23,6 +23,10 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
 		chatRoomRepository.save(chatRoom);
 	}
+	
+	public void deleteChatRoom(Long roomId) {
+		chatRoomRepository.deleteById(roomId);
+	}
 
 	/* 채팅방 목록 불러오기 */
 	@Override
