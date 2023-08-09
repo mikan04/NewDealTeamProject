@@ -2,7 +2,6 @@ package com.studycafe.team.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,21 +57,20 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public void approveTeam(Long teamId) {
-//		teamRepository.approveTeam(teamId);
+		// teamRepository.approveTeam(teamId);
 		TeamEntity teamEntity = teamRepository.findById(teamId).orElseThrow(IllegalArgumentException::new);
 		teamEntity.setApproveDate(LocalDate.now());
 		teamRepository.saveAndFlush(teamEntity);
-			
-		
+
 	}
 
 	@Override
 	public void disapproveTeam(Long teamId) {
-//		teamRepository.disapproveTeam(teamId);
+		// teamRepository.disapproveTeam(teamId);
 		TeamEntity teamEntity = teamRepository.findById(teamId).orElseThrow(IllegalArgumentException::new);
 		teamEntity.setApproveDate(null);
 		teamRepository.saveAndFlush(teamEntity);
-		
+
 	}
 
 	@Override
@@ -86,7 +84,11 @@ public class TeamServiceImpl implements TeamService {
 		TeamEntity team = teamRepository.findByTeamNumber(teamNumber);
 		return team;
 	}
-
-
+	
+	@Override
+	public List<TeamEntity> getRanking() {
+		
+		return teamRepository.findTop5ByOrderByPointDesc();
+	}
 
 }

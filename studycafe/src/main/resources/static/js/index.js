@@ -10,31 +10,38 @@ $(function() {
 
 		success: function(result) {
 
+			createChart(result);
+
 		},
 		error: function(xhr, status) {
-			alert('[' + status + ']\n\n' + xhr.responseText);
-			hasError = true;
+			alert("랭킹을 불러오는중 에러가 발생하였습니다. 이거 안불러와지면 큰일나는데...\n관리자에게 문의를 꼭 부탁드립니다.");
 		}
 	});
+})
+
+function createChart(result) {
+	
+	let teamArray = getTeamRankingArray(result);
 
 	const ctx = document.getElementById('ranking-chart');
+
 	Chart.defaults.font.size = 16;
-	new Chart(ctx, {
+	let rankingChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: ['1팀', '2팀', '3팀', '4팀', '5팀'], // 여기에 팀 이름 들어감
+			labels: teamArray.teamName, // 여기에 팀 이름 들어감
 			datasets: [
 				{
 					label: '인증횟수', // approve_count
-					data: [1, 2, 3, 4, 5],
-					borderColor: '#36A2EB',
-					backgroundColor: '#9BD0F5',
+					data: teamArray.approveCount,
+					borderColor: getRandomColor(),
+					backgroundColor: getRandomColor(),
 				},
 				{
 					label: '포인트', // point
-					data: [2, 3, 4, 5, 6],
-					borderColor: '#FF6384',
-					backgroundColor: '#FFB1C1',
+					data: teamArray.teamPoint,
+					borderColor: getRandomColor(),
+					backgroundColor: getRandomColor(),
 				}
 			]
 		},
@@ -48,4 +55,32 @@ $(function() {
 			}
 		}
 	});
-})
+
+	return rankingChart;
+}
+
+function getTeamRankingArray(result) {
+	
+	let teamName = [];
+	let approveCount = [];
+	let teamPoint = [];
+	
+	for (let i = 0; i < result.length; i++) {
+		teamName.push(result[i].teamName);
+		approveCount.push(result[i].approveCount);
+		teamPoint.push(result[i].point);
+	}
+	
+	let rankingResult = {
+		"teamName" : teamName,
+		"approveCount" : approveCount,
+		"teamPoint" : teamPoint
+	}
+	
+	return rankingResult;
+}
+
+// 눈요기
+function getRandomColor() {
+	return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
