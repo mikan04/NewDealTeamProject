@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-
 import lombok.Data;
 
 @Entity
@@ -29,7 +28,7 @@ public class CsReplyEntity {
 	@JoinColumn(name = "idx")	
 	private CsEntity csEntity; 
 
-	@Column(length = 20)
+	@Column(length = 100)
 	@NotNull
 	private String csReplyWriter;
 	

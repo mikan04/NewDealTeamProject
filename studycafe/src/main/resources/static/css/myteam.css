@@ -59,3 +59,19 @@
 	cursor: pointer;
 	background-color: #b20000;
 }
+
+.team-info{
+	display : flex;
+	flex-direction : column;
+	align-items : flex-end;
+	margin-left : auto;
+	width : 200px;
+	margin-top : 30px;
+	font-size: 22px;
+	row-gap : 1em;
+}
+
+.team-info > div > label, .team-info > div > span {
+	display : flex;
+	justify-content: flex-end;
+}

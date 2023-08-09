@@ -19,4 +19,6 @@ public interface TeamService {
     public List<TeamMonthCountDto> getTeamByMonth();
     public TeamEntity getMyTeam(long teamNumber);
     public void deleteTeam(long teamNumber);
+	  public List<TeamEntity> getRanking();
+  
 }
