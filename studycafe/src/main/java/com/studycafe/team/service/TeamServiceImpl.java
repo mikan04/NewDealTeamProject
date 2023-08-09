@@ -78,13 +78,26 @@ public class TeamServiceImpl implements TeamService {
 		// TODO Auto-generated method stub
 		return teamRepository.existsByTeamName(name);
 	}
+	
+	@Override
+	public TeamEntity findTeamById(Long id) {
+		// TODO Auto-generated method stub
+		return teamRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+	}
+
 
 	@Override
 	public TeamEntity getMyTeam(long teamNumber) {
 		TeamEntity team = teamRepository.findByTeamNumber(teamNumber);
 		return team;
 	}
-	
+
+	@Override
+	public void deleteTeam(long teamNumber) {
+		teamRepository.deleteById(teamNumber);
+		
+	}
+
 	@Override
 	public List<TeamEntity> getRanking() {
 		

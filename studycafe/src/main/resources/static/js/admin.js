@@ -456,6 +456,7 @@ function renderTeam() {
       field: "approve",
       formatter: function (cell, formatterParams) {
         var teamNum = cell.getRow().getData().teamNumber;
+        var teamName = cell.getRow().getData().teamName;
         var switchEl = document.createElement("div");
         var approved = cell.getRow().getData().approveDate ? true : false;
         switchEl.insertAdjacentHTML(
@@ -472,11 +473,11 @@ function renderTeam() {
           if (e.target.value === "off") {
             e.target.value = "on";
 
-            cellEventListener("/admin/api/team/approve", "team-table-1", {teamNum: teamNum});
+            cellEventListener("/admin/api/team/approve", "team-table-1", {teamNum: teamNum, teamName:teamName});
             cell.getRow().update;
           } else {
             e.target.value = "off";
-            cellEventListener("/admin/api/team/disapprove","team-table-1", {teamNum: teamNum});
+            cellEventListener("/admin/api/team/disapprove","team-table-1", {teamNum: teamNum, teamName:teamName});
           }
         });
         return switchEl;

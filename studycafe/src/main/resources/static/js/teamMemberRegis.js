@@ -41,7 +41,7 @@ function searchMember() {
           table.append(dom);
         });
       } else {
-        table.append(`<tr><td colspan="3">검색결과가 없습니다.</td></tr>`);
+        table.append(`<tr><td colspan="4">검색결과가 없습니다.</td></tr>`);
       }
     },
     error: function () {
