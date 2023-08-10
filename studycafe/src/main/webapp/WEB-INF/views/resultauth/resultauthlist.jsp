@@ -71,9 +71,12 @@
 					<c:set var="nickName" value="${member.nickName}" />
 					
 					<c:choose>
-						<c:when test="${not empty nickName}">
+						<c:when test="${member.username eq teamHead.teamHead}">
 							<button type="button" id="registerBtn" class="btn btn-dark" onclick="location.href='/auth/registration'">글쓰기</button>
 						</c:when>
+						<c:otherwise>
+							<span style="float: right;"><b>팀장만 작업인증이 가능합니다</b></span>
+						</c:otherwise>
 					</c:choose>
 		        </div>
 		    </div>

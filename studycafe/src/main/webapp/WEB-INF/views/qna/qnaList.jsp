@@ -67,7 +67,7 @@
 			</div>
 		</section>
 	</div>
-	<script src="/js/qnaList.js"></script>
 	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
+	<script src="/js/qnaList.js"></script>
 </body>
 </html>
