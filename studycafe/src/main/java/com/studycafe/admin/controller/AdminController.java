@@ -19,11 +19,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nimbusds.jose.shaded.json.JSONObject;
+import com.studycafe.chatroom.entity.ChatRoomEntity;
+import com.studycafe.chatroom.service.ChatRoomService;
+import com.studycafe.chatroom.service.ChatRoomServiceImpl;
 import com.studycafe.member.dto.MemberSafeDto;
+import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.Role;
 import com.studycafe.member.service.MemberService;
 import com.studycafe.study.dto.StudyByMonthDto;
 import com.studycafe.study.entity.StudyEntity;
 import com.studycafe.study.service.StudyService;
+import com.studycafe.team.controller.TeamController;
 import com.studycafe.team.dto.TeamMonthCountDto;
 import com.studycafe.team.dto.TopTeamDto;
 import com.studycafe.team.entity.TeamEntity;
@@ -33,6 +39,7 @@ import com.studycafe.team.service.TeamService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class AdminController {
 
 	@Autowired
@@ -41,6 +48,8 @@ public class AdminController {
 	private MemberService memberService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private ChatRoomService roomService;
 
 	// 관리자 메인 페이지
 	@GetMapping("/admin/home")
@@ -87,13 +96,13 @@ public class AdminController {
 
 		List<TopTeamDto> topteams = teamService.getTopTeamByPoint();
 		List<TopTeamDto> topApproves = teamService.getTopTeamByApproveCount();
-		List<TeamMonthCountDto> newTeam = teamService.getNewTeamByMonth();
+		List<TeamMonthCountDto> teamByMonth = teamService.getTeamByMonth();
 		List<StudyByMonthDto> studyByMonth = studyService.getStudyByMonth();
 
 		try {
 			collector.put("topTeamList", objectMapper.writeValueAsString(topteams));
 			collector.put("topApproveList", objectMapper.writeValueAsString(topApproves));
-			collector.put("newTeamByMonth", objectMapper.writeValueAsString(newTeam));
+			collector.put("teamByMonth", objectMapper.writeValueAsString(teamByMonth));
 			collector.put("studyByMonth", objectMapper.writeValueAsString(studyByMonth));
 
 		} catch (JsonProcessingException e) {
@@ -136,7 +145,20 @@ public class AdminController {
 	public String approveTeam(@RequestBody HashMap<String, Object> map) {
 		try {
 			System.out.println(map.get("teamNum").toString());
-			teamService.approveTeam(Long.parseLong(map.get("teamNum").toString()));
+			Long teamNum = Long.parseLong(map.get("teamNum").toString());
+			String teamName = map.get("teamName").toString();
+			
+			
+			if (teamNum != null && teamName != null && !teamName.trim().equals("")) {
+				teamService.approveTeam(teamNum);
+		
+				ChatRoomEntity room = new ChatRoomEntity();
+				room.setRoomName(teamName+"룸");
+				room.setTeamEntity(teamService.findTeamById(teamNum));
+				roomService.addChatRoom(room);
+				log.info("룸 추가");
+			}
+			
 			return "Success";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -146,14 +168,25 @@ public class AdminController {
 
 	@PostMapping("/admin/api/team/disapprove")
 	@ResponseBody
-	public String disapproveTeam(@RequestBody HashMap<String, Object> map) {
+	public boolean disapproveTeam(@RequestBody HashMap<String, Object> map) {
 		try {
-			System.out.println(map.get("teamNum").toString());
-			teamService.disapproveTeam(Long.parseLong(map.get("teamNum").toString()));
-			return "Success";
+			boolean result = false;
+			Long teamNum = Long.parseLong(map.get("teamNum").toString());
+			if (teamNum != null) {
+				// 팀 승인 해제
+				teamService.disapproveTeam(teamNum);
+			}
+			// 채팅룸 삭제
+			ChatRoomEntity chatRoom = roomService.findRoom(teamNum);
+			if( chatRoom != null && chatRoom.getRoomIdx() != null) {
+				roomService.deleteChatRoom(chatRoom.getRoomIdx());
+				log.info("채팅룸 삭제 {}", chatRoom.getRoomIdx());
+			}
+			return result;
 		} catch (Exception e) {
 			// TODO: handle exception
-			return e.getMessage();
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -219,5 +252,37 @@ public class AdminController {
 		}
 
 		return collector.toJSONString();
+	}
+	
+	// 멤버 롤 업데이트
+	@PostMapping("/admin/api/member/updateRole")
+	@ResponseBody
+	public boolean updateRole(@RequestBody HashMap<String, Object> map) {
+		boolean result = false;
+		String username = map.get("username").toString();
+		String role = map.get("role").toString();
+		log.info("Role의 값은 :{}", role);
+		switch (role) {
+		case "ROLE_ADMIN":
+			System.out.println("ROLE_ADMIN");
+			result = memberService.updateRole(username, Role.ROLE_ADMIN);
+			break;
+		case "ROLE_MANAGER":
+			System.out.println("ROLE_MANAGER");
+			result = memberService.updateRole(username, Role.ROLE_MANAGER);
+			break;
+		case "ROLE_MENTOR":
+			System.out.println("ROLE_MENTOR");
+			result = memberService.updateRole(username, Role.ROLE_MENTOR);
+			break;
+		case "ROLE_MEMBER":
+			System.out.println("ROLE_MEMBER");
+			result = memberService.updateRole(username, Role.ROLE_MEMBER);
+			break;
+		default:
+			break;
+		}
+		return result;
+		
 	}
 }

@@ -58,6 +58,7 @@
         </form>
       </div>
     </div>
+    <jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
     <script src="/js/authregistration.js"></script>
   </body>
 </html>

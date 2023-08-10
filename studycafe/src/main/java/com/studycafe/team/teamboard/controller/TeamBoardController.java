@@ -92,14 +92,11 @@ public class TeamBoardController {
 		String loginUser = principalDetails.getUsername();
 		MemberEntity mem = memberService.findUsername(loginUser);
 
-		if (mem.getTeamNumber() == null) {
-
-			return "/team/teamregis";
-
-		} else if (mem.getTeamNumber().getTeamNumber() > 0) {
+		if (mem.getTeamNumber() != null) {
 
 			throw new AccessDeniedException("이미 소속된 팀이 있으므로 팀을 신청할수 없습니다.\n팀에서 탈퇴한 후 다시 신청해주세요.");
-		}
+			
+		} 
 
 		return "/team/teamregis";
 

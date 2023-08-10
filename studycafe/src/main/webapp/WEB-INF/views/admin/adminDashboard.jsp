@@ -92,8 +92,8 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                   <div class="col">
                     <div class="team-register-graph">
                       <canvas
-                        id="home-line-2"
-                        class="line"
+                        id="home-bar-1"
+                        class="bar"
                         aria-label="chart"
                       ></canvas>
                     </div>

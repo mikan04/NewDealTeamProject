@@ -8,17 +8,17 @@
 function resultAuthDelete() {
 
 	var jsonData = {
-			id: $('#resultAuthNum').val()
-		};
-	
+		id: $('#resultAuthNum').val()
+	};
+
 	$.ajax({
 		url: "/auth/delete"
-		, contentType : "application/json; charset=utf-8"
-		, type : 'POST'
-		, dataType : 'json'
-		, data : JSON.stringify(jsonData)
+		, contentType: "application/json; charset=utf-8"
+		, type: 'POST'
+		, dataType: 'json'
+		, data: JSON.stringify(jsonData)
 		, success: function(data) {
-			if (data.status === 'ok' ) {
+			if (data.status === 'ok') {
 				alert("게시글을 삭제했습니다.");
 				location.href = "/auth";
 			} else {
@@ -37,21 +37,21 @@ function resultAuthDelete() {
 
 function resultAuthScore() {
 	var jsonData = {
-			id: $('#resultAuthNum').val(),
-			score: $('input[name=rating]:checked').val(),
-			comment: $('#comment').val()
-		};
-	
+		id: $('#resultAuthNum').val(),
+		score: $('input[name=rating]:checked').val(),
+		comment: $('#comment').val()
+	};
+
 	$.ajax({
 		url: "/auth/scoreinsert"
-		, contentType : "application/json; charset=utf-8"
-		, type : 'POST'
-		, dataType : 'json'
-		, data : JSON.stringify(jsonData)
+		, contentType: "application/json; charset=utf-8"
+		, type: 'POST'
+		, dataType: 'json'
+		, data: JSON.stringify(jsonData)
 		, success: function(data) {
-			if (data.status === 'ok' ) {
+			if (data.status === 'ok') {
 				alert("코멘트를 작성했습니다.");
-				location.href = "/auth";
+				location.reload(true);
 			} else {
 				alert("접근 경로가 잘 못 되었습니다.");
 			}
@@ -63,19 +63,19 @@ function resultAuthScore() {
 }
 
 function resultAuthScoreList() {
-	
+
 	var jsonData = {
-			id: $('#resultAuthNum').val()
-		};
-	
+		id: $('#resultAuthNum').val()
+	};
+
 	$.ajax({
 		url: "/auth/score"
 		, contentType: "application/json; charset=utf-8"
-		, type : "POST"
-		, data : JSON.stringify(jsonData)
+		, type: "POST"
+		, data: JSON.stringify(jsonData)
 		, success: function(data) {
 			var postList = $('#reply-list');
-		
+
 			postList.empty();
 
 			if (data.entity.resultAuthScore != 0) {
@@ -83,28 +83,28 @@ function resultAuthScoreList() {
 				var currentDate = new Date(data.entity.commentDate);
 				var score = data.entity.resultAuthScore;
 				var str = "";
-				
-				for (i=0; i<5; i++) {
-					if (i < score) {str += "★ ";} else {str += "☆ ";}
+
+				for (i = 0; i < 5; i++) {
+					if (i < score) { str += "★ "; } else { str += "☆ "; }
 				}
-	
+
 				htmls = '' +
-						'<li>' +
-						'<div class="thumb">' +
-						'<img src="/img/admin.png" width="48" height="48" class="">' +
-						'</div>' +
-						'<div class="reply-content">' +
-						'<ul class="info">' +
-						'<li class="nickname" id="nickname">관리자</li>' +
-						'<li class="date">&nbsp;&nbsp;' + dateFormat(currentDate) + '</li>' +
-						'</ul>' +
-						'<p>' +
-						'<label class="star">' + str + '</label>' +
-						'</p>' +
-						'<p class="text" id="reply_content">' + data.entity.resultAuthComment + '</p>' +
-						'</div>' +
-						'</li>';
-						
+					'<li>' +
+					'<div class="thumb">' +
+					'<img src="/img/admin.png" width="48" height="48" class="">' +
+					'</div>' +
+					'<div class="reply-content">' +
+					'<ul class="info">' +
+					'<li class="nickname" id="nickname">관리자</li>' +
+					'<li class="date">&nbsp;&nbsp;' + dateFormat(currentDate) + '</li>' +
+					'</ul>' +
+					'<p>' +
+					'<label class="star">' + str + '</label>' +
+					'</p>' +
+					'<p class="text" id="reply_content">' + data.entity.resultAuthComment + '</p>' +
+					'</div>' +
+					'</li>';
+
 				postList.append(htmls);
 			}
 		},
@@ -130,9 +130,9 @@ ClassicEditor
 	})
 	.then(editor => {
 		const toolbarElement = editor.ui.view.toolbar.element;
-		
+
 		toolbarElement.style.display = 'none';
-		
+
 		editor.enableReadOnlyMode('#resultAuthContent');
 	})
 	.catch(error => {
@@ -151,17 +151,17 @@ $("#file").change(function() {
 });
 
 function dateFormat(date) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-        let hour = date.getHours();
-        let minute = date.getMinutes();
-        let second = date.getSeconds();
+	let month = date.getMonth() + 1;
+	let day = date.getDate();
+	let hour = date.getHours();
+	let minute = date.getMinutes();
+	let second = date.getSeconds();
 
-        month = month >= 10 ? month : '0' + month;
-        day = day >= 10 ? day : '0' + day;
-        hour = hour >= 10 ? hour : '0' + hour;
-        minute = minute >= 10 ? minute : '0' + minute;
-        second = second >= 10 ? second : '0' + second;
+	month = month >= 10 ? month : '0' + month;
+	day = day >= 10 ? day : '0' + day;
+	hour = hour >= 10 ? hour : '0' + hour;
+	minute = minute >= 10 ? minute : '0' + minute;
+	second = second >= 10 ? second : '0' + second;
 
-        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+	return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 }

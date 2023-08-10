@@ -25,11 +25,11 @@ function searchMember() {
         data.forEach((element) => {
 		  var string;
 		  if(element.teamNumber === 0){
-			 string = `<tr><td>${element.username}</td><td>${element.nickName}</td><td>${element.teamNumber}</td><td class="success-box"><span>가능</span></td></tr>`;
+			 string = `<tr><td title=${element.username}>${element.username}</td><td title=${element.nickName}>${element.nickName}</td><td>${element.teamNumber}</td><td class="success-box"><span>가능</span></td></tr>`;
 			 var dom = $("<div/>").html(string).contents();
 		 
 			 dom.on("click", function () {
-			   $("#userSelectDiv").show();
+			   $("#userSelectDiv").css('display', 'flex');
 			   $("#userSelect").val($(this).find("td:first-child").text());
 			 });
 		  }
@@ -41,7 +41,7 @@ function searchMember() {
           table.append(dom);
         });
       } else {
-        table.append(`<tr><td colspan="3">검색결과가 없습니다.</td></tr>`);
+        table.append(`<tr><td colspan="4">검색결과가 없습니다.</td></tr>`);
       }
     },
     error: function () {

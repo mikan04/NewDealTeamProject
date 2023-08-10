@@ -31,21 +31,16 @@ public class Oauth2MemberAdaptor extends DefaultOAuth2UserService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	// 구글은 액세스토큰 + 사용자 프로필정보를 같이 받음.
-
 	// 소셜로그인으로 받은 데이터 후처리 메소드.
 	// 해당 함수 종료시 @AuthenticationPrincipal 어노테이션이 만들어진다. (중요)
 	@Override
 	@Transactional
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
-		// 들어온 정보
-		log.info("userRequest getClientRegistration : {}", userRequest.getClientRegistration());
-		log.info("userRequest getAccessToken().getTokenValue() : {}", userRequest.getAccessToken().getTokenValue());
-
 		// 로그인 버튼 클릭 -> 로그인창 -> 로그인완료 -> code리턴(Oauth2-Client 라이브러리) -> Accesstoken요청
 		// userRequest에 회원 프로필 정보가 담김 -> 이때 loadUser메소드로 추출가능.
 		OAuth2User oauth2User = super.loadUser(userRequest);
+		
 		log.info("소셜 로그인 정보 : {}", oauth2User.getAttributes());
 
 		// 회원가입

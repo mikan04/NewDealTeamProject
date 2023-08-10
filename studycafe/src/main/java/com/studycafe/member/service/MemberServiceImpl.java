@@ -14,6 +14,7 @@ import com.studycafe.member.dto.MemberMapper;
 import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.Role;
 import com.studycafe.member.repository.MemberAddressRepository;
 import com.studycafe.member.repository.MemberRepository;
 import com.studycafe.team.entity.TeamEntity;
@@ -186,8 +187,11 @@ public class MemberServiceImpl implements MemberService {
 			if (!passwordMatches) {
 
 				memberEntity.setPassword(encoder.encode(password));
+				
 				memRe.save(memberEntity);
+				
 				return true;
+				
 			} else {
 
 				return false;
@@ -318,7 +322,7 @@ public class MemberServiceImpl implements MemberService {
 
 		return false;
 	}
-
+	
 	@Override
 	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber) {
 
@@ -326,6 +330,8 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
+
+	@Override
 	public List<MemberSafeDto> searchMember(String username) {
 		// TODO Auto-generated method stub
 		List<MemberEntity> mem = memRe.findByUsernameContainingIgnoreCase(username);
@@ -341,7 +347,7 @@ public class MemberServiceImpl implements MemberService {
 				MemberEntity member = memRe.findByUsername(mem.trim());
 				if (member != null)
 					member.setTeamNumber(teamEntity);
-				memRe.saveAndFlush(member);
+				memRe.save(member);
 			}
 			return true;
 		} catch (Exception e) {
@@ -352,14 +358,34 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberEntity getOutTeam(String username, long teamNumber) {
-		MemberEntity member = memRe.findByUsernameAndTeamNumberTeamNumber(username, teamNumber);
-		return member;
+	public boolean getOutTeam(String username, TeamEntity teamNumber) {
+		MemberEntity member = memRe.findByUsernameAndTeamNumber(username, teamNumber);
+		if(member != null) {
+			member.setTeamNumber(null);
+			memRe.save(member);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public void getOutTeamSave(MemberEntity memberEntity) {
 		memRe.save(memberEntity);
+	}
+
+	@Override
+	public boolean updateRole(String username, Role role) {
+		try {
+			MemberEntity member = memRe.findByUsername(username);
+			member.setRole(role);
+			System.out.println(member);
+			memRe.save(member);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

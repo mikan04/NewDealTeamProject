@@ -8,6 +8,7 @@ import com.studycafe.member.dto.MemberDto;
 import com.studycafe.member.dto.MemberSafeDto;
 import com.studycafe.member.entity.MemberAddressEntity;
 import com.studycafe.member.entity.MemberEntity;
+import com.studycafe.member.entity.Role;
 import com.studycafe.team.entity.TeamEntity;
 
 @Service
@@ -63,13 +64,16 @@ public interface MemberService {
 	public void insertKaKao(MemberEntity memberEntity);
 
 	// 나의 팀 관리
-	public List<MemberEntity> getMyTeamMember(TeamEntity teamNumber);
+	public List<MemberEntity> getMyTeamMember(TeamEntity teamEntity);
 
 	// 회원 팀 정보 수정
 	public boolean updateTeamInfo(String members, TeamEntity teamEntity);
 	
-	public MemberEntity getOutTeam(String username, long teamNumber);
+	public boolean getOutTeam(String username, TeamEntity teamNumber);
 	
     public void getOutTeamSave(MemberEntity memberEntity);
+    
+    // 멤버 롤 업데이트
+    public boolean updateRole(String username, Role role);
 
 }

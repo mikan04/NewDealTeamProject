@@ -1,4 +1,3 @@
-
 function qnaDelete() {
 
 	var jsonData = {
@@ -155,8 +154,8 @@ function qnaReplyList() {
 			if (data.length) {
 				$.each(data, function(index, post) {
 					var day = new Date(post.qnaReplyDate);
-
-					if (post.qnaEntity.qnaWriter === post.qnaReplyWriter) {
+					
+					if (post.qnaEntity.qnaWriter == post.qnaReplyWriter) {
 						img = "/img/user_writer.png"; // 글쓴이 이미지
 					} else {
 						img = "/img/user.png"; // 일반 이미지
@@ -216,7 +215,7 @@ function re_comment_open(index, ref) {
 	var comment = $('#re_comment_open_' + index);
 	var modify = $('#comment_modify_open_' + index);
 
-	if (comment_counts[index] % 2 === 0) {
+	if (comment_counts[index] % 2 == 0) {
 		if (modify_counts[index] % 2 !== 0) {
 			modify_counts[index] = 0;
 			modify.empty(); // 댓글 수정 창 초기화
