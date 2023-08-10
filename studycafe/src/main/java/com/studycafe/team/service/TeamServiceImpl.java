@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.studycafe.team.dto.TeamMonthCountDto;
 import com.studycafe.team.dto.TopTeamDto;
 import com.studycafe.team.entity.TeamEntity;
+import com.studycafe.team.repository.ResultAuthRepository;
 import com.studycafe.team.repository.TeamRepository;
 
 @Service("teamService")
@@ -16,6 +17,8 @@ public class TeamServiceImpl implements TeamService {
 
 	@Autowired
 	private TeamRepository teamRepository;
+	
+	@Autowired ResultAuthRepository resultAuthRepository;
 
 	@Override
 	public TeamEntity teamInsert(TeamEntity teamEntity) {
@@ -78,13 +81,12 @@ public class TeamServiceImpl implements TeamService {
 		// TODO Auto-generated method stub
 		return teamRepository.existsByTeamName(name);
 	}
-	
+
 	@Override
 	public TeamEntity findTeamById(Long id) {
 		// TODO Auto-generated method stub
 		return teamRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 	}
-
 
 	@Override
 	public TeamEntity getMyTeam(long teamNumber) {
@@ -95,12 +97,12 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public void deleteTeam(long teamNumber) {
 		teamRepository.deleteById(teamNumber);
-		
+
 	}
 
 	@Override
 	public List<TeamEntity> getRanking() {
-		
+
 		return teamRepository.findTop5ByOrderByPointDesc();
 	}
 

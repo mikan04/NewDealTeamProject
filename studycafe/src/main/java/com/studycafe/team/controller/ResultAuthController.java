@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,19 +23,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.studycafe.study.dto.StudyFormDto;
-import com.studycafe.study.entity.StudyEntity;
+import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.team.entity.ResultAuthEntity;
+import com.studycafe.team.entity.TeamEntity;
+import com.studycafe.team.repository.TeamRepository;
 import com.studycafe.team.service.ResultAuthService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ResultAuthController {
 
 	@Autowired
 	private ResultAuthService resultAuthService;
 	
+	@Autowired
+	private TeamRepository teamRepository;
+	
 	@GetMapping("/auth")
-	public String resultAuthList() {
+	public String resultAuthList(@AuthenticationPrincipal PrincipalDetails principalDetails , Model model) {
+		
+		TeamEntity teamHead = teamRepository.findByTeamHead(principalDetails.getUsername());
+		
+		model.addAttribute("teamHead", teamHead);
 		
 		return "/resultauth/resultauthlist";
 	}

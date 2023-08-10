@@ -1,18 +1,21 @@
 package com.studycafe.team.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.studycafe.team.entity.ResultAuthEntity;
 import com.studycafe.team.repository.ResultAuthRepository;
 
 @Service("resultAuthService")
-public class ResultAuthServiceImpl implements ResultAuthService{
-	
+public class ResultAuthServiceImpl implements ResultAuthService {
+
 	@Autowired
 	private ResultAuthRepository resultAuthRepository;
 
@@ -21,14 +24,14 @@ public class ResultAuthServiceImpl implements ResultAuthService{
 		// TODO Auto-generated method stub
 		resultAuthRepository.save(resultAuthEntity);
 	}
-	
+
 	@Override
 	public Page<ResultAuthEntity> resultAuthList(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return resultAuthRepository.findAll(pageable);
 	}
 
-	@Override 
+	@Override
 	@Transactional
 	public Page<ResultAuthEntity> resultAuthSearchList(String keyword, Pageable pageable) {
 		// TODO Auto-generated method stub
@@ -39,14 +42,20 @@ public class ResultAuthServiceImpl implements ResultAuthService{
 	@Override
 	public ResultAuthEntity resultAuthSelect(int id) {
 		// TODO Auto-generated method stub
-		
+
 		return resultAuthRepository.getById(id);
 	}
 
 	@Override
 	public void resultAuthDelete(int id) {
 		// TODO Auto-generated method stub
-	
+
 		resultAuthRepository.deleteById(id);
+	}
+
+	@Override
+	public List<ResultAuthEntity> getAuthListToIndex() {
+
+		return resultAuthRepository.findAll(Sort.by(Sort.Direction.DESC, "resultAuthNum"));
 	}
 }
