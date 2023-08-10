@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.studycafe.team.dto.TeamMonthCountDto;
 import com.studycafe.team.dto.TopTeamDto;
+import com.studycafe.team.entity.ResultAuthEntity;
 import com.studycafe.team.entity.TeamEntity;
 
 public interface TeamService {
@@ -20,6 +21,7 @@ public interface TeamService {
 	public TeamEntity getMyTeam(long teamNumber);
 	public void deleteTeam(long teamNumber);
 	public List<TeamEntity> getRanking();
+	public void updatePoint(ResultAuthEntity resultAuthEntity);
 
 	
 
