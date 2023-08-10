@@ -11,55 +11,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팀 이름 추가</title>
+<title>팀 멤버 추가</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/teamregis.css">
+<link rel="stylesheet" href="/css/teamMemberRegis.css">
 
 </head>
 <body>
 	<div class="main-wrap">
 		<div class="index-ingredient">
-			<div>
-				<div>
-                    <div>
-                        <label for="userName">아이디를 검색하세요</label>
-                    </div>
-					<input type="text" id="userName" name="userName" placeholder="유저 검색" />
-                </div>
-				<button type="button" id="userNameCheck" name="userNameCheck" onclick="searchMember()" disabled>검색</button>
 
-                <table id="user-table">
-                    <tbody>
-                        <tr>
-                            <th>
-                                아이디
-                            </th>
-                            <th>
-                                닉네임
-                            </th>
-                            <th>
-                                팀
-                            </th>
-                            <th>
-                                추가
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="userSelectDiv">
-                    <div>
-                        <label for="userName">선택된 아이디</label>
-                    </div>
-					<input type="text" id="userSelect" name="userSelect" placeholder="유저 선택" readonly="readonly" />
-                    <div>
-                        <button type="button" id="addUserBtn" name="addUserBtn" onclick="addUser()">유저 추가하기</button>
-                    </div>
-                </div>
-				
-                
+			<div class="search-id">
+				<label for="userName"> 아이디 검색 </label>
+				<input type="text" id="userName" name="userName" placeholder="유저 검색" />
+				<button type="button" id="userNameCheck" name="userNameCheck" onclick="searchMember()" disabled>검색</button>
 			</div>
 
-			
+
+			<table id="user-table">
+				<tbody>
+					<tr>
+						<th>아이디</th>
+						<th>닉네임</th>
+						<th>팀</th>
+						<th>추가</th>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="userSelectDiv">
+				<label for="userName">선택된 아이디</label>
+				<input type="text" id="userSelect" name="userSelect" placeholder="유저 선택" readonly="readonly" />
+				<button type="button" id="addUserBtn" name="addUserBtn" onclick="addUser()">팀원 추가</button>
+			</div>
+
 		</div>
 	</div>
 	<script src="/js/teamMemberRegis.js"></script>

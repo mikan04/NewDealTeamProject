@@ -21,4 +21,6 @@ public interface TeamService {
 	public void deleteTeam(long teamNumber);
 	public List<TeamEntity> getRanking();
 
+	
+
 }

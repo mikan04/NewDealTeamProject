@@ -155,7 +155,7 @@
               <tbody>
                 <tr>
                   <th>시간</th>
-                  <th>예약 정보</th>
+                  <th>예약 현황</th>
                 </tr>
                 <tr class="enabled" data-time="08">
                   <td>08:00 ~ 11:00</td>
@@ -224,7 +224,7 @@
                   data-parent="#accordion"
                 >
                   <div class="card-body">
-                    <div class="d-flex flex-wrap gap-3">
+                    <div class="hour-div">
                       <div class="accordion-study-time enabled" data-time="08">
                         08:00 ~ 11:00
                       </div>
