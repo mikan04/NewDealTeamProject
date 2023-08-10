@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.studycafe.member.auth.PrincipalDetails;
 import com.studycafe.qna.service.QnaService;
 import com.studycafe.study.service.StudyService;
+import com.studycafe.team.service.ResultAuthService;
 import com.studycafe.team.teamboard.service.TeamBoardService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,9 @@ public class IndexController {
 
 	@Autowired
 	private TeamBoardService teamBoardService;
+	
+	@Autowired
+	private ResultAuthService resultAuthService;
 
 	@GetMapping("/")
 	public String connectController(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model, Pageable pageable,
@@ -50,6 +54,7 @@ public class IndexController {
 		model.addAttribute("qnaList", qnaService.getQnaBoardListToIndex());
 		model.addAttribute("studyList", studyService.getAllStudyToIndex());
 		model.addAttribute("teamBoardList", teamBoardService.getTeamBoardListToIndex());
+		model.addAttribute("authList", resultAuthService.getAuthListToIndex());
 
 		return "index";
 	}

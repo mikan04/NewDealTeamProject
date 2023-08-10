@@ -1,6 +1,6 @@
 document.addEventListener("keyup", function () {
   var teamname = $("#teamName").val();
-  // 아이디 중복체크 버튼
+  // 팀이름 중복체크
   if (teamname == "" || teamname.trim() == "") {
     $("#teamNameCheck").attr("disabled", true);
   } else {
@@ -25,10 +25,12 @@ function nameCheck() {
           if (e == true) {
             $("#teamNamePass").css("display", "none");
             $("#teamNameInUse").css("display", "block");
+            
           } else {
             $("#teamNamePass").css("display", "block");
             $("#teamNameInUse").css("display", "none");
             $("#useTeamName").attr("disabled", false);
+            $("#useTeamName").css("display", "block");
             $("#idCheck").val("1");
           }
         },

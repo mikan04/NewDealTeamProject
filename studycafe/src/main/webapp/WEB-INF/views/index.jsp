@@ -19,7 +19,7 @@
 			<h1>DSSEAD TOP 5</h1>
 			<canvas id="ranking-chart" width="800" height="500"></canvas>
 		</div>
-		
+
 		<div class="index-ingredient">
 			<div class="index main-qna">
 				<label>
@@ -27,7 +27,7 @@
 				</label>
 				<c:forEach items="${qnaList }" var="qnaList" begin="0" end="4">
 					<div>
-						<a href="/studydetail/${qnaList.qnaNum }">${qnaList.qnaTitle }</a>
+						<a href="/qnaDetail/${qnaList.qnaNum }">${qnaList.qnaTitle }</a>
 						<span style="float: right;">
 							<font size="2"><fmt:formatDate value="${qnaList.qnaDate }" pattern="yyyy-MM-dd" /></font>
 						</span>
@@ -67,25 +67,21 @@
 
 			<div class="index main-auth">
 				<label>
-					<a href="">인증게시판</a>
+					<a href="/auth">인증게시판</a>
 				</label>
-				<div>
-					<a href="#">팀등록 1</a>
-				</div>
-				<div>
-					<a href="#">팀등록 1</a>
-				</div>
-				<div>
-					<a href="#">팀등록 1</a>
-				</div>
-				<div>
-					<a href="#">팀등록 1</a>
-				</div>
+				<c:forEach items="${authList }" var="auth" begin="0" end="4">
+					<div>
+						<a href="/auth/detail/${auth.resultAuthNum }">${auth.resultAuthTitle }</a>
+						<span style="float: right;">
+							<font size="2"><fmt:formatDate value="${auth.createDate }" pattern="yyyy-MM-dd" /></font>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
 
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include><script type="text/javascript" src="/js/index.js"></script>
+	<jsp:include page="/WEB-INF/views/pageingredient/footer.jsp"></jsp:include>
 	<script type="text/javascript" src="/js/index.js"></script>
 </body>
 </html>
