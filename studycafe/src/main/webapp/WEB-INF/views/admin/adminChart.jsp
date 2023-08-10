@@ -49,7 +49,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                             인증 점수 랭킹
                           </div>
                         </div>
-                        <div
+                        <%-- <div
                           class="col-xs-12 col-sm-6 col-md-3 mt-4 chart-data"
                         >
                           <canvas id="donught-3" aria-label="chart"></canvas>
@@ -64,7 +64,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                           <div class="donught-legend text-center">
                             유저 증가
                           </div>
-                        </div>
+                        </div> --%>
                       </div>
                     </div>
                   </div>
