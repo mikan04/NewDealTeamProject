@@ -46,7 +46,7 @@ function deleteTeam(teamNumber) {
 			if (data) {
 				alert("팀을 해체하였습니다.");
 
-				location.href = "/logout";
+				opener.location.href = "/logout";
 				
 				window.close();
 				
