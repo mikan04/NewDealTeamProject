@@ -28,6 +28,7 @@ import com.studycafe.team.entity.ResultAuthEntity;
 import com.studycafe.team.entity.TeamEntity;
 import com.studycafe.team.repository.TeamRepository;
 import com.studycafe.team.service.ResultAuthService;
+import com.studycafe.team.service.TeamService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +38,9 @@ public class ResultAuthController {
 
 	@Autowired
 	private ResultAuthService resultAuthService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	@Autowired
 	private TeamRepository teamRepository;
@@ -181,6 +185,8 @@ public class ResultAuthController {
 			resultAuthEntity.setResultAuthComment(comment);
 			
 			resultAuthService.resultAuthInsert(resultAuthEntity);
+			teamService.updatePoint(resultAuthEntity);
+			
 			
 			result.put("status", "ok");
 		} catch (Exception e) {
