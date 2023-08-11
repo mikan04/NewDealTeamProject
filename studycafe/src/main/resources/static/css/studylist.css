@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-body {
-    text-align: center;
-}
-
 #registerBtn {
 	float: right;
 	height: 40px;
@@ -15,6 +11,7 @@ body {
 
 #pagination {
     margin-top: 20px;
+    text-align: center;
 }
 .pagination-link {
     display: inline-block;

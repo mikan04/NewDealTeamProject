@@ -112,7 +112,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-path="ranking" href="/admin/ranking">
-              <div
+              <!-- <div
                 class="d-flex justify-content-center justify-content-lg-between"
               >
                 <div class="mx-2">
@@ -121,12 +121,12 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 <div class="d-none d-lg-block nav-link-label">
                   <span> 순위</span>
                 </div>
-              </div>
+              </div> -->
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-path="chart" href="/admin/chart">
-              <div
+              <!-- <div
                 class="d-flex justify-content-center justify-content-lg-between"
               >
                 <div class="mx-2">
@@ -135,7 +135,7 @@ uri="http://java.sun.com/jsp/jstl/fmt"%>
                 <div class="d-none d-lg-block nav-link-label">
                   <span> 차트</span>
                 </div>
-              </div>
+              </div> -->
             </a>
           </li>
         </ul>
