@@ -36,15 +36,11 @@ tr>th {
 	justify-content: center;
 	margin: auto;
 	width: 80%;
-	min-height : 600px;
+	min-height: 600px;
 	text-align: center;
 	align-items: center;
-	
-	background-image: linear-gradient(
-        rgba(255, 255, 255, 0.7),
-        rgba(255, 255, 255, 0.7)
-      ),url("/img/ranking-img.png");
-      
+	background-image: linear-gradient(rgba(255, 255, 255, 0.7),
+		rgba(255, 255, 255, 0.7)), url("/img/ranking-img.png");
 	background-repeat: round;
 	background-size: cover;
 }
@@ -53,8 +49,8 @@ tr>th {
 	margin-bottom: 20px;
 }
 
-#ranking-chart{
-	width : 500px;
+#ranking-chart {
+	width: 500px;
 }
 
 .main-ranking>ul {
@@ -78,6 +74,9 @@ tr>th {
 	padding: 20px;
 	font-size: 18px;
 	border-radius: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .index div:nth-child(even) {
@@ -137,6 +136,10 @@ tr>th {
 	background-repeat: no-repeat;
 	background-size: 30% 100%;
 	background-position: right;
+}
+
+label>a:link{
+	color: black;
 }
 
 label>a:visited {
