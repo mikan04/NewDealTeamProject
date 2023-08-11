@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+.main-wrap {
+	padding-top: 70px;
+	min-height: calc(100% - 70px);
+	width: 100%;
+	margin: auto;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+/* 텍스트 오버플로우시 글자 ...으로 표기 */
+.team-name {
+	width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+tr>th, tr>td {
+	padding: 20px;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+tr>th {
+	font-size: 18px;
+	background-color: #bebebe;
+}
+
+.main-ranking {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
+	width: 80%;
+	min-height : 600px;
+	text-align: center;
+	align-items: center;
+	
+	background-image: linear-gradient(
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.7)
+      ),url("/img/ranking-img.png");
+      
+	background-repeat: round;
+	background-size: cover;
+}
+
+.main-ranking>h1 {
+	margin-bottom: 20px;
+}
+
+#ranking-chart{
+	width : 500px;
+}
+
+.main-ranking>ul {
+	list-style-type: decimal;
+	list-style-position: inside;
+	text-align: left;
+	font-size: 20px;
+}
+
+.index {
+	width: calc(100%/ 2);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	/* border : 1px solid #e9e9e9; */
+	border-radius: 10px;
+	margin-bottom: 50px;
+}
+
+.index div {
+	padding: 20px;
+	font-size: 18px;
+	border-radius: 5px;
+}
+
+.index div:nth-child(even) {
+	background-color: #e9e9e9;
+}
+
+.index-ingredient {
+	display: flex;
+	margin: auto;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: center;
+	width: 60%;
+	margin-top: 50px;
+	row-gap: 3em;
+}
+
+.index>label {
+	display: inline-block;
+	width: 100%;
+	height: 80px;
+	border-radius: 5px;
+	padding: 20px;
+	margin-bottom: 20px;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.main-qna>label {
+	color: white;
+	background-image: url(/img/qna-logo.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url(/img/qna-logo.png);
+}
+
+.main-study>label {
+	background-color: #DDEEEB;
+	background-image: url(/img/studyboard-logo.png);
+	background-repeat: no-repeat;
+	background-size: 30% 100%;
+	background-position: right;
+}
+
+.main-team>label {
+	background-color: #CFD9E0;
+	background-image: url(/img/teamboard-logo.png);
+	background-repeat: no-repeat;
+	background-size: 70% 100%;
+	background-position: right;
+	background-image: url(/img/teamboard-logo.png);
+}
+
+.main-auth>label {
+	background-color: #E8DCDC;
+	background-image: url(/img/authboard-logo.png);
+	background-repeat: no-repeat;
+	background-size: 30% 100%;
+	background-position: right;
+}
+
+label>a:visited {
+	color: black;
+}
+
+div>a:visited {
+	color: black;
+}
+
+div>a:hover, label>a:hover {
+	color: #0b7fd3;
+}
